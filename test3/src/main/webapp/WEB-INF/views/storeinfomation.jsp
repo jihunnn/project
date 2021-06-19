@@ -28,7 +28,7 @@
 			return false;
 		});
 
-	});
+	});d
 </script>
 
 </head>
