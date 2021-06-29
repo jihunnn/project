@@ -116,7 +116,7 @@ function modInquiry(url,inquiryNum){
 						style="border-bottom: 0.5px solid grey; height: 300px; text-align: left; background-color: white;">
 				<td style="padding-bottom: 250px; color: black;"><a>${inquiry.inquiryContent}<br>
 				<input type="hidden" name="OrignInquiryFile" value="${inquiry.inquiryFile}" />
-				<img  src="${contextPath}/download.do?inquiryNum=${inquiry.inquiryNum}&inquiryFile=${inquiry.inquiryFile}" id="preview" /><br>
+				<img  src="${contextPath}/download.do?inquiryNum=${inquiry.inquiryNum}&inquiryFile=${inquiry.inquiryFile}" id="preview" name="originalFileName" /><br>
 	
 				</a>
 	

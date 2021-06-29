@@ -34,10 +34,12 @@
 	}
 	
 		function modInquiry(obj) {
-				obj.action="${contextPath}/board/modArticle.do?inquiryNum=${inquiryNum.inquiryNum}";
+				obj.action="${contextPath}/board/modNewInquiry.do?inquiryNum=${inquiryNum.inquiryNum}";
 				obj.submit();
 				
 		}
+		
+
 	 
 </script>
 
@@ -156,8 +158,8 @@
 					<tr>
 						<td
 							style="padding-left: 95px; font-weight: bold; padding-top: 30px;">파일첨부</td>
-						<td style="background-color: white;">기존파일: ${inquiryNum.inquiryFile}<br><input type="file"
-							onchange="readURL(${inquiryNum.inquiryFile});" style="padding-top: 25px;" name="inquiryFile" value="${inquiryNum.inquiryFile}" 
+						<td style="background-color: white;">기존파일: ${inquiryNum.inquiryFile}<input type="hidden" name="OrignInquiryFile" value="${inquiryNum.inquiryFile}" /><br><input type="file"
+							 style="padding-top: 25px;" name="inquiryFile" value="${inquiryNum.inquiryFile}" 
 							></td>
 					</tr>
 					</c:when>
@@ -196,7 +198,7 @@
 						<td
 							style="padding-left: 95px; font-weight: bold; padding-top: 30px;">파일첨부</td>
 						<td style="background-color: white;"><input type="file"
-							onchange="readURL(${inquiryNum.inquiryFile});" style="padding-top: 25px;" name="inquiryFile" value="${inquiryNum.inquiryFile}" 
+							 style="padding-top: 25px;" name="inquiryFile" 
 							></td>
 					</tr>
 					</c:when>
@@ -205,20 +207,20 @@
 				<hr style="border-color: #212529;; width: 100%;">
 					<c:choose>
 					<c:when test="${!empty inquiryNum}">
-					<button type="button" onClick="modInquiry(this.form)" class="btn btn-dark "
-						id="buttonmy" style="margin-left: 630px; margin-top: 30px;">수정하기</button>
+						<button type="button" onClick="modInquiry(this.form)" class="btn btn-dark "
+							id="buttonmy" style="margin-left: 630px; margin-top: 30px;">수정하기</button>
 	     					 <input type=button value="삭제하기" onClick="fn_remove_article('${contextPath}/board/removeArticle.do', ${article.articleNO})">
 
-	  					</c:when>
+	  				</c:when>
 	  				<c:when test="${empty inquiryNum}">		
-				<div>
-					<button type="button" onclick="inquiry_write()" class="btn btn-dark "
-						id="buttonmy" style="margin-left: 630px; margin-top: 30px;">등록</button>
+						<div>
+							<button type="button" onclick="inquiry_write()" class="btn btn-dark "
+								id="buttonmy" style="margin-left: 630px; margin-top: 30px;">등록</button>
 
-					<button type="button" onclick="location.href=''"
+							<button type="button" onclick="location.href=''"
 						class="btn btn-dark " id="buttonmy"
 						style="margin-left: 730px; margin-top: -30px;">목록</button>
-				</div>
+						</div>
 				</c:when>
 				</c:choose>
 			</form>

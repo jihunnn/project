@@ -210,7 +210,7 @@ public class BoardControllerImpl implements BoardController{
 		}
 		
 		
-		  @RequestMapping(value="/board/modArticle.do" ,method = RequestMethod.POST)
+		  @RequestMapping(value="/board/modNewInquiry.do" ,method = RequestMethod.POST)
 		  @ResponseBody
 		  public ResponseEntity modArticle(MultipartHttpServletRequest multipartRequest,  
 		    HttpServletResponse response) throws Exception{
@@ -236,15 +236,20 @@ public class BoardControllerImpl implements BoardController{
 			HttpHeaders responseHeaders = new HttpHeaders();
 			responseHeaders.add("Content-Type", "text/html; charset=utf-8");
 		    try {
+
 		       boardService.modArticle(inquiryMap);
 		       if(inquiryFile!=null && inquiryFile.length()!=0) {
+			         String OrignInquiryFile = (String)inquiryMap.get("OrignInquiryFile");
+			         System.out.println(OrignInquiryFile);
+			         File oldFile = new File(ARTICLE_IMAGE_REPO+"\\"+inquiryNum+"\\"+OrignInquiryFile);
+			         oldFile.delete();
+			         
 		         File srcFile = new File(ARTICLE_IMAGE_REPO+"\\"+"temp"+"\\"+inquiryFile);
 		         File destDir = new File(ARTICLE_IMAGE_REPO+"\\"+inquiryNum);
 		         FileUtils.moveFileToDirectory(srcFile, destDir, true);
-		         
-		         String originalFileName = (String)inquiryMap.get("originalFileName");
-		         File oldFile = new File(ARTICLE_IMAGE_REPO+"\\"+inquiryNum+"\\"+originalFileName);
-		         oldFile.delete();
+		    	   
+
+
 		       }	
 		       message = "<script>";
 			   message += " alert('글을 수정했습니다.');";
@@ -256,7 +261,7 @@ public class BoardControllerImpl implements BoardController{
 		      srcFile.delete();
 		      message = "<script>";
 			  message += " alert('오류가 발생했습니다.다시 수정해주세요');";
-			  message += " location.href='"+multipartRequest.getContextPath()+"/board/viewArticle.do?articleNO="+inquiryNum+"';";
+			  message += " location.href='"+multipartRequest.getContextPath()+"/board/viewInquiry.do?inquiryNum="+inquiryNum+"';";
 			  message +=" </script>";
 		      resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
 		    }
