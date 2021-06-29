@@ -167,6 +167,10 @@
 	<definition name="mypage_09" extends="baseLayout">
 		<put-attribute name="body" value="/WEB-INF/views/mypage_09.jsp" />
 	</definition>
+	
+	<definition name="mypage_10" extends="baseLayout">
+		<put-attribute name="body" value="/WEB-INF/views/mypage_10.jsp" />
+	</definition>
 		
 	<definition name="mypage_13" extends="baseLayout">
 		<put-attribute name="body" value="/WEB-INF/views/mypage_13.jsp" />
@@ -175,11 +179,16 @@
 	<definition name="mypage_14" extends="baseLayout">
 		<put-attribute name="body" value="/WEB-INF/views/mypage_14.jsp" />
 	</definition>
+	
+		<definition name="deletemember" extends="baseLayout">
+		<put-attribute name="body" value="/WEB-INF/views/deletemember.jsp" />
+	</definition>
 		
-	
-	
-	
-	
+	<definition name="add_product" extends="baseLayout">
+        <put-attribute name="body" value="/WEB-INF/views/add_product.jsp"/>
+    </definition>
+    
+    
 	
 	
 </tiles-definitions>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+"-//Apache Spoftware Foundation//DTD Tiles Configureation 2.0//EN"
+"http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+
+<tiles-definitions>
+	<definition name="empty"
+		template="/WEB-INF/views/common/empty.jsp">
+		<put-attribute name="content" value="" />
+	</definition>
+
+
+	<definition name="404" extends="empty">
+		<put-attribute name="content"
+			value="/WEB-INF/views/exception/404.jsp"></put-attribute>
+	</definition>
+</tiles-definitions>

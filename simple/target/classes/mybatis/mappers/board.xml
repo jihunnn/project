@@ -108,7 +108,7 @@
 	]]>
 	</select>
 	 
-	<update id="updateArticle"  parameterType="java.util.Map">
+	<update id="updateInquiry"  parameterType="java.util.Map">
 			update inquiry
 			set inquiryTitle = #{inquiryTitle},	 
 			inquiryContent = #{inquiryContent}

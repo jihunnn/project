@@ -15,5 +15,5 @@ public interface BoardService {
 	public ArticleVO viewInquiry(int inquiryNum) throws Exception;
 	public ArticleVO inquiryForm(int inquiryNum) throws Exception ;
 	
-	public void modArticle(Map inquiryMap) throws Exception ;
+	public void modInquiry(Map inquiryMap) throws Exception ;
 }

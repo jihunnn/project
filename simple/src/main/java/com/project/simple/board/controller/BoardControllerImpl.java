@@ -212,7 +212,7 @@ public class BoardControllerImpl implements BoardController{
 		
 		  @RequestMapping(value="/board/modNewInquiry.do" ,method = RequestMethod.POST)
 		  @ResponseBody
-		  public ResponseEntity modArticle(MultipartHttpServletRequest multipartRequest,  
+		  public ResponseEntity modInquiry(MultipartHttpServletRequest multipartRequest,  
 		    HttpServletResponse response) throws Exception{
 		    multipartRequest.setCharacterEncoding("utf-8");
 			Map<String,Object> inquiryMap = new HashMap<String, Object>();
@@ -237,7 +237,7 @@ public class BoardControllerImpl implements BoardController{
 			responseHeaders.add("Content-Type", "text/html; charset=utf-8");
 		    try {
 
-		       boardService.modArticle(inquiryMap);
+		       boardService.modInquiry(inquiryMap);
 		       if(inquiryFile!=null && inquiryFile.length()!=0) {
 			         String OrignInquiryFile = (String)inquiryMap.get("OrignInquiryFile");
 			         System.out.println(OrignInquiryFile);
