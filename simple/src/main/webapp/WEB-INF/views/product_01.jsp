@@ -2,6 +2,9 @@
 	pageEncoding="utf-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
+
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -178,12 +181,12 @@
 						<div class="text d-flex py-1">
 							<div class="desc pl-2">
 								<h3 class="heading">
-									<a href="#">${product.productName}</a>
+									<a href="${contextPath}/product/viewProduct.do?productNum=${product.productNum}">${product.productName}</a>
 								</h3>
 								<hr style="margin-top: 25px;">
 								<h3 class="heading"
 									style="padding-left: 67%; white-space: nowrap;">
-									<a href="#" style="font-size: 22px;">${product.productPrice}</a>
+									<a href="${contextPath}/product/viewProduct.do?productNum=${product.productNum}" style="font-size: 22px;"><fmt:formatNumber pattern="###,###,###" value="${product.productPrice}"/></a>
 								</h3>
 							</div>
 						</div>

@@ -18,13 +18,13 @@ public class ProductVO {
 	private String productImage;          //상품 이미지
 	private String productManufacturer;   //상품 제조사
 	private String productOrigin;         //상품 원산지
-	
+	private String categoryCode;
 	
 	public ProductVO() {
 
 	}
 	public ProductVO(String productNum, String productName, String productPrice,String category, String subcategory,
-			String productImage,String productManufacturer,String productOrigin) {
+			String productImage,String productManufacturer,String productOrigin,String categoryCode) {
 		this.productNum = productNum;
 		this.productName = productName;
 		this.productPrice = productPrice;
@@ -33,6 +33,7 @@ public class ProductVO {
 		this.productImage = productImage;
 		this.productManufacturer = productManufacturer;
 		this.productOrigin = productOrigin;
+		this.categoryCode = categoryCode;
 	}
 	public String getproductNum() {
 		return productNum;
@@ -96,6 +97,13 @@ public class ProductVO {
 	}
 	public void setproductOrigin(String productOrigin) {
 		this.productOrigin = productOrigin;
+	}
+	
+	public String getcategoryCode() {
+		return categoryCode;
+	}
+	public void setcategoryCode(String categoryCode) {
+		this.categoryCode = categoryCode;
 	}
 
 

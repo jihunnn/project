@@ -2,6 +2,8 @@
 	pageEncoding="utf-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
+
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -118,10 +120,55 @@
 
 
 </style>
+<!-- 수량체크 자바스크립트 -->
+<script language="JavaScript">
+<!--
+
+var amount;
+
+function init () {
+
+	amount = document.form.amount.value;
+
+	change();
+}
+
+function add () {
+	hm = document.form.amount;
+
+	hm.value ++ ;
 
 
+}
+
+function del () {
+	hm = document.form.amount;
+		if (hm.value > 1) {
+			hm.value -- ;
+		}
+}
+
+function change () {
+	hm = document.form.amount;
+
+		if (hm.value < 0) {
+			hm.value = 0;
+		}
+}  
+//-->
+</script>
+<script type="text/javascript">
+	function addCartBtn(){
+		var form = document.Chec;
+		if (confirm("장바구니에 담으시겠습니까?")){ //확인
+			
+		} else { //취소
+			return;
+		}
+	}
+</script>
 </head>
-<body>
+<body onload="init();">
 
 	
 	<section class="ftco-section" style="padding-top: 20px; ">
@@ -130,8 +177,7 @@
 				style="background-color: #f5f5f5; border: 1px solid #e7e7e7;">
 				<div class="col-md-20 heading-section ftco-animate"
 					style="height: 60px;">
-					<h2 class="mb-4" style="font-size: 35px; margin-top: 18px;">소피아
-						대리석 4인 식탁 세트</h2>
+					<h2 class="mb-4" style="font-size: 35px; margin-top: 18px;">${product.productName}</h2>
 				</div>
 			</div>
 		<!-- 최근 본 상품 -->
@@ -161,6 +207,9 @@
            <!-- 최근 본 상품 끝 -->
 			<!-- 내용 -->
 			<div class="row">
+
+	
+	
 				<div class="col-md-4 ftco-animate">
 					<div class="blog-entry">
 						<a><img src="${contextPath}/resources/images/image_1.jpg"
@@ -179,7 +228,7 @@
 						</h3>
 						<h3 class="heading">
 							<a
-								style="position: absolute; white-space: nowrap; margin-top: 40px; margin-left: 180px; font-size: 18px;">Simple</a>
+								style="position: absolute; white-space: nowrap; margin-top: 40px; margin-left: 180px; font-size: 18px;">${product.productManufacturer}</a>
 						</h3>
 						<br>
 						<h3 class="heading">
@@ -189,7 +238,7 @@
 						</h3>
 						<h3 class="heading">
 							<a
-								style="position: absolute; white-space: nowrap; margin-top: 35px; margin-left: 180px; font-size: 18px;">China/oem</a>
+								style="position: absolute; white-space: nowrap; margin-top: 35px; margin-left: 180px; font-size: 18px;">${product.productOrigin}</a>
 						</h3>
 						<br>
 
@@ -220,56 +269,41 @@
 							style="margin-left: 765px; margin-top: -150px; float: left !important; width: 300px; height: 30px;">
 							<option>옵션 선택</option>
 						</select> <br>
-						<h3 class="heading">
-							<a
-								style="position: absolute; white-space: nowrap; margin-top: 110px; margin-left: -430px; float: left; font-size: 18px; font-size: 14px;">식탁1eaㅤ의자4ea</a>
-						</h3>
+
 					</div>
+				
+                   <form name="form" method="get">
 					<div>
 						<h3 class="heading">
 							<a
 								style="position: absolute; white-space: nowrap; margin-top: 115px; margin-left: -430px; float: left; font-size: 18px; font-size: 14px;">수량</a>
 						</h3>
 
-						<button type="button" onclick="fnCalCount('p',this);"
-							style="position: absolute; white-space: nowrap; margin-top: 109px; margin-left: -380px; float: left; font-size: 18px; font-size: 14px; border: 1px solid grey;">+</button>
-						<input type="text" name="pop_out" value="0" readonly="readonly"
+						<input type="button" onclick="add();" value=" + " size="3" 
+							style="width: 25px; position: absolute; white-space: nowrap; margin-top: 109px; margin-left: -380px; float: left; font-size: 18px; font-size: 14px; border: 1px solid grey;">
+						<input type="text" name="amount" value="1" readonly="readonly" onchange="change();"
 							style="position: absolute; white-space: nowrap; margin-top: 108px; margin-left: -350px; float: left; font-size: 18px; font-size: 14px; width: 50px; text-align: center;" />
-						<button type="button" onclick="fnCalCount('m', this)"
-							style="position: absolute; white-space: nowrap; margin-top: 109px; margin-left: -295px; float: left; font-size: 18px; font-size: 14px; border: 1px solid grey;">-</button>
-						<h3 class="heading">
-							<a
-								style="position: absolute; white-space: nowrap; margin-top: 100px; margin-left: 95px; float: left; font-size: 25px;">3,000,000원</a>
+						<input type="button" onclick="del();" value=" - " size="3"
+							style="width: 25px; position: absolute; white-space: nowrap; margin-top: 109px; margin-left: -295px; float: left; font-size: 18px; font-size: 14px; border: 1px solid grey;">
+						<h3 class="heading" style="padding-left: 950px;padding-top: 100px;text-align: center;width: 400px;">
+							<a><fmt:formatNumber pattern="###,###,###" value="${product.productPrice}"/>원</a>
 						</h3>
 					</div>
+				</form>
+				<form method="post" id="addCartForm" action="${contextPath}/product/viewProduct.do?productNum=${product.productNum}">
 					<button type="submit" class="btn btn-default"
 						style="background-color: #dcdcdc; float: left; margin-left: 630px; margin-top: 20px; width: 330px; height: 50px; border-radius: 2px;">바로구매</button>
-					<button type="submit" class="btn btn-default"
+					<button type="submit" class="btn btn-default" onclick="addCartBtn()"
 						style="background-color: #dcdcdc; float: left; margin-left: 965px; margin-top: -50px; width: 330px; height: 50px; border-radius: 2px;">장바구니</button>
-
+                </form>
 				</div>
+
+
+
 			</div>
 
 
-			<!-- 수량체크 자바스크립트 -->
-			<script type="text/javascript">
-				function fnCalCount(type, ths) {
-					var $input = $(ths).parents("td").find(
-							"input[name='pop_out']");
-					var tCount = Number($input.val());
-					var tEqCount = Number($(ths).parents("tr").find(
-							"td.bseq_ea").html());
-
-					if (type == 'p') {
-						if (tCount < tEqCount)
-							$input.val(Number(tCount) + 1);
-
-					} else {
-						if (tCount > 0)
-							$input.val(Number(tCount) - 1);
-					}
-				}
-			</script>
+		
 
 			<!-- 탭메뉴 자바스크립트 -->
 			<script type="text/javascript"

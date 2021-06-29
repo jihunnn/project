@@ -220,54 +220,25 @@
 					<thead class="table-dark" align=center>
 						<tr align="center"
 							style="background-color: #212529; color: white;">
-							<td scope="col" width="100">선택</td>
-							<td scope="col" width="150"></td>
-							<td scope="col" width="500" align=left>상품</td>
-							<td scope="col" width="120">금액</td>
-							<td scope="col" width="120">배송비</td>
-							<td scope="col" width="120">합계</td>
+							<td scope="col" width="300"></td>
+							<td scope="col" width="800" align="center">상품</td>
+							<td scope="col" width="300">금액</td>
+				
 						</tr>
 					</thead>
 					<tbody>
+	
 						<tr>
-							<td scope="col" align=center><br>
-							<br>
-							<input type="checkbox" style="zoom: 2.0;"></td>
-							<td scope="col"><img
-								src="${contextPath}/resources/images/sofa01.jpg" width=130
-								height=130></td>
-							<td scope="col" align=left style="padding-top: 0px;"><br>
-							<br>
-							<br>패브릭 쇼파 (2인분)</td>
-							<td scope="col" align=center style="padding-top: 0px;"><br>
-							<br>
-							<br>230,000</td>
-							<td scope="col" align=center style="padding-top: 0px;"><br>
-							<br>
-							<br>무료배송</td>
-							<td scope="col" align=center style="padding-top: 0px;"><br>
-							<br>
-							<br>230,000</td>
-						</tr>
-						<tr>
-							<td scope="col" align=center><br>
-							<br>
-							<input type="checkbox" style="zoom: 2.0;"></td>
-							<td scope="col"><img
+							
+							<td scope="col" align="center"><img
 								src="${contextPath}/resources/images/chair01.jpg" width=130
 								height=130></td>
-							<td scope="col" align=left style="padding-top: 0px;"><br>
+							<td scope="col" align="center" style="padding-top: 0px;"><br>
 							<br>
 							<br>원목의자</td>
-							<td scope="col" align=center style="padding-top: 0px;"><br>
+							<td scope="col" align="center" style="padding-top: 0px;"><br>
 							<br>
 							<br>100,000</td>
-							<td scope="col" align=center style="padding-top: 0px;"><br>
-							<br>
-							<br>2,500</td>
-							<td scope="col" align=center style="padding-top: 0px;"><br>
-							<br>
-							<br>102,500</td>
 						</tr>
 
 

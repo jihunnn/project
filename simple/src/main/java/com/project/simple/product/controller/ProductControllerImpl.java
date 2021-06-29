@@ -67,11 +67,13 @@ public class ProductControllerImpl implements ProductController{
 			throws Exception {
 		String viewName = (String)request.getAttribute("viewName");
 		productVO = productService.viewProduct(productNum);
-		System.out.println(productVO);
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(viewName);
 		mav.addObject("product", productVO);
+		System.out.println(productVO);
 		return mav;
+		
 	}
+	
 
 }

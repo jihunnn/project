@@ -35,7 +35,7 @@
 	        </ul>
 
 	     <div class="dropdown">
-  			<button  type="button" id="dropdownMenu1"  onclick = "location.href = ''" data-toggle="dropdown" aria-expanded="true" class="category" style="margin-left:-1030px; margin-bottom:0px; cursor:pointer;">
+  			<button  type="button" id="dropdownMenu1"  onclick = "location.href = '${contextPath}/product/listProduct.do'" data-toggle="dropdown" aria-expanded="true" class="category" style="margin-left:-1030px; margin-bottom:0px; cursor:pointer;">
     			침대
   			</button>
   			<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" style="margin-left:-1085px; text-align:center;">

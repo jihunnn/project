@@ -54,6 +54,14 @@
 		<put-attribute name="body" value="/WEB-INF/views/cart.jsp" />
 	</definition>
 	
+	<definition name="Product_01" extends="baseLayout">
+		<put-attribute name="body" value="/WEB-INF/views/Product_01.jsp" />
+	</definition>
+	
+	<definition name="Product_02" extends="baseLayout">
+		<put-attribute name="body" value="/WEB-INF/views/Product_02.jsp" />
+	</definition>
+	
 	<definition name="cs_01" extends="baseLayout">
 		<put-attribute name="body" value="/WEB-INF/views/cs_01.jsp" />
 	</definition>
@@ -174,10 +182,7 @@
         <put-attribute name="body" value="/WEB-INF/views/add_product.jsp"/>
     </definition>
     
-    <definition name="lookup_product" extends="baseLayout">
-        <put-attribute name="body" value="/WEB-INF/views/lookup_product.jsp"/>
-    </definition>
-		
+   
 	
 	
 	
