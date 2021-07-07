@@ -77,9 +77,6 @@ public class BoardServiceImpl implements BoardService{
 	//inquiry °Ô½ÃÆÇ
 	public Map<String ,Object> listInquiry(Map<String ,Object> inquiryMap) throws Exception{
 		List<ArticleVO> inquiryList=boardDAO.selectInquiryList(inquiryMap);
-		if(inquiryList.size()==0){ 
-			return null;
-		}
 		inquiryMap.put("inquiryList", inquiryList);
 		return inquiryMap;
 	}
@@ -94,6 +91,7 @@ public class BoardServiceImpl implements BoardService{
 		List<ArticleVO> inquirySearchList=boardDAO.inquirySearchList(inquirySearchMap);
 
 		inquirySearchMap.put("inquirySearchList", inquirySearchList);
+		
 		System.out.println(inquirySearchMap);
 		return inquirySearchMap;
 	}

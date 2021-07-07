@@ -138,6 +138,7 @@ public class BoardControllerImpl implements BoardController {
 		inquiryMap.put("memId", memId);
 		inquiryMap.put("pageStart", pageStart);		
 		inquiryMap.put("perPageNum", perPageNum);
+		System.out.println(inquiryMap);
 		inquiryMap = boardService.listInquiry(inquiryMap);
 		int inquiryCount = boardService.inquiryCount(memId);
 	    PageMaker pageMaker = new PageMaker();
@@ -146,7 +147,6 @@ public class BoardControllerImpl implements BoardController {
 		inquiryMap.put("pageNum", pageNum);
 		System.out.println(pageNum);
 	    pageMaker.setTotalCount(inquiryCount);
-	    
 		session.setAttribute("inquiryMap", inquiryMap);
 		session.setAttribute("pageMaker", pageMaker);
 		return mav;
@@ -183,7 +183,6 @@ public class BoardControllerImpl implements BoardController {
 	    inquirySearchMap.put("pageNum", pageNum);
 	    pageMaker.setTotalCount(inquirySearchCount);
 	    System.out.println(inquirySearchMap);
-	    
 	    session.setAttribute("inquirySearchMap", inquirySearchMap);
 	    session.setAttribute("pageMaker", pageMaker);
 	    session.setAttribute("pageNum", pageNum);

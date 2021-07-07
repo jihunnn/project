@@ -67,6 +67,7 @@ public class BoardDAOImpl implements BoardDAO{
 	@Override
 	public List<ArticleVO> selectInquiryList(Map<String ,Object> inquiryMap) throws DataAccessException {
 		List<ArticleVO> inquiryList =sqlSession.selectList("mapper.board.selectAllInquiryList",inquiryMap);		
+
 		System.out.println(inquiryList);
 		return inquiryList;
 	}

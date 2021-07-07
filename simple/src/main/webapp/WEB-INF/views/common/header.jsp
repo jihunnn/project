@@ -104,11 +104,10 @@
 	        </ul>
 
 	     <div class="dropdown">
-<<<<<<< HEAD
-  			<button  type="button" id="dropdownMenu1"  onclick = "location.href = '${contextPath}/product/listProduct.do?productType='bed''" data-toggle="dropdown" aria-expanded="true" class="category" style="margin-left:-1030px; margin-bottom:0px; cursor:pointer;">
-=======
+
+
   			<button  type="button" id="dropdownMenu1"  onclick = "location.href = '${contextPath}/product/listProduct.do?sort=침대'" data-toggle="dropdown" aria-expanded="true" class="category" style="margin-left:-1030px; margin-bottom:0px; cursor:pointer;">
->>>>>>> branch 'master' of http://github.com/jihunnn/project.git
+
     			침대
   			</button>
   			<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" style="margin-left:-1085px; text-align:center;">
@@ -120,13 +119,10 @@
  			</ul>
 		</div>
 		
-<<<<<<< HEAD
-		<div class="dropdown" >
-  			<button  type="button" id="dropdownMenu1 btnSearch"   data-toggle="dropdown" aria-expanded="true" class="category" style="margin-left:-926px; cursor:pointer; font-size:19px;">
-=======
+
+
 		<div class="dropdown">
   			<button  type="button" id="dropdownMenu1"  onclick = "location.href = '${contextPath}/product/listProduct.do?sort=소파'" data-toggle="dropdown" aria-expanded="true" class="category" style="margin-left:-926px; cursor:pointer; font-size:19px;">
->>>>>>> branch 'master' of http://github.com/jihunnn/project.git
     			소파
   			</button>
   			<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" style="margin-left:-980px; text-align:center;">

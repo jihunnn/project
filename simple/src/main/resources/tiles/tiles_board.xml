@@ -47,7 +47,7 @@
 	</definition>
 	<definition name="board/inquirySearch" extends="baseLayout">
 		<put-attribute name="title" value="1:1문의글상세창(검색)" />
-		<put-attribute name="body" value="/WEB-INF/views/dddd.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/cs_04.jsp" />
 	</definition>
 	
 

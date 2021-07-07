@@ -23,7 +23,7 @@
 	
 	
 	<!-- inquiry 게시판 -->
-	<resultMap id="inquiryResult" type="articleVO">
+	<resultMap id="inquiryResult" type="articleVO" >
 		<result property="memId" column="memId"/>
 		<result property="inquiryNum" column="inquiryNum"/>
 		<result property="inquiryType" column="inquiryType" />
