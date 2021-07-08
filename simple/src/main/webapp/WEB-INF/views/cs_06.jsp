@@ -113,9 +113,9 @@ function removeInquiry(obj) {
 			</table>
 			
 			<c:choose>
-	<c:when test= "${inquirySearchMap.search1 != null}">
+	<c:when test= "${!empty search1}">
 							<button type="button" class="btn btn-dark" id="buttonmy"
-				style="float: left; margin-left: 590px; margin-top: 30px;" onclick="location.href='${contextPath}/board/inquirySearch.do?search1=${inquirySearchMap.search1}&search2=${inquirySearchMap.search2}&page=${pageNum }">목록</button>
+				style="float: left; margin-left: 590px; margin-top: 30px;" onclick="location.href='${contextPath}/board/inquirySearch.do?search1=${search1}&search2=${search2}&page=${pageNum}'">목록</button>
 			</c:when>
 			<c:otherwise>
 			<button type="button" class="btn btn-dark" id="buttonmy"

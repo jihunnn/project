@@ -284,6 +284,9 @@ public class BoardControllerImpl implements BoardController {
 	@RequestMapping(value = "/board/viewInquiry.do", method = RequestMethod.GET)
 	public ModelAndView viewInquiry(@RequestParam("inquiryNum") int inquiryNum, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
+		String search1 = request.getParameter("search1");
+		String search2 = request.getParameter("search2");
+		String pageNum = request.getParameter("pageNum");
 		String viewName = (String) request.getAttribute("viewName");
 		HttpSession session = request.getSession();
 		MemberVO memberVO = (MemberVO) session.getAttribute("member");
@@ -292,6 +295,11 @@ public class BoardControllerImpl implements BoardController {
 		articleVO = boardService.viewInquiry(inquiryNum);
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(viewName);
+		if(search1 != null) {
+			mav.addObject("search1",search1);
+			mav.addObject("search2",search2);
+			mav.addObject("pageNum",pageNum);
+		}
 		mav.addObject("inquiry", articleVO);
 		return mav;
 	}
