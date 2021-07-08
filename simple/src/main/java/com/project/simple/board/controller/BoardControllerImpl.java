@@ -126,12 +126,15 @@ public class BoardControllerImpl implements BoardController {
 	@Override
 	@RequestMapping(value = "/board/listInquiry.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView listInquiry(Criteria cri, HttpServletRequest request, HttpServletResponse response) throws Exception {
+
 		String viewName = (String) request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
 		HttpSession session = request.getSession();
-		MemberVO memberVO = (MemberVO) session.getAttribute("member");
+		MemberVO memberVO = (MemberVO) session.getAttribute("member");	
 		String memId = memberVO.getmemId();
 		articleVO.setmemId(memId);
+
+
 		Map<String, Object> inquiryMap = new HashMap<String,Object>();
 		int pageStart = cri.getPageStart();
 		int perPageNum = cri.getPerPageNum();
@@ -183,9 +186,10 @@ public class BoardControllerImpl implements BoardController {
 	    inquirySearchMap.put("pageNum", pageNum);
 	    pageMaker.setTotalCount(inquirySearchCount);
 	    System.out.println(inquirySearchMap);
-	    session.setAttribute("inquirySearchMap", inquirySearchMap);
+	    mav.addObject("inquirySearchMap", inquirySearchMap);
 	    session.setAttribute("pageMaker", pageMaker);
 	    session.setAttribute("pageNum", pageNum);
+	    
 		return mav;
 
 	}

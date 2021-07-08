@@ -239,7 +239,7 @@
 											<td scope="col" width="50">${num}</td>
 											<td scope="col" width="150">${inquirySearch.inquiryType}</td>
 											<td align="left" scope="col" width="500"><a
-												href="${contextPath}/board/viewInquiry.do?inquiryNum=${inquirySearch.inquiryNum}"
+												href="${contextPath}/board/viewInquiry.do?search1=${inquirySearchMap.search1}&search2=${inquirySearchMap.search2}&inquiryNum=${inquirySearch.inquiryNum}"
 												style="color: black; padding-left: 30px; margin-bottom: 0px;">${inquirySearch.inquiryTitle}</a></td>
 											<td scope="col" width="150"><fmt:formatDate
 													value="${inquirySearch.inquiryDate}" /></td>

@@ -251,21 +251,21 @@
 				<c:if test="${pageMaker.prev}">
 
 					<a class="arrow prev"
-						href='<c:url value="/board/questionSearch.do?page=${pageMaker.startPage-1 }"/>'><i
+						href='<c:url value="/board/questionSearch.do?search=${questionSearchMap.search}&page=${pageMaker.startPage-1 }"/>'><i
 						class="fa fa-chevron-left"></i></a>
 
 				</c:if>
 				<c:forEach begin="${pageMaker.startPage }"
 					end="${pageMaker.endPage }" var="pageNum">
 
-					<a href='<c:url value="/board/questionSearch.do?page=${pageNum }"/>'><i
+					<a href='<c:url value="/board/questionSearch.do?search=${questionSearchMap.search}&page=${pageNum }"/>'><i
 						class="fa">${pageNum }</i></a>
 
 				</c:forEach>
 				<c:if test="${pageMaker.next && pageMaker.endPage >0 }">
 
 					<a class="arrow next"
-						href='<c:url value="/board/questionSearch.do?page=${pageMaker.endPage+1 }"/>'><i
+						href='<c:url value="/board/questionSearch.do?search=${questionSearchMap.search}&page=${pageMaker.endPage+1 }"/>'><i
 						class="fa fa-chevron-right"></i></a>
 
 				</c:if>
