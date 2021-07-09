@@ -15,13 +15,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class FileDownloadController {
-	private static final String ARTICLE_IMAGE_REPO = "C:\\spring\\product_image";
+	private static final String ARTICLE_IMAGE_REPO = "C:\\spring\\product_image";//상품 이미지 경로
+	private static final String ARTICLE_IMAGE_REPO1 = "C:\\spring\\inquiry_image";//1:1문의 이미지 경로
 	@RequestMapping("/download.do")
 	protected void download(@RequestParam("inquiryFile") String inquiryFile,
 							@RequestParam("inquiryNum") String inquiryNum,
 			                 HttpServletResponse response)throws Exception {
 		OutputStream out = response.getOutputStream();
-		String downFile = ARTICLE_IMAGE_REPO + "\\" +inquiryNum+"\\"+ inquiryFile;
+		String downFile = ARTICLE_IMAGE_REPO1 + "\\" +inquiryNum+"\\"+ inquiryFile;
 		File file = new File(downFile);
 
 		response.setHeader("Cache-Control", "no-cache");

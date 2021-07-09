@@ -22,6 +22,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,6 +30,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.simple.board.service.BoardService;
 import com.project.simple.board.vo.ImageVO;
@@ -39,7 +41,7 @@ import com.project.simple.page.Criteria;
 
 @Controller("boardController")
 public class BoardControllerImpl implements BoardController {
-	private static final String ARTICLE_IMAGE_REPO = "C:\\spring\\inquiry_image";
+	private static final String ARTICLE_IMAGE_REPO1 = "C:\\spring\\inquiry_image";
 	@Autowired
 	private BoardService boardService;
 	@Autowired
@@ -194,7 +196,7 @@ public class BoardControllerImpl implements BoardController {
 
 	}
 
-	// 1:1문의 글쓰기 폼, A/S 글쓰기 폼
+	// 1:1문의 글쓰기 폼, A/S 글쓰기 폼, AS비밀번호 입력
 	@RequestMapping(value = "/board/*Form.do", method = RequestMethod.GET)
 	private ModelAndView form(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewName = (String) request.getAttribute("viewName");
@@ -235,8 +237,8 @@ public class BoardControllerImpl implements BoardController {
 		try {
 			int inquiryNum = boardService.addNewInquiry(inquiryMap);
 			if (inquiryFile != null && inquiryFile.length() != 0) {
-				File srcFile = new File(ARTICLE_IMAGE_REPO + "\\" + "temp" + "\\" + inquiryFile);
-				File destDir = new File(ARTICLE_IMAGE_REPO + "\\" + inquiryNum);
+				File srcFile = new File(ARTICLE_IMAGE_REPO1 + "\\" + "temp" + "\\" + inquiryFile);
+				File destDir = new File(ARTICLE_IMAGE_REPO1 + "\\" + inquiryNum);
 				FileUtils.moveFileToDirectory(srcFile, destDir, true);
 			}
 
@@ -247,7 +249,7 @@ public class BoardControllerImpl implements BoardController {
 			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
 
 		} catch (Exception e) {
-			File srcFile = new File(ARTICLE_IMAGE_REPO + "\\" + "temp" + "\\" + inquiryFile);
+			File srcFile = new File(ARTICLE_IMAGE_REPO1 + "\\" + "temp" + "\\" + inquiryFile);
 			srcFile.delete();
 
 			message = "<script>";
@@ -265,13 +267,14 @@ public class BoardControllerImpl implements BoardController {
 		Iterator<String> fileNames = multipartRequest.getFileNames();
 		while (fileNames.hasNext()) {
 			String fileName = fileNames.next();
+			System.out.println(fileName);
 			MultipartFile mFile = multipartRequest.getFile(fileName);
 			inquiryFile = mFile.getOriginalFilename();
-			File file = new File(ARTICLE_IMAGE_REPO + "\\" + "temp" + "\\" + fileName);
+			File file = new File(ARTICLE_IMAGE_REPO1 + "\\" + "temp" + "\\" + fileName);
 			if (mFile.getSize() != 0) {
 				if (!file.exists()) {
 					file.getParentFile().mkdirs();
-					mFile.transferTo(new File(ARTICLE_IMAGE_REPO + "\\" + "temp" + "\\" + inquiryFile));// 임시로 저장되 multipartFile을 실제 파일로 전송
+					mFile.transferTo(new File(ARTICLE_IMAGE_REPO1 + "\\" + "temp" + "\\" + inquiryFile));// 임시로 저장되 multipartFile을 실제 파일로 전송
 																							
 				}
 			}
@@ -348,11 +351,11 @@ public class BoardControllerImpl implements BoardController {
 			if (inquiryFile != null && inquiryFile.length() != 0) {
 				String OrignInquiryFile = (String) inquiryMap.get("OrignInquiryFile");
 				System.out.println(OrignInquiryFile);
-				File oldFile = new File(ARTICLE_IMAGE_REPO + "\\" + inquiryNum + "\\" + OrignInquiryFile);
+				File oldFile = new File(ARTICLE_IMAGE_REPO1 + "\\" + inquiryNum + "\\" + OrignInquiryFile);
 				oldFile.delete();
 
-				File srcFile = new File(ARTICLE_IMAGE_REPO + "\\" + "temp" + "\\" + inquiryFile);
-				File destDir = new File(ARTICLE_IMAGE_REPO + "\\" + inquiryNum);
+				File srcFile = new File(ARTICLE_IMAGE_REPO1 + "\\" + "temp" + "\\" + inquiryFile);
+				File destDir = new File(ARTICLE_IMAGE_REPO1 + "\\" + inquiryNum);
 				FileUtils.moveFileToDirectory(srcFile, destDir, true);
 
 			}
@@ -363,7 +366,7 @@ public class BoardControllerImpl implements BoardController {
 			message += " </script>";
 			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
 		} catch (Exception e) {
-			File srcFile = new File(ARTICLE_IMAGE_REPO + "\\" + "temp" + "\\" + inquiryFile);
+			File srcFile = new File(ARTICLE_IMAGE_REPO1 + "\\" + "temp" + "\\" + inquiryFile);
 			srcFile.delete();
 			message = "<script>";
 			message += " alert('오류가 발생했습니다.다시 수정해주세요');";
@@ -388,7 +391,7 @@ public class BoardControllerImpl implements BoardController {
 					responseHeaders.add("Content-Type", "text/html; charset=utf-8");
 					try {
 						boardService.removeInquiry(inquiryNum);
-						File destDir = new File(ARTICLE_IMAGE_REPO+"\\" + inquiryNum);
+						File destDir = new File(ARTICLE_IMAGE_REPO1+"\\" + inquiryNum);
 						FileUtils.deleteDirectory(destDir);
 						
 						message = "<script>";
@@ -408,6 +411,57 @@ public class BoardControllerImpl implements BoardController {
 					
 				}
 
+	
+	//AS센터
+	@Override
+	@RequestMapping(value = "board/listAsCenter.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView listAscenter(Criteria cri, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String viewName = (String) request.getAttribute("viewName");
+		List<ArticleVO> asCenterList = boardService.listAsCenter(cri);
+		int asCenterCount = boardService.asCenterCount();
+		System.out.println(asCenterCount);
+		ModelAndView mav = new ModelAndView(viewName);
+	    PageMaker pageMaker = new PageMaker();
+	    pageMaker.setCri(cri);
+	    pageMaker.setTotalCount(asCenterCount);
+	    int pageNum = pageMaker.getCri().getPage();
+	    
+	    mav.addObject("pageNum",pageNum);
+		mav.addObject("asCenterList", asCenterList);
+		mav.addObject("pageMaker", pageMaker);
+		
+		return mav;
+	}
+	
+	
 
+	
+	@RequestMapping(value = "/board/viewAsCenter.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView viewAsCenter(@RequestParam("asCenterNum") int asCenterNum, @RequestParam("asCenterPwd") String asCenterPwd, @RequestParam("asCenterPwdConfirm") String asCenterPwdConfirm, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		
+		ModelAndView mav = new ModelAndView();
+
+		
+		String viewName = (String) request.getAttribute("viewName");
+		mav.setViewName(viewName);	
+		articleVO = boardService.viewAsCenter(asCenterNum);
+		mav.addObject("asCenter", articleVO);
+	
+		return mav;
+	}
+	
+	//AS 센터 비밀번호 체크
+	public boolean pwdConfirm(String asCenterPwd, String asCenterPwdConfirm) {
+		if(asCenterPwd == asCenterPwdConfirm) {
+			return true;
+		}
+		return false;
+	}
+	
+
+
+	
+	
 
 }

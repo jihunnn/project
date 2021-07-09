@@ -125,4 +125,23 @@ public class BoardDAOImpl implements BoardDAO{
 	public void deleteInquiry(int inquiryNum) throws DataAccessException {
 		sqlSession.delete("mapper.board.deleteInquiry", inquiryNum);
 	}
+	
+	//ASºæ≈Õ
+	@Override
+	public List<ArticleVO> selectAllAsCenterList(Criteria cri) throws DataAccessException {
+		List<ArticleVO> asCenterList = sqlSession.selectList("mapper.board.selectAllAsCenterList", cri);
+		return asCenterList;
+	}
+	
+	@Override
+	public int selectAsCenterCount() throws DataAccessException {
+		int asCenterCount = sqlSession.selectOne("mapper.board.selectAsCenterCount");
+		System.out.println(asCenterCount);
+		return asCenterCount;
+	}
+	
+	@Override
+	public ArticleVO selectAsCenter(int asCenterNum) throws DataAccessException {
+		return sqlSession.selectOne("mapper.board.selectNotice", asCenterNum);
+	}
 }	

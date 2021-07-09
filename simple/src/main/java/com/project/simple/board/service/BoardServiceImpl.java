@@ -131,11 +131,24 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 
+	//ASºæ≈Õ
+	@Override
+	public List<ArticleVO> listAsCenter(Criteria cri) throws Exception{
+		List<ArticleVO> ascenterList = boardDAO.selectAllAsCenterList(cri);
+		return ascenterList;
+	}
+	
+	@Override
+	public int asCenterCount() throws Exception{
+		int ascenterCount = boardDAO.selectAsCenterCount();
+		return ascenterCount;
+	}
 
-
-
-
-
-
+	@Override
+	public ArticleVO viewAsCenter(int asCenterNum) throws Exception {
+		ArticleVO articleVO = boardDAO.selectAsCenter(asCenterNum);
+		return articleVO;
+	}
+	
 	
 }	

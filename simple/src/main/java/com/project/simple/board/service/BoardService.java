@@ -24,10 +24,13 @@ public interface BoardService {
 	public int inquirySearchCount(Map<String, Object> inquirySearchMap) throws Exception;
 	public int addNewInquiry(Map articleMap) throws Exception;
 	public ArticleVO viewInquiry(int inquiryNum) throws Exception;
-	public ArticleVO inquiryForm(int inquiryNum) throws Exception ;
-	
+	public ArticleVO inquiryForm(int inquiryNum) throws Exception ;	
 	public void modInquiry(Map inquiryMap) throws Exception ;
 	public void removeInquiry(int inquiryNum) throws Exception;
+	
+	public List<ArticleVO> listAsCenter(Criteria cri) throws Exception;
+	public int asCenterCount() throws Exception;
+	public ArticleVO viewAsCenter(int asCenterNum) throws Exception;
 
 
 }

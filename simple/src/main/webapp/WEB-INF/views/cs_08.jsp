@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +13,6 @@
 
 
 <style>
-
 .page_wrap {
 	text-align: center;
 	font-size: 0;
@@ -126,7 +128,7 @@
 				</ul>
 			</div>
 			<!-- 최근 본 상품 -->
-			<jsp:include page="/WEB-INF/views/common/csMenu.jsp" flush="false" />			
+			<jsp:include page="/WEB-INF/views/common/csMenu.jsp" flush="false" />
 			<!-- 내용 -->
 
 			<div>
@@ -149,54 +151,66 @@
 						<td style="width: 500px;">제목</td>
 						<td style="width: 200px;">작성자</td>
 						<td style="width: 200px;">작성일</td>
-						<td style="width: 200px;">조회수</td>
+						<td style="width: 200px;">접수상태</td>
 					</tr>
-					<tr
-						style="border-bottom: 0.5px solid grey; height: 30px; background-color: white;">
-						<td style="width: 100px; color: black;">1</td>
-						<td
-							style="width: 500px; color: black; text-align: left; padding-left: 50px;">a/s신청합니다.</td>
-						<td style="width: 200px; color: black;"><a href="#"
-							style="color: black;">홍길동</a></td>
-						<td style="width: 200px; color: black;">2021-06-12</td>
-						<td style="width: 200px; color: black;">접수대기</td>
-					</tr>
-					<tr
-						style="border-bottom: 0.5px solid grey; height: 30px; background-color: white;">
-						<td style="width: 100px; color: black;">2</td>
-						<td
-							style="width: 500px; color: black; text-align: left; padding-left: 50px;">a/s
-							접수 부탁드립니다.</td>
-						<td style="width: 200px; color: black;"><a href="#"
-							style="color: black;">홍길동</a></td>
-						<td style="width: 200px; color: black;">2021-06-12</td>
-						<td style="width: 200px; color: black;">접수대기</td>
-					</tr>
-					<tr
-						style="border-bottom: 0.5px solid grey; height: 30px; background-color: white;">
-						<td style="width: 100px; color: black;">3</td>
-						<td
-							style="width: 500px; color: black; text-align: left; padding-left: 50px;">a/s신청합니다.</td>
-						<td style="width: 200px; color: black;"><a href="#"
-							style="color: black;">홍길동</a></td>
-						<td style="width: 200px; color: black;">2021-06-12</td>
-						<td style="width: 200px; color: black;">접수대기</td>
-					</tr>
+					<c:choose>
+						<c:when test="${empty asCenterList}">
+							<tr style="background-color: white;">
+								<td colspan="5" style="color: black; height: 300px;">등록된 글이
+									없습니다.</td>
+							</tr>
+						</c:when>
+						<c:otherwise>
+							<c:set var="num"
+								value="${pageMaker.totalCount - ((pageNum-1) * 10) }" />
+							<c:forEach var="asCenter" items="${asCenterList}">
+								<tr
+									style="border-bottom: 0.5px solid grey; height: 30px; background-color: white;">
+									<td style="width: 100px; color: black;">${num}</td>
+									<td
+										style="width: 500px; color: black; text-align: left; padding-left: 50px;"><a
+										style="color: black;" href="${contextPath}/board/viewAscenter.do?asCenterNum=${asCenter.asCenterNum}">${asCenter.asCenterTitle}</a></td>
+									<td style="width: 200px; color: black;">${asCenter.memName}</td>
+									<td style="width: 200px; color: black;"><fmt:formatDate
+											value="${asCenter.asCenterDate}" /></td>
+									<td style="width: 200px; color: black;">${asCenter.asCenterStatus}</td>
+								</tr>
+								<c:set var="num" value="${num-1}"></c:set>
+							</c:forEach>
+						</c:otherwise>
+					</c:choose>
 				</thead>
 			</table>
 		</div>
 	</section>
 	<!-- 내용 끝 -->
 	<!-- 페이징 글번호 -->
-	<div class="page_wrap"
-		style="margin-left: 80px; margin-top: 60px; margin-bottom: 120px;">
+	<div class="page_wrap" style="margin-left: 80px; margin-top: 60px;">
 		<div class="page_nation">
-			<a class="arrow pprev" href="#"></a> <a class="arrow prev" href="#"></a>
-			<a href="#" class="active">1</a> <a href="#">2</a> <a href="#">3</a>
-			<a href="#">4</a> <a href="#">5</a> <a href="#">6</a> <a href="#">7</a>
-			<a href="#">8</a> <a href="#">9</a> <a href="#">10</a> <a
-				class="arrow next" href="#"></a> <a class="arrow nnext" href="#"></a>
+
+			<c:if test="${pageMaker.prev}">
+
+				<a class="arrow prev"
+					href='<c:url value="/board/listAsCenter?page=${pageMaker.startPage-1 }"/>'><i
+					class="fa fa-chevron-left"></i></a>
+
+			</c:if>
+			<c:forEach begin="${pageMaker.startPage }"
+				end="${pageMaker.endPage }" var="pageNum">
+
+				<a href='<c:url value="/board/listAsCenter.do?page=${pageNum }"/>'><i
+					class="fa">${pageNum }</i></a>
+
+			</c:forEach>
+			<c:if test="${pageMaker.next && pageMaker.endPage >0 }">
+
+				<a class="arrow next"
+					href='<c:url value="/board/listAsCenter?page=${pageMaker.endPage+1 }"/>'><i
+					class="fa fa-chevron-right"></i></a>
+
+			</c:if>
+
 		</div>
-	</div>
+	</div>	
 </body>
 </html>

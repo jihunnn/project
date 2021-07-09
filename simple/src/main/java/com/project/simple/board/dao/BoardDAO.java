@@ -13,7 +13,6 @@ import com.project.simple.page.Criteria;
 
 public interface BoardDAO{
 	public List selectAllNoticeList(Criteria cri) throws DataAccessException;
-	
 	public ArticleVO selectNotice(int noticeNum) throws DataAccessException;
 	public int selectNoticeCount() throws DataAccessException;
 	
@@ -26,16 +25,13 @@ public interface BoardDAO{
 	public int selectInquiryCount(String memId) throws DataAccessException;
 	public List<ArticleVO> inquirySearchList(Map<String ,Object> qinquirySearchMap) throws DataAccessException;
 	public int inquirySeachCount(Map<String, Object> search) throws DataAccessException ;
-	
-	
 	public int insertNewInquiry(Map inquiryMap) throws DataAccessException;
-	
 	public ArticleVO selectInquiry(int inquiryNum) throws DataAccessException;
-	
-	
 	public ArticleVO selectInquiry1(int inquiryNum) throws DataAccessException;
-
 	public void updateInquiry(Map inquiryMap) throws DataAccessException ;
-	
 	public void deleteInquiry(int inquiryNum) throws DataAccessException;
+	
+	public List<ArticleVO> selectAllAsCenterList(Criteria cri) throws DataAccessException;
+	public int selectAsCenterCount() throws DataAccessException; 
+	public ArticleVO selectAsCenter(int asCenterNum) throws DataAccessException;
 }

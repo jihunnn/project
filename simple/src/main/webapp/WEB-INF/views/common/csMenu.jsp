@@ -36,7 +36,7 @@
 						style="font-size: 25px; border: none; color: #5a5a5a; padding-right: 210px; background-color: white;">*1:1문의</button>
 				</div>
 				<div class="btn-group" role="group">
-					<button type="button" onclick="location.href=''"
+					<button type="button"  onclick="location.href='${contextPath}/board/listAsCenter.do'"
 						class="btn btn-default"
 						style="font-size: 25px; border: none; color: #5a5a5a; background-color: white;">*A/S센터</button>
 				</div>

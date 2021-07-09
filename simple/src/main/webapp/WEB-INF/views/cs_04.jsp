@@ -248,7 +248,7 @@
 
 									</c:forEach>
 								</c:when>
-							</c:choose>
+							</c:choose>F
 						</c:when>
 						<c:when test="${empty inquirySearchMap.search1}">
 							<c:choose>

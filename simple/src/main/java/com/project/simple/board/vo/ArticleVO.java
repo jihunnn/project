@@ -36,6 +36,15 @@ public class ArticleVO {
 	private String inquiryAnswer;
 	private String inquiryReq;
 	
+	//AS센터
+	private int asCenterNum;
+	private String asCenterTitle;
+	private Date asCenterDate;
+	private String asCenterContent;
+	private String asCenterStatus;
+	private String asCenterPwd;
+	private String memName;
+	
 	
 	//notice 게시판
 	public ArticleVO() {
@@ -199,6 +208,63 @@ public class ArticleVO {
 	public void setInquiryReq(String inquiryReq) {
 		this.inquiryReq = inquiryReq;
 	}
+	
+	//AS 센터
 
-
+	public int getAsCenterNum() {
+		return asCenterNum;
+	}
+	
+	public void setAsCenterNum(int asCenterNum) {
+		this.asCenterNum = asCenterNum;
+	}
+	
+	public String getAsCenterTitle() {
+		return asCenterTitle;
+	}
+	
+	public void setAsCenterTitle(String asCenterTitle) {
+		this.asCenterTitle = asCenterTitle;
+	}
+	
+	public Date getAsCenterDate() {
+		return asCenterDate;
+	}
+	
+	public void setAsCenterDate(Date asCenterDate) {
+		this.asCenterDate = asCenterDate;
+	}
+	
+	public String getAsCenterContent() {
+		return asCenterContent;
+	}
+	
+	public void setAsCenterContent(String asCenterContent) {
+		this.asCenterContent = asCenterContent;
+	}
+	
+	public String getAsCenterStatus() {
+		return asCenterStatus;
+	}
+	
+	public void setAsCenterStatus(String asCenterStatus) {
+		this.asCenterStatus = asCenterStatus;
+	}
+	
+	public String getAsCenterPwd() {
+		return asCenterPwd;
+	}
+	
+	public void setAsCenterPwd(String asCenterPwd) {
+		this.asCenterPwd = asCenterPwd;
+	}
+	
+	public String getMemName() {
+		return memName;
+	}
+	
+	public void setMemName(String memName) {
+		this.memName = memName;
+	}
+	
 }

@@ -138,7 +138,7 @@
 						<td
 							style="padding-left: 95px; font-weight: bold; padding-top: 30px;">파일첨부</td>
 						<td style="background-color: white;">기존파일: ${inquiryNum.inquiryFile}<input type="hidden" name="OrignInquiryFile" value="${inquiryNum.inquiryFile}" /><br><input type="file"
-							 style="padding-top: 25px;" name="inquiryFile" value="${inquiryNum.inquiryFile}" 
+							 style="padding-top: 25px;" name="inquiryFile" 
 							></td>
 					</tr>
 					</c:when>

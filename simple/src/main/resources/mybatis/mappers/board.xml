@@ -2,30 +2,30 @@
 <!DOCTYPE mapper 
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-	
+
 <mapper namespace="mapper.board">
 	<!-- notice 게시판 -->
 	<resultMap id="noticeResult" type="articleVO">
-		<result property="noticeNum" column="noticeNum"/>
-		<result property="noticeDate" column="noticeDate"/>
+		<result property="noticeNum" column="noticeNum" />
+		<result property="noticeDate" column="noticeDate" />
 		<result property="noticeTitle" column="noticeTitle" />
-		<result property="noticeWriter" column="noticeWriter"/>
-		<result property="noticeContent" column="noticeContent"/>
-		<result property="noticeImg" column="noticeImg"/>
+		<result property="noticeWriter" column="noticeWriter" />
+		<result property="noticeContent" column="noticeContent" />
+		<result property="noticeImg" column="noticeImg" />
 	</resultMap>
-	
+
 	<!-- question 게시판 -->
 	<resultMap id="questionResult" type="articleVO">
-		<result property="questionNum" column="questionNum"/>
-		<result property="questionTitle" column="questionTitle"/>
+		<result property="questionNum" column="questionNum" />
+		<result property="questionTitle" column="questionTitle" />
 		<result property="questionContent" column="questionContent" />
 	</resultMap>
-	
-	
+
+
 	<!-- inquiry 게시판 -->
-	<resultMap id="inquiryResult" type="articleVO" >
-		<result property="memId" column="memId"/>
-		<result property="inquiryNum" column="inquiryNum"/>
+	<resultMap id="inquiryResult" type="articleVO">
+		<result property="memId" column="memId" />
+		<result property="inquiryNum" column="inquiryNum" />
 		<result property="inquiryType" column="inquiryType" />
 		<result property="inquiryDate" column="inquiryDate" />
 		<result property="inquiryTitle" column="inquiryTitle" />
@@ -34,7 +34,18 @@
 		<result property="inquiryAnswer" column="inquiryAnswer" />
 		<result property="inquiryReq" column="inquiryReq" />
 	</resultMap>
-	
+
+	<!-- AS 센터 -->
+	<resultMap id="asCenterResult" type="articleVO">
+		<result property="asCenterNum" column="asCenterNum" />
+		<result property="memId" column="memId" />
+		<result property="asCenterTitle" column="asCenterTitle" />
+		<result property="asCenterDate" column="asCenterDate" />
+		<result property="asCenterContent" column="asCenterContent" />
+		<result property="asCenterStatus" column="asCenterStatus" />
+		<result property="asCenterPwd" column="asCenterPwd" />
+	</resultMap>
+
 	<!-- 공지사항 -->
 	<select id="selectAllNoticeList" resultMap="noticeResult">
 	<![CDATA[
@@ -45,7 +56,8 @@
 
 	]]>
 	</select>
-	<select id="selectNoticeCount" resultType="int" parameterType="int">
+	<select id="selectNoticeCount" resultType="int"
+		parameterType="int">
 	<![CDATA[
 			
 			select count(*) as noticeCount from notice;
@@ -53,8 +65,9 @@
 
 	]]>
 	</select>
-		
-	<select id="selectNotice" resultType="articleVO" parameterType="int"> 
+
+	<select id="selectNotice" resultType="articleVO"
+		parameterType="int"> 
 	<![CDATA[
 			
 			select * from notice
@@ -63,9 +76,9 @@
 
 	]]>
 	</select>
-	
+
 	<!-- 자주 묻는 질문 -->
-	<select id="selectAllQuestionList"  resultMap="questionResult">
+	<select id="selectAllQuestionList" resultMap="questionResult">
 	<![CDATA[
 			
 			select * from question order by questionNum desc
@@ -74,8 +87,9 @@
 
 	]]>
 	</select>
-	
-	<select id="selectQuestionCount" resultType="int" parameterType="int">
+
+	<select id="selectQuestionCount" resultType="int"
+		parameterType="int">
 	<![CDATA[
 			
 			select count(*) as questionCount from question;
@@ -83,8 +97,8 @@
 
 	]]>
 	</select>
-	
-	<select id="questionSearchList"  resultMap="questionResult">
+
+	<select id="questionSearchList" resultMap="questionResult">
 	<![CDATA[
 			
 			select * from question where questionTitle like CONCAT('%', #{search}, '%')  order by questionNum desc
@@ -93,8 +107,9 @@
 
 	]]>
 	</select>
-	
-	<select id="questionSearchCount" resultType="int" parameterType="int">
+
+	<select id="questionSearchCount" resultType="int"
+		parameterType="int">
 	<![CDATA[
 			
 			select count(*) as questionCount from question where questionTitle like CONCAT('%', #{search}, '%');
@@ -102,10 +117,11 @@
 
 	]]>
 	</select>
-		
-	
+
+
 	<!-- 1:1문의 -->
-	<select id="selectAllInquiryList"   parameterType="java.util.HashMap"  resultMap="inquiryResult">
+	<select id="selectAllInquiryList"
+		parameterType="java.util.HashMap" resultMap="inquiryResult">
 	<![CDATA[
 			
 			select * from inquiry where memId=#{memId} order by inquiryNum desc
@@ -114,16 +130,16 @@
 
 	]]>
 	</select>
-	<select id="selectInquiryCount" resultType="int" >
+	<select id="selectInquiryCount" resultType="int">
 	<![CDATA[
 			
 			select count(*) as inquiryCount from inquiry where memId=#{memId};
 			
 
 	]]>
-	</select>	
-	
-		<select id="inquirySearchList"  resultMap="inquiryResult">
+	</select>
+
+	<select id="inquirySearchList" resultMap="inquiryResult">
 	<![CDATA[
 			
 			select * from inquiry where memId=#{memId} and inquiryDate between #{search1} and DATE_ADD(#{search2}, interval 1 day) order by inquiryNum desc
@@ -133,8 +149,9 @@
 
 	]]>
 	</select>
-	
-	<select id="inquirySearchCount" resultType="int" parameterType="java.util.Map">
+
+	<select id="inquirySearchCount" resultType="int"
+		parameterType="java.util.Map">
 	<![CDATA[
 			
 			select count(*) from inquiry where memId=#{memId} and inquiryDate between #{search1} and  DATE_ADD(#{search2}, interval 1 day);
@@ -142,15 +159,15 @@
 
 	]]>
 	</select>
-	
+
 	<insert id="insertNewInquiry" parameterType="java.util.Map">
 		<![CDATA[
 			insert into inquiry(memId,inquiryNum, inquiryType,inquiryTitle, inquiryContent, inquiryFile)
 			values(#{memId},#{inquiryNum}, #{inquiryType}, #{inquiryTitle}, #{inquiryContent}, #{inquiryFile});
 		]]>
-		
+
 	</insert>
-	
+
 	<select id="selectNewInquiryNum" resultType="int">
 	<![CDATA[
 			
@@ -159,8 +176,9 @@
 
 	]]>
 	</select>
-	
-	<select id="selectInquiry" resultType="articleVO" parameterType="int"> 
+
+	<select id="selectInquiry" resultType="articleVO"
+		parameterType="int"> 
 	<![CDATA[
 			
 			select * from inquiry
@@ -169,8 +187,9 @@
 
 	]]>
 	</select>
-	
-		<select id="selectInquiry1" resultType="articleVO" parameterType="int"> 
+
+	<select id="selectInquiry1" resultType="articleVO"
+		parameterType="int"> 
 	<![CDATA[
 			
 			select * from inquiry
@@ -179,27 +198,57 @@
 
 	]]>
 	</select>
-	 
-	<update id="updateInquiry"  parameterType="java.util.Map">
-			update inquiry
-			set inquiryTitle = #{inquiryTitle},	 
-			inquiryContent = #{inquiryContent}
-			 <if test="inquiryFile!='' and inquiryFile!=null">
-			  , inquiryFile=#{inquiryFile}
-			</if>
-			where inquiryNum=#{inquiryNum}
+
+	<update id="updateInquiry" parameterType="java.util.Map">
+		update inquiry
+		set inquiryTitle = #{inquiryTitle},
+		inquiryContent =
+		#{inquiryContent}
+		<if test="inquiryFile!='' and inquiryFile!=null">
+			, inquiryFile=#{inquiryFile}
+		</if>
+		where inquiryNum=#{inquiryNum}
 	</update>
-		 
-	<update id="deleteInquiry"  parameterType="java.util.Map">
-	
-			delete from inquiry where inquiryNum=#{inquiryNum};
+
+	<update id="deleteInquiry" parameterType="java.util.Map">
+
+		delete from inquiry
+		where inquiryNum=#{inquiryNum};
+
+	</update>
+
+	<!-- AS센터 -->
+	<select id="selectAllAsCenterList" resultMap="asCenterResult">
+	<![CDATA[
 			
-	</update>
-	
-	
+			select asCenterTitle , asCenterContent, asCenterDate, asCenterStatus, m.memName from member as m right join asCenter as a on m.memId=a.memId order by asCenterNum desc
+			limit #{pageStart}, #{perPageNum};
+			
 
-	
+	]]>
+	</select>
 
-	
+	<select id="selectAsCenterCount" resultType="int"
+		parameterType="int">
+	<![CDATA[
+			
+			select count(*) from asCenter;
+			
+
+	]]>
+	</select>
+
+	<select id="selectAsCenter" resultType="articleVO"
+		parameterType="int"> 
+	<![CDATA[
+			
+			select * from asCenter
+			where asCenterNum = #{asCenterNum}
+			
+
+	]]>
+	</select>
+
+
 
 </mapper>

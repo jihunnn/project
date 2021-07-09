@@ -311,7 +311,7 @@ $('document').ready(function() {
                                </div>
                                <div style="padding-left: 58px;"> 
                                    <label><a style="color: red; padding-right: 5px; write-space: nowrap;">*</a>상품상세이미지</label>
-                                        <input type="text" name="productContentImage" value="">
+                                        <input type="file" name="productImage1" size=40 value="">
                                </div>
                                <div style="padding-left: 109px;"> 
                                    <label>상품옵션2</label>
