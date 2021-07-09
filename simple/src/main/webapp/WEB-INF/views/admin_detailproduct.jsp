@@ -241,7 +241,7 @@ function modProduct(obj) {
 						<img
 							src="${contextPath}/resources/images/product/sopiaDetiles.jpg"
 							style="width: 1200px; margin-left: -180px;"> <img
-							src="${contextPath}/resources/images/product/sopiaDetiles2.jpg">
+							src="${contextPath}/download_product1.do?productNum=${product.productNum}&productContentImage=${product.productContentImage}">
 					</div>		
 
 					</div>

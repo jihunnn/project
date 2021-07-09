@@ -84,8 +84,8 @@
 				style="background-color: #f5f5f5; border: 1px solid #e7e7e7; margin-top: 20px;">
 				<div class="col-md-20 heading-section ftco-animate"
 					style="height: 60px;">
-					<h2 class="mb-4" style="font-size: 35px; margin-top: 15px;">침ㅤㅤ
-						대</h2>
+					<h2 class="mb-4" style="font-size: 35px; margin-top: 15px;">테이블/책상/책장ㅤ
+						</h2>
 				</div>
 			</div>
 
@@ -118,24 +118,24 @@
 			<div class="btn-group btn-group-justified" role="group"
 				aria-label="..." style="margin-bottom: 30px; margin-top: 10px;">
 				<div class="btn-group" role="group">
-					<button type="button" class="btn btn-default" onclick = "location.href ='${contextPath}/product/listProduct.do?sort=침대&subsort=싱글'"
-						style="font-size: 25px; border: none; color: #5a5a5a; padding-right: 210px; background-color: white; margin-left: 10px;">*싱글</button>
+					<button type="button" class="btn btn-default" onclick = "location.href = '${contextPath}/product/listProduct_detail.do?sort=화장대/옷장/수납&subsort=코너'"
+						style="font-size: 25px; border: none; color: #5a5a5a; padding-right: 210px; background-color: white; margin-left: 10px;">*소파테이블</button>
 				</div>
 				<div class="btn-group" role="group">
-					<button type="button" class="btn btn-default" onclick = "location.href ='${contextPath}/product/listProduct.do?sort=침대&subsort=킹'"
-						style="font-size: 25px; border: none; color: #5a5a5a; padding-right: 210px; background-color: white;">*킹</button>
+					<button type="button" class="btn btn-default"
+						style="font-size: 25px; border: none; color: #5a5a5a; padding-right: 210px; background-color: white;">*좌식테이블</button>
 				</div>
 				<div class="btn-group" role="group">
-					<button type="button" class="btn btn-default" onclick = "location.href ='${contextPath}/product/listProduct.do?sort=침대&subsort=이층침대'"
-						style="font-size: 25px; border: none; color: #5a5a5a; padding-right: 210px; background-color: white;">*이층침대</button>
+					<button type="button" class="btn btn-default"
+						style="font-size: 25px; border: none; color: #5a5a5a; padding-right: 210px; background-color: white;">*원목테이블</button>
 				</div>
 				<div class="btn-group" role="group">
-					<button type="button" class="btn btn-default" onclick = "location.href ='${contextPath}/product/listProduct.do?sort=침대&subsort=패밀리'"
-						style="font-size: 25px; border: none; color: #5a5a5a; padding-right: 210px; background-color: white;">*패밀리</button>
+					<button type="button" class="btn btn-default"
+						style="font-size: 25px; border: none; color: #5a5a5a; padding-right: 210px; background-color: white;">*다용도테이블</button>
 				</div>
 				<div class="btn-group" role="group">
-					<button type="button" class="btn btn-default" onclick = "location.href ='${contextPath}/product/listProduct.do?sort=침대&subsort=퀸'"
-						style="font-size: 25px; border: none; color: #5a5a5a; background-color: white;">*퀸</button>
+					<button type="button" class="btn btn-default"
+						style="font-size: 25px; border: none; color: #5a5a5a; background-color: white;">*책상/책장</button>
 				</div>
 			</div>
 

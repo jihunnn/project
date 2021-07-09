@@ -12,7 +12,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springfr
 	<value>/WEB-INF/config/jdbc/jdbc.properties</value>
 	</property>
 	</bean>
-	
+
  		
 	<bean id="sqlSession"
 		class="org.mybatis.spring.SqlSessionTemplate">

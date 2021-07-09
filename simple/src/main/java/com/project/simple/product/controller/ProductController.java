@@ -13,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.project.simple.product.vo.ProductVO;
 
 public interface ProductController {
-	public ModelAndView listProduct(@RequestParam("sort") String sort, HttpServletRequest request, HttpServletResponse response)throws Exception;
+	public ModelAndView listProduct(@RequestParam("sort") String sort, @RequestParam("subsort") String subsort, HttpServletRequest request, HttpServletResponse response)throws Exception;
 	public ModelAndView admin_listProduct(HttpServletRequest request, HttpServletResponse response) throws Exception;
 	
 	public ResponseEntity removeProduct(@RequestParam("productNum") String productNum, HttpServletRequest request, HttpServletResponse response)

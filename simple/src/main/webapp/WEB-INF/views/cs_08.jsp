@@ -169,7 +169,7 @@
 									<td style="width: 100px; color: black;">${num}</td>
 									<td
 										style="width: 500px; color: black; text-align: left; padding-left: 50px;"><a
-										style="color: black;" href="${contextPath}/board/viewAscenter.do?asCenterNum=${asCenter.asCenterNum}">${asCenter.asCenterTitle}</a></td>
+										style="color: black;" href="${contextPath}/board/pwdConfirm.do?asCenterNum=${asCenter.asCenterNum}">${asCenter.asCenterTitle}</a></td>
 									<td style="width: 200px; color: black;">${asCenter.memName}</td>
 									<td style="width: 200px; color: black;"><fmt:formatDate
 											value="${asCenter.asCenterDate}" /></td>

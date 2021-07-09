@@ -11,9 +11,29 @@
 		<put-attribute name="side" value="/WEB-INF/views/common/side.jsp" />
 	</definition>
 	
-	<definition name="product/listProduct" extends="baseLayout">
+	<definition name="product/listProduct_bed" extends="baseLayout">
 		<put-attribute name="title" value="상품목록" />
 		<put-attribute name="body" value="/WEB-INF/views/product_01.jsp" />
+	</definition>
+	
+	<definition name="product/listProduct_sofa" extends="baseLayout">
+		<put-attribute name="title" value="상품목록" />
+		<put-attribute name="body" value="/WEB-INF/views/product_03.jsp" />
+	</definition>
+	
+	<definition name="product/listProduct_wardrobe" extends="baseLayout">
+		<put-attribute name="title" value="상품목록" />
+		<put-attribute name="body" value="/WEB-INF/views/product_04.jsp" />
+	</definition>
+	
+	<definition name="product/listProduct_table01" extends="baseLayout">
+		<put-attribute name="title" value="상품목록" />
+		<put-attribute name="body" value="/WEB-INF/views/product_05.jsp" />
+	</definition>
+	
+	<definition name="product/listProduct_table02" extends="baseLayout">
+		<put-attribute name="title" value="상품목록" />
+		<put-attribute name="body" value="/WEB-INF/views/product_06.jsp" />
 	</definition>
 	
 	<definition name="product/viewProduct" extends="baseLayout">

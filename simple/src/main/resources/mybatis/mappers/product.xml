@@ -21,10 +21,18 @@
 
 
 	<!-- 상품 조회 -->
-	<select id="selectAllProductList" resultMap="proResult" parameterType="String">
-	<![CDATA[
-		select * from product where category = #{sort};
-	]]>
+
+	<select id="selectAllProductList" resultMap="proResult"
+		parameterType="java.util.Map">
+	
+		<if test='subsort == "x"'>
+			select * from product where category = #{sort}
+		</if>
+		<if test='subsort != "x"'>
+			select * from product where category = #{sort} and subCategory = #{subsort}
+		</if>
+		
+
 	</select>
 	
 	
@@ -40,11 +48,14 @@
 	<!-- 상품추가 -->
 	<insert id="insertProduct"  parameterType="java.util.Map">
 		<![CDATA[ 
-			insert into simple.product(productNum, productName, productPrice, category, subcategory, productImage,productManufacturer,productOrigin) 
-			values(#{productNum},#{productName},#{productPrice},#{category},#{subcategory},#{productImage},#{productManufacturer},#{productOrigin})
+			insert into simple.product(productNum, productName, productPrice, category, subcategory, productImage,productManufacturer,productOrigin,productContentImage) 
+			values(#{productNum},#{productName},#{productPrice},#{category},#{subcategory},#{productImage},#{productManufacturer},#{productOrigin},#{productContentImage})
 		
-		]]>
+		]]>	
 	</insert>
+	
+	
+	
 	<!-- 상품수정 -->
 			<!-- into simple.productoption(productNum, option1, option2) 
 			values(#{productNum},#{option1},#{option2})
@@ -61,7 +72,7 @@
 			productManufacturer = #{productManufacturer},
 			productOrigin =#{productOrigin}
 			 <if test="productImage!='' and productImage!=null">
-			  , productImage=#{productImage}
+			  , productImage=#{productImage},productContentImage=#{productContentImage},
 			</if>
 			where productNum=#{productNum}
 	</update>

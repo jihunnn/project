@@ -442,6 +442,7 @@ public class BoardControllerImpl implements BoardController {
 		
 		ModelAndView mav = new ModelAndView();
 
+
 		
 		String viewName = (String) request.getAttribute("viewName");
 		mav.setViewName(viewName);	
@@ -452,13 +453,24 @@ public class BoardControllerImpl implements BoardController {
 	}
 	
 	//AS 센터 비밀번호 체크
-	public boolean pwdConfirm(String asCenterPwd, String asCenterPwdConfirm) {
-		if(asCenterPwd == asCenterPwdConfirm) {
-			return true;
-		}
-		return false;
+	@RequestMapping(value = "/board/pwdConfirm.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView pwdConfirm(@RequestParam("asCenterNum") int asCenterNum, @RequestParam("asCenterPwd") String asCenterPwd, @RequestParam("asCenterPwdConfirm") String asCenterPwdConfirm, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		
+		ModelAndView mav = new ModelAndView();
+
+
+		HttpSession session = request.getSession();
+
+		
+		session.setAttribute("asCenterNum", asCenterNum);
+		session.setAttribute("asCenterPwd", asCenterPwd);
+		session.setAttribute("asCenterPwdConfirm",asCenterPwdConfirm);
+		
+		mav.setViewName("redirect:/viewAsCenter.do");
+		
+		return mav;
 	}
-	
 
 
 	

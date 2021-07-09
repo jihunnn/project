@@ -26,13 +26,11 @@
 	<insert id="insertMember" parameterType="memberVO">
 		<![CDATA[ 
 
-<<<<<<< HEAD
-			insert into simple.member(memId, memName, memPwd, memEmail, memPhoneNum, memAdr) 
-			values(#{memId},#{memName},#{memPwd},(select concat_ws('@',#{memEmail},#{memEmail1})),(select concat_ws('-',#{memPhoneNum},#{memPhoneNum1},#{memPhoneNum2})),(select concat_ws(',',#{memAdr},#{memAdr1},#{memAdr2})));
-=======
+
+
 			insert into simple.member(memId, memName, memPwd, memEmail, memPhoneNum, memAdr, logintype) 
 			values(#{memId},#{memName},#{memPwd},(select concat_ws('@',#{memEmail},#{memEmail1})),(select concat_ws('-',#{memPhoneNum},#{memPhoneNum1},#{memPhoneNum2})),(select concat_ws('-',#{memAdr},#{memAdr1},#{memAdr2})),"일반");
->>>>>>> branch 'master' of http://github.com/jihunnn/project.git
+
 		]]>
 	</insert>
 

@@ -1,11 +1,13 @@
 package com.project.simple.product.controller;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import net.sf.json.JSONObject;
 
@@ -36,17 +38,13 @@ import com.project.simple.product.vo.ProductVO;
 
 @Controller("productController")
 
-public class ProductControllerImpl implements ProductController{
+public class ProductControllerImpl implements ProductController {
 	private static final String ARTICLE_IMAGE_REPO = "C:\\spring\\product_image";
 	@Autowired
 	private ProductService productService;
 	@Autowired
 	private ProductVO productVO;
 	private static final Logger logger = LoggerFactory.getLogger(ProductControllerImpl.class);
-
-	
-
-
 
 	@Override //상품등록하기
 	@RequestMapping(value="product/addProduct.do", method=RequestMethod.POST)
@@ -59,29 +57,50 @@ public class ProductControllerImpl implements ProductController{
 			String name = (String) enu.nextElement();
 			String value = multipartRequest.getParameter(name);
 			productMap.put(name, value);
-			System.out.println(name);
+
+
+
+
+
 
 		}
 
-		String productImage = upload(multipartRequest);
+		List<String> productImage1 = upload(multipartRequest);
+		String productImage = productImage1.get(0).toString();
+		String productContentImage = productImage1.get(1).toString();
+		productMap.put("productImage", productImage);
+		productMap.put("productContentImage", productContentImage);
+		System.out.println(productMap);
 		//HttpSession session = multipartRequest.getSession();
 		//MemberVO memberVO = (MemberVO) session.getAttribute("member");
 		//String memId = memberVO.getmemId();
 		
 		//inquiryMap.put("memId", memId);
-		productMap.put("productImage", productImage);
+
 		String productNum = (String) productMap.get("productNum");
-		
+
+
 		String message;
 		ResponseEntity resEnt = null;
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
 		try {
-			productService.addProduct(productMap);
-			if (productImage != null && productImage.length() != 0) {
-				File srcFile = new File(ARTICLE_IMAGE_REPO + "\\" + "temp" + "\\" + productImage);
-				File destDir = new File(ARTICLE_IMAGE_REPO + "\\" + productNum);
-				FileUtils.moveFileToDirectory(srcFile, destDir, true);
+
+			if (productImage1 != null && productImage1.size() != 0) {
+				Iterator<String> it = productImage1.iterator();
+				while(it.hasNext()) {
+					String productImg =it.next();
+					File srcFile = new File(ARTICLE_IMAGE_REPO + "\\" + "temp" + "\\" + productImg);
+					File destDir = new File(ARTICLE_IMAGE_REPO + "\\" + productNum);
+					FileUtils.moveFileToDirectory(srcFile, destDir, true);
+					
+			
+				}
+
+			productService.addProduct(productMap);	
+			
+			
+
 			}
 
 			message = "<script>";
@@ -91,8 +110,14 @@ public class ProductControllerImpl implements ProductController{
 			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
 
 		} catch (Exception e) {
-			File srcFile = new File(ARTICLE_IMAGE_REPO + "\\" + "temp" + "\\" + productImage);
-			srcFile.delete();
+			Iterator<String> it = productImage1.iterator();
+			while(it.hasNext()) {
+				String productImg =it.next();
+				File srcFile = new File(ARTICLE_IMAGE_REPO + "\\" + "temp" + "\\" + productImg);
+				srcFile.delete();
+			}
+
+			
 
 			message = "<script>";
 			message += " alert('오류가 발생했습니다. 다시 시도해주세요');";
@@ -103,11 +128,14 @@ public class ProductControllerImpl implements ProductController{
 		}
 		return resEnt;
 	}
-	private String upload(MultipartHttpServletRequest multipartRequest) throws Exception {
+
+	private List<String> upload(MultipartHttpServletRequest multipartRequest) throws Exception {
 		String productImage = null;
+		List<String> product = new ArrayList<String>();
 		Iterator<String> fileNames = multipartRequest.getFileNames();
 		while (fileNames.hasNext()) {
 			String fileName = fileNames.next();
+
 			MultipartFile mFile = multipartRequest.getFile(fileName);
 			productImage = mFile.getOriginalFilename();
 			File file = new File(ARTICLE_IMAGE_REPO + "\\" + "temp" + "\\" + fileName);
@@ -115,225 +143,272 @@ public class ProductControllerImpl implements ProductController{
 				if (!file.exists()) {
 					file.getParentFile().mkdirs();
 					mFile.transferTo(new File(ARTICLE_IMAGE_REPO + "\\" + "temp" + "\\" + productImage));// 임시로 저장되 multipartFile을 실제 파일로 전송
+					product.add(productImage);
 																							
 				}
 					
 				
 			}
 		}
-		return productImage;
+		return product;
 
 	}
-	//상품추가뷰
+
+	// 상품추가뷰
 	@RequestMapping(value = "product/add_product.do", method = RequestMethod.GET)
-	private ModelAndView add_product(HttpServletRequest request, HttpServletResponse response)  {
-		String viewName = (String)request.getAttribute("viewName");
+	private ModelAndView add_product(HttpServletRequest request, HttpServletResponse response) {
+		String viewName = (String) request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(viewName);
 		return mav;
 	}
-	
 
-	@Override //상품목록 조회
-	@RequestMapping(value="product/listProduct.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView listProduct(@RequestParam("sort") String sort, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println(sort);
-		String viewName = (String)request.getAttribute("viewName");
-		List<ProductVO> productList = productService.listProduct(sort);
-		ModelAndView mav = new ModelAndView(viewName);
-		mav.addObject("productList", productList);
+	@Override // 상품목록 조회
+	@RequestMapping(value = "product/listProduct.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView listProduct(@RequestParam("sort") String sort, @RequestParam("subsort") String subsort,
+			HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		Map<String, Object> ProductMap = new HashMap<String, Object>();
+
+		// -------------------------침대카테고리--------------------------------------
+		if ("침대".equals(sort)) {
+			if ("x".equals(subsort)) {
+				ProductMap.put("sort", sort);
+				ProductMap.put("subsort", subsort);
+				List<ProductVO> productList = productService.listProduct(ProductMap);
+				mav.addObject("productList", productList);
+				mav.setViewName("product/listProduct_bed");
+				return mav;
+			} else if (subsort != null) {
+				ProductMap.put("sort", sort);
+				ProductMap.put("subsort", subsort);
+				List<ProductVO> productList = productService.listProduct(ProductMap);
+				mav.addObject("productList", productList);
+				mav.setViewName("product/listProduct_bed");
+				return mav;
+			}
+
+			return mav;
+		}
+
+		// -------------------소파카테고리------------------------------------------------
+		if ("소파".equals(sort)) {
+			if ("x".equals(subsort)) {
+				ProductMap.put("sort", sort);
+				List<ProductVO> productList = productService.listProduct(ProductMap);
+				mav.addObject("productList", productList);
+				mav.setViewName("product/listProduct_sofa");
+				return mav;
+			}
+			if ("화장대/옷장/수납".equals(sort)) {
+				System.out.println(sort);
+				List<ProductVO> productList = productService.listProduct(ProductMap);
+				System.out.println("productList");
+				mav.addObject("productList", productList);
+				mav.setViewName("product/listProduct_wardrobe");
+				return mav;
+			}
+			if ("식탁/의자".equals(sort)) {
+				System.out.println(sort);
+				List<ProductVO> productList = productService.listProduct(ProductMap);
+				System.out.println("productList");
+				mav.addObject("productList", productList);
+				mav.setViewName("product/listProduct_table01");
+				return mav;
+			}
+			if ("테이블/책상/책장".equals(sort)) {
+				System.out.println(sort);
+				List<ProductVO> productList = productService.listProduct(ProductMap);
+				System.out.println("productList");
+				mav.addObject("productList", productList);
+				mav.setViewName("product/listProduct_table02");
+				return mav;
+			} else {
+				return mav;
+			}
+		}
 		return mav;
 	}
-	
-	//세부상품목록 조회
-	@RequestMapping(value="product/listProduct_detail.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public ModelAndView listProduct_detail(@RequestParam("sort") String sort, @RequestParam("subsort")String subsort, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println(sort);
-		System.out.println(subsort);
-		String viewName = (String)request.getAttribute("viewName");
-		List<ProductVO> productList = productService.listProduct(sort);
-		
-		ModelAndView mav = new ModelAndView(viewName);
-		mav.addObject("productList", productList);
-		return mav;
-	}
-	
 
-	
-	@Override //관리자 상품목록 조회
-	@RequestMapping(value="product/admin_listProduct.do", method = {RequestMethod.GET, RequestMethod.POST})
+	@Override // 관리자 상품목록 조회
+	@RequestMapping(value = "product/admin_listProduct.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView admin_listProduct(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String viewName = (String)request.getAttribute("viewName");
+		String viewName = (String) request.getAttribute("viewName");
 		List<ProductVO> admin_productList = productService.admin_listProduct();
 		ModelAndView mav = new ModelAndView(viewName);
 		mav.addObject("admin_productList", admin_productList);
 		return mav;
 	}
-	
-	//수정화면
-	@RequestMapping(value = "/product/modProduct.do", method = {RequestMethod.GET, RequestMethod.POST})
+
+	// 수정화면
+	@RequestMapping(value = "/product/modProduct.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView productForm(@RequestParam("productNum") String productNum,
 			MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception {
-			System.out.println(productNum);
-			String viewName = (String) multipartRequest.getAttribute("viewName");
-			productVO = productService.productForm(productNum);
-			ModelAndView mav = new ModelAndView();
-			mav.setViewName(viewName);
-			mav.addObject("productNum", productVO);
-			System.out.println(productVO);
-			return mav;
-		}
-	@RequestMapping(value="/product/modNewProduct.do",method = {RequestMethod.GET, RequestMethod.POST})
+
+		String viewName = (String) multipartRequest.getAttribute("viewName");
+		productVO = productService.productForm(productNum);
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName(viewName);
+		mav.addObject("productNum", productVO);
+
+		return mav;
+	}
+
+	/*
+	@RequestMapping(value = "/product/modNewProduct.do", method = { RequestMethod.GET, RequestMethod.POST })
 	@ResponseBody
-	public ResponseEntity modProduct(MultipartHttpServletRequest multipartRequest,
-			HttpServletResponse response)throws Exception{
+	public ResponseEntity modProduct(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)
+			throws Exception {
 		multipartRequest.setCharacterEncoding("utf-8");
 		Map<String, Object> productMap = new HashMap<String, Object>();
 		Enumeration enu = multipartRequest.getParameterNames();
-		while(enu.hasMoreElements()) {
-			String name=(String)enu.nextElement();
-			String value=multipartRequest.getParameter(name);
+		while (enu.hasMoreElements()) {
+			String name = (String) enu.nextElement();
+			String value = multipartRequest.getParameter(name);
 			productMap.put(name, value);
-		
+
 		}
+		
 		String productImage = upload(multipartRequest);
 		productMap.put("productImage", productImage);
-	
-		
-		String productNum = (String)productMap.get("productNum");
-		productMap.put("productNum", productNum);
 
+		String productNum = (String) productMap.get("productNum");
+		productMap.put("productNum", productNum);
 
 		String message;
 		ResponseEntity resEnt = null;
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
-		try {		
-			System.out.println(productMap);
+		try {
+
 			productService.modProduct(productMap);
-		
-			if(productImage!= null && productImage.length()!=0) {
-				String OrignProductImage = (String)productMap.get("OrignProductImage");
-				System.out.println(OrignProductImage);
-				File oldFile = new File(ARTICLE_IMAGE_REPO+ "\\"+ productNum+"\\"+OrignProductImage);
+
+			if (productImage != null && productImage.length() != 0) {
+				String OrignProductImage = (String) productMap.get("OrignProductImage");
+
+				File oldFile = new File(ARTICLE_IMAGE_REPO + "\\" + productNum + "\\" + OrignProductImage);
 				oldFile.delete();
-				
-				File srcFile = new File(ARTICLE_IMAGE_REPO + "\\" +"temp"+"\\"+productImage);
-				File destDir = new File(ARTICLE_IMAGE_REPO+"\\"+productNum);
+
+				File srcFile = new File(ARTICLE_IMAGE_REPO + "\\" + "temp" + "\\" + productImage);
+				File destDir = new File(ARTICLE_IMAGE_REPO + "\\" + productNum);
 				FileUtils.moveFileToDirectory(srcFile, destDir, true);
-				
-				
+
 			}
-			message ="<script>";
+			message = "<script>";
 			message += "alert('상품을 수정했습니다.');";
-			message += "location.href='"+multipartRequest.getContextPath()+"/product/admin_detailproduct.do?productNum="+ productNum + "';";
+			message += "location.href='" + multipartRequest.getContextPath()
+					+ "/product/admin_detailproduct.do?productNum=" + productNum + "';";
 			message += "</script>";
-			resEnt = new ResponseEntity(message, responseHeaders,HttpStatus.CREATED);
-			} catch (Exception e) {
-				File srcFile = new File(ARTICLE_IMAGE_REPO +"\\"+"temp"+"\\"+productImage);
-				srcFile.delete();
-				message ="<script>";
-				message += "alert('오류가 발생했습니다. 다시 수정해주세요');";
-				message += "location.href='"+multipartRequest.getContextPath()+"/product/admin_detailproduct.do?productNum="+productNum+"';";
-				message += "</script>";
-				resEnt = new ResponseEntity(message, responseHeaders,HttpStatus.CREATED);
-			}
-		return resEnt;
+			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
+		} catch (Exception e) {
+			File srcFile = new File(ARTICLE_IMAGE_REPO + "\\" + "temp" + "\\" + productImage);
+			srcFile.delete();
+			message = "<script>";
+			message += "alert('오류가 발생했습니다. 다시 수정해주세요');";
+			message += "location.href='" + multipartRequest.getContextPath()
+					+ "/product/admin_detailproduct.do?productNum=" + productNum + "';";
+			message += "</script>";
+			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
 		}
-	
+		return resEnt;
+	}
+	*/
+
 	@Override
-	@RequestMapping(value="/product/removeProduct.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/product/removeProduct.do", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity removeProduct(@RequestParam("productNum") String productNum, HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
+	public ResponseEntity removeProduct(@RequestParam("productNum") String productNum, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
 		response.setContentType("text/html; charset=UTF-8");
 		String message;
-		ResponseEntity resEnt=null;
+		ResponseEntity resEnt = null;
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
 		try {
 			productService.removeProduct(productNum);
-			File destDir = new File(ARTICLE_IMAGE_REPO+"\\" + productNum);
+			File destDir = new File(ARTICLE_IMAGE_REPO + "\\" + productNum);
 			FileUtils.deleteDirectory(destDir);
-			
+
 			message = "<script>";
-			message+= " alert('상품을 삭제했습니다.');";
+			message += " alert('상품을 삭제했습니다.');";
 			message += "  location.href='" + request.getContextPath() + "/product/admin_listProduct.do';";
 			message += " </script>";
-			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);	
-			
-		}catch(Exception e) {
-				
+			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
+
+		} catch (Exception e) {
+
 			message = "<script>";
-			message+= " alert('오류가 발생했습니다. 다시 시도해주세요');";
+			message += " alert('오류가 발생했습니다. 다시 시도해주세요');";
 			message += "  location.href='" + request.getContextPath() + "/product/admin_listProduct.do';";
 			message += " </script>";
 			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
 			e.printStackTrace();
-			}
+		}
 		return resEnt;
 	}
 
+	@RequestMapping(value = "/product/viewProduct.do", method = RequestMethod.GET)
+	public ModelAndView viewProduct(@RequestParam("productNum") String productNum, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		String viewName = (String) request.getAttribute("viewName");
+		productVO = productService.viewProduct(productNum);
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName(viewName);
+		mav.addObject("product", productVO);
 
-	@RequestMapping(value="/product/viewProduct.do", method=RequestMethod.GET)
-	public ModelAndView viewProduct(@RequestParam("productNum") String productNum, HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
-		String viewName = (String)request.getAttribute("viewName");
+		return mav;
+
+	}
+
+	@RequestMapping(value = "product/admin_detailproduct.do", method = RequestMethod.GET)
+	public ModelAndView admin_detailproduct(@RequestParam("productNum") String productNum, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		String viewName = (String) request.getAttribute("viewName");
 		productVO = productService.viewProduct(productNum);
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(viewName);
 		mav.addObject("product", productVO);
-		System.out.println(productVO);
-		return mav;
-		
-	}
-	
-	@RequestMapping(value="product/admin_detailproduct.do", method = RequestMethod.GET)
-	public ModelAndView admin_detailproduct(@RequestParam("productNum") String productNum, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String viewName = (String)request.getAttribute("viewName");
-		productVO = productService.viewProduct(productNum);
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName(viewName);
-		mav.addObject("product", productVO);
-		System.out.println(productVO);
+
 		return mav;
 	}
-	
-	//키워드 검색
-	@RequestMapping(value="/keywordSearch.do",method = RequestMethod.GET,produces = "application/text; charset=utf8")//브라우저로 전송하는 json데이터의 한글 인코딩을 지정
-	public @ResponseBody String  keywordSearch(@RequestParam("keyword") String keyword,//검색할 키워드 가져옴
-			                                  HttpServletRequest request, HttpServletResponse response) throws Exception{
+
+	// 키워드 검색
+	@RequestMapping(value = "/keywordSearch.do", method = RequestMethod.GET, produces = "application/text; charset=utf8") // 브라우저로
+																															// 전송하는
+																															// json데이터의
+																															// 한글
+																															// 인코딩을
+																															// 지정
+	public @ResponseBody String keywordSearch(@RequestParam("keyword") String keyword, // 검색할 키워드 가져옴
+			HttpServletRequest request, HttpServletResponse response) throws Exception {
 		response.setContentType("text/html;charset=utf-8");
 		response.setCharacterEncoding("utf-8");
-		//System.out.println(keyword);
-		if(keyword == null || keyword.equals(""))
-		   return null ;
-	
+		// System.out.println(keyword);
+		if (keyword == null || keyword.equals(""))
+			return null;
+
 		keyword = keyword.toUpperCase();
-	    List<String> keywordList =productService.keywordSearch(keyword);// 가져온 키워드가 포함된 상품 제목 조회
-	    
-	    // 최종 완성될 JSONObject 선언(전체)
+		List<String> keywordList = productService.keywordSearch(keyword);// 가져온 키워드가 포함된 상품 제목 조회
+
+		// 최종 완성될 JSONObject 선언(전체)
 		JSONObject jsonObject = new JSONObject();
-		jsonObject.put("keyword", keywordList); //조회한 데이터를 json에 저장
-		 		
-	    String jsonInfo = jsonObject.toString(); //json을 문자열로 변환한 후 브라우저로 출력
-	    //System.out.println(jsonInfo);
-	    return jsonInfo ;
+		jsonObject.put("keyword", keywordList); // 조회한 데이터를 json에 저장
+
+		String jsonInfo = jsonObject.toString(); // json을 문자열로 변환한 후 브라우저로 출력
+		// System.out.println(jsonInfo);
+		return jsonInfo;
 	}
-	
-	@RequestMapping(value="/searchProduct.do" ,method = RequestMethod.GET)
-	public ModelAndView searchProduct(@RequestParam("searchWord") String searchWord,
-			                       HttpServletRequest request, HttpServletResponse response) throws Exception{
-		String viewName=(String)request.getAttribute("viewName");
-		List<ProductVO> productList=productService.searchProduct(searchWord); // 검색창에서 가져온 단어가 포함된 상품 제목을 조회
-		
+
+	@RequestMapping(value = "/searchProduct.do", method = RequestMethod.GET)
+	public ModelAndView searchProduct(@RequestParam("searchWord") String searchWord, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		String viewName = (String) request.getAttribute("viewName");
+		List<ProductVO> productList = productService.searchProduct(searchWord); // 검색창에서 가져온 단어가 포함된 상품 제목을 조회
+
 		ModelAndView mav = new ModelAndView(viewName);
 		mav.addObject("productList", productList);
 		return mav;
-		
-	}
 
-	
-	
+	}
 
 }

@@ -80,7 +80,6 @@ function removeInquiry(obj) {
 				<thead class="table-dark" align=center>
 					<tr style="border-bottom: 1px solid grey; height: 30px;">
 						<td><a>${inquiry.inquiryTitle}</a></td>
-						<td><a>${inquiry.inquiryNum}</a></td>
 					</tr>	
 
 					
