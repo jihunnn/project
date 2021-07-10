@@ -92,12 +92,12 @@ public class BoardServiceImpl implements BoardService{
 
 		inquirySearchMap.put("inquirySearchList", inquirySearchList);
 		
-		System.out.println(inquirySearchMap);
+
 		return inquirySearchMap;
 	}
 
 	public int inquirySearchCount(Map<String, Object> search) throws Exception{
-		System.out.println(search);
+
 		int inquirySearchCount = boardDAO.inquirySeachCount(search);
 		return inquirySearchCount;
 	}
@@ -146,6 +146,7 @@ public class BoardServiceImpl implements BoardService{
 
 	@Override
 	public ArticleVO viewAsCenter(int asCenterNum) throws Exception {
+		System.out.println(asCenterNum);
 		ArticleVO articleVO = boardDAO.selectAsCenter(asCenterNum);
 		return articleVO;
 	}

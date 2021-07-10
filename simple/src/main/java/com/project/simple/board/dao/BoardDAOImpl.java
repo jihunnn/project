@@ -29,7 +29,7 @@ public class BoardDAOImpl implements BoardDAO{
 	@Override
 	public int selectNoticeCount() throws DataAccessException {
 		int noticeCount = sqlSession.selectOne("mapper.board.selectNoticeCount");
-		System.out.println(noticeCount);
+
 		return noticeCount;
 	}
 	
@@ -68,7 +68,7 @@ public class BoardDAOImpl implements BoardDAO{
 	public List<ArticleVO> selectInquiryList(Map<String ,Object> inquiryMap) throws DataAccessException {
 		List<ArticleVO> inquiryList =sqlSession.selectList("mapper.board.selectAllInquiryList",inquiryMap);		
 
-		System.out.println(inquiryList);
+
 		return inquiryList;
 	}
 	
@@ -80,7 +80,7 @@ public class BoardDAOImpl implements BoardDAO{
 	
 	@Override
 	public List<ArticleVO> inquirySearchList(Map<String ,Object> inquirySearchMap) throws DataAccessException {
-		System.out.println(inquirySearchMap);
+
 		List<ArticleVO> inquirySearchList =sqlSession.selectList("mapper.board.inquirySearchList",inquirySearchMap);		
 		return inquirySearchList;
 	}
@@ -88,7 +88,7 @@ public class BoardDAOImpl implements BoardDAO{
 	@Override
 	public int inquirySeachCount(Map<String, Object> search) throws DataAccessException {
 		int inquirySearchCount = sqlSession.selectOne("mapper.board.inquirySearchCount",search);
-		System.out.println(inquirySearchCount);
+
 		return inquirySearchCount;
 	}
 	
@@ -136,12 +136,13 @@ public class BoardDAOImpl implements BoardDAO{
 	@Override
 	public int selectAsCenterCount() throws DataAccessException {
 		int asCenterCount = sqlSession.selectOne("mapper.board.selectAsCenterCount");
-		System.out.println(asCenterCount);
+
 		return asCenterCount;
 	}
 	
 	@Override
 	public ArticleVO selectAsCenter(int asCenterNum) throws DataAccessException {
-		return sqlSession.selectOne("mapper.board.selectNotice", asCenterNum);
+
+		return sqlSession.selectOne("mapper.board.selectAsCenter", asCenterNum);
 	}
 }	

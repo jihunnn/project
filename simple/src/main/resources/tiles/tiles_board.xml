@@ -80,7 +80,7 @@
 			value="/WEB-INF/views/cs_11.jsp" />
 	</definition>
 	
-	<definition name="board/pwdConfirmForm" extends="baseLayout">
+	<definition name="board/pwdConfirm" extends="baseLayout">
 		<put-attribute name="title" value="AS센터 비밀번호 확인창" />
 		<put-attribute name="body"
 			value="/WEB-INF/views/cs_10.jsp" />

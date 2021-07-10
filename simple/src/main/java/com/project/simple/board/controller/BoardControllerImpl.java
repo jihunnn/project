@@ -57,7 +57,6 @@ public class BoardControllerImpl implements BoardController {
 		String viewName = (String) request.getAttribute("viewName");
 		List<ArticleVO> noticeList = boardService.listNotice(cri);
 		int noticeCount = boardService.noticeCount();
-		System.out.println(noticeCount);
 		ModelAndView mav = new ModelAndView(viewName);
 	    PageMaker pageMaker = new PageMaker();
 	    pageMaker.setCri(cri);
@@ -143,14 +142,12 @@ public class BoardControllerImpl implements BoardController {
 		inquiryMap.put("memId", memId);
 		inquiryMap.put("pageStart", pageStart);		
 		inquiryMap.put("perPageNum", perPageNum);
-		System.out.println(inquiryMap);
 		inquiryMap = boardService.listInquiry(inquiryMap);
 		int inquiryCount = boardService.inquiryCount(memId);
 	    PageMaker pageMaker = new PageMaker();
 	    pageMaker.setCri(cri);
 	    int pageNum = pageMaker.getCri().getPage();
 		inquiryMap.put("pageNum", pageNum);
-		System.out.println(pageNum);
 	    pageMaker.setTotalCount(inquiryCount);
 		session.setAttribute("inquiryMap", inquiryMap);
 		session.setAttribute("pageMaker", pageMaker);
@@ -161,8 +158,6 @@ public class BoardControllerImpl implements BoardController {
 	@Override
 	@RequestMapping(value = "/board/inquirySearch.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView inquirySearch(@RequestParam("search1") String search1 , @RequestParam("search2") String search2, Criteria cri, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println(search1);
-		System.out.println(search2);
 		String viewName = (String) request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
 		
@@ -180,14 +175,12 @@ public class BoardControllerImpl implements BoardController {
 		inquirySearchMap.put("search2", search2);
 		inquirySearchMap.put("memId", memId);
 		inquirySearchMap = boardService.inquirySearch(inquirySearchMap);
-	    System.out.println(inquirySearchMap);
 		int inquirySearchCount = boardService.inquirySearchCount(inquirySearchMap);
 	    PageMaker pageMaker = new PageMaker();
 	    pageMaker.setCri(cri);
 	    int pageNum = pageMaker.getCri().getPage();
 	    inquirySearchMap.put("pageNum", pageNum);
 	    pageMaker.setTotalCount(inquirySearchCount);
-	    System.out.println(inquirySearchMap);
 	    mav.addObject("inquirySearchMap", inquirySearchMap);
 	    session.setAttribute("pageMaker", pageMaker);
 	    session.setAttribute("pageNum", pageNum);
@@ -218,7 +211,6 @@ public class BoardControllerImpl implements BoardController {
 			String name = (String) enu.nextElement();
 			String value = multipartRequest.getParameter(name);
 			inquiryMap.put(name, value);
-			System.out.println(name);
 
 		}
 
@@ -229,7 +221,7 @@ public class BoardControllerImpl implements BoardController {
 		inquiryMap.put("inquiryNum", 0);
 		inquiryMap.put("memId", memId);
 		inquiryMap.put("inquiryFile", inquiryFile);
-		System.out.println(memId);
+
 		String message;
 		ResponseEntity resEnt = null;
 		HttpHeaders responseHeaders = new HttpHeaders();
@@ -267,7 +259,7 @@ public class BoardControllerImpl implements BoardController {
 		Iterator<String> fileNames = multipartRequest.getFileNames();
 		while (fileNames.hasNext()) {
 			String fileName = fileNames.next();
-			System.out.println(fileName);
+
 			MultipartFile mFile = multipartRequest.getFile(fileName);
 			inquiryFile = mFile.getOriginalFilename();
 			File file = new File(ARTICLE_IMAGE_REPO1 + "\\" + "temp" + "\\" + fileName);
@@ -310,13 +302,13 @@ public class BoardControllerImpl implements BoardController {
 	@RequestMapping(value = "/board/modInquiry.do", method = RequestMethod.POST)
 	public ModelAndView inquiryForm(@RequestParam("inquiryNum") int inquiryNum,
 			MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception {
-		System.out.println(inquiryNum);
+
 		String viewName = (String) multipartRequest.getAttribute("viewName");
 		articleVO = boardService.inquiryForm(inquiryNum);
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(viewName);
 		mav.addObject("inquiryNum", articleVO);
-		System.out.println(articleVO);
+
 		return mav;
 	}
 
@@ -331,16 +323,16 @@ public class BoardControllerImpl implements BoardController {
 			String name = (String) enu.nextElement();
 			String value = multipartRequest.getParameter(name);
 			inquiryMap.put(name, value);
-			System.out.println(name);
+
 
 		}
 
 		String inquiryFile = upload(multipartRequest);
 		inquiryMap.put("inquiryFile", inquiryFile);
-		System.out.println(inquiryFile);
+
 		String inquiryNum = (String) inquiryMap.get("inquiryNum");
 		inquiryMap.put("inquiryNum", inquiryNum);
-		System.out.println(inquiryNum);
+
 		String message;
 		ResponseEntity resEnt = null;
 		HttpHeaders responseHeaders = new HttpHeaders();
@@ -350,7 +342,7 @@ public class BoardControllerImpl implements BoardController {
 			boardService.modInquiry(inquiryMap);
 			if (inquiryFile != null && inquiryFile.length() != 0) {
 				String OrignInquiryFile = (String) inquiryMap.get("OrignInquiryFile");
-				System.out.println(OrignInquiryFile);
+
 				File oldFile = new File(ARTICLE_IMAGE_REPO1 + "\\" + inquiryNum + "\\" + OrignInquiryFile);
 				oldFile.delete();
 
@@ -419,7 +411,7 @@ public class BoardControllerImpl implements BoardController {
 		String viewName = (String) request.getAttribute("viewName");
 		List<ArticleVO> asCenterList = boardService.listAsCenter(cri);
 		int asCenterCount = boardService.asCenterCount();
-		System.out.println(asCenterCount);
+
 		ModelAndView mav = new ModelAndView(viewName);
 	    PageMaker pageMaker = new PageMaker();
 	    pageMaker.setCri(cri);
@@ -437,40 +429,43 @@ public class BoardControllerImpl implements BoardController {
 
 	
 	@RequestMapping(value = "/board/viewAsCenter.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView viewAsCenter(@RequestParam("asCenterNum") int asCenterNum, @RequestParam("asCenterPwd") String asCenterPwd, @RequestParam("asCenterPwdConfirm") String asCenterPwdConfirm, HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	public ModelAndView viewAsCenter(@RequestParam("asCenterNum") int asCenterNum, @RequestParam("asCenterPwdConfirm") String asCenterPwdConfirm, HttpServletRequest request,
+			HttpServletResponse response, RedirectAttributes redirectAttributes) throws Exception {
 		
 		ModelAndView mav = new ModelAndView();
-
-
-		
-		String viewName = (String) request.getAttribute("viewName");
-		mav.setViewName(viewName);	
 		articleVO = boardService.viewAsCenter(asCenterNum);
-		mav.addObject("asCenter", articleVO);
+		String asCenterPwd=articleVO.getAsCenterPwd();
+		System.out.println(asCenterPwdConfirm);
+		System.out.println(asCenterPwd);
+		
+		if(asCenterPwdConfirm.equals(asCenterPwd)) {
+		String viewName = (String) request.getAttribute("viewName");
+		mav.setViewName(viewName);
+		mav.addObject("asCenter", articleVO);}
+		else {
+			redirectAttributes.addAttribute("asCenterNum", asCenterNum);
+			mav.setViewName("redirect:/board/pwdConfirm.do");
+			}
 	
 		return mav;
 	}
 	
 	//AS 센터 비밀번호 체크
 	@RequestMapping(value = "/board/pwdConfirm.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView pwdConfirm(@RequestParam("asCenterNum") int asCenterNum, @RequestParam("asCenterPwd") String asCenterPwd, @RequestParam("asCenterPwdConfirm") String asCenterPwdConfirm, HttpServletRequest request,
+	public ModelAndView pwdConfirm(@RequestParam("asCenterNum") int asCenterNum,  HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
+
 		
-		ModelAndView mav = new ModelAndView();
-
-
+		ModelAndView mav = new ModelAndView();	
 		HttpSession session = request.getSession();
+		session.setAttribute("asCenterNum", asCenterNum);
 
 		
-		session.setAttribute("asCenterNum", asCenterNum);
-		session.setAttribute("asCenterPwd", asCenterPwd);
-		session.setAttribute("asCenterPwdConfirm",asCenterPwdConfirm);
-		
-		mav.setViewName("redirect:/viewAsCenter.do");
 		
 		return mav;
 	}
+	
+	
 
 
 	

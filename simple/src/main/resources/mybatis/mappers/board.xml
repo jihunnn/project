@@ -221,7 +221,7 @@
 	<select id="selectAllAsCenterList" resultMap="asCenterResult">
 	<![CDATA[
 			
-			select asCenterTitle , asCenterContent, asCenterDate, asCenterStatus, m.memName from member as m right join asCenter as a on m.memId=a.memId order by asCenterNum desc
+			select asCenterNum, asCenterPwd, asCenterTitle , asCenterContent, asCenterDate, asCenterStatus, m.memName from member as m right join asCenter as a on m.memId=a.memId order by asCenterNum desc
 			limit #{pageStart}, #{perPageNum};
 			
 

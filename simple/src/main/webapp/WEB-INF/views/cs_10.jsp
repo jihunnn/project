@@ -122,7 +122,7 @@
 			<!-- 최근 본 상품 끝 -->
 			<jsp:include page="/WEB-INF/views/common/csMenu.jsp" flush="false" />			
 			<!-- 내용 -->
-			<form action="${contextPath}/board/viewAsCenter.do" method="post">
+			<form action="${contextPath}/board/viewAsCenter.do?asCenterNum=${asCenterNum}" method="post">
 			<div>
 				<p style="padding-left: 500px; padding-top: 70px;">비밀번호를
 					입력해주세요^^</p>

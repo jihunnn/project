@@ -146,7 +146,7 @@
 					</tr>
 				</thead>
 			</table>
-			<button onClick="#" id="bottonmy" class="btn btn-dark"
+			<button onClick="location.href='${contextPath}/board/listAsCenter.do'" id="bottonmy" class="btn btn-dark"
 				style="float: left; margin-left: 580px; margin-top: 27px; border-radius: 2px; width: 80px; height: 30px; padding-top: 1.8px;">목록</button>
 			<button type="submit" id="bottonmy" class="btn btn-dark"
 				style="float: left; margin-left: 1100px; margin-top: -35px; border-radius: 2px; width: 80px; height: 30px; padding-top: 1.8px;">수정</button>
