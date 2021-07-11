@@ -8,9 +8,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-
-
+<script>
+    function asCenterForm() {
+        if (${isLogOn != true && member == null}) {
+            alert("로그인이 필요합니다.");
+            location.href = '${contextPath}/login_01.do';
+        } else {
+        	location.href='${contextPath}/board/asCenterForm.do'
+        }
+    }
+    
+    
+</script>
 
 <style>
 .page_wrap {
@@ -130,20 +139,20 @@
 			<!-- 최근 본 상품 -->
 			<jsp:include page="/WEB-INF/views/common/csMenu.jsp" flush="false" />
 			<!-- 내용 -->
-
+			<form name="asCenterSearch"
+				action="${contextPath}/board/asCenterSearch.do" method="post">
 			<div>
-				<select
+				<select name="searchType"
 					style="margin-left: 895px; float: left; width: 80px; height: 31px; border: 1px solid #b3b5b6;">
-					<option>제목</option>
-					<option>제목</option>
-					<option>작성자</option>
-					<option>내용</option>
+					<option value="asCenterTitle">제목</option>
+					<option value="memName">작성자</option>
+					<option value="asCenterContent">내용</option>
 				</select> <input type="text" class="form-control" id="inputbox"
-					style="margin-top: 10px; margin-left: 980px;">
+					style="margin-top: 10px; margin-left: 980px;" name="search">
 				<button type="submit" id="buttonmy" class="btn btn-dark"
 					style="margin-top: -33px; margin-left: 1190px; padding-top: 4px; height: 33px;">검색</button>
 			</div>
-
+			</form>
 			<table class="table" style="margin-top: 20px; text-align: center;">
 				<thead class="table-dark" align=center>
 					<tr style="border-bottom: 1px solid grey; height: 30px;">
@@ -170,7 +179,7 @@
 									<td
 										style="width: 500px; color: black; text-align: left; padding-left: 50px;"><a
 										style="color: black;"
-										href="${contextPath}/board/pwdConfirm.do?asCenterNum=${asCenter.asCenterNum}">${asCenter.asCenterTitle}</a></td>
+										href="${contextPath}/board/pwdConfirm.do?asCenterNum=${asCenter.asCenterNum}&page=${pageNum}">${asCenter.asCenterTitle}</a></td>
 									<td style="width: 200px; color: black;">${asCenter.memName}</td>
 									<td style="width: 200px; color: black;"><fmt:formatDate
 											value="${asCenter.asCenterDate}" /></td>
@@ -183,7 +192,7 @@
 				</thead>
 			</table>
 			<a id="buttonmy" class="btn btn-dark"
-				href="${contextPath}/board/inquiryForm.do"
+				onClick="asCenterForm()"
 				style="float: left; margin-left: 1190px; margin-top: 25px; border-radius: 2px;">글쓰기</a>
 		</div>
 	</section>
@@ -195,21 +204,21 @@
 			<c:if test="${pageMaker.prev}">
 
 				<a class="arrow prev"
-					href='<c:url value="/board/listAsCenter?page=${pageMaker.startPage-1 }"/>'><i
+					href='<c:url value="/board/listAsCenter.do?page=${pageMaker.startPage-1 }"/>'><i
 					class="fa fa-chevron-left"></i></a>
 
 			</c:if>
 			<c:forEach begin="${pageMaker.startPage }"
 				end="${pageMaker.endPage }" var="pageNum">
 
-				<a href='<c:url value="/board/listAsCenter.do?page=${pageNum }"/>'><i
-					class="fa">${pageNum }</i></a>
+				<a href='<c:url value="/board/listAsCenter.do?page=${pageNum}"/>'><i
+					class="fa">${pageNum}</i></a>
 
 			</c:forEach>
 			<c:if test="${pageMaker.next && pageMaker.endPage >0 }">
 
 				<a class="arrow next"
-					href='<c:url value="/board/listAsCenter?page=${pageMaker.endPage+1 }"/>'><i
+					href='<c:url value="/board/listAsCenter.do?page=${pageMaker.endPage+1 }"/>'><i
 					class="fa fa-chevron-right"></i></a>
 
 			</c:if>

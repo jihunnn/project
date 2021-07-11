@@ -27,7 +27,10 @@ public interface BoardController {
 	public ResponseEntity removeInquiry(@RequestParam("inquiryNum") int inquiryNum, HttpServletRequest request, HttpServletResponse response) throws Exception;
 	
 	public ModelAndView listAscenter(Criteria cri, HttpServletRequest request, HttpServletResponse response) throws Exception;
-
+	public ResponseEntity addNewAsCenter(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception;
+	public ResponseEntity removeAsCenter(@RequestParam("asCenterNum") int asCenterNum, HttpServletRequest request,HttpServletResponse response) throws Exception;
+	public ModelAndView asCenterSearch(@RequestParam("search") String search, @RequestParam("searchType") String searchType,
+			Criteria cri, HttpServletRequest request, HttpServletResponse response) throws Exception ;
 
 	
 	

@@ -12,16 +12,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
 @Controller
 public class FileDownloadController {
 	private static final String ARTICLE_IMAGE_REPO = "C:\\spring\\product_image";
+	private static final String ARTICLE_IMAGE_REPO_inquiry = "C:\\spring\\inquiry_image";
+	private static final String ARTICLE_IMAGE_REPO_asCenter = "C:\\spring\\asCenter_image";
+
 	@RequestMapping("/download.do")
 	protected void download(@RequestParam("inquiryFile") String inquiryFile,
-							@RequestParam("inquiryNum") String inquiryNum,
-			                 HttpServletResponse response)throws Exception {
+			@RequestParam("inquiryNum") String inquiryNum, HttpServletResponse response) throws Exception {
 		OutputStream out = response.getOutputStream();
-		String downFile = ARTICLE_IMAGE_REPO + "\\" +inquiryNum+"\\"+ inquiryFile;
+		String downFile = ARTICLE_IMAGE_REPO_inquiry + "\\" + inquiryNum + "\\" + inquiryFile;
 		File file = new File(downFile);
 
 		response.setHeader("Cache-Control", "no-cache");
@@ -29,8 +30,8 @@ public class FileDownloadController {
 		FileInputStream in = new FileInputStream(file);
 		byte[] buffer = new byte[1024 * 8];
 		while (true) {
-			int count = in.read(buffer); 
-			if (count == -1) 
+			int count = in.read(buffer);
+			if (count == -1)
 				break;
 			out.write(buffer, 0, count);
 		}
@@ -38,12 +39,32 @@ public class FileDownloadController {
 		out.close();
 	}
 	
+	@RequestMapping("/download_asCenter.do")
+	protected void download_asCenter(@RequestParam("asCenterFile") String asCenterFile,
+			@RequestParam("asCenterNum") String asCenterNum, HttpServletResponse response) throws Exception {
+		OutputStream out = response.getOutputStream();
+		String downFile = ARTICLE_IMAGE_REPO_asCenter + "\\" + asCenterNum + "\\" + asCenterFile;
+		File file = new File(downFile);
+
+		response.setHeader("Cache-Control", "no-cache");
+		response.addHeader("Content-disposition", "attachment; fileName=" + asCenterFile);
+		FileInputStream in = new FileInputStream(file);
+		byte[] buffer = new byte[1024 * 8];
+		while (true) {
+			int count = in.read(buffer);
+			if (count == -1)
+				break;
+			out.write(buffer, 0, count);
+		}
+		in.close();
+		out.close();
+	}
+
 	@RequestMapping("/download_product.do")
 	protected void download_product(@RequestParam("productImage") String productImage,
-							@RequestParam("productNum") String productNum,
-			                 HttpServletResponse response)throws Exception {
+			@RequestParam("productNum") String productNum, HttpServletResponse response) throws Exception {
 		OutputStream out = response.getOutputStream();
-		String downFile = ARTICLE_IMAGE_REPO + "\\" +productNum+"\\"+ productImage;
+		String downFile = ARTICLE_IMAGE_REPO + "\\" + productNum + "\\" + productImage;
 		File file = new File(downFile);
 		System.out.println(productNum);
 		response.setHeader("Cache-Control", "no-cache");
@@ -51,21 +72,20 @@ public class FileDownloadController {
 		FileInputStream in = new FileInputStream(file);
 		byte[] buffer = new byte[1024 * 8];
 		while (true) {
-			int count = in.read(buffer); 
-			if (count == -1) 
+			int count = in.read(buffer);
+			if (count == -1)
 				break;
 			out.write(buffer, 0, count);
 		}
 		in.close();
 		out.close();
 	}
-	
+
 	@RequestMapping("/download_product1.do")
 	protected void download_product1(@RequestParam("productContentImage") String productImage,
-							@RequestParam("productNum") String productNum,
-			                 HttpServletResponse response)throws Exception {
+			@RequestParam("productNum") String productNum, HttpServletResponse response) throws Exception {
 		OutputStream out = response.getOutputStream();
-		String downFile = ARTICLE_IMAGE_REPO + "\\" +productNum+"\\"+ productImage;
+		String downFile = ARTICLE_IMAGE_REPO + "\\" + productNum + "\\" + productImage;
 		File file = new File(downFile);
 		System.out.println(productNum);
 		response.setHeader("Cache-Control", "no-cache");
@@ -73,8 +93,8 @@ public class FileDownloadController {
 		FileInputStream in = new FileInputStream(file);
 		byte[] buffer = new byte[1024 * 8];
 		while (true) {
-			int count = in.read(buffer); 
-			if (count == -1) 
+			int count = in.read(buffer);
+			if (count == -1)
 				break;
 			out.write(buffer, 0, count);
 		}

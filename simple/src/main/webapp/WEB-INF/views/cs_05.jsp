@@ -38,7 +38,16 @@
 				obj.submit();
 				
 		}
-		
+	
+		function readURL(input) {
+			if (input.files && input.files[0]) {
+				var reader = new FileReader();
+				reader.onload = function(e) {
+					$('#preview').attr('src', e.target.result);
+				}
+				reader.readAsDataURL(input.files[0]);
+			}
+		}
 
 	 
 </script>
@@ -100,107 +109,125 @@
 			<jsp:include page="/WEB-INF/views/common/csMenu.jsp" flush="false" />
 
 			<!-- 내용 -->
-			
-			<form name="inquiryForm" action="${contextPath}/board/addNewInquiry.do"  method="post" enctype="multipart/form-data">
+
+			<form name="inquiryForm"
+				action="${contextPath}/board/addNewInquiry.do" method="post"
+				enctype="multipart/form-data">
 				<table class=table style="padding-top: 50px; border-top: #212529;">
 					<c:choose>
 						<c:when test="${!empty inquiryNum}">
-					<tr style="background-color: #212529; margin-top: 20px;"
-						align="center">
-						<td colspan="6" style="color: white;">글쓰기</td>
-					</tr>
-					<tr style="border-top: 1px solid #212529;">
-						<td
-							style="padding-left: 95px; font-weight: bold; padding-right: 100px;">문의유형</td>
-						<td style="background-color: white;"><select name="inquiryType" 
-							style="height: 28px;">
-								<option value="">선택</option>
-								<option value="배송문의">배송문의</option>
-								<option value="상품문의">상품문의</option>
-								<option value="반품문의">반품문의</option>
-						</select></td>
-					</tr>
-					<tr>
-						<td
-							style="padding-left: 95px; font-weight: bold; padding-top: 25px;">제목</td>
-						<td style="padding-top: 25px; background-color: white;"><input
-							type=text name="inquiryTitle" size=60 value="${inquiryNum.inquiryTitle}"
-							style="height: 28px; border: 1px solid #aaaaaa; border-radius: 3px;"></td>
-					</tr>
-					<tr>
-						<td style="padding-left: 95px; font-weight: bold;">내용</td>
-						<td style="padding-top: 25px; background-color: white; height:300px;"><input
-							type="text" name="inquiryContent" value="${inquiryNum.inquiryContent}"
-							style="width: 510px; height: 300px; padding-top:25px; border-color:	#aaaaaa;"
-						></td>
-					</tr>
-					<tr>
-						<td
-							style="padding-left: 95px; font-weight: bold; padding-top: 30px;">파일첨부</td>
-						<td style="background-color: white;">기존파일: ${inquiryNum.inquiryFile}<input type="hidden" name="OrignInquiryFile" value="${inquiryNum.inquiryFile}" /><br><input type="file"
-							 style="padding-top: 25px;" name="inquiryFile" 
-							></td>
-					</tr>
-					</c:when>
-					<c:when test="${empty inquiryNum}">
-			
-					<tr style="background-color: #212529; margin-top: 20px;"
-						align="center">
-						<td colspan="6" style="color: white;">글쓰기</td>
-					</tr>
-					<tr style="border-top: 1px solid #212529;">
-						<td
-							style="padding-left: 95px; font-weight: bold; padding-right: 100px;">문의유형</td>
-						<td style="background-color: white;"><select name="inquiryType" 
-							style="height: 28px;">
-								<option value="">선택</option>
-								<option value="배송문의">배송문의</option>
-								<option value="상품문의">상품문의</option>
-								<option value="반품문의">반품문의</option>
-						</select></td>
-					</tr>
-					<tr>
-						<td
-							style="padding-left: 95px; font-weight: bold; padding-top: 25px;">제목</td>
-						<td style="padding-top: 25px; background-color: white;"><input
-							type=text name="inquiryTitle" size=60 value=""
-							style="height: 28px; border: 1px solid #aaaaaa; border-radius: 3px;"></td>
-					</tr>
-					<tr>
-						<td style="padding-left: 95px; font-weight: bold;">내용</td>
-						<td style="padding-top: 25px; background-color: white; height:300px;"><input
-							type="text" name="inquiryContent" value=""
-							style="width: 510px; height: 300px; padding-top:25px; border-color:	#aaaaaa;"
-						></td>
-					</tr>
-					<tr>
-						<td
-							style="padding-left: 95px; font-weight: bold; padding-top: 30px;">파일첨부</td>
-						<td style="background-color: white;"><input type="file"
-							 style="padding-top: 25px;" name="inquiryFile" 
-							></td>
-					</tr>
-					</c:when>
+							<tr style="background-color: #212529; margin-top: 20px;"
+								align="center">
+								<td colspan="6" style="color: white;">글쓰기</td>
+							</tr>
+							<tr style="border-top: 1px solid #212529;">
+								<td
+									style="padding-left: 95px; font-weight: bold; padding-right: 100px;">문의유형</td>
+								<td style="background-color: white;"><select
+									name="inquiryType" style="height: 28px;">
+										<option value="">선택</option>
+										<option value="배송문의">배송문의</option>
+										<option value="상품문의">상품문의</option>
+										<option value="반품문의">반품문의</option>
+								</select></td>
+							</tr>
+							<tr>
+								<td
+									style="padding-left: 95px; font-weight: bold; padding-top: 25px;">제목</td>
+								<td style="padding-top: 25px; background-color: white;"><input
+									type=text name="inquiryTitle" size=60
+									value="${inquiryNum.inquiryTitle}"
+									style="height: 28px; border: 1px solid #aaaaaa; border-radius: 3px;"></td>
+							</tr>
+							<tr>
+								<td style="padding-left: 95px; font-weight: bold;">내용</td>
+								<td
+									style="padding-top: 25px; background-color: white; height: 300px;"><input
+									type="text" name="inquiryContent"
+									value="${inquiryNum.inquiryContent}"
+									style="width: 510px; height: 300px; padding-top: 25px; border-color: #aaaaaa;"></td>
+							</tr>
+							<tr>
+								<td
+									style="padding-left: 95px; font-weight: bold; padding-top: 30px;">파일첨부</td>
+								<td style="background-color: white;">기존파일:
+									${inquiryNum.inquiryFile}<input type="hidden"
+									name="OrignInquiryFile" value="${inquiryNum.inquiryFile}" /><br>
+									<input type="file" style="padding-top: 25px;"
+									name="inquiryFile" onchange="readURL(this);">
+								</td>
+								<td><img id="preview"
+									src="${contextPath}/download.do?inquiryNum=${inquiryNum.inquiryNum}&inquiryFile=${inquiryNum.inquiryFile}"
+									width="150" height="150" /></td>
+
+							</tr>
+						</c:when>
+						<c:when test="${empty inquiryNum}">
+
+							<tr style="background-color: #212529; margin-top: 20px;"
+								align="center">
+								<td colspan="6" style="color: white;">글쓰기</td>
+							</tr>
+							<tr style="border-top: 1px solid #212529;">
+								<td
+									style="padding-left: 95px; font-weight: bold; padding-right: 100px;">문의유형</td>
+								<td style="background-color: white;"><select
+									name="inquiryType" style="height: 28px;">
+										<option value="">선택</option>
+										<option value="배송문의">배송문의</option>
+										<option value="상품문의">상품문의</option>
+										<option value="반품문의">반품문의</option>
+								</select></td>
+							</tr>
+							<tr>
+								<td
+									style="padding-left: 95px; font-weight: bold; padding-top: 25px;">제목</td>
+								<td style="padding-top: 25px; background-color: white;"><input
+									type=text name="inquiryTitle" size=60 value=""
+									style="height: 28px; border: 1px solid #aaaaaa; border-radius: 3px;"></td>
+							</tr>
+							<tr>
+								<td style="padding-left: 95px; font-weight: bold;">내용</td>
+								<td
+									style="padding-top: 25px; background-color: white; height: 300px;"><input
+									type="text" name="inquiryContent" value=""
+									style="width: 510px; height: 300px; padding-top: 25px; border-color: #aaaaaa;"></td>
+							</tr>
+							<tr>
+								<td
+									style="padding-left: 95px; font-weight: bold; padding-top: 30px;">파일첨부</td>
+								<td style="background-color: white;"><input type="file"
+									style="padding-top: 25px;" name="inquiryFile"
+									onchange="readURL(this);"></td>
+								<td><img id="preview"
+									src="${contextPath}/resources/images/simpleLogo.jpg"
+									width="150" height="150" /></td>
+							</tr>
+						</c:when>
 					</c:choose>
 				</table>
 				<hr style="border-color: #212529;; width: 100%;">
-					<c:choose>
+				<c:choose>
 					<c:when test="${!empty inquiryNum}">
-						<button type="button" onClick="modInquiry(this.form)" class="btn btn-dark "
-							id="buttonmy" style="margin-left: 630px; margin-top: 30px;">수정하기</button>
-	     					 <input type=button value="삭제하기" onClick="fn_remove_article('${contextPath}/board/removeArticle.do', ${article.articleNO})">
+						<button type="button" onClick="modInquiry(this.form)"
+							class="btn btn-dark " id="buttonmy"
+							style="margin-left: 630px; margin-top: 30px;">수정하기</button>
+						<input type=button value="삭제하기"
+							onClick="fn_remove_article('${contextPath}/board/removeArticle.do', ${article.articleNO})">
 
-	  				</c:when>
-	  				<c:when test="${empty inquiryNum}">		
+					</c:when>
+					<c:when test="${empty inquiryNum}">
 						<div>
-							<button type="button" onclick="inquiry_write()" class="btn btn-dark "
-								id="buttonmy" style="margin-left: 630px; margin-top: 30px;">등록</button>
+							<button type="button" onclick="inquiry_write()"
+								class="btn btn-dark " id="buttonmy"
+								style="margin-left: 630px; margin-top: 30px;">등록</button>
 
-							<button type="button" onclick="location.href=''"
-						class="btn btn-dark " id="buttonmy"
-						style="margin-left: 730px; margin-top: -30px;">목록</button>
+							<button type="button"
+								onclick="location.href='${contextPath}/board/listInquiry.do'"
+								class="btn btn-dark " id="buttonmy"
+								style="margin-left: 730px; margin-top: -30px;">목록</button>
 						</div>
-				</c:when>
+					</c:when>
 				</c:choose>
 			</form>
 		</div>

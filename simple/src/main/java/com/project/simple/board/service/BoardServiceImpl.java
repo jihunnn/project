@@ -154,12 +154,41 @@ public class BoardServiceImpl implements BoardService{
 
 	@Override
 	public ArticleVO viewAsCenter(int asCenterNum) throws Exception {
-		System.out.println(asCenterNum);
 		ArticleVO articleVO = boardDAO.selectAsCenter(asCenterNum);
 		return articleVO;
 	}
 
+	@Override
+	public int addNewAsCenter(Map asCenterMap) throws Exception{
+		return boardDAO.insertNewAsCenter(asCenterMap);
+	}
+	
+	@Override
+	public void modAsCenter(Map asCenterMap) throws Exception {
+		boardDAO.updateAsCenter(asCenterMap);
+	}
+	
+	@Override
+	public void removeAsCenter(int asCenterNum) throws Exception {
+		boardDAO.deleteAsCenter(asCenterNum);
+	}
+	
+	public Map<String ,Object> asCenterSearch(Map<String ,Object> asCenterSearchMap) throws Exception{
 
+		List<ArticleVO> asCenterSearchList=boardDAO.asCenterSearchList(asCenterSearchMap);
+
+		asCenterSearchMap.put("asCenterSearchList", asCenterSearchList);
+		
+
+		return asCenterSearchMap;
+	}
+	
+	@Override
+	public int asCenterSearchCount(Map<String, Object> search) throws Exception{
+
+		int asCenterSearchCount = boardDAO.asCenterSeachCount(search);
+		return asCenterSearchCount;
+	}
 
 	
 	

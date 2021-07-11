@@ -45,6 +45,7 @@ public class ArticleVO {
 	private String asCenterStatus;
 	private String asCenterPwd;
 	private String memName;
+	private String asCenterFile;
 	
 	
 	//notice °Ô½ÃÆÇ
@@ -274,6 +275,14 @@ public class ArticleVO {
 	
 	public void setMemName(String memName) {
 		this.memName = memName;
+	}
+	
+	public String getAsCenterFile() {
+		return asCenterFile;
+	}
+	
+	public void setAsCenterFile(String asCenterFile) {
+		this.asCenterFile = asCenterFile;
 	}
 	
 }

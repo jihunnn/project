@@ -153,4 +153,42 @@ public class BoardDAOImpl implements BoardDAO{
 
 		return sqlSession.selectOne("mapper.board.selectAsCenter", asCenterNum);
 	}
+	
+	@Override
+	public int insertNewAsCenter(Map asCenterMap) throws DataAccessException {
+		int asCenterNum = selectNewAsCenterNum();
+		asCenterMap.put("asCenterNum", asCenterNum);
+		sqlSession.insert("mapper.board.insertNewAsCenter", asCenterMap);
+		return asCenterNum;
+	}
+	
+	
+	private int selectNewAsCenterNum() throws DataAccessException {
+		return sqlSession.selectOne("mapper.board.selectNewAsCenterNum");
+		
+	}
+	
+	@Override
+	public void updateAsCenter(Map asCenterMap) throws DataAccessException {
+		sqlSession.update("mapper.board.updateAsCenter", asCenterMap);
+	}
+	
+	@Override
+	public void deleteAsCenter(int asCenterNum) throws DataAccessException {
+		sqlSession.delete("mapper.board.deleteAsCenter", asCenterNum);
+	}
+	
+	@Override
+	public List<ArticleVO> asCenterSearchList(Map<String ,Object> asCenterSearchMap) throws DataAccessException {
+
+		List<ArticleVO> asCenterSearchList =sqlSession.selectList("mapper.board.asCenterSearchList",asCenterSearchMap);		
+		return asCenterSearchList;
+	}
+	
+	@Override
+	public int asCenterSeachCount(Map<String, Object> search) throws DataAccessException {
+		int asCenterSearchCount = sqlSession.selectOne("mapper.board.asCenterSearchCount",search);
+
+		return asCenterSearchCount;
+	}
 }	

@@ -90,6 +90,11 @@
 		<put-attribute name="body"
 			value="/WEB-INF/views/cs_09.jsp" />
 	</definition>
+	<definition name="board/modAsCenter" extends="baseLayout">
+		<put-attribute name="title" value="AS센터 글수정하기" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/cs_09.jsp" />
+	</definition>
 
 
 
