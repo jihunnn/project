@@ -19,6 +19,7 @@ public class ArticleVO {
 	private String noticeWriter;
 	private String noticeContent;
 	private String noticeImg;
+	private int noticeHit;
 
 	//question 게시판
 	private int questionNum;
@@ -87,7 +88,7 @@ public class ArticleVO {
 		return noticeContent;
 	}
 	
-	public void noticeContentt(String noticeContent) {
+	public void setNoticeContent(String noticeContent) {
 		this.noticeContent = noticeContent;
 	}
 	
@@ -110,6 +111,14 @@ public class ArticleVO {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public int getNoticeHit() {
+		return noticeHit;
+	}
+	
+	public void setNoticeHit(int noticeHit) {
+		this.noticeHit = noticeHit;
 	}
 	
 	//question 게시판

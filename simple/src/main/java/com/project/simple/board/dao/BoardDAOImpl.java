@@ -38,6 +38,14 @@ public class BoardDAOImpl implements BoardDAO{
 		return sqlSession.selectOne("mapper.board.selectNotice", noticeNum);
 	}
 	
+	@Override
+	public void noticeHit(int noticeNum) throws Exception {
+		sqlSession.update("mapper.board.updateNoticeHit", noticeNum);
+	}
+	
+	
+
+	
 	//question °Ô½ÃÆÇ
 	@Override
 	public List<ArticleVO> selectAllQuestionList(Criteria cri) throws DataAccessException {

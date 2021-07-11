@@ -12,6 +12,7 @@
 		<result property="noticeWriter" column="noticeWriter" />
 		<result property="noticeContent" column="noticeContent" />
 		<result property="noticeImg" column="noticeImg" />
+		<result property="noticeHit" column="noticeHit"/>
 	</resultMap>
 
 	<!-- question 게시판 -->
@@ -50,7 +51,7 @@
 	<select id="selectAllNoticeList" resultMap="noticeResult">
 	<![CDATA[
 			
-			select noticeNum, noticeDate, noticeTitle, noticeWriter from notice order by noticeNum desc
+			select noticeNum, noticeDate, noticeTitle, noticeWriter, noticeHit from notice order by noticeNum desc
 			limit #{pageStart}, #{perPageNum};
 			
 
@@ -76,6 +77,10 @@
 
 	]]>
 	</select>
+	
+	<update id="updateNoticeHit" parameterType="int">
+  UPDATE notice SET noticeHit = noticeHit + 1 WHERE noticeNum = #{noticeNum}
+</update>
 
 	<!-- 자주 묻는 질문 -->
 	<select id="selectAllQuestionList" resultMap="questionResult">

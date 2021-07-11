@@ -169,7 +169,8 @@
 									<td style="width: 100px; color: black;">${num}</td>
 									<td
 										style="width: 500px; color: black; text-align: left; padding-left: 50px;"><a
-										style="color: black;" href="${contextPath}/board/pwdConfirm.do?asCenterNum=${asCenter.asCenterNum}">${asCenter.asCenterTitle}</a></td>
+										style="color: black;"
+										href="${contextPath}/board/pwdConfirm.do?asCenterNum=${asCenter.asCenterNum}">${asCenter.asCenterTitle}</a></td>
 									<td style="width: 200px; color: black;">${asCenter.memName}</td>
 									<td style="width: 200px; color: black;"><fmt:formatDate
 											value="${asCenter.asCenterDate}" /></td>
@@ -181,6 +182,9 @@
 					</c:choose>
 				</thead>
 			</table>
+			<a id="buttonmy" class="btn btn-dark"
+				href="${contextPath}/board/inquiryForm.do"
+				style="float: left; margin-left: 1190px; margin-top: 25px; border-radius: 2px;">글쓰기</a>
 		</div>
 	</section>
 	<!-- 내용 끝 -->
@@ -211,6 +215,6 @@
 			</c:if>
 
 		</div>
-	</div>	
+	</div>
 </body>
 </html>

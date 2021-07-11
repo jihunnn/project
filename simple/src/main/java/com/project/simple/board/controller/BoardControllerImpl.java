@@ -79,6 +79,8 @@ public class BoardControllerImpl implements BoardController {
 		return mav;
 	}
 
+	
+
 	// 자주묻는 질문 리스트
 	@Override
 	@RequestMapping(value = "board/listQuestion.do", method = { RequestMethod.GET, RequestMethod.POST })

@@ -85,6 +85,11 @@
 		<put-attribute name="body"
 			value="/WEB-INF/views/cs_10.jsp" />
 	</definition>
+	<definition name="board/asCenterForm" extends="baseLayout">
+		<put-attribute name="title" value="AS센터 글쓰기" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/cs_09.jsp" />
+	</definition>
 
 
 

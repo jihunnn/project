@@ -142,7 +142,7 @@
 							style="background-color: white; color: black;"><fmt:formatDate value="${notice.noticeDate}" /></td>
 						<td scope="col" width="80">조회수</td>
 						<td scope="col" width="80"
-							style="background-color: white; color: black;">0</td>
+							style="background-color: white; color: black;">${notice.noticeHit}</td>
 					</tr>
 
 					<tr

@@ -154,7 +154,7 @@
 							style="color: black; padding-left: 30px;">${notice.noticeTitle}</a></td>
 						<td scope="col" width="150">${notice.noticeWriter }</td>
 						<td scope="col" width="150"><fmt:formatDate value="${notice.noticeDate}" /></td>
-						<td scope="col" width="80">0</td>
+						<td scope="col" width="80">${notice.noticeHit}</td>
 					</tr>
 					</c:forEach>
 					</c:when>

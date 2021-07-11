@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,11 +45,18 @@ public class BoardServiceImpl implements BoardService{
 		return noticeCount;
 	}
 	
+
+	@Transactional(isolation = Isolation.READ_COMMITTED)
 	@Override
 	public ArticleVO viewNotice(int noticeNum) throws Exception {
+		boardDAO.noticeHit(noticeNum);
 		ArticleVO articleVO = boardDAO.selectNotice(noticeNum);
+		
 		return articleVO;
 	}
+	
+
+	
 	
 	//qustion °Ô½ÃÆÇ
 	public List<ArticleVO> listQuestion(Criteria cri) throws Exception{
@@ -150,6 +158,9 @@ public class BoardServiceImpl implements BoardService{
 		ArticleVO articleVO = boardDAO.selectAsCenter(asCenterNum);
 		return articleVO;
 	}
+
+
+
 	
 	
 }	

@@ -15,6 +15,8 @@ public interface BoardDAO{
 	public List selectAllNoticeList(Criteria cri) throws DataAccessException;
 	public ArticleVO selectNotice(int noticeNum) throws DataAccessException;
 	public int selectNoticeCount() throws DataAccessException;
+	public void noticeHit(int noticeNum) throws Exception;
+	
 	
 	public List selectAllQuestionList(Criteria cri) throws DataAccessException;
 	public int selectQuestionCount() throws DataAccessException;
