@@ -109,7 +109,7 @@
 				<hr style="margin-top: 0px; margin-bottom: 0px; color: #d2d2d2;">
 				<ul style="list-style: none; padding-top: 5px;">
 					<li><a href="#"><img
-							src="${contextPath}/resources/images/image_1.jpg"
+							src="${contextPath}/download_product.do?productNum=${productNum}&productImage=${productImage}"
 							style="width: 100px; height: 100px; padding-top: 10px; margin-left: -30px;"></a></li>
 					<li><a href="#"><img
 							src="${contextPath}/resources/images/image_2.jpg"

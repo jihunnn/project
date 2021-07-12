@@ -32,7 +32,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.project.simple.member.vo.MemberVO;
+
 import com.project.simple.product.service.ProductService;
 import com.project.simple.product.vo.ProductVO;
 
@@ -45,6 +45,10 @@ public class ProductControllerImpl implements ProductController {
 	@Autowired
 	private ProductVO productVO;
 	private static final Logger logger = LoggerFactory.getLogger(ProductControllerImpl.class);
+	
+	
+	
+	
 
 	@Override //상품등록하기
 	@RequestMapping(value="product/addProduct.do", method=RequestMethod.POST)
@@ -57,10 +61,6 @@ public class ProductControllerImpl implements ProductController {
 			String name = (String) enu.nextElement();
 			String value = multipartRequest.getParameter(name);
 			productMap.put(name, value);
-
-
-
-
 
 
 		}
@@ -98,6 +98,7 @@ public class ProductControllerImpl implements ProductController {
 				}
 
 			productService.addProduct(productMap);	
+			
 			
 			
 
@@ -254,7 +255,7 @@ public class ProductControllerImpl implements ProductController {
 		return mav;
 	}
 
-	/*
+	
 	@RequestMapping(value = "/product/modNewProduct.do", method = { RequestMethod.GET, RequestMethod.POST })
 	@ResponseBody
 	public ResponseEntity modProduct(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)
@@ -269,9 +270,20 @@ public class ProductControllerImpl implements ProductController {
 
 		}
 		
-		String productImage = upload(multipartRequest);
-		productMap.put("productImage", productImage);
+		List<String> productImage = upload(multipartRequest);
+		System.out.println(productImage);
+				
 
+		String productImage1 = productImage.get(0).toString();
+				
+		String productContentImage1 = productImage.get(1).toString();
+	
+
+		
+
+		productMap.put("productImage1", productImage1);
+		productMap.put("productContentImage1", productContentImage1);
+		
 		String productNum = (String) productMap.get("productNum");
 		productMap.put("productNum", productNum);
 
@@ -280,18 +292,33 @@ public class ProductControllerImpl implements ProductController {
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
 		try {
-
+			
+			System.out.println(productMap);
 			productService.modProduct(productMap);
+			System.out.println(productMap);
+			if (productImage != null && productImage.size() != 0) {
 
-			if (productImage != null && productImage.length() != 0) {
 				String OrignProductImage = (String) productMap.get("OrignProductImage");
+				String OrignProductContentImage = (String) productMap.get("OrignProductContentImage");
+				System.out.println(OrignProductImage);
+				System.out.println(OrignProductContentImage);
+				
+				if(OrignProductImage !=null) {
+					File oldFile = new File(ARTICLE_IMAGE_REPO + "\\" + productNum + "\\" + OrignProductImage);
+					oldFile.delete();}
+				if (OrignProductContentImage != null){					
+					File oldFile1 = new File(ARTICLE_IMAGE_REPO + "\\" + productNum + "\\" + OrignProductContentImage);
+					oldFile1.delete();}
 
-				File oldFile = new File(ARTICLE_IMAGE_REPO + "\\" + productNum + "\\" + OrignProductImage);
-				oldFile.delete();
-
-				File srcFile = new File(ARTICLE_IMAGE_REPO + "\\" + "temp" + "\\" + productImage);
+				if(productImage1 !=null) {
+				File srcFile = new File(ARTICLE_IMAGE_REPO + "\\" + "temp" + "\\" + productImage1);
 				File destDir = new File(ARTICLE_IMAGE_REPO + "\\" + productNum);
-				FileUtils.moveFileToDirectory(srcFile, destDir, true);
+				FileUtils.moveFileToDirectory(srcFile, destDir, true); } 
+				if(productContentImage1 !=null){
+					File srcFile1 = new File(ARTICLE_IMAGE_REPO + "\\" + "temp" + "\\" + productContentImage1);
+					File destDir1 = new File(ARTICLE_IMAGE_REPO + "\\" + productNum);
+					FileUtils.moveFileToDirectory(srcFile1, destDir1, true);
+				}
 
 			}
 			message = "<script>";
@@ -312,7 +339,7 @@ public class ProductControllerImpl implements ProductController {
 		}
 		return resEnt;
 	}
-	*/
+			
 
 	@Override
 	@RequestMapping(value = "/product/removeProduct.do", method = RequestMethod.POST)
@@ -350,8 +377,14 @@ public class ProductControllerImpl implements ProductController {
 	@RequestMapping(value = "/product/viewProduct.do", method = RequestMethod.GET)
 	public ModelAndView viewProduct(@RequestParam("productNum") String productNum, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
+		Map<String, Object> productMap = new HashMap();
 		String viewName = (String) request.getAttribute("viewName");
+		HttpSession session=request.getSession();
 		productVO = productService.viewProduct(productNum);
+		
+		productMap.put("productVO", productVO);
+		ProductVO productVO=(ProductVO)productMap.get("productVO");
+		addQuick(productNum,productVO,session);
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(viewName);
 		mav.addObject("product", productVO);
@@ -409,6 +442,38 @@ public class ProductControllerImpl implements ProductController {
 		mav.addObject("productList", productList);
 		return mav;
 
+	}
+	
+	//최근본 상품
+	private void addQuick(String productNum,ProductVO productVO,HttpSession session){
+		boolean already_existed=false;
+		List<ProductVO> quickList; //최근 본 상품 저장 ArrayList
+		quickList=(ArrayList<ProductVO>)session.getAttribute("quickList");
+		
+		if(quickList!=null){
+			if(quickList.size() < 3){ //미리본 상품 리스트에 상품개수가 세개 이하인 경우
+				for(int i=0; i<quickList.size();i++){
+					ProductVO productBean=(ProductVO)quickList.get(i);
+					if(productNum.equals(productBean.getproductNum())){
+						already_existed=true;
+						break;
+					}
+				}
+				if(already_existed==false){
+					quickList.add(productVO);
+				}
+			}
+			
+		}else{
+			quickList =new ArrayList<ProductVO>();
+			quickList.add(productVO);
+			
+		}
+		session.setAttribute("quickList",quickList);
+		session.setAttribute("quickListNum", quickList.size());
+		System.out.println(quickList);
+		System.out.println(quickList.size());
+		
 	}
 
 }

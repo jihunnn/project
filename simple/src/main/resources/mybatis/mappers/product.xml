@@ -71,9 +71,13 @@
 			subcategory = #{subcategory},
 			productManufacturer = #{productManufacturer},
 			productOrigin =#{productOrigin}
-			 <if test="productImage!='' and productImage!=null">
-			  , productImage=#{productImage},productContentImage=#{productContentImage},
+			 <if test="productImage1!='' and productImage1!=null ">
+			  , productImage=#{productImage1}
 			</if>
+			<if test="productContentImage1!='' and productContentImage1!=null ">
+			  , productContentImage=#{productContentImage1}
+			</if>
+
 			where productNum=#{productNum}
 	</update>
 	<!-- 상품삭제 -->

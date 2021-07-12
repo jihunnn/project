@@ -25,6 +25,8 @@ public class ProductVO {
 	private String option1;            //惑前 可记1
 	private String option2;           //惑前 可记2
 	
+	
+	
 	public ProductVO() {
 
 	}
@@ -142,6 +144,8 @@ public class ProductVO {
 	public void setoption1(String option1) {
 		this.option1 = option1;
 	}
+	
+	
 
 
 }

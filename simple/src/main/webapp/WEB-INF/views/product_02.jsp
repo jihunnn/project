@@ -139,6 +139,15 @@ function change () {
 //-->
 </script>
 <script type="text/javascript">
+	function favoriteproduct(){
+		var form = document.Chec;
+		if (confirm("관심상품에 등록하시겠습니까?")){ //확인
+			
+		} else { //취소
+			return;
+		}
+		form.submit();
+	}
 	function addCartBtn(){
 		var form = document.Chec;
 		if (confirm("장바구니에 담으시겠습니까?")){ //확인
@@ -195,9 +204,13 @@ function change () {
 	
 				<div class="col-md-4 ftco-animate">
 					<div class="blog-entry">
-						<a><img src="${contextPath}/resources/images/image_1.jpg"
-							style="width: 600px; padding-top: 10px; padding-top: 10px; margin-left: -15px; float: left;">
+					<c:choose>	
+						<c:when test="${not empty product.productImage && product.productImage != 'null'}">
+					<input type="hidden" name="OrignProductFile" value="${product.productImage}"class="block-20" />	
+						<a><img style="width: 600px; height:410px; padding-top: 10px; padding-top: 10px; margin-left: -15px; float: left;" src="${contextPath}/download_product.do?productNum=${product.productNum}&productImage=${product.productImage}" id="preview" /><br>
 						</a>
+						</c:when>
+			       </c:choose>
 						<h3 class="heading">
 							<a
 								style="position: absolute; white-space: nowrap; margin-top: 5px; margin-left: 50px; float: left;">판매가ㅤㅤ
@@ -273,8 +286,11 @@ function change () {
 						</h3>
 					</div>
 				</form>
-				    <button type="submit" class="btn btn-default"
+				<form name="form1" method="post" action="${contextPath}/favoriteproduct.do">
+				<input type="hidden" name="productNum" value="${product.productNum}">
+				    <button type="submit" onclick="favoriteproduct()" class="btn btn-default"
 						style="background-color: #dcdcdc; float: left; margin-left: 630px; margin-top: 20px; width: 50px; height: 50px; border-radius: 2px;"></button>
+				</form>
 					<button type="submit" class="btn btn-default"
 						style="background-color: #dcdcdc; float: left; margin-left: 700px; margin-top: 20px; width: 280px; height: 50px; border-radius: 2px;">바로구매</button>
 					<button type="submit" class="btn btn-default" onclick="addCartBtn()"
@@ -331,10 +347,8 @@ function change () {
 					<div id="tab1" class="tab_content"
 						style="margin-left: 170px; margin-right: 170px;">
 						<!--Content-->
-						<img
-							src="${contextPath}/resources/images/product/sopiaDetiles.jpg"
-							style="width: 1200px; margin-left: -180px;"> <img
-							src="${contextPath}/resources/images/product/sopiaDetiles2.jpg">
+					<img style="width: 1200px; margin-left: -180px;"
+							src="${contextPath}/download_product1.do?productNum=${product.productNum}&productContentImage=${product.productContentImage}">
 					</div>
 					<div id="tab2" class="tab_content"
 						style="margin-left: 150px; width: 1000px;">
