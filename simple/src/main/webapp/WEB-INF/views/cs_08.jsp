@@ -14,7 +14,7 @@
             alert("로그인이 필요합니다.");
             location.href = '${contextPath}/login_01.do';
         } else {
-        	location.href='${contextPath}/board/asCenterForm.do'
+        	location.href='${contextPath}/board/asCenterWrite.do'
         }
     }
     

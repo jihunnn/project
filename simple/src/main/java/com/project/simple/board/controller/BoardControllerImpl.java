@@ -198,10 +198,7 @@ public class BoardControllerImpl implements BoardController {
 	// 1:1문의 글쓰기 폼, A/S 글쓰기 폼, AS비밀번호 입력
 	@RequestMapping(value = "/board/*Form.do", method = RequestMethod.GET)
 	private ModelAndView form(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		//asCenter글쓰기시 asCenterNum 세션 해제
-		HttpSession session = request.getSession();
-		if(session.getAttribute("asCenterNum") != null) {
-		session.removeAttribute("asCenterNum");}
+
 		String viewName = (String) request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(viewName);
@@ -487,10 +484,26 @@ public class BoardControllerImpl implements BoardController {
 		HttpSession session = request.getSession();
 		session.setAttribute("asCenterNum", asCenterNum);
 		session.setAttribute("pageNum", pageNum);
-
+		
 		return mav;
 	}
-
+	
+	@RequestMapping(value = "/board/asCenterWrite.do", method = RequestMethod.GET)
+	private ModelAndView asCenterWrite(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		//asCenter글쓰기시 asCenterNum 세션 해제
+		HttpSession session = request.getSession();
+		if(session.getAttribute("asCenterNum") != null) {
+		session.removeAttribute("asCenterNum");}
+		MemberVO memberVO = (MemberVO) session.getAttribute("member");
+		String memName = memberVO.getmemName();
+		
+		String viewName = (String) request.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName(viewName);
+		mav.addObject("memName",memName);
+		return mav;
+	}
+	
 	// 1:1 문의 글쓰기
 	@Override
 	@RequestMapping(value = "/board/addNewAsCenter.do", method = RequestMethod.POST)

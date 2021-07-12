@@ -251,7 +251,7 @@ request.setCharacterEncoding("UTF-8");
 								<td
 									style="padding-left: 95px; font-weight: bold; padding-right: 100px; padding-top: 20px;">작성자</td>
 								<td style="padding-top: 25px; background-color: white;"><input
-									type=text name="memName" value="${asCenter.memName}" size=60
+									type=text name="memName" value="${memName}" size=60
 									disabled
 									style="height: 28px; border: 1px solid #aaaaaa; border-radius: 3px; width: 150px;"></td>
 							</tr>
