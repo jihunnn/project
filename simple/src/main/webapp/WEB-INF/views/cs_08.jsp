@@ -3,7 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
-
+<c:if test="${!empty asCenterSearchMap.search}">
+		<c:set var="asCenterSearchList"
+			value="${asCenterSearchMap.asCenterSearchList}" />
+</c:if>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -14,7 +17,7 @@
             alert("로그인이 필요합니다.");
             location.href = '${contextPath}/login_01.do';
         } else {
-        	location.href='${contextPath}/board/asCenterWrite.do'
+        	location.href='${contextPath}/board/asCenterForm.do'
         }
     }
     
@@ -141,17 +144,17 @@
 			<!-- 내용 -->
 			<form name="asCenterSearch"
 				action="${contextPath}/board/asCenterSearch.do" method="post">
-			<div>
-				<select name="searchType"
-					style="margin-left: 895px; float: left; width: 80px; height: 31px; border: 1px solid #b3b5b6;">
-					<option value="asCenterTitle">제목</option>
-					<option value="memName">작성자</option>
-					<option value="asCenterContent">내용</option>
-				</select> <input type="text" class="form-control" id="inputbox"
-					style="margin-top: 10px; margin-left: 980px;" name="search">
-				<button type="submit" id="buttonmy" class="btn btn-dark"
-					style="margin-top: -33px; margin-left: 1190px; padding-top: 4px; height: 33px;">검색</button>
-			</div>
+				<div>
+					<select name="searchType"
+						style="margin-left: 895px; float: left; width: 80px; height: 31px; border: 1px solid #b3b5b6;">
+						<option value="asCenterTitle">제목</option>
+						<option value="memName">작성자</option>
+						<option value="asCenterContent">내용</option>
+					</select> <input type="text" class="form-control" id="inputbox"
+						style="margin-top: 10px; margin-left: 980px;" name="search">
+					<button type="submit" id="buttonmy" class="btn btn-dark"
+						style="margin-top: -33px; margin-left: 1190px; padding-top: 4px; height: 33px;">검색</button>
+				</div>
 			</form>
 			<table class="table" style="margin-top: 20px; text-align: center;">
 				<thead class="table-dark" align=center>
@@ -163,36 +166,69 @@
 						<td style="width: 200px;">접수상태</td>
 					</tr>
 					<c:choose>
-						<c:when test="${empty asCenterList}">
-							<tr style="background-color: white;">
-								<td colspan="5" style="color: black; height: 300px;">등록된 글이
-									없습니다.</td>
-							</tr>
+						<c:when test="${!empty asCenterSearchMap.search}">
+
+							<c:choose>
+								<c:when test="${empty asCenterSearchMap.asCenterSearchList}">
+									<tr style="background-color: white;">
+										<td colspan="5" style="color: black; height: 300px;">검색된 글이 없습니다.</td>
+									</tr>
+								</c:when>
+								<c:otherwise>
+									<c:set var="num"
+										value="${pageMaker.totalCount - ((pageNum-1) * 10) }" />
+									<c:forEach var="asCenterSearch" items="${asCenterSearchList}">
+										<tr
+											style="border-bottom: 0.5px solid grey; height: 30px; background-color: white;">
+											<td style="width: 100px; color: black;">${num}</td>
+											<td
+												style="width: 500px; color: black; text-align: left; padding-left: 50px;"><a
+												style="color: black;"
+												href="${contextPath}/board/pwdConfirm.do?asCenterNum=${asCenterSearch.asCenterNum}&page=${pageNum}">${asCenterSearch.asCenterTitle}</a></td>
+											<td style="width: 200px; color: black;">${asCenterSearch.memName}</td>
+											<td style="width: 200px; color: black;"><fmt:formatDate
+													value="${asCenterSearch.asCenterDate}" /></td>
+											<td style="width: 200px; color: black;">${asCenterSearch.asCenterStatus}</td>
+										</tr>
+										<c:set var="num" value="${num-1}"></c:set>
+									</c:forEach>
+								</c:otherwise>
+							</c:choose>
 						</c:when>
-						<c:otherwise>
-							<c:set var="num"
-								value="${pageMaker.totalCount - ((pageNum-1) * 10) }" />
-							<c:forEach var="asCenter" items="${asCenterList}">
-								<tr
-									style="border-bottom: 0.5px solid grey; height: 30px; background-color: white;">
-									<td style="width: 100px; color: black;">${num}</td>
-									<td
-										style="width: 500px; color: black; text-align: left; padding-left: 50px;"><a
-										style="color: black;"
-										href="${contextPath}/board/pwdConfirm.do?asCenterNum=${asCenter.asCenterNum}&page=${pageNum}">${asCenter.asCenterTitle}</a></td>
-									<td style="width: 200px; color: black;">${asCenter.memName}</td>
-									<td style="width: 200px; color: black;"><fmt:formatDate
-											value="${asCenter.asCenterDate}" /></td>
-									<td style="width: 200px; color: black;">${asCenter.asCenterStatus}</td>
-								</tr>
-								<c:set var="num" value="${num-1}"></c:set>
-							</c:forEach>
-						</c:otherwise>
+						<c:when test="${empty asCenterSearchMap.search}">
+							<c:choose>
+								<c:when test="${empty asCenterList}">
+									<tr style="background-color: white;">
+										<td colspan="5" style="color: black; height: 300px;">등록된
+											글이 없습니다.</td>
+									</tr>
+								</c:when>
+								<c:otherwise>
+									<c:set var="num"
+										value="${pageMaker.totalCount - ((pageNum-1) * 10) }" />
+									<c:forEach var="asCenter" items="${asCenterList}">
+										<tr
+											style="border-bottom: 0.5px solid grey; height: 30px; background-color: white;">
+											<td style="width: 100px; color: black;">${num}</td>
+											<td
+												style="width: 500px; color: black; text-align: left; padding-left: 50px;"><a
+												style="color: black;"
+												href="${contextPath}/board/pwdConfirm.do?asCenterNum=${asCenter.asCenterNum}&page=${pageNum}">${asCenter.asCenterTitle}</a></td>
+											<td style="width: 200px; color: black;">${asCenter.memName}</td>
+											<td style="width: 200px; color: black;"><fmt:formatDate
+													value="${asCenter.asCenterDate}" /></td>
+											<td style="width: 200px; color: black;">${asCenter.asCenterStatus}</td>
+										</tr>
+										<c:set var="num" value="${num-1}"></c:set>
+									</c:forEach>
+								</c:otherwise>
+							</c:choose>
+						</c:when>
 					</c:choose>
+
 				</thead>
 			</table>
-			<a id="buttonmy" class="btn btn-dark"
-				onClick="asCenterForm()"
+			<a id="buttonmy" class="btn btn-dark" onClick="asCenterForm()"
 				style="float: left; margin-left: 1190px; margin-top: 25px; border-radius: 2px;">글쓰기</a>
 		</div>
 	</section>

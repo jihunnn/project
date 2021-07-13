@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.springframework.dao.DataAccessException;
 
+import com.project.simple.board.vo.ArticleVO;
+import com.project.simple.page.Criteria;
 import com.project.simple.product.vo.ProductVO;
 
 public interface ProductService {
@@ -18,6 +20,9 @@ public interface ProductService {
 	public List<ProductVO> searchProduct(String searchWord) throws Exception;
 	public void modProduct(Map productMap) throws Exception;
 	public ProductVO productForm(String productNum) throws Exception;
+	
+	public List<ProductVO> listProductReview(Criteria cri) throws Exception;
+	public int productReviewCount() throws Exception;
 
 
 }

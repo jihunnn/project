@@ -20,4 +20,8 @@
 		<put-attribute name="content"
 			value="/WEB-INF/views/exception/500.jsp"></put-attribute>
 	</definition>
+	 <definition name="product/listProductReview" extends="empty">
+		<put-attribute name="content"
+			value="/WEB-INF/views/product_07.jsp" />
+	</definition>
 </tiles-definitions>

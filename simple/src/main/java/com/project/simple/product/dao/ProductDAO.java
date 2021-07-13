@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.springframework.dao.DataAccessException;
 
+import com.project.simple.board.vo.ArticleVO;
+import com.project.simple.page.Criteria;
 import com.project.simple.product.vo.ProductVO;
 
 public interface ProductDAO {
@@ -17,5 +19,8 @@ public interface ProductDAO {
 	public List<String> selectKeywordSearch(String keyword) throws DataAccessException;
 	public List<ProductVO> selectProductBySearchWord(String searchWord) throws DataAccessException;
 	public void updateProduct(Map productMap) throws DataAccessException ;
+	
+	public List<ProductVO> selectAllProductReviewList(Criteria cri) throws DataAccessException;
+	public int selectProductReviewCount() throws DataAccessException;
 	
 }

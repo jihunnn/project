@@ -32,7 +32,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-
+import com.project.simple.board.vo.ArticleVO;
+import com.project.simple.member.vo.MemberVO;
+import com.project.simple.page.Criteria;
+import com.project.simple.page.PageMaker;
 import com.project.simple.product.service.ProductService;
 import com.project.simple.product.vo.ProductVO;
 
@@ -40,6 +43,7 @@ import com.project.simple.product.vo.ProductVO;
 
 public class ProductControllerImpl implements ProductController {
 	private static final String ARTICLE_IMAGE_REPO = "C:\\spring\\product_image";
+	private static final String ARTICLE_IMAGE_REPO_productReview = "C:\\spring\\asCenter_image";
 	@Autowired
 	private ProductService productService;
 	@Autowired
@@ -202,25 +206,25 @@ public class ProductControllerImpl implements ProductController {
 				return mav;
 			}
 			if ("화장대/옷장/수납".equals(sort)) {
-				System.out.println(sort);
+
 				List<ProductVO> productList = productService.listProduct(ProductMap);
-				System.out.println("productList");
+
 				mav.addObject("productList", productList);
 				mav.setViewName("product/listProduct_wardrobe");
 				return mav;
 			}
 			if ("식탁/의자".equals(sort)) {
-				System.out.println(sort);
+
 				List<ProductVO> productList = productService.listProduct(ProductMap);
-				System.out.println("productList");
+
 				mav.addObject("productList", productList);
 				mav.setViewName("product/listProduct_table01");
 				return mav;
 			}
 			if ("테이블/책상/책장".equals(sort)) {
-				System.out.println(sort);
+
 				List<ProductVO> productList = productService.listProduct(ProductMap);
-				System.out.println("productList");
+
 				mav.addObject("productList", productList);
 				mav.setViewName("product/listProduct_table02");
 				return mav;
@@ -471,9 +475,29 @@ public class ProductControllerImpl implements ProductController {
 		}
 		session.setAttribute("quickList",quickList);
 		session.setAttribute("quickListNum", quickList.size());
-		System.out.println(quickList);
-		System.out.println(quickList.size());
+
 		
 	}
+	
+	@Override
+	@RequestMapping(value = "product/listProductReview.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView listProductReview(Criteria cri, HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		String viewName = (String) request.getAttribute("viewName");
+		List<ProductVO> productReviewList = productService.listProductReview(cri);
+		int productReviewCount = productService.productReviewCount();
+		ModelAndView mav = new ModelAndView(viewName);
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(productReviewCount);
+		int pageNum = pageMaker.getCri().getPage();
+		mav.addObject("productReviewList", productReviewList);
+		mav.addObject("pageMaker", pageMaker);
+		mav.addObject("pageNum", pageNum);
+
+		
+		return mav;
+	}
+
 
 }

@@ -32,31 +32,31 @@
 		<put-attribute name="body"
 			value="/WEB-INF/views/cs_03.jsp" />
 	</definition>
-	
+
 	<definition name="board/questionSearch" extends="baseLayout">
 		<put-attribute name="title" value="자주묻는질문목록(검색)" />
 		<put-attribute name="body"
 			value="/WEB-INF/views/cs_03.jsp" />
 	</definition>
-	
+
 	<definition name="board/listInquiry" extends="baseLayout">
 		<put-attribute name="title" value="1:1문의목록" />
 		<put-attribute name="body"
 			value="/WEB-INF/views/cs_04.jsp" />
 	</definition>
-	
+
 	<definition name="board/inquiryForm" extends="baseLayout">
 		<put-attribute name="title" value="1:1문의글쓰기창" />
 		<put-attribute name="body"
 			value="/WEB-INF/views/cs_05.jsp" />
 	</definition>
-	
+
 	<definition name="board/viewInquiry" extends="baseLayout">
 		<put-attribute name="title" value="1:1문의글상세창" />
 		<put-attribute name="body"
 			value="/WEB-INF/views/cs_06.jsp" />
 	</definition>
-	
+
 	<definition name="board/modInquiry" extends="baseLayout">
 		<put-attribute name="title" value="1:1문의글상세창" />
 		<put-attribute name="body"
@@ -67,9 +67,14 @@
 		<put-attribute name="body"
 			value="/WEB-INF/views/cs_04.jsp" />
 	</definition>
-	
+
 	<definition name="board/listAsCenter" extends="baseLayout">
 		<put-attribute name="title" value="AS센터 목록" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/cs_08.jsp" />
+	</definition>
+	<definition name="board/asCenterSearch" extends="baseLayout">
+		<put-attribute name="title" value="AS센터 검색목록" />
 		<put-attribute name="body"
 			value="/WEB-INF/views/cs_08.jsp" />
 	</definition>
@@ -79,7 +84,7 @@
 		<put-attribute name="body"
 			value="/WEB-INF/views/cs_11.jsp" />
 	</definition>
-	
+
 	<definition name="board/pwdConfirm" extends="baseLayout">
 		<put-attribute name="title" value="AS센터 비밀번호 확인창" />
 		<put-attribute name="body"

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.project.simple.page.Criteria;
 import com.project.simple.product.vo.ProductVO;
 
 public interface ProductController {
@@ -26,4 +27,6 @@ public interface ProductController {
 			throws Exception;
 
 	public ModelAndView productForm(@RequestParam("productNum") String productNum,MultipartHttpServletRequest multipartRequest, HttpServletResponse response)throws Exception;
+	public ModelAndView listProductReview(Criteria cri, HttpServletRequest request, HttpServletResponse response)throws Exception;
+
 }

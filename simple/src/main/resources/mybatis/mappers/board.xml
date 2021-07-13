@@ -294,30 +294,30 @@
 	
 	<select id="asCenterSearchList" resultMap="asCenterResult">
 			
-			select * from asCenter where
-			<if test="searchType==asCenterTitle and search != null and search != '' ">
+			select asCenterNum, asCenterTitle , asCenterContent, asCenterPwd, asCenterDate, asCenterFile, asCenterStatus, m.memName from member as m right join asCenter as a on m.memId=a.memId where
+			<if test="searchType=='asCenterTitle' and search != null and search != '' ">
 
 				asCenterTitle like CONCAT('%', #{search}, '%')
 			
 
 			</if>
 
-			<if test="searchType==asCenterContent and search != null and search != '' ">
+			<if test="searchType=='asCenterContent' and search != null and search != '' ">
 
 				asCenterContent like CONCAT('%', #{search}, '%')
 
 			</if>
 
-			<if test="searchType==memName and search != null and search != '' ">
+			<if test="searchType=='memName' and search != null and search != '' ">
 
-				
+				m.memName like CONCAT('%', #{search}, '%')
 
 			</if>	
 
-
-			
-			
 			limit #{pageStart}, #{perPageNum};
+			
+			
+	
 			
 			
 
@@ -328,22 +328,22 @@
 		parameterType="java.util.Map">
 
 			
-			select count(*) from asCenter
-			<if test="searchType==asCenterTitle and search != null and search != '' ">
+			select count(*) from member as m right join asCenter as a on m.memId=a.memId where
+			<if test="searchType=='asCenterTitle' and search != null and search != '' ">
 
 				asCenterTitle like CONCAT('%', #{search}, '%')
 
 			</if>
 
-			<if test="searchType==asCenterContent and search != null and search != '' ">
+			<if test="searchType=='asCenterContent' and search != null and search != '' ">
 
 				asCenterContent like CONCAT('%', #{search}, '%')
 
 			</if>
 
-			<if test="searchType==memName and search != null and search != '' ">
+			<if test="searchType=='memName' and search != null and search != '' ">
 
-				
+				memName like CONCAT('%', #{search}, '%')
 
 			</if> 
 			
@@ -351,5 +351,4 @@
 
 
 	</select>
-
 </mapper>

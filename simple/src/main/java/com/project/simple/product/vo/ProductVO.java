@@ -24,6 +24,15 @@ public class ProductVO {
 	private int productOptionNum;      //惑前 可记 锅龋
 	private String option1;            //惑前 可记1
 	private String option2;           //惑前 可记2
+
+	//惑前 府轰
+	private int reviewNum;
+	private int memOrderNum;
+	private String memName;
+	private String productReviewTitle;
+	private Date reviewDate;
+	private String productContent;
+	private String reviewFile;
 	
 	
 	
@@ -143,6 +152,56 @@ public class ProductVO {
 	}
 	public void setoption1(String option1) {
 		this.option1 = option1;
+	}
+
+	//惑前 府轰
+	public int getReviewNum() {
+		return reviewNum;
+	}
+	public void setReviewNum(int reviewNum) {
+		this.reviewNum = reviewNum;
+	}
+	
+	public int getMemOrderNum() {
+		return memOrderNum;
+	}
+	public void setMemOrderNum(int memOrderNum) {
+		this.memOrderNum = memOrderNum;
+	}
+	
+	public String getMemName() {
+		return memName;
+	}
+	public void setMemName(String memName) {
+		this.memName = memName;
+	}
+	
+	public String getProductReviewTitle() {
+		return productReviewTitle;
+	}
+	public void setProductReviewTitle(String productReviewTitle) {
+		this.productReviewTitle = productReviewTitle;
+	}
+	
+	public Date getReviewDate() {
+		return reviewDate;
+	}
+	public void setReviewDate(Date reviewDate) {
+		this.reviewDate = reviewDate;
+	}
+	
+	public String getProductContent() {
+		return productContent;
+	}
+	public void setProductContent(String productContent) {
+		this.productContent = productContent;
+	}
+	
+	public String getReviewFile() {
+		return reviewFile;
+	}
+	public void setReviewFile(String reviewFile) {
+		this.reviewFile = reviewFile;
 	}
 	
 	
