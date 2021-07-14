@@ -440,9 +440,11 @@ body p {
 													aria-hidden="true">&times;</button>
 											</div>
 											<div class="modal-body"></div>
+											<p>${productReview.productContent}</p>
+											<img src=""/>
 											<div class="modal-footer">
 												<button type="button" class="btn btn-primary"
-													data-dismiss="modal" style="float:right; border-redius">Close</button>
+													data-dismiss="modal" style="float:right; border-radius:2px;">Close</button>
 											</div>
 										</div>
 										<!-- /.modal-content -->

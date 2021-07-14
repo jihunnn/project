@@ -29,6 +29,7 @@ public class ProductVO {
 	private int reviewNum;
 	private int memOrderNum;
 	private String memName;
+	private String memId;
 	private String productReviewTitle;
 	private Date reviewDate;
 	private String productContent;
@@ -202,6 +203,13 @@ public class ProductVO {
 	}
 	public void setReviewFile(String reviewFile) {
 		this.reviewFile = reviewFile;
+	}
+	
+	public String getMemId() {
+		return reviewFile;
+	}
+	public void setMemId(String memId) {
+		this.memId = memId;
 	}
 	
 	

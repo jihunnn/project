@@ -26,7 +26,7 @@
 				class="list-group-item list-group-item-action text-center font-weight-bold">1:1문의</a>
 			<a href="#"
 				class="list-group-item list-group-item-action text-center font-weight-bold">A/S접수</a>
-			<a href="#"
+			<a href="${contextPath}/mypage_14.do"
 				class="list-group-item list-group-item-action text-center font-weight-bold">상품
 				리뷰</a>
 		</div>

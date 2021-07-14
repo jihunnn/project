@@ -139,5 +139,23 @@
 			
 	]]>
 	</select>
+	<!--마이페이지 상품 리뷰////아이디별 -->
+			<select id="selectAllMypageReviewList" resultMap="productReviewResult">
+	<![CDATA[
+			
+			select reviewNum, productNum, memOrderNum , productReviewTitle, reviewDate, productContent, m.memName from member as m right join productReview as a on m.memId=a.memId 
+			where memId=#{memId} order by reviewNum desc
+			limit #{pageStart}, #{perPageNum};
+			
+	]]>
+	</select>
+	<select id="selectMypageReviewCount" resultType="int"
+		parameterType="int">
+	<![CDATA[
+			
+			select count(*)  from productReview where memId=#{memId};
+			
+	]]>
+	</select>
 
 </mapper>

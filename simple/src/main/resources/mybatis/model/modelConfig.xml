@@ -12,5 +12,6 @@
 		<typeAlias alias="adminVO" type="com.project.simple.admin.vo.AdminVO"/>
 		<typeAlias alias="cartVO" type="com.project.simple.cart.vo.CartVO"/>
 		<typeAlias alias="favoriteVO" type="com.project.simple.favorite.vo.FavoriteVO"/>
+		<typeAlias alias="MypageVO" type="com.project.simple.mypage.vo.MypageVO"/>
 	</typeAliases>
 </configuration>
