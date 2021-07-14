@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-
+import com.project.simple.board.vo.ArticleVO;
 import com.project.simple.mypage.dao.MypageDAO;
 import com.project.simple.product.vo.ProductVO;
 import com.project.simple.page.Criteria;
@@ -35,13 +35,14 @@ public class MypageServiceImpl implements MypageService{
 
 	
 	//mypage ªÛ«∞ ∏Æ∫‰
-	public List<ProductVO> listMypageReview(Criteria cri) throws Exception{
-		List<ProductVO> mypageReviewList = mypageDAO.selectAllMypageReviewList(cri);
-		return mypageReviewList;
+	public Map<String ,Object> listMypageReview(Map<String ,Object> mypageReviewMap) throws Exception{
+		List<ProductVO> mypageReviewList=mypageDAO.selectMypageReviewList(mypageReviewMap);
+		mypageReviewMap.put("mypageReviewList", mypageReviewList);
+		return mypageReviewMap;
 	}
 	
-	public int mypageReviewCount() throws Exception{
-		int mypageReviewCount = mypageDAO.selectMypageReviewCount();
+	public int mypageReviewCount(String memId) throws Exception{
+		int mypageReviewCount = mypageDAO.selectMypageReviewCount(memId);
 		return mypageReviewCount;
 	}
 	

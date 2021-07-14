@@ -13,6 +13,6 @@ import com.project.simple.product.vo.ProductVO;
 
 public interface MypageDAO {
 
-	public List<ProductVO>  selectAllMypageReviewList(Criteria cri) throws DataAccessException ;
-	public int selectMypageReviewCount() throws DataAccessException;
+	public List<ProductVO> selectMypageReviewList(Map<String ,Object> mypageReviewMap) throws DataAccessException;
+	public int selectMypageReviewCount(String memId) throws DataAccessException;
 }

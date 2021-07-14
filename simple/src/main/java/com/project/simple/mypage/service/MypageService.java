@@ -10,6 +10,6 @@ import com.project.simple.product.vo.ProductVO;
 
 public interface MypageService {
 
-	public List<ProductVO> listMypageReview(Criteria cri) throws Exception;
-	public int mypageReviewCount() throws Exception;
+	public Map<String ,Object> listMypageReview(Map<String ,Object> mypageReviewMap) throws Exception;
+	public int mypageReviewCount(String memId) throws Exception;
 }

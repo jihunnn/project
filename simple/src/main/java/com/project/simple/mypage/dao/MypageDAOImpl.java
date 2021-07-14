@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 
 import com.project.simple.product.vo.ProductVO;
+import com.project.simple.board.vo.ArticleVO;
 import com.project.simple.member.vo.MemberVO;
 import com.project.simple.page.Criteria;
 
@@ -22,14 +23,16 @@ public class MypageDAOImpl implements MypageDAO{
 	
 	//mypage ªÛ«∞ ∏Æ∫‰
 	@Override
-	public List<ProductVO> selectAllMypageReviewList(Criteria cri) throws DataAccessException {
-		List<ProductVO> mypageReviewList = sqlSession.selectList("mapper.product.selectAllMypageReviewList", cri);
+	public List<ProductVO> selectMypageReviewList(Map<String ,Object> mypageReviewMap) throws DataAccessException {
+		List<ProductVO> mypageReviewList =sqlSession.selectList("mapper.product.selectAllMypageReviewList",mypageReviewMap);		
+
+
 		return mypageReviewList;
 	}
 	
 	@Override
-	public int selectMypageReviewCount() throws DataAccessException {
-		int mypageReviewCount = sqlSession.selectOne("mapper.product.selectMypageReviewCount");
+	public int selectMypageReviewCount(String memId) throws DataAccessException {
+		int mypageReviewCount = sqlSession.selectOne("mapper.product.selectMypageReviewCount",memId);
 
 		return mypageReviewCount;
 	}

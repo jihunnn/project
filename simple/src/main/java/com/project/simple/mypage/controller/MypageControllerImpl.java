@@ -51,28 +51,37 @@ public class MypageControllerImpl implements MypageController {
 	@Autowired
 	private MemberVO memberVO;
 
-	// 공지사항 리스트
+	// 마이페이지 상품리뷰 리스트
 	@Override
-	@RequestMapping(value = "board/mypage_14.do", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "/mypage_14.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView listMypageReview(Criteria cri, HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
+
 		String viewName = (String) request.getAttribute("viewName");
-		
+		ModelAndView mav = new ModelAndView(viewName);
 		HttpSession session = request.getSession();
 		MemberVO memberVO = (MemberVO) session.getAttribute("member");
 		String memId = memberVO.getmemId();
 		productVO.setMemId(memId);
-		
-		List<ProductVO> mypageReviewList = mypageService.listMypageReview(cri);
-		int mypageCount = mypageService.mypageReviewCount();
-		ModelAndView mav = new ModelAndView(viewName);
+
+		Map<String, Object> mypageReviewMap = new HashMap<String, Object>();
+		int pageStart = cri.getPageStart();
+		int perPageNum = cri.getPerPageNum();
+		mypageReviewMap.put("memId", memId);
+		mypageReviewMap.put("pageStart", pageStart);
+		mypageReviewMap.put("perPageNum", perPageNum);
+		mypageReviewMap = mypageService.listMypageReview(mypageReviewMap);
+		System.out.println(mypageReviewMap);
+		int mypageReviewCount = mypageService.mypageReviewCount(memId);
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
-		pageMaker.setTotalCount(mypageCount);
-		mav.addObject("mypageReviewList", mypageReviewList);
-		mav.addObject("pageMaker", pageMaker);
-
+		int pageNum = pageMaker.getCri().getPage();
+		mypageReviewMap.put("pageNum", pageNum);
+		pageMaker.setTotalCount(mypageReviewCount);
+		session.setAttribute("mypageReviewMap", mypageReviewMap);
+		session.setAttribute("pageMaker", pageMaker);
 		return mav;
+
 	}
 
 
