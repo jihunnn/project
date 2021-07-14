@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-
+<script src="resources/jQuery/jquery-3.4.1.min.js"></script>
 
 <head>
 <style type="text/css">
@@ -146,7 +146,7 @@ textarea {
 		<c:set var="num" value="${pageMaker.totalCount - ((pageNum-1) * 10) }" />
 		<c:forEach var="productReview" items="${productReviewList}">
 			<tr style="border-bottom: 1px solid grey;">
-				<td style="width: 100px;">${num }</td>
+				<td style="width: 100px;" >${num }</td>
 				<td style="width: 200px;">${productReview.memName}</td>
 				<td style="width: 500px;"><a class="trigger"
 					style="color: black; cursor: pointer;">
@@ -197,7 +197,7 @@ textarea {
 	</table>
 	<!-- 페이징 -->
 	<div class="page_wrap" style="margin-left: 80px; margin-top: 60px;">
-		<div class="page_nation">
+		<div class="page_nation " >
 
 			<c:if test="${pageMaker.prev}">
 
@@ -222,6 +222,7 @@ textarea {
 			</c:if>
 
 		</div>
+
 	</div>
 	<table class="table"
 		style="margin-top: 20px; text-align: center; width: 1000px; margin-left: -80px; margin-bottom: 1px;">
@@ -238,6 +239,7 @@ textarea {
 				style="margin-right: 670px; width: 300px; background-color: white; border: none; padding-top: 0px; padding-bottom: 50px; padding-left: 12px; padding-bottom: 10px;" /></td>
 		</tr>
 	</table>
+
 
 
 

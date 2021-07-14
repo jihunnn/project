@@ -100,7 +100,14 @@
 	        	</c:choose>
 	        	<li class="nav-item"><a href="${contextPath}/storeinfomation.do" class="nav-link">매장안내</a></li>
 	        	<li class="nav-item"><a href="${contextPath}/board/listNotice.do" class="nav-link" style="margin-right:20px;">고객센터</a></li>
-                <li class="nav-item"><a href="${contextPath}/product/admin_listProduct.do" class="nav-link" style="margin-right:20px;">관리자</a></li>
+                <c:choose>
+                <c:when test="${adminisLogOn == true && admin != null }">
+                <li class="nav-item active"><a href="${contextPath}/admin/logout.do" class="nav-link">LOGOUT</a></li>
+                </c:when>
+                <c:otherwise>
+	        	<li class="nav-item active"><a href="${contextPath}/admin_login.do" class="nav-link">관리자</a></li>
+	        	</c:otherwise>
+	        	</c:choose>
 	        </ul>
 
 	     <div class="dropdown">

@@ -125,10 +125,10 @@
 		<select id="selectAllProductReviewList" resultMap="productReviewResult">
 	<![CDATA[
 			
-			select reviewNum, memorderNum , productReviewTitle, reviewDate, productContent, m.memName from member as m right join productReview as a on m.memId=a.memId order by reviewNum desc
+			select reviewNum, productNum, memOrderNum , productReviewTitle, reviewDate, productContent, m.memName from member as m right join productReview as a on m.memId=a.memId 
+			where productNum = #{productNum} order by reviewNum desc
 			limit #{pageStart}, #{perPageNum};
 			
-
 	]]>
 	</select>
 	<select id="selectProductReviewCount" resultType="int"
@@ -137,7 +137,6 @@
 			
 			select count(*)  from productReview;
 			
-
 	]]>
 	</select>
 

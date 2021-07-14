@@ -20,7 +20,7 @@ public interface ProductDAO {
 	public List<ProductVO> selectProductBySearchWord(String searchWord) throws DataAccessException;
 	public void updateProduct(Map productMap) throws DataAccessException ;
 	
-	public List<ProductVO> selectAllProductReviewList(Criteria cri) throws DataAccessException;
+	public List<ProductVO> selectAllProductReviewList(Map<String, Object> productMap) throws DataAccessException;
 	public int selectProductReviewCount() throws DataAccessException;
 	
 }

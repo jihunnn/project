@@ -18,9 +18,9 @@
 				class="list-group-item list-group-item-action text-center font-weight-bold">주문/배송조회</a>
 			<a href="#"
 				class="list-group-item list-group-item-action text-center font-weight-bold">취소/반품내역</a>
-			<a href="#"
+			<a href="${contextPath}/myCartList.do"
 				class="list-group-item list-group-item-action text-center font-weight-bold">장바구니</a>
-			<a href="#"
+			<a href="${contextPath}/mypage_08.do"
 				class="list-group-item list-group-item-action text-center font-weight-bold">관심상품</a>
 			<a href="#"
 				class="list-group-item list-group-item-action text-center font-weight-bold">1:1문의</a>

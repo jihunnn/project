@@ -73,9 +73,11 @@ public class ProductServiceImpl implements ProductService{
 		
 	}
 	
-	public List<ProductVO> listProductReview(Criteria cri) throws Exception{
-		List<ProductVO> productReviewList = productDAO.selectAllProductReviewList(cri);
-		return productReviewList;
+	public Map<String, Object> listProductReview(Map<String, Object> productMap) throws Exception{
+		List<ProductVO> productReviewList = productDAO.selectAllProductReviewList(productMap);
+		productMap.put("productReviewList", productReviewList);
+
+		return productMap;
 	}
 	
 	public int productReviewCount() throws Exception{

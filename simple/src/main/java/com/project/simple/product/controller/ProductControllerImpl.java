@@ -379,23 +379,39 @@ public class ProductControllerImpl implements ProductController {
 	}
 
 	@RequestMapping(value = "/product/viewProduct.do", method = RequestMethod.GET)
-	public ModelAndView viewProduct(@RequestParam("productNum") String productNum, HttpServletRequest request,
+	public ModelAndView viewProduct(@RequestParam("productNum") String productNum, Criteria cri,HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		Map<String, Object> productMap = new HashMap();
 		String viewName = (String) request.getAttribute("viewName");
 		HttpSession session=request.getSession();
 		productVO = productService.viewProduct(productNum);
-		
-		productMap.put("productVO", productVO);
-		ProductVO productVO=(ProductVO)productMap.get("productVO");
+
+		int pageStart = cri.getPageStart();
+		int perPageNum = cri.getPerPageNum();
+		productMap.put("pageStart", pageStart);
+		productMap.put("perPageNum", perPageNum);
+		productMap.put("productNum", productNum);
+		productMap = productService.listProductReview(productMap);
+		System.out.println(productMap);
+		int productReviewCount = productService.productReviewCount();
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(productReviewCount);
+		int pageNum = pageMaker.getCri().getPage();
+
 		addQuick(productNum,productVO,session);
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(viewName);
 		mav.addObject("product", productVO);
+		mav.addObject("productMap", productMap);
+		mav.addObject("pageMaker", pageMaker);
+		mav.addObject("pageNum", pageNum);
+
 
 		return mav;
 
 	}
+
 
 	@RequestMapping(value = "product/admin_detailproduct.do", method = RequestMethod.GET)
 	public ModelAndView admin_detailproduct(@RequestParam("productNum") String productNum, HttpServletRequest request,
@@ -479,7 +495,7 @@ public class ProductControllerImpl implements ProductController {
 		
 	}
 	
-	@Override
+	/*@Override
 	@RequestMapping(value = "product/listProductReview.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView listProductReview(Criteria cri, HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
@@ -497,7 +513,7 @@ public class ProductControllerImpl implements ProductController {
 
 		
 		return mav;
-	}
+	}*/
 
 
 }
