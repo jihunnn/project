@@ -15,4 +15,7 @@ public interface MypageDAO {
 
 	public List<ProductVO> selectMypageReviewList(Map<String ,Object> mypageReviewMap) throws DataAccessException;
 	public int selectMypageReviewCount(String memId) throws DataAccessException;
+	
+	public List<MypageVO> selectMyOrderInfoList(Map<String ,Object> myOrderInfoMap) throws DataAccessException ;
+	public int selectMyOrderInfoCount(String memId) throws DataAccessException;
 }

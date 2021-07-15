@@ -12,4 +12,7 @@ public interface MypageService {
 
 	public Map<String ,Object> listMypageReview(Map<String ,Object> mypageReviewMap) throws Exception;
 	public int mypageReviewCount(String memId) throws Exception;
+	
+	public Map<String ,Object> listMyOrderInfo (Map<String ,Object> myOrderInfoMap) throws Exception;
+	public int myOrderInfoCount(String memId) throws Exception;
 }

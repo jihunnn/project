@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<c:set var="myOrderInfoList" value="${myOrderInfoMap.myOrderInfoList}" />
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -57,7 +59,7 @@
 		//초기값을 오늘 날짜로 설정해줘야 합니다.
 		$('#datepicker').datepicker('setDate', 'today'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)            
 	});
-	
+
 	//구매확정 이벤트창
 	function confirm() {
 		alert("구매 확정 하시겠습니까?");
@@ -186,9 +188,9 @@
 <title>주문결제창</title>
 <body>
 
-<!-- 마이페이지 타이틀 -->
+	<!-- 마이페이지 타이틀 -->
 	<section class="ftco-section"
-		style="padding-top: 50px; margin-bottom: 50px; padding-bottom: 0px; height:700px;">
+		style="padding-top: 50px; margin-bottom: 50px; padding-bottom: 0px; height: 700px;">
 		<div class="container">
 			<div class="row justify-content-center mb-5 pb-3"
 				style="background-color: #f5f5f5; border: 1px solid #e7e7e7; margin-top: 50px;">
@@ -197,8 +199,8 @@
 					<h2 class="mb-4" style="font-size: 35px; margin-top: 15px;">마이페이지</h2>
 				</div>
 			</div>
-<!-- 마이페이지 타이틀 끝 -->			
-		<!-- 최근 본 상품 -->
+			<!-- 마이페이지 타이틀 끝 -->
+			<!-- 최근 본 상품 -->
 			<div id="recentlyProduct"
 				style="position: absolute; width: 120px; height: 310px; margin-left: 1370px; border: 1px solid #d2d2d2; margin-top: -100px;">
 				<ul
@@ -222,11 +224,12 @@
 						style="color: black; text-align: center; margin-top: 8px; padding-top: 30px;">더보기▼</a></li>
 				</ul>
 			</div>
-		<!-- 최근 본 상품 끝 -->
-		<!-- Left Menu -->
-			<jsp:include page="/WEB-INF/views/common/mypage_sidemenu.jsp" flush="false" />
-		<!-- left Menu 끝-->
-		<!-- 마이페이지 상단 공통 ui -->
+			<!-- 최근 본 상품 끝 -->
+			<!-- Left Menu -->
+			<jsp:include page="/WEB-INF/views/common/mypage_sidemenu.jsp"
+				flush="false" />
+			<!-- left Menu 끝-->
+			<!-- 마이페이지 상단 공통 ui -->
 			<div class="table_01" style="padding-top: 30px;">
 				<div id="MyPage_top">
 					<table style="width: 1000px; height: 80px; smargin-left: 80px;">
@@ -235,11 +238,11 @@
 								<th
 									style="font-size: 16px; background-color: #212529; color: white;"
 									colspan="3"><a
-									style="font-size: 16px; padding-left: 10px; ">홍길동</a>
-									<a>님 환영합니다.</a></th>
+									style="font-size: 16px; padding-left: 10px;">홍길동</a> <a>님
+										환영합니다.</a></th>
 							</tr>
 							<tr align="center"
-								style="padding-left: 10px; font-size:16px; height: 60px;"
+								style="padding-left: 10px; font-size: 16px; height: 60px;"
 								height="45%">
 								<th width="220" style="text-align: center">주문/배송<a
 									href="/MyPage-04" style="color: red;">4</a><a>건</a></th>
@@ -251,94 +254,112 @@
 						</tbody>
 					</table>
 				</div>
-		<!-- 마이페이지 상단 공통 ui 끝-->
+				<!-- 마이페이지 상단 공통 ui 끝-->
 
-			<div id="MyPage_top" style="padding-top: 40px;">
-				<form name="dateinquiry1" action="#" method="post">
-					<table style="width:1000px; height:80px; align:center; ">
-						<tbody id="MyPage_center3">
-							<tr height="50%">
-								<th
-									style="font-size: 18px; text-align: left; font-weight: bold; "
-									colspan="4">주문/배송조회(최근 1개월)</th>
-							</tr>
-							<tr align="center"
-								style="padding-top: 10px; padding-left: 10px; font-size: 15px;"
-								height="35%">
-								<th style="text-align: left;">
-									<div style="display: inline !important;">
-										<p style="float: left; width: 80px; margin-top: 10px; ">구매기간</p>
+				<div id="MyPage_top" style="padding-top: 40px;">
+					<form name="dateinquiry1" action="#" method="post">
+						<table style="width: 1000px; height: 80px; align: center;">
+							<tbody id="MyPage_center3">
+								<tr height="50%">
+									<th
+										style="font-size: 18px; text-align: left; font-weight: bold;"
+										colspan="4">주문/배송조회(최근 1개월)</th>
+								</tr>
+								<tr align="center"
+									style="padding-top: 10px; padding-left: 10px; font-size: 15px;"
+									height="35%">
+									<th style="text-align: left;">
+										<div style="display: inline !important;">
+											<p style="float: left; width: 80px; margin-top: 10px;">구매기간</p>
 
-										<input type="text" id="datepicker1"
-											style="width: 120px; margin-right: 50px; margin-top: 10px; height: 30px; flaot: left; border: 1px solid #bebebe; border-radius: 2px; display: inline !important;">
+											<input type="text" id="datepicker1"
+												style="width: 120px; margin-right: 50px; margin-top: 10px; height: 30px; flaot: left; border: 1px solid #bebebe; border-radius: 2px; display: inline !important;">
 
-										<span class="glyphicon glyphicon-calendar" aria-hidden="true"
-											style="margin-left: -35px;"> </span> ~ <input type="text"
-											id="datepicker2"
-											style="width: 120px; margin-right: 50px; height: 30px; flaot: left; border: 1px solid #bebebe; border-radius: 2px; display: inline !important;">
+											<span class="glyphicon glyphicon-calendar" aria-hidden="true"
+												style="margin-left: -35px;"> </span> ~ <input type="text"
+												id="datepicker2"
+												style="width: 120px; margin-right: 50px; height: 30px; flaot: left; border: 1px solid #bebebe; border-radius: 2px; display: inline !important;">
 
-										<span class="glyphicon glyphicon-calendar" aria-hidden="true"
-											style="margin-left: -35px;"> </span>
+											<span class="glyphicon glyphicon-calendar" aria-hidden="true"
+												style="margin-left: -35px;"> </span>
 
-										<button type="submit" class="btn btn-default"
-											style="background-color: #dcdcdc; fmargin-left: 380px; margin-top: 0px; width: 80px; height: 28px; display: inline !important; background-color: #212529; 
-											color: white; border-radius: 2px; height: 30px; margin-right: 500px; padding-top:3px;">조회</button>
-									</div>
-								</th>
-							</tr>
-						</tbody>
-					</table>
-				</form>
-			</div>
+											<button type="submit" class="btn btn-default"
+												style="background-color: #dcdcdc; fmargin-left: 380px; margin-top: 0px; width: 80px; height: 28px; display: inline !important; background-color: #212529; color: white; border-radius: 2px; height: 30px; margin-right: 500px; padding-top: 3px;">조회</button>
+										</div>
+									</th>
+								</tr>
+							</tbody>
+						</table>
+					</form>
+				</div>
 				<div id="MyPage_top">
-					<table border="1" style="width:1000px; height:180px; align:center;">
+					<table border="1"
+						style="width: 1000px; height: 180px; align: center;">
 						<tbody id="MyPage_center2">
 							<tr height="30%" style="background-color: #212529; color: white;">
 								<th style="font-size: 15px; text-align: center; border-left: 0;"
-									width="100" height="40" style="background-color: #212529; color: white;">주문일자</th>
-								<th style="font-size: 15px; text-align: center;" width="250" style="background-color: #212529; color: white;">상품명</th>
-								<th style="font-size: 15px; text-align: center;" width="70" style="background-color: #212529; color: white;">수량</th>
-								<th style="font-size: 15px; text-align: center;" width="110" style="background-color: #212529; color: white;">금액</th>
+									width="100" height="40"
+									style="background-color: #212529; color: white;">주문일자</th>
+								<th style="font-size: 15px; text-align: center;" width="250"
+									style="background-color: #212529; color: white;">상품명</th>
+								<th style="font-size: 15px; text-align: center;" width="70"
+									style="background-color: #212529; color: white;">수량</th>
+								<th style="font-size: 15px; text-align: center;" width="110"
+									style="background-color: #212529; color: white;">금액</th>
 								<th
 									style="font-size: 14px; text-align: center; border-right: 0;"
 									width="130">현재상태</th>
 							</tr>
-							<tr height="80%">
-								<th style="text-align: center;">2021/6/15</th>
-								<th style="padding: 10px; text-align: left;"
-									onClick="location.href='Product-02'">
-									<div>
-										<img src="${contextPath}/resources/images/image_1.jpg"
-											width="110" height="110" style="float: left;"> <a
-											style="margin-left: 30px;">패브릭 소파(2인용)</a>
-										<p style="margin-left: 140px; font-size: 13px;">그레이색</p>
-									</div>
+							<c:forEach var="myOrderInfoList" items="${myOrderInfoList}">
+								<tr height="80%">
+									<th style="text-align: center;"><fmt:formatDate value="${myOrderInfoList.memOrderDate}" /></th>
+									<th style="padding: 10px; text-align: left;"
+										onClick="location.href='Product-02'">
+										<div>
+											<img src="${contextPath}/resources/images/image_1.jpg"
+												width="110" height="110" style="float: left;"> <a
+												style="margin-left: 30px;">${myOrderInfoList.productName}</a>
+											<c:if test="${myOrderInfoList.option1 !=null}">	
+											<p style="margin-left: 140px; font-size: 13px;">옵션1 : ${myOrderInfoList.option1}</p>
+											</c:if>
+											<c:if test="${myOrderInfoList.option2 !=null}">
+											<p style="margin-left: 140px; font-size: 13px;">옵션2 : ${myOrderInfoList.option2}</p>
+											</c:if>
+										</div>
 
-								</th>
-								<th style="text-align: center;">1</th>
-								<th style="text-align: center;">230,000</th>
-								<th style="text-align: center; height:150px;"><ins onclick="location='#'"
-										id="now-state"
-										style="color: red; font-size: 14px; padding-left: 10px;">
-										배송완료<br>
-									</ins>
-									<button
-										style="font-size: 14px; width: 110px; background-color: #212529; margin-bottom:5px;color: white;" id="pressbtn1"
-										class="confirmation" onclick="confirm()">구매확정
-										<!-- 구매확정 버튼 사라지는 기능 위에다 놓으면 안먹힘 -->
-										<script>		
-﻿﻿﻿											$("button.confirmation").click(function(event){
- 											event.preventDefault(); 
-											 $(this).hide("fast"); });
-										</script>
+									</th>
+									<th style="text-align: center;">${myOrderInfoList.productCnt}</th>
+									<th style="text-align: center;">${myOrderInfoList.productPrice}</th>
+									<th style="text-align: center; height: 150px;"><ins
+											onclick="location='#'" id="now-state"
+											style="color: red; font-size: 14px; padding-left: 10px;">
+											${myOrderInfoList.deliveryStatus}<br>
+										</ins>
+										<button
+											style="font-size: 14px; width: 110px; background-color: #212529; margin-bottom: 5px; color: white;"
+											id="pressbtn1" class="confirmation" onclick="confirm()">
+											구매확정
+											<!-- 구매확정 버튼 사라지는 기능 위에다 놓으면 안먹힘 -->
+											<script>
+												﻿﻿﻿											$("button.confirmation")
+														.click(
+																function(event) {
+																	event
+																			.preventDefault();
+																	$(this)
+																			.hide(
+																					"fast");
+																});
+											</script>
 										</button>
-									<button
-										style="font-size: 14px; width: 110px; background-color: #212529; margin-bottom:5px; color: white;"
-										onclick="location.href='#'">반품신청</button>
-									<button
-										style="font-size: 14px; width: 110px; background-color: #212529; color: white;"
-										onclick="location.href='#'">주문 상세보기</button></th>
-							</tr>
+										<button
+											style="font-size: 14px; width: 110px; background-color: #212529; margin-bottom: 5px; color: white;"
+											onclick="location.href='#'">반품신청</button>
+										<button
+											style="font-size: 14px; width: 110px; background-color: #212529; color: white;"
+											onclick="location.href='#'">주문 상세보기</button></th>
+								</tr>
+							</c:forEach>
 						</tbody>
 					</table>
 				</div>
@@ -357,5 +378,5 @@
 	<br>
 	<br>
 
-  </body>
+</body>
 </html>

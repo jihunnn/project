@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.project.simple.board.vo.ArticleVO;
 import com.project.simple.mypage.dao.MypageDAO;
 import com.project.simple.product.vo.ProductVO;
+import com.project.simple.mypage.vo.MypageVO;
 import com.project.simple.page.Criteria;
 
 
@@ -44,6 +44,18 @@ public class MypageServiceImpl implements MypageService{
 	public int mypageReviewCount(String memId) throws Exception{
 		int mypageReviewCount = mypageDAO.selectMypageReviewCount(memId);
 		return mypageReviewCount;
+	}
+	
+	//마이페이지 주문조회
+	public Map<String ,Object> listMyOrderInfo (Map<String ,Object> myOrderInfoMap) throws Exception{
+		List<MypageVO> myOrderInfoList=mypageDAO.selectMyOrderInfoList(myOrderInfoMap);
+		myOrderInfoMap.put("myOrderInfoList", myOrderInfoList);
+		return myOrderInfoMap;
+	}
+	
+	public int myOrderInfoCount(String memId) throws Exception{
+		int myOrderInfoCount = mypageDAO.selectMyOrderInfoCount(memId);
+		return myOrderInfoCount;
 	}
 	
 	

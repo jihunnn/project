@@ -78,8 +78,41 @@ public class MypageControllerImpl implements MypageController {
 		int pageNum = pageMaker.getCri().getPage();
 		mypageReviewMap.put("pageNum", pageNum);
 		pageMaker.setTotalCount(mypageReviewCount);
-		session.setAttribute("mypageReviewMap", mypageReviewMap);
-		session.setAttribute("pageMaker", pageMaker);
+		mav.addObject("mypageReviewMap", mypageReviewMap);
+		mav.addObject("pageMaker", pageMaker);
+		return mav;
+
+	}
+	
+	//마이페이지 주문조회
+	@Override
+	@RequestMapping(value = "/mypage_04.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView listMyOrderInfo(Criteria cri, HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+
+		String viewName = (String) request.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView(viewName);
+		HttpSession session = request.getSession();
+		MemberVO memberVO = (MemberVO) session.getAttribute("member");
+		String memId = memberVO.getmemId();
+		productVO.setMemId(memId);
+
+		Map<String, Object> myOrderInfoMap = new HashMap<String, Object>();
+		int pageStart = cri.getPageStart();
+		int perPageNum = cri.getPerPageNum();
+		myOrderInfoMap.put("memId", memId);
+		myOrderInfoMap.put("pageStart", pageStart);
+		myOrderInfoMap.put("perPageNum", perPageNum);
+		myOrderInfoMap = mypageService.listMyOrderInfo(myOrderInfoMap);
+		System.out.println(myOrderInfoMap);
+		int myOrderInfoCount = mypageService.mypageReviewCount(memId);
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		int pageNum = pageMaker.getCri().getPage();
+		myOrderInfoMap.put("pageNum", pageNum);
+		pageMaker.setTotalCount(myOrderInfoCount);
+		mav.addObject("myOrderInfoMap", myOrderInfoMap);
+		mav.addObject("pageMaker", pageMaker);
 		return mav;
 
 	}
