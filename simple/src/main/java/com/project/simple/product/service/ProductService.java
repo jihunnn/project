@@ -13,6 +13,7 @@ public interface ProductService {
 	public int addProduct(Map productMap) throws DataAccessException;
 	public void removeProduct(String productNum) throws Exception;
 	public ProductVO viewProduct(String productNum) throws Exception;
+	public Map<String, Object> viewOptionvalue(String productNum) throws Exception;
 	public ProductVO admin_detailproduct(String productNum) throws Exception;
 	public List<String> keywordSearch(String keyword) throws Exception;
 	public List<ProductVO> searchProduct(String searchWord) throws Exception;

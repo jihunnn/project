@@ -15,10 +15,12 @@
         <result property="productManufacturer" column="productManufacturer" />
         <result property="productOrigin" column="productOrigin" />
         <result property="productContentImage" column="productContentImage" />
-        <result property="option1" column="option1" />
-        <result property="option2" column="option2" />
+        <result property="option1name" column="option1name" />
+        <result property="option2name" column="option2name" />
         <result property="option1price" column="option1price" />
         <result property="option2price" column="option2price" /> 
+        <result property="option1value" column="option1value" />
+        <result property="option2value" column="option2value" /> 
 	</resultMap>
 
 
@@ -89,26 +91,40 @@
 	<select id="selectProduct" resultType="productVO" parameterType="string"> 
 	<![CDATA[
 			
-			select product.productNum,
-			product.productName, 
-			product.productPrice, 
-			product.productImage, 
-			product.productManufacturer, 
-			product.productOrigin, 
-			product.productContentImage, 
-			product.productquantity, 
-			productoption.option1, 
-			productoption.option2, 
-			productoption.option1price, 
-			productoption.option2price	
+			select *
 			from product
-			left join productoption on product.productNum=productoption.productNum
-			where product.productNum = #{productNum};
+			where productNum = #{productNum};
 		
-			
-			
 	]]>
 	</select>
+	
+	
+	<select id="selectOptionList1" resultMap="proResult" parameterType="string"> 
+	<![CDATA[
+			
+			select option1name, option1value, option1price from detailoption where productNum = #{productNum} group by option1name, option1value, option1price;
+		
+	]]>
+	</select>
+	
+	<select id="selectOptionList2" resultMap="proResult" parameterType="string"> 
+	<![CDATA[
+			
+			select option2name, option2value, option2price from detailoption where productNum = #{productNum} group by option2name, option2value, option2price;
+		
+	]]>
+	</select>
+	
+	<!-- 
+	<select id="selectOptionlist3" resultMap="proResult" parameterType="string"> 
+	<![CDATA[
+			
+			elect option3name, option3value, option3price from detailoption where productNum = #{productNum} group by option3name, option3value, option3price;
+		
+	]]>
+	</select>
+	-->
+	
 	<select id="selectProductBySearchWord" resultMap="proResult"   parameterType="String"  >
      <![CDATA[
 				select * from product

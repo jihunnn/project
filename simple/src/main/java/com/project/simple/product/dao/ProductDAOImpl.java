@@ -1,6 +1,7 @@
 package com.project.simple.product.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +21,7 @@ public class ProductDAOImpl implements ProductDAO{
 	public List<ProductVO> selectAllProductList(Map<String, Object>ProductMap) throws DataAccessException{
 		
 		List<ProductVO> productList = sqlSession.selectList("mapper.product.selectAllProductList", ProductMap);
-		System.out.println(productList);
+		
 		return productList;
 	}
 	@Override
@@ -42,6 +43,18 @@ public class ProductDAOImpl implements ProductDAO{
 		return sqlSession.selectOne("mapper.product.selectProduct", productNum);
 	}
 
+	
+	
+	@Override
+	public Map<String, Object> selectOptionvalue(String productNum) throws DataAccessException {
+		List<ProductVO> optionList1 = sqlSession.selectList("mapper.product.selectOptionList1", productNum);
+		List<ProductVO> optionList2 = sqlSession.selectList("mapper.product.selectOptionList2", productNum);
+		Map<String, Object> option = new HashMap<String, Object>();
+		option.put("optionList1", optionList1);
+		option.put("optionList2", optionList2);
+		return option;
+	}
+	
 	@Override
 	public List<String> selectKeywordSearch(String keyword) throws DataAccessException {
 		 List<String> list=(ArrayList)sqlSession.selectList("mapper.product.selectKeywordSearch",keyword);

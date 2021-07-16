@@ -44,6 +44,8 @@ public class ProductControllerImpl implements ProductController {
 	private ProductService productService;
 	@Autowired
 	private ProductVO productVO;
+	private ProductVO optionVO;
+	
 	private static final Logger logger = LoggerFactory.getLogger(ProductControllerImpl.class);
 
 	@Override //상품등록하기
@@ -70,7 +72,7 @@ public class ProductControllerImpl implements ProductController {
 		String productContentImage = productImage1.get(1).toString();
 		productMap.put("productImage", productImage);
 		productMap.put("productContentImage", productContentImage);
-		System.out.println(productMap);
+		
 		//HttpSession session = multipartRequest.getSession();
 		//MemberVO memberVO = (MemberVO) session.getAttribute("member");
 		//String memId = memberVO.getmemId();
@@ -201,25 +203,25 @@ public class ProductControllerImpl implements ProductController {
 				return mav;
 			}
 			if ("화장대/옷장/수납".equals(sort)) {
-				System.out.println(sort);
+				
 				List<ProductVO> productList = productService.listProduct(ProductMap);
-				System.out.println("productList");
+				
 				mav.addObject("productList", productList);
 				mav.setViewName("product/listProduct_wardrobe");
 				return mav;
 			}
 			if ("식탁/의자".equals(sort)) {
-				System.out.println(sort);
+				
 				List<ProductVO> productList = productService.listProduct(ProductMap);
-				System.out.println("productList");
+				
 				mav.addObject("productList", productList);
 				mav.setViewName("product/listProduct_table01");
 				return mav;
 			}
 			if ("테이블/책상/책장".equals(sort)) {
-				System.out.println(sort);
+				
 				List<ProductVO> productList = productService.listProduct(ProductMap);
-				System.out.println("productList");
+				
 				mav.addObject("productList", productList);
 				mav.setViewName("product/listProduct_table02");
 				return mav;
@@ -353,9 +355,12 @@ public class ProductControllerImpl implements ProductController {
 			HttpServletResponse response) throws Exception {
 		String viewName = (String) request.getAttribute("viewName");
 		productVO = productService.viewProduct(productNum);
+		Map<String, Object> option = (Map<String, Object>) productService.viewOptionvalue(productNum);
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(viewName);
+		mav.addObject("option", option);
 		mav.addObject("product", productVO);
+		System.out.println(option);
 
 		return mav;
 

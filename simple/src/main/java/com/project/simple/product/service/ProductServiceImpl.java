@@ -1,5 +1,6 @@
 package com.project.simple.product.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -43,6 +44,16 @@ public class ProductServiceImpl implements ProductService{
 		ProductVO productVO = productDAO.selectProduct(productNum);
 		return productVO;
 	}
+	
+	
+	@Override
+	public Map<String, Object> viewOptionvalue(String productNum) throws Exception {
+		Map<String, Object> option = productDAO.selectOptionvalue(productNum);
+		
+		return option;
+	}
+	
+	
 	@Override
 	public List<String> keywordSearch(String keyword) throws Exception {
 		List<String> list=productDAO.selectKeywordSearch(keyword);

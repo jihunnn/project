@@ -2,7 +2,8 @@
 	pageEncoding="utf-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
-
+<c:set var="option1" value="${option.optionList1}" />
+<c:set var="option2" value="${option.optionList2}" />
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -124,43 +125,68 @@ textarea {
 }
 </style>
 
-<!-- 수량체크 자바스크립트 -->
-<script>
-	var amount;
-	function init() {
-		amount = document.form.amount.value;
-		change();
-	}
-	function add() {
-		hm = document.form.amount;
-		hm.value++;
-	}
-	function del() {
-		hm = document.form.amount;
-		if (hm.value > 1) {
-			hm.value--;
-		}
-	}
-	function change() {
-		hm = document.form.amount;
-		if (hm.value < 0) {
-			hm.value = 0;
-		}
-	}
-</script>
-<script type="text/javascript">
-	function addCartBtn() {
-		var form = document.Chec;
-		if (confirm("장바구니에 담으시겠습니까?")) { //확인
 
-		} else { //취소
-			return;
+<script type="text/javascript">
+
+
+	
+	<!--옵션 + 수량 총 합계금액 -->
+	
+	var fo;
+	window.onload = function() {
+		fo = document.forms["form1"];
+		fo['total'].value = fo['price'].value;
+	}
+
+	
+	function checkPrice() {
+		fo['total'].value= Number(fo['price'].value) + Number(fo['option1'].value) + Number(fo['option2'].value);
+	}
+		
+	<!-- 옵션선택 유효성 검사 -->
+	
+	function checkbuy() {
+		var form = document.form1;
+
+		if (form.option1.value == "") {
+			alert("옵션을 선택해주세요.")
+			form.form1.focus();
+			return false;
 		}
+		
+		if (form.option2.value == "") {
+			alert("옵션을 선택해주세요.")
+			form.form1.focus();
+			return false;
+		}
+		
 		form.submit();
 	}
+	
+	function addCartBtn() {
+		var form = document.form1;
+
+		if (form.option1.value == "") {
+			alert("옵션을 선택해주세요.")
+			form.form1.focus();
+			return false;
+		}
+		
+		if (form.option2.value == "") {
+			alert("옵션을 선택해주세요.")
+			form.form1.focus();
+			return false;
+		}
+		
+		form.submit();
+	}
+	
+
+	
+	
 </script>
 </head>
-<body onload="init();">
+<body>
 
 
 	<section class="ftco-section" style="padding-top: 20px;">
@@ -199,7 +225,7 @@ textarea {
 			</div>
 			<!-- 최근 본 상품 끝 -->
 			<!-- 내용 -->
-			<form method="post" id="addCartForm"
+			<form name="form1" method="post" id="addCartForm"
 				action="${contextPath}/product/viewProduct.do?productNum=${product.productNum}">
 				<div class="row">
 					<section>
@@ -213,12 +239,14 @@ textarea {
 					</section>
 
 
-					<section style="width: 685px;">
+					<section style="width: 685px; height: 480px;">
 
 						<h3 class="heading">
 							<a
 								style="position: absolute; white-space: nowrap; margin-top: 5px; margin-left: 50px; float: left; font-size: 18px;">판매가ㅤㅤ
-								ㅤ</a>
+								ㅤ</a><a
+								style="position: absolute; white-space: nowrap; margin-top: 5px; margin-left: 180px; font-size: 18px;">${product.productPrice}원</a><input
+								type="hidden" name="price" value="${product.productPrice}">
 						</h3>
 
 						<h3 class="heading">
@@ -238,45 +266,55 @@ textarea {
 								style="position: absolute; white-space: nowrap; margin-top: 40px; margin-left: 180px; font-size: 18px;">${product.productOrigin}</a>
 						</h3>
 						<br>
-						<h3 class="heading">
-							<a
-								style="position: absolute; white-space: nowrap; margin-top: 80px; margin-left: 51px; float: left; font-size: 18px;">옵션1ㅤㅤ
-								ㅤ</a>
-						</h3>
 
-						<select id="selectBox" name="selectBox"
-							style="margin-left: 180px; margin-top: 70px; float: left !important; width: 300px; height: 30px;">
-							<option value="" selected="selected">옵션 선택</option>
-							<option value="${product.option1}">${product.option1}</option>
-						</select> <br><br>
+
+
 						<h3 class="heading">
-							<a
-								style=" white-space: nowrap; margin-top: 100px; margin-left: -430px; float: left; font-size: 13px;">추가
-								옵션(추가 구매를 원하시면 클릭하세요)</a>
+							<c:forEach items="${option1}" var="name1">
+								<a
+									style="position: absolute; white-space: nowrap; margin-top: 80px; margin-left: 51px; float: left; font-size: 18px;">${name1.option1name}ㅤㅤ
+									ㅤ</a>
+							</c:forEach>
 						</h3>
-						<br><br>
-						<h3 class="heading">
-							<a
-								style="position: absolute; white-space: nowrap; margin-top: 80px; margin-left: 51px; float: left; font-size: 18px;">옵션2ㅤㅤ
-								ㅤ</a>
-						</h3>
-						<select
+						<select id="option1" name="option1" onchange="checkPrice()"
 							style="margin-left: 180px; margin-top: 70px; float: left !important; width: 300px; height: 30px;">
-							<option value="" selected="selected">옵션 선택</option>
-							<option value="${product.option2}">${product.option2}</option>
+							<option value="">옵션 선택</option>
+							<c:forEach items="${option1}" var="option1">
+								<option value="${option1.option1price}">${option1.option1value}
+									+ (${option1.option1price}원)</option>
+							</c:forEach>
+						</select> <br> <br>
+						<h3 class="heading">
+							<c:forEach items="${option2}" var="name2">
+								<a
+									style="position: absolute; white-space: nowrap; margin-top: 80px; margin-left: 51px; float: left; font-size: 18px;">${name2.option2name}
+									ㅤ</a>
+							</c:forEach>
+
+						</h3>
+						<select name="option2" id="option2" onchange="checkPrice()"
+							style="margin-left: 180px; margin-top: 70px; float: left !important; width: 300px; height: 30px;">
+							<option value="">옵션 선택</option>
+							<c:forEach items="${option2}" var="option2">
+								<option value="${option2.option2price}">${option2.option2value}
+									+ (${option2.option2price}원)</option>
+							</c:forEach>
 						</select> <br>
+
+						<button type="button" class="btn btn-default" onclick="checkbuy()"
+							style="background-color: #dcdcdc; float: left; margin-left: 50px; margin-top: 30px; width: 280px; height: 50px; border-radius: 2px;">바로구매</button>
+						<button type="button" class="btn btn-default"
+							onclick="addCartBtn()"
+							style="background-color: #dcdcdc; float: left; margin-left: 350px; margin-top: -50px; width: 280px; height: 50px; border-radius: 2px;">장바구니</button>
+
+						<h2 style="margin-top: 250px; margin-left: 50px;">총 상품 금액</h2>
+						<input type="text" name="total" value="0"
+							style="border: none; text-align: right; font-size: 40px;"
+							readonly />원
+
 					</section>
-
-
 				</div>
-
-
 			</form>
-
-
-
-
-
 
 			<!-- 탭메뉴 자바스크립트 -->
 			<script type="text/javascript"
@@ -486,6 +524,7 @@ textarea {
 				</div>
 
 			</section>
+		</div>
 	</section>
 
 
