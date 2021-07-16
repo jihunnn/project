@@ -3,15 +3,32 @@
 	"http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
 <tiles-definitions>
 
-    <definition name="baseLayout" template="/WEB-INF/views/common/layout.jsp">
-		<put-attribute name="header" value="/WEB-INF/views/common/header.jsp" />
+	<definition name="baseLayout"
+		template="/WEB-INF/views/common/layout.jsp">
+		<put-attribute name="header"
+			value="/WEB-INF/views/common/header.jsp" />
 		<put-attribute name="body" value="" />
-		<put-attribute name="footer" value="/WEB-INF/views/common/footer.jsp" />
-		<put-attribute name="side" value="/WEB-INF/views/common/side.jsp" />
+		<put-attribute name="footer"
+			value="/WEB-INF/views/common/footer.jsp" />
+		<put-attribute name="side"
+			value="/WEB-INF/views/common/side.jsp" />
 	</definition>
 	<definition name="mypage_14" extends="baseLayout">
+		<put-attribute name="title" value="상품리뷰 목록" />
 		<put-attribute name="body"
 			value="/WEB-INF/views/mypage_14.jsp" />
+	</definition>
+	<definition name="/mypage/purchaseConfirm"
+		extends="baseLayout">
+		<put-attribute name="title" value="구매확정" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/mypage_04.jsp" />
+	</definition>
+
+	<definition name="mypage/reviewWrite" extends="baseLayout">
+		<put-attribute name="title" value="상품리뷰 글쓰기창" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/mypage_15.jsp" />
 	</definition>
 
 </tiles-definitions>	

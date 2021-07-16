@@ -92,7 +92,7 @@
 	        	<li class="nav-item"><a href="${contextPath}/join_01.do" class="nav-link">JOIN</a></li>
 	        	<c:choose>
 	        	<c:when test="${isLogOn == true && member != null}">
-	        	<li class="nav-item"><a href="${contextPath}/mypage_01.do?action=mypage&id=${member.memId}" class="nav-link">MYPAGE</a></li>
+	        	<li class="nav-item"><a href="${contextPath}/mypage_01.do" class="nav-link">MYPAGE</a></li>
 	        	</c:when>
 	        	<c:otherwise>
 	        	<li class="nav-item"><a href="${contextPath}/login_01.do" class="nav-link">MYPAGE</a></li>

@@ -2,7 +2,9 @@ package com.project.simple.member.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -25,6 +27,7 @@ import javax.servlet.http.HttpSession;
 
 import com.project.simple.member.service.MemberService;
 import com.project.simple.member.vo.MemberVO;
+import com.project.simple.page.PageMaker;
 
 /**
  * Handles requests for the application home page.
@@ -225,8 +228,11 @@ public class MemberControllerImpl implements MemberController {
 	@RequestMapping(value = "/mypage_01.do", method = RequestMethod.GET)
 	private ModelAndView mypage_01(HttpServletRequest request, HttpServletResponse response) {
 		String viewName = (String) request.getAttribute("viewName");
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName(viewName);
+		ModelAndView mav = new ModelAndView(viewName);
+		HttpSession session = request.getSession();
+		MemberVO memberVO = (MemberVO) session.getAttribute("member");
+		String memId = memberVO.getmemId();
+		memberVO.setmemId(memId);
 		return mav;
 	}
 

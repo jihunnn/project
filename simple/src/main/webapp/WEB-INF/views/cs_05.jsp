@@ -212,7 +212,7 @@
 						<button type="button" onClick="modInquiry(this.form)"
 							class="btn btn-dark " id="buttonmy"
 							style="margin-left: 630px; margin-top: 30px;">수정하기</button>
-						<input type=button value="삭제하기"
+						<input type=button value="목록"
 							onClick="fn_remove_article('${contextPath}/board/removeArticle.do', ${article.articleNO})">
 
 					</c:when>

@@ -27,7 +27,7 @@ public class ProductVO {
 
 	//ªÛ«∞ ∏Æ∫‰
 	private int reviewNum;
-	private int memOrderNum;
+	private int memOrderSeqNum;
 	private String memName;
 	private String memId;
 	private String productReviewTitle;
@@ -163,11 +163,11 @@ public class ProductVO {
 		this.reviewNum = reviewNum;
 	}
 	
-	public int getMemOrderNum() {
-		return memOrderNum;
+	public int getMemOrderSeqNum() {
+		return memOrderSeqNum;
 	}
-	public void setMemOrderNum(int memOrderNum) {
-		this.memOrderNum = memOrderNum;
+	public void setMemOrderNum(int memOrderSeqNum) {
+		this.memOrderSeqNum = memOrderSeqNum;
 	}
 	
 	public String getMemName() {

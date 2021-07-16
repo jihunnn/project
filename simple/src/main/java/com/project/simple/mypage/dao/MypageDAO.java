@@ -13,9 +13,18 @@ import com.project.simple.product.vo.ProductVO;
 
 public interface MypageDAO {
 
-	public List<ProductVO> selectMypageReviewList(Map<String ,Object> mypageReviewMap) throws DataAccessException;
-	public int selectMypageReviewCount(String memId) throws DataAccessException;
+
 	
 	public List<MypageVO> selectMyOrderInfoList(Map<String ,Object> myOrderInfoMap) throws DataAccessException ;
 	public int selectMyOrderInfoCount(String memId) throws DataAccessException;
+	public void updatePurchaseConfirm(MypageVO mypageVO) throws DataAccessException;
+	
+	public List<ProductVO> selectMypageReviewList(Map<String ,Object> mypageReviewMap) throws DataAccessException;
+	public int selectMypageReviewCount(String memId) throws DataAccessException;
+	public int insertNewReview(Map reviewMap) throws DataAccessException;
+	
+	public List<MypageVO> selectMypageReturnList(Map<String ,Object> mypageReturnMap) throws DataAccessException;
+	public int selectMypageReturnCount(String memId) throws DataAccessException ;
+	public void insertNewRetrun(Map returnMap) throws DataAccessException;
+	
 }

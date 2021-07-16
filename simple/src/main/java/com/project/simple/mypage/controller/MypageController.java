@@ -12,7 +12,17 @@ import com.project.simple.page.Criteria;
 
 public interface MypageController {
 
-	public ModelAndView listMypageReview(Criteria cri, HttpServletRequest request, HttpServletResponse response)throws Exception;
+
 	
 	public ModelAndView listMyOrderInfo(Criteria cri, HttpServletRequest request, HttpServletResponse response)throws Exception;
+	
+	public ModelAndView listMypageReview(Criteria cri, HttpServletRequest request, HttpServletResponse response)throws Exception;
+	public ResponseEntity addNewReview(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)throws Exception;
+	
+	public ModelAndView listMypageReturn(Criteria cri, HttpServletRequest request, HttpServletResponse response)throws Exception;
+	
+	/*public ResponseEntity addNewRetrun(Criteria cri, HttpServletRequest request, HttpServletResponse response)throws Exception;*/
+	
+	
+	
 }

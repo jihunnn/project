@@ -33,6 +33,14 @@ public class MypageVO {
 	private String productName;
 	private String productPrice;
 	private String deliveryStatus;
+	private String purchaseConfirm;
+	
+	
+	//마이페이지 반품
+	private int returnNum;
+	private String returnType;
+	private String returnContent;
+	private String currentStatus;
 
 
 	
@@ -201,9 +209,48 @@ public class MypageVO {
 	public void setDeliveryStatus(String deliveryStatus) {
 		this.deliveryStatus = deliveryStatus;
 	}
+	
+	public String getPurchaseConfirm() {
+		return purchaseConfirm;
+	}
+	
+	public void setPurchaseConfirm(String purchaseConfirm) {
+		this.purchaseConfirm = purchaseConfirm;
+	}
 
 	
-
+	public int getReturnNum() {
+		return returnNum;
+	}
+	
+	public void setReturnNum(int returnNum) {
+		this.returnNum = returnNum;
+	}
+	
+	public String getReturnType() {
+		return returnType;
+	}
+	
+	public void setReturnType(String returnType) {
+		this.returnType = returnType;
+	}
+	
+	public String getReturnContent() {
+		return returnContent;
+	}
+	
+	public void setReturnContent(String returnContent) {
+		this.returnContent = returnContent;
+	}
+	
+	public String getCurrentStatust() {
+		return currentStatus;
+	}
+	
+	public void setCurrentStatus(String currentStatus) {
+		this.currentStatus = currentStatus;
+	}
+	
 	
 }
 

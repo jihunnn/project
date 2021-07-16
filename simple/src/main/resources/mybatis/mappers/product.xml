@@ -25,6 +25,7 @@
         <result property="productContent" column="productContent" />
         <result property="reviewFile" column="reviewFile" />
         <result property="memId" column="memId" />
+        <result property="memOrderSeqNum" column="memOrderSeqNum" />
 	</resultMap>
 
 
@@ -125,7 +126,7 @@
 		<select id="selectAllProductReviewList" resultMap="productReviewResult">
 	<![CDATA[
 			
-			select reviewNum, productNum, memOrderNum , productReviewTitle, reviewDate, productContent, m.memName from member as m right join productReview as a on m.memId=a.memId 
+			select reviewNum, productNum, memOrderSeqNum , productReviewTitle, reviewDate, productContent, m.memName from member as m right join productReview as a on m.memId=a.memId 
 			where productNum = #{productNum} order by reviewNum desc
 			limit #{pageStart}, #{perPageNum};
 			
@@ -140,10 +141,10 @@
 	]]>
 	</select>
 	<!--마이페이지 상품 리뷰////아이디별 -->
-			<select id="selectAllMypageReviewList" resultMap="productReviewResult">
+	<select id="selectAllMypageReviewList" resultMap="productReviewResult">
 	<![CDATA[
 			
-			select reviewNum, productNum, memOrderNum , productReviewTitle, reviewDate, productContent, m.memName from member as m right join productReview as a on m.memId=a.memId 
+			select reviewNum, productNum, memOrderSeqNum , productReviewTitle, reviewDate, productContent, m.memName from member as m right join productReview as a on m.memId=a.memId 
 			where m.memId=#{memId} order by reviewNum desc
 			limit #{pageStart}, #{perPageNum};
 			
