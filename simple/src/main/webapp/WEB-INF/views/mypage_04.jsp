@@ -74,6 +74,14 @@
 		}
 
 	}
+	function reviewConfirmResult() {
+
+		alert("이미 리뷰를 작성하였습니다.")
+	}
+	function returnConfirmResult() {
+
+		alert("이미 반품을 신청하셨습니다. 반품내역을 확인해주세요.")
+	}
 </script>
 <style>
 #main_box { /*아이디 선택자*/
@@ -327,7 +335,8 @@
 									<th style="padding: 10px; text-align: left;"
 										onClick="location.href='Product-02'">
 										<div>
-											<img src="${contextPath}/resources/images/image_1.jpg"
+											
+											<img src="${contextPath}/download_product.do?productNum=${myOrderInfoList.productNum}&productImage=${myOrderInfoList.productImage}"
 												width="110" height="110" style="float: left;"> <a
 												style="margin-left: 30px;">${myOrderInfoList.productName}</a>
 											<c:if test="${myOrderInfoList.option1 !=null}">
@@ -347,28 +356,53 @@
 											onclick="location='#'" id="now-state"
 											style="color: red; font-size: 14px; padding-left: 10px;">
 											${myOrderInfoList.deliveryStatus}<br>
-										</ins> <c:if test="${myOrderInfoList.purchaseConfirm =='구매'}">
-											<form>
-												<input type="button" name="purchaseConfirm"
+										</ins> <c:choose>
+											<c:when test="${myOrderInfoList.purchaseConfirm =='구매'}">
+
+												<form>
+													<input type="button" name="purchaseConfirm"
+														style="font-size: 14px; width: 110px; background-color: #212529; margin-bottom: 5px; color: white;"
+														class="confirmation"
+														onclick="confirmOrderConfirm(this.form)" value="구매확정">
+													<input type="hidden" id="memOrderSeqNum"
+														name="memOrderSeqNum"
+														value="${myOrderInfoList.memOrderSeqNum}" />
+												</form>
+											</c:when>
+											<c:when test="${myOrderInfoList.purchaseConfirm =='구매확정'}">
+
+
+												<c:choose>
+													<c:when test="${myOrderInfoList.reviewConfirm == '리뷰'}">
+														<input type="button" name="reviewConfirm"
+															style="font-size: 14px; width: 110px; background-color: #212529; margin-bottom: 5px; color: white;"
+															id="pressbtn1" class="confirmation"
+															onclick="location.href='${contextPath}/mypage/reviewWrite.do?productNum=${myOrderInfoList.productNum}&memOrderSeqNum=${myOrderInfoList.memOrderSeqNum}'"
+															value="리뷰작성">
+													</c:when>
+													<c:when test="${myOrderInfoList.reviewConfirm == '리뷰작성'}">
+														<input type="button" name="reviewConfirm"
+															style="font-size: 14px; width: 110px; background-color: #212529; margin-bottom: 5px; color: white;"
+															id="pressbtn1" class="confirmation"
+															onclick="reviewConfirmResult()" value="리뷰작성">
+													</c:when>
+												</c:choose>
+											</c:when>
+										</c:choose> <c:choose>
+											<c:when test="${myOrderInfoList.returnConfirm == '반품'}">
+												<input type="button"
 													style="font-size: 14px; width: 110px; background-color: #212529; margin-bottom: 5px; color: white;"
-													class="confirmation"
-													onclick="confirmOrderConfirm(this.form)" value="구매확정">
-												<input type="hidden" id="memOrderSeqNum"
-													name="memOrderSeqNum"
-													value="${myOrderInfoList.memOrderSeqNum}" />
-											</form>
-										</c:if> <c:if test="${myOrderInfoList.purchaseConfirm =='구매확정'}">
-													
-											<button
-												style="font-size: 14px; width: 110px; background-color: #212529; margin-bottom: 5px; color: white;"
-												id="pressbtn1" class="confirmation" onclick="location.href='${contextPath}/mypage/reviewWrite.do?productNum=${myOrderInfoList.productNum}&memOrderSeqNum=${myOrderInfoList.memOrderSeqNum}'">리뷰작성
+													onclick="location.href='${contextPath}/mypage/returnWrite.do?&productNum=${myOrderInfoList.productNum}&memOrderSeqNum=${myOrderInfoList.memOrderSeqNum}'"
+													value="반품신청">
+											</c:when>
+											<c:when test="${myOrderInfoList.returnConfirm == '반품신청'}">
+												<input type="button"
+													style="font-size: 14px; width: 110px; background-color: #212529; margin-bottom: 5px; color: white;"
+													onclick="returnConfirmResult()"
+													value="반품신청">
+											</c:when>
+										</c:choose>
 
-											</button>
-										</c:if>
-
-										<button
-											style="font-size: 14px; width: 110px; background-color: #212529; margin-bottom: 5px; color: white;"
-											onclick="location.href='${contextPath}/mypage/addNewReturn.do?memOrderSeqNum=${myOrderInfoList.memOrderSeqNum}'">반품신청</button>
 										<button
 											style="font-size: 14px; width: 110px; background-color: #212529; color: white;"
 											onclick="location.href='#'">주문 상세보기</button></th>

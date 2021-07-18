@@ -16,7 +16,7 @@
 				class="list-group-item list-group-item-action text-center font-weight-bold">회원정보
 				수정</a> <a href="${contextPath}/mypage_04.do"
 				class="list-group-item list-group-item-action text-center font-weight-bold">주문/배송조회</a>
-			<a href="#"
+			<a href="${contextPath}/mypage_07.do"
 				class="list-group-item list-group-item-action text-center font-weight-bold">취소/반품내역</a>
 			<a href="${contextPath}/myCartList.do"
 				class="list-group-item list-group-item-action text-center font-weight-bold">장바구니</a>

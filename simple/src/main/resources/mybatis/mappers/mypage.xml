@@ -24,6 +24,17 @@
 		<result property="purchaseConfirm" column="purchaseConfirm" />
 	</resultMap>
 
+	<resultMap id="productReviewResult" type="MypageVO">
+		<result property="reviewNum" column="reviewNum" />
+		<result property="productReviewTitle"
+			column="productReviewTitle" />
+		<result property="reviewDate" column="reviewDate" />
+		<result property="productContent" column="productContent" />
+		<result property="reviewFile" column="reviewFile" />
+		<result property="memId" column="memId" />
+		<result property="memOrderSeqNum" column="memOrderSeqNum" />
+	</resultMap>
+
 	<resultMap id="mypageReturnResult" type="MypageVO">
 		<result property="returnNum" column="returnNum" />
 		<result property="memOrderSeqNum" column="memOrderSeqNum" />
@@ -37,7 +48,7 @@
 		resultMap="myOrderInfoResult">
 	<![CDATA[
 			
-		select memOrderNum, memOrderDate, purchaseConfirm, o.memOrderSeqNum, productCnt, option1, p.productImage,p.productPrice, p.productName, p.productNum, d.deliveryStatus 
+		select memOrderNum, memOrderDate, purchaseConfirm, reviewConfirm, returnConfirm,  o.memOrderSeqNum, productCnt, option1, option2, p.productImage,p.productPrice, p.productName, p.productNum, d.deliveryStatus 
 		from memberOrder as o left join product as p on o.productNum=p.productNum 
 		join memdelivery as d on o.memOrderSeqNum=d.memOrderSeqNum  where o.memId=#{memId} order by memOrderDate desc
 		limit #{pageStart}, #{perPageNum};
@@ -57,9 +68,22 @@
 		update
 		memberOrder
 		set purchaseConfirm = '구매확정' where
-		memOrderSeqNum = list
+		memOrderSeqNum =
 		#{memOrderSeqNum};
 	</update>
+
+	<select id="selectReviewWrite" resultType="mypageVO"
+		parameterType="int"> 
+	<![CDATA[
+			
+
+		select memOrderNum, memOrderDate, o.memOrderSeqNum, productCnt, option1, option2, p.productImage, p.productPrice, p.productName
+		from memberOrder as o left join product as p on o.productNum=p.productNum 
+		join memdelivery as d on o.memOrderSeqNum=d.memOrderSeqNum  where o.memOrderSeqNum=#{memOrderSeqNum};
+			
+
+	]]>
+	</select>
 
 	<insert id="insertNewReview" parameterType="java.util.Map">
 		<![CDATA[
@@ -69,22 +93,75 @@
 
 	</insert>
 
+	<update id="updateReviewConfirm" parameterType="java.util.Map">
+		update
+		memberOrder
+		set reviewConfirm = '리뷰작성' where
+		memOrderSeqNum =
+		#{memOrderSeqNum};
+	</update>
+
 	<select id="selectNewReviewNum" resultType="int">
 	<![CDATA[
 			
-			select max(reviewNum)+1 from productReview;
+			select COALESCE(max(reviewNum),0)+1 from productReview;
+			
 	
 
 	]]>
 	</select>
-	
-		<select id="selectAllMypageReturnList"
+
+	<select id="selectReview" resultType="mypageVO"
+		parameterType="int"> 
+	<![CDATA[
+			
+
+			select reviewNum, o.productImage, reviewFile, r.productNum, r.memOrderSeqNum , o.memOrderDate, o.productCnt, o.productPrice, productReviewTitle, reviewDate, productContent, p.productName, o.option1, o.option2 
+			from productReview as r left join product as p on r.productNum=p.productNum
+			join memberOrder as o on r.memOrderSeqNum=o.memOrderSeqNum 
+			where reviewNum = #{reviewNum} order by reviewNum desc;
+			
+
+	]]>
+	</select>
+
+
+
+	<update id="updateReview" parameterType="java.util.Map">
+		update productReview
+		set productReviewTitle = #{productReviewTitle},
+		productContent =
+		#{productContent},
+		<if test="reviewFile!='' and reviewFile!=null">
+			reviewFile=#{reviewFile}
+		</if>
+		where reviewNum=#{reviewNum}
+	</update>
+
+	<update id="deleteReview" parameterType="java.util.Map">
+
+		delete from
+		productReview
+		where reviewNum=#{reviewNum};
+
+	</update>
+
+	<update id="updateReviewOrder" parameterType="java.util.Map">
+		update
+		memberOrder
+		set reviewConfirm = '리뷰' where
+		memOrderSeqNum =
+		#{memOrderSeqNum};
+	</update>
+
+
+	<select id="selectAllMypageReturnList"
 		resultMap="mypageReturnResult">
 	<![CDATA[
 			
-		select returnNum, memOrderSeqNum, returnType, returnContent, currentStatus,  o.productCnt, o.option1, o.productImage,o.productPrice, p.productName, o.productNum
-		from returnhistory as r left join memberOrder as o on r.memOrderSeqNum=p.memOrderSeqNum 
-		join product as p on r.productNum=p.productNum  where o.memId=#{memId} order by memOrderDate desc
+		select r.memOrderSeqNum, returnDate, returnNum, returnType, returnContent, r.currentStatus,  o.productCnt, o.option1, o.option2, o.productImage,o.productPrice, p.productName, o.productNum
+		from returnhistory as r left join memberOrder as o on r.memOrderSeqNum=o.memOrderSeqNum 
+		join product as p on r.productNum=p.productNum  where o.memId=#{memId} order by returnDate desc
 		limit #{pageStart}, #{perPageNum};
 			
 	]]>
@@ -97,16 +174,62 @@
 			
 	]]>
 	</select>
-	
-	
+
+
 	<insert id="insertNewReturn" parameterType="java.util.Map">
 		<![CDATA[
-			insert into returnhistory(memOrderSeqNum,returnType, returnContent,currentStatus)
-			values(#{memOrderSeqNum},#{returnType}, #{returnContent}, #{productReviewTitle},  #{productContent}, #{reviewFile});
+			insert into returnhistory(memOrderSeqNum,memId, productNum, returnType, returnContent)
+			values(#{memOrderSeqNum},#{memId}, #{productNum}, #{returnType}, #{returnContent});
 		]]>
 
 	</insert>
-	
+
+	<update id="updateReturnConfirm" parameterType="java.util.Map">
+		update
+		memberOrder
+		set returnConfirm = '반품신청' where
+		memOrderSeqNum =
+		#{memOrderSeqNum};
+	</update>
+
+	<select id="selectReturn" resultType="MypageVO"
+		parameterType="int"> 
+	<![CDATA[
+			
+			
+		select r.memOrderSeqNum, returnDate, returnNum, returnType, returnContent, r.currentStatus,  o.productCnt, o.option1, o.option2, o.productImage,o.productPrice, p.productName, o.productNum
+		from returnhistory as r left join memberOrder as o on r.memOrderSeqNum=o.memOrderSeqNum 
+		join product as p on r.productNum=p.productNum  where returnNum = #{returnNum} order by returnDate desc
+		;
+			
+
+	]]>
+	</select>
+
+	<update id="updateReturn" parameterType="java.util.Map">
+		update returnHistory
+		set
+		returnType=#{returnType},
+		returnContent=#{returnContent}
+		where
+		returnNum=#{returnNum}
+	</update>
+
+	<update id="deleteReturn" parameterType="java.util.Map">
+
+		delete from
+		returnHistory
+		where returnNum=#{returnNum};
+
+	</update>
+
+	<update id="updateReturnOrder" parameterType="java.util.Map">
+		update
+		memberOrder
+		set returnConfirm = '반품' where
+		memOrderSeqNum =
+		#{memOrderSeqNum};
+	</update>
 
 
 </mapper>

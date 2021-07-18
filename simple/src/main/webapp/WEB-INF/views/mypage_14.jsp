@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<c:set var="mypageReviewList"
+	value="${mypageReviewMap.mypageReviewList}" />
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,6 +54,16 @@
 		//초기값을 오늘 날짜로 설정해줘야 합니다.
 		$('#datepicker').datepicker('setDate', 'today'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)            
 	});
+	
+	function readURL(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				$('#preview').attr('src', e.target.result);
+			}
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
 </script>
 
 <style>
@@ -322,65 +335,85 @@
 				</div>
 
 				<div id="MyPage_top3" style="padding-left: 220px;">
-					<table border="1"
+					<table border="1" class="table"
 						style="width: 980px; height: 300px; align: center;">
 						<tbody id="MyPage_center2">
-							<tr
-								style="height: 30px; background-color: #212529; color: white;">
-								<th colspan="2">
-									<div style="text-align: center; font-size: 15px; padding: 5px">
-										<a>상품명</a>
-									</div>
-									<div
-										style="font-size: 10px; text-align: right; padding-right: 5px">
-										<a>작성 날짜 :</a> <a>2021-6-14</a>
-									</div>
-								</th>
-							</tr>
-							<tr style="height: 120px">
-								<th
-									style="width: 130px; text-align: left; padding: 10px; flex-direction: row;"
-									onClick="location.href='Product-02'"><img
-									src="${contextPath}/resources/images/image_1.jpg" width="110"
-									height="110"></th>
-								<th style="padding: 10px; border-left: hidden;">
-									<div>
-										<div>
-											<a>패브릭 소파(2인용)</a>
-										</div>
-										<div>
-											<a>옵션1 :</a>
-										</div>
-										<div>
-											<a>옵션2 :</a>
-										</div>
-									</div>
-								</th>
-							</tr>
-							<tr style="height: 100px">
-								<th colspan="2" style="padding-left: 5px;"><input
-									type="text"
-									style="width: 970px; margin-top: 10px; height: 80px; cols: 78px; rows: 4px;"
-									name="contents"></th>
-							</tr>
-							<tr style="height: 30px; border-top: hidden;">
-								<th style="width: 130px; padding-left: 5px">
-									<form style="font-size: 12px;" method="post"
-										enctype="multipart/form-data" action="imgup.jsp">
-										<input type="file" name="filename1" size=40>
-									</form>
-								</th>
-								<th
-									style="text-align: right; padding: 5px; border-left: hidden;">
-									<input type="submit" name="modify" value="확 인 "
-									onclick="location.href='/MyPage-13'"> <input
-									type="reset" name="reset" value="취 소"
-									onclick="location.href='/MyPage-13'">
-								</th>
-							</tr>
+
+
+							<c:choose>
+								<c:when test="${empty mypageReviewMap.mypageReviewList}">
+									<tr style="background-color: white; ">
+										<td colspan="5" style="color: black; height: 300px;">작성한
+											리뷰가 없습니다.</td>
+									</tr>
+								</c:when>
+								<c:when test="${!empty mypageReviewMap.mypageReviewList}">
+									
+									<c:forEach var="mypageReviewList" items="${mypageReviewList}">
+										<tr
+											style="height: 30px; background-color: #212529; color: white;">
+											<th colspan="2">
+												<div
+													style="text-align: center; font-size: 15px; padding: 5px">
+													<a>${mypageReviewList.productReviewTitle}</a> <a
+														style="float: right"><fmt:formatDate
+															value="${mypageReviewList.reviewDate}" /></a><a
+														style="float: right">작성 날짜 :</a>
+												</div>
+											</th>
+										</tr>
+
+										<tr style="height: 120px">
+											<th
+												style="width: 130px; text-align: left; padding: 10px; flex-direction: row;"
+												onClick="location.href='Product-02'"><img src=""
+												width="110" height="110"></th>
+											<th style="padding: 10px; border-left: hidden;">
+												<div>
+													<div>
+														<a>${mypageReviewList.productName}</a>
+													</div>
+													<c:if test="${mypageReviewList.option1 !=null}">
+														<p style="margin-left: 140px; font-size: 13px;">옵션1 :
+															${mypageReviewList.option1}</p>
+													</c:if>
+													<c:if test="${mypageReviewList.option2 !=null}">
+														<p style="margin-left: 140px; font-size: 13px;">옵션2 :
+															${mypageReviewList.option2}</p>
+													</c:if>
+												</div>
+											</th>
+										</tr>
+										<tr style="height: 100px">
+											<th colspan="2" style="padding-left: 5px;"><input
+												type="text" disabled
+												style="width: 970px; margin-top: 10px; height: 80px; cols: 78px; rows: 4px;"
+												name="contents" value="${mypageReviewList.productContent}">
+											</th>
+										</tr>
+										<tr style="height: 30px; border-top: hidden;">
+											<th style="width: 500px; padding-left: 5px"><a>파일이름:
+													${mypageReviewList.reviewFile}</a> <img id="preview"
+												src="${contextPath}/download_review.do?reviewNum=${mypageReviewList.reviewNum}&reviewFile=${mypageReviewList.reviewFile}"
+												width="50" height="50" /></th>
+											<th
+												style="text-align: right; padding: 5px; border-left: hidden; margin-top: 15px;">
+												<input type="button" name="modify" value="수정 "
+												style="margin-top: 15px;"
+												onclick="location.href='${contextPath}/mypage/modReview.do?reviewNum=${mypageReviewList.reviewNum}'">
+												<input type="reset" name="reset" value="삭제"
+												onclick="location.href='${contextPath}/mypage/removeReview.do?reviewNum=${mypageReviewList.reviewNum}&memOrderSeqNum=${mypageReviewList.memOrderSeqNum}'">
+
+											</th>
+										</tr>
+									</c:forEach>
+
+								</c:when>
+							</c:choose>
 						</tbody>
 					</table>
 				</div>
+
 			</div>
 			<!-- 내용 -->
 		</div>

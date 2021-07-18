@@ -22,7 +22,7 @@ public interface ProductService {
 	public ProductVO productForm(String productNum) throws Exception;
 	
 	public Map<String, Object> listProductReview(Map<String, Object> productMap) throws Exception;
-	public int productReviewCount() throws Exception;
+	public int productReviewCount(String productNum) throws Exception;
 
 
 }

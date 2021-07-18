@@ -16,168 +16,150 @@
 	height: 50px;
 	color: #777;
 }
-
 #recentlyProduct {
 	position: absolute;
 	top: 180px;
 	right: 50%;
 	margin-right: -670px;
 }
-
-<!--
-상품리뷰 오버랩 디자인------------->textarea {
-	width: 439px;
-	height: 27px;
-	background-color: #efefef;
-	border-radius: 6px;
-	border: 1px solid #dedede;
-	padding: 10px;
-	margin-top: 3px;
-	font-size: 0.9em;
-	color: #3a3a3a;
-}
-
-input:focus, textarea:focus {
-	border: 1px solid #97d6eb;
-}
-
-textarea {
-	height: 60px;
-	background-color: #efefef;
-}
-
-#submit {
-	width: 127px;
-	height: 48px;
-	text-align: center;
-	border: none;
-	margin-top: 20px;
-	cursor: pointer;
-}
-
-#submit:hover {
-	color: #fff;
-	background-color: #216282;
-	opacity: 0.9;
-}
-
-#cancel {
-	width: 127px;
-	height: 48px;
-	text-align: center;
-	border: none;
-	margin-top: 20px;
-	cursor: pointer;
-}
-
-.modal.modal-wide .modal-dialog {
-	width: 90%;
-}
-
-.modal-wide .modal-body {
-	overflow-y: auto;
-
-}
-
-/* irrelevant styling */
-body {
-	text-align: center;
-}
-
-body p {
-	max-width: 800px;
-	margin: 20px auto;
-}
-
-#tallModal .modal-body p {
-	margin-bottom: 900px;
+<!-- 상품리뷰 오버랩 디자인------------->
+ 
+    textarea {
+    	width: 439px;
+    	height: 27px;
+    	background-color: #efefef;
+    	border-radius: 6px;
+    	border: 1px solid #dedede; 
+    	padding: 10px;
+    	margin-top: 3px;
+    	font-size: 0.9em;
+    	color: #3a3a3a; 
+    }
+    
+    	input:focus, textarea:focus{
+    		border: 1px solid #97d6eb;
+    	}
 	
-}
+    textarea{
+    	height: 60px;
+    	background-color: #efefef;
+    }
+    #submit{
+    	width: 127px;
+    	height: 48px;
+    	text-align: center;
+    	border: none;
+    	margin-top: 20px;
+    	cursor: pointer;
+    }
+    #submit:hover{
+    	color: #fff;
+    	background-color: #216282;
+    	opacity: 0.9;
+    }
+    #cancel {
+    	width: 127px; height: 48px;
+    	text-align: center;
+    	border: none;
+    	margin-top: 20px;
+    	cursor: pointer;
+    }
+    #cancel:hover{
+    	color: #fff;
+    	background-color: #216282;
+    	opacity: 0.9;
+    }
+	.review {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        opacity: 0;
+        visibility: hidden;
+        transform: scale(1.1);
+        transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
+    }
+    .review-content {
+        position: absolute;
+        top: 60%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        padding: 1rem 1.5rem;
+        width: 850px;
+        height: 500px;
+        border-radius: 0.5rem;
+    }
+    .close-button {
+        float: right;
+        width: 1.5rem;
+        line-height: 1.5rem;
+        text-align: center;
+        cursor: pointer;
+        border-radius: 0.25rem;
+        background-color: lightgray;
+    }
+    .close-button:hover {
+        background-color: darkgray;
+    }
+    .show-modal {
+        opacity: 1;
+        visibility: visible;
+        transform: scale(1.0);
+        transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
+    }
+   
 </style>
-<script type="text/javascript">
-	function add_favorite(productNum) {
-		if (confirm("관심상품에 등록하시겠습니까?")) {
-			$.ajax({
-				type : "post",
-				async : false, //false인 경우 동기식으로 처리한다.
-				url : "${contextPath}/addProductInFavorite.do",
-				data : {
-					productNum : productNum
-
-				},
-				success : function(data, textStatus) {
-					//alert(data);
-					//	$('#message').append(data);
-					if (data.trim() == 'add_success') {
-						alert("관심상품에 등록되었습니다.");
-					} else if (data.trim() == 'already_existed') {
-						alert("이미 관심상품에 등록된 상품입니다.");
-					}
-
-				},
-				error : function(data, textStatus) {
-					alert("에러가 발생했습니다." + data);
-				},
-				complete : function(data, textStatus) {
-					//alert("작업을완료 했습니다");
-				}
-			}); //end ajax	
-		} else {
-			return false;
+<!-- 수량체크 자바스크립트 -->
+<script language="JavaScript">
+<!--
+var amount;
+function init () {
+	amount = document.form.amount.value;
+	change();
+}
+function add () {
+	hm = document.form.amount;
+	hm.value ++ ;
+}
+function del () {
+	hm = document.form.amount;
+		if (hm.value > 1) {
+			hm.value -- ;
 		}
-	}
-
-	function add_cart(productNum) {
-		if (confirm("장바구니에 등록하시겠습니까?")) {
-			$.ajax({
-				type : "post",
-				async : false, //false인 경우 동기식으로 처리한다.
-				url : "${contextPath}/addProductInCart.do",
-				data : {
-					productNum : productNum
-
-				},
-				success : function(data, textStatus) {
-					//alert(data);
-					//	$('#message').append(data);
-					if (data.trim() == 'add_success') {
-						alert("장바구니에 담았습니다.");
-					} else if (data.trim() == 'already_existed') {
-						alert("이미 장바구니에 등록된 상품입니다.");
-					}
-
-				},
-				error : function(data, textStatus) {
-					alert("에러가 발생했습니다." + data);
-				},
-				complete : function(data, textStatus) {
-					//alert("작업을완료 했습니다");
-				}
-			}); //end ajax	
-		} else {
-			return false;
+}
+function change () {
+	hm = document.form.amount;
+		if (hm.value < 0) {
+			hm.value = 0;
 		}
-	}
+}  
+//-->
 </script>
 <script type="text/javascript">
-	function up() {
-		var count = document.getElementById("quantity").value;
-		document.getElementById("quantity").value = parseInt(count) + 1;
-	}
-	function down() {
-		var count = document.getElementById("quantity").value;
-		if (count != 1) {
-			document.getElementById("quantity").value = parseInt(count) - 1;
+	function favoriteproduct(){
+		var form = document.Chec;
+		if (confirm("관심상품에 등록하시겠습니까?")){ //확인
+			
+		} else { //취소
+			return;
 		}
+		form.submit();
 	}
-
-	$(".modal-wide").on("show.bs.modal", function() {
-		var height = $(window).height() - 200;
-		$(this).find(".modal-body").css("max-height", height);
-	});
+	function addCartBtn(){
+		var form = document.Chec;
+		if (confirm("장바구니에 담으시겠습니까?")){ //확인
+			
+		} else { //취소
+			return;
+		}
+		form.submit();
+	}
 </script>
 </head>
-<body>
+<body onload="init();">
 
 
 	<section class="ftco-section" style="padding-top: 20px;">
@@ -453,7 +435,7 @@ body p {
 								</div>
 								<!-- /.modal -->
 								<tr style="border-bottom: 1px solid grey;">
-									<td style="width: 100px;">${num }</td>
+									<td style="width: 100px;">${num}</td>
 									<td style="width: 200px;">${productReview.memName }</td>
 									<td style="width: 500px;"><a
 										style="color: black; cursor: pointer;" data-toggle="modal"

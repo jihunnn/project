@@ -17,6 +17,7 @@ public class FileDownloadController {
 	private static final String ARTICLE_IMAGE_REPO = "C:\\spring\\product_image";
 	private static final String ARTICLE_IMAGE_REPO_inquiry = "C:\\spring\\inquiry_image";
 	private static final String ARTICLE_IMAGE_REPO_asCenter = "C:\\spring\\asCenter_image";
+	private static final String ARTICLE_IMAGE_REPO_review = "C:\\spring\\review_image";
 
 	@RequestMapping("/download.do")
 	protected void download(@RequestParam("inquiryFile") String inquiryFile,
@@ -101,5 +102,27 @@ public class FileDownloadController {
 		in.close();
 		out.close();
 	}
+	
+	@RequestMapping("/download_review.do")
+	protected void download_review(@RequestParam("reviewFile") String reviewFile,
+			@RequestParam("reviewNum") String reviewNum, HttpServletResponse response) throws Exception {
+		OutputStream out = response.getOutputStream();
+		String downFile = ARTICLE_IMAGE_REPO_review + "\\" + reviewNum + "\\" + reviewFile;
+		File file = new File(downFile);
+		response.setHeader("Cache-Control", "no-cache");
+		response.addHeader("Content-disposition", "attachment; fileName=" + reviewFile);
+		FileInputStream in = new FileInputStream(file);
+		byte[] buffer = new byte[1024 * 8];
+		while (true) {
+			int count = in.read(buffer);
+			if (count == -1)
+				break;
+			out.write(buffer, 0, count);
+		}
+		in.close();
+		out.close();
+	}
+	
+
 
 }

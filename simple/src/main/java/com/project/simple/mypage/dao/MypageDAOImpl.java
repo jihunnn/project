@@ -59,18 +59,41 @@ public class MypageDAOImpl implements MypageDAO{
 		return mypageReviewCount;
 	}
 	
+	@Override
+	public MypageVO selectReviewWrite(int memOrderSeqNum) throws DataAccessException {
+		return sqlSession.selectOne("mapper.mypage.selectReviewWrite", memOrderSeqNum);
+	}
 	
 	@Override
 	public int insertNewReview(Map reviewMap) throws DataAccessException {
 		int reviewNum = selectNewReviewNum();
 		reviewMap.put("reviewNum", reviewNum);
 		sqlSession.insert("mapper.mypage.insertNewReview", reviewMap);
+		sqlSession.update("mapper.mypage.updateReviewConfirm", reviewMap);
 		return reviewNum;
 	}
 	
 	private int selectNewReviewNum() throws DataAccessException {
 		return sqlSession.selectOne("mapper.mypage.selectNewReviewNum");
 		
+	}
+	
+	@Override
+	public MypageVO selectReview(int reviewNum) throws DataAccessException {
+		return sqlSession.selectOne("mapper.mypage.selectReview", reviewNum);
+	}
+	
+	
+	@Override
+	public void updateReview(Map reviewMap) throws DataAccessException {
+		sqlSession.update("mapper.mypage.updateReview", reviewMap);
+
+	}
+	
+	@Override
+	public void deleteReview(Map<String,Object> reviewMap) throws DataAccessException {
+		sqlSession.delete("mapper.mypage.deleteReview", reviewMap);
+		sqlSession.update("mapper.mypage.updateReviewOrder", reviewMap);
 	}
 	
 	//마이페이지 반품 리스트
@@ -89,9 +112,26 @@ public class MypageDAOImpl implements MypageDAO{
 	}
 	
 	@Override
-	public void insertNewRetrun(Map returnMap) throws DataAccessException {
-
+	public void insertNewReturn(Map returnMap) throws DataAccessException {
 		sqlSession.insert("mapper.mypage.insertNewReturn", returnMap);
+		sqlSession.update("mapper.mypage.updateReturnConfirm", returnMap);
+		
+	}
+	
+	@Override
+	public MypageVO selectReturn(int returnNum) throws DataAccessException {
+		return sqlSession.selectOne("mapper.mypage.selectReturn", returnNum);
+	}
+	
+	@Override
+	public void updateReturn(Map returnMap) throws DataAccessException {
+		sqlSession.update("mapper.mypage.updateReturn", returnMap);
+	}
+	
+	@Override
+	public void deleteReturn(Map<String,Object> returnMap) throws DataAccessException {
+		sqlSession.delete("mapper.mypage.deleteReturn", returnMap);
+		sqlSession.update("mapper.mypage.updateReturnOrder", returnMap);
 	}
 	
 

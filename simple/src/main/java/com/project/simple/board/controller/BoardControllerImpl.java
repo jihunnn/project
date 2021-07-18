@@ -552,7 +552,7 @@ public class BoardControllerImpl implements BoardController {
 
 			message = "<script>";
 			message += " alert('오류가 발생했습니다. 다시 시도해주세요');";
-			message += "  location.href='" + multipartRequest.getContextPath() + "/board/asCenterForm.do';";
+			message += "  location.href='" + multipartRequest.getContextPath() + "/board/asCenterWrite.do';";
 			message += " </script>";
 			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
 			e.printStackTrace();

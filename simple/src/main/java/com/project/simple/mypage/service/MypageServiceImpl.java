@@ -69,13 +69,40 @@ public class MypageServiceImpl implements MypageService{
 		return mypageReviewCount;
 	}
 	
+	//마이페이지 리뷰 글쓰기창 
+	@Override
+	public MypageVO reviewWrite(int memOrderSeqNum) throws Exception {
+		MypageVO mypageVO = mypageDAO.selectReviewWrite(memOrderSeqNum);
+		return mypageVO;
+	}
+	
 	//마이페이지 리뷰 글쓰기
 	@Override
 	public int addNewReview(Map reviewMap) throws Exception{
 		return mypageDAO.insertNewReview(reviewMap);
 	}
 	
-	//mypage 상품 리뷰 목록
+	//마이페이지 리뷰 수정 글쓰기창 
+	@Override
+	public MypageVO reviewForm(int reviewNum) throws Exception {
+		MypageVO mypageVO = mypageDAO.selectReview(reviewNum);
+		return mypageVO;
+	}
+	
+	//마이페이지 리뷰 수정하기
+	@Override
+	public void modReview(Map reviewMap) throws Exception {
+
+		mypageDAO.updateReview(reviewMap);
+	}
+	
+	//마이페이지 리뷰 삭제하기
+	@Override
+	public void removeReview(Map<String,Object> reviewMap) throws Exception {
+		mypageDAO.deleteReview(reviewMap);
+	}
+	
+	//mypage 반품 목록
 	@Override
 	public Map<String ,Object> listMypageReturn(Map<String ,Object> mypageReturnMap) throws Exception{
 		List<MypageVO> mypageReturnList=mypageDAO.selectMypageReturnList(mypageReturnMap);
@@ -91,9 +118,29 @@ public class MypageServiceImpl implements MypageService{
 	//마이페이지 반품 글쓰기
 	@Override
 	public void addNewReturn(Map returnMap) throws Exception{
-		mypageDAO.insertNewReview(returnMap);
+		mypageDAO.insertNewReturn(returnMap);
 	}
 	
+	
 
+	
+	//마이페이지 반품 상세보기
+	@Override
+	public MypageVO viewReturn(int returnNum) throws Exception {
+		MypageVO mypageVO = mypageDAO.selectReturn(returnNum);
+		return mypageVO;
+	}
+	
+	//마이페이지 반품 수정하기
+	@Override
+	public void modReturn(Map returnMap) throws Exception {
+		mypageDAO.updateReturn(returnMap);
+	}
+	
+	//마이페이지 반품신청 삭제하기
+	@Override
+	public void removeReturn(Map<String,Object> returnMap) throws Exception {
+		mypageDAO.deleteReturn(returnMap);
+	}
 	
 }	

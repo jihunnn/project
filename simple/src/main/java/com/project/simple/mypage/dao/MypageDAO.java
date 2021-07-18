@@ -21,10 +21,17 @@ public interface MypageDAO {
 	
 	public List<ProductVO> selectMypageReviewList(Map<String ,Object> mypageReviewMap) throws DataAccessException;
 	public int selectMypageReviewCount(String memId) throws DataAccessException;
+	public MypageVO selectReviewWrite(int memOrderSeqNum) throws DataAccessException ;
 	public int insertNewReview(Map reviewMap) throws DataAccessException;
+	public MypageVO selectReview(int reviewNum) throws DataAccessException;
+	public void updateReview(Map reviewMap) throws DataAccessException;
+	public void deleteReview(Map<String,Object> reviewMap) throws DataAccessException;
 	
 	public List<MypageVO> selectMypageReturnList(Map<String ,Object> mypageReturnMap) throws DataAccessException;
 	public int selectMypageReturnCount(String memId) throws DataAccessException ;
-	public void insertNewRetrun(Map returnMap) throws DataAccessException;
+	public void insertNewReturn(Map returnMap) throws DataAccessException ;
+	public MypageVO selectReturn(int returnNum) throws DataAccessException ;
+	public void updateReturn(Map returnMap) throws DataAccessException ;
+	public void deleteReturn(Map<String,Object> returnMap) throws DataAccessException ;
 	
 }

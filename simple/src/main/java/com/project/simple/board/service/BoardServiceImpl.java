@@ -183,6 +183,7 @@ public class BoardServiceImpl implements BoardService{
 		return asCenterSearchMap;
 	}
 	
+
 	@Override
 	public int asCenterSearchCount(Map<String, Object> search) throws Exception{
 

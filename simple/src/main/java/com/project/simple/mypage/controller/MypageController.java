@@ -18,10 +18,11 @@ public interface MypageController {
 	
 	public ModelAndView listMypageReview(Criteria cri, HttpServletRequest request, HttpServletResponse response)throws Exception;
 	public ResponseEntity addNewReview(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)throws Exception;
+	public ResponseEntity removeReview(@RequestParam("reviewNum") int reviewNum, @RequestParam("memOrderSeqNum") int memOrderSeqNum, HttpServletRequest request,HttpServletResponse response) throws Exception;
 	
 	public ModelAndView listMypageReturn(Criteria cri, HttpServletRequest request, HttpServletResponse response)throws Exception;
-	
-	/*public ResponseEntity addNewRetrun(Criteria cri, HttpServletRequest request, HttpServletResponse response)throws Exception;*/
+	public ResponseEntity addNewRetrun(Criteria cri, HttpServletRequest request, HttpServletResponse response)throws Exception;
+	public ResponseEntity removeReturn(@RequestParam("returnNum") int returnNum,  @RequestParam("memOrderSeqNum") int memOrderSeqNum,HttpServletRequest request,HttpServletResponse response) throws Exception;
 	
 	
 	

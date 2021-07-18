@@ -393,7 +393,7 @@ public class ProductControllerImpl implements ProductController {
 		productMap.put("productNum", productNum);
 		productMap = productService.listProductReview(productMap);
 		System.out.println(productMap);
-		int productReviewCount = productService.productReviewCount();
+		int productReviewCount = productService.productReviewCount(productNum);
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(productReviewCount);

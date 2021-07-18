@@ -80,8 +80,8 @@ public class ProductServiceImpl implements ProductService{
 		return productMap;
 	}
 	
-	public int productReviewCount() throws Exception{
-		int productReviewCount = productDAO.selectProductReviewCount();
+	public int productReviewCount(String productNum) throws Exception{
+		int productReviewCount = productDAO.selectProductReviewCount(productNum);
 		return productReviewCount;
 	}
 	

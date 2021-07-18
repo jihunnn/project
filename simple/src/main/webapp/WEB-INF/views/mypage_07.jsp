@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<c:set var="mypageReturnList"
+	value="${mypageReturnMap.mypageReturnList}" />
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -292,40 +295,96 @@
 						</tbody>
 					</table>
 				</div>
+
 				<div id="MyPage_top">
 					<table border="1"
 						style="width: 995px; height: 180px; align: center;">
 						<tbody id="MyPage_center2">
 							<tr style="background-color: #212529; color: white;">
 								<th style="font-size: 15px; text-align: center; height: 40px;"
-									width="100">주문일자</th>
+									width="100">반품일자</th>
 								<th style="font-size: 15px; text-align: center;" width="250">상품명</th>
 								<th style="font-size: 15px; text-align: center;" width="70">수량</th>
 								<th style="font-size: 15px; text-align: center;" width="110">금액</th>
 								<th style="font-size: 15px; text-align: center;" width="130">현재상태</th>
 							</tr>
-							<tr height="80%">
-								<th style="text-align: center;">2021/6/15</th>
-								<th style="padding: 10px; text-align: center;"
-									onClick="location.href='Product-02'">
-									<div>
-										<img src="${contextPath}/resources/images/image_1.jpg"
-											width="110" height="110" style="float: left;"> <a
-											style="margin-left: 0px; padding-right: 10px;">패브릭
-											소파(2인용)</a>
-										<p style="margin-left: 140px; font-size: 13px; width: 100px;">그레이색</p>
-									</div>
-								</th>
-								<th style="text-align: center;">1</th>
-								<th style="text-align: center;">230,000</th>
-								<th style="text-align: center;"><a id="now-state"
-									style="color: red; font-size: 14px;">반품완료</a></th>
-							</tr>
+							<c:choose>
+								<c:when test="${empty mypageReturnList}">
+									<tr style="background-color: white;">
+										<td colspan="5"
+											style="color: black; height: 300px; text-align: center;">반품
+											내역이 없습니다.</td>
+									</tr>
+
+								</c:when>
+								<c:when test="${!empty mypageReturnList}">
+									<c:set var="num"
+										value="${pageMaker.totalCount - ((mypageReturnMap.pageNum-1) * 10) }" />
+									<c:forEach var="mypageReturnList" items="${mypageReturnList}">
+										<tr height="80%">
+											<th style="text-align: center;"><fmt:formatDate
+													value="${mypageReturnList.returnDate}" /></th>
+											<th style="padding: 10px; text-align: center;"
+												onClick="location.href='Product-02'">
+												<div>
+													<img src="${contextPath}/resources/images/image_1.jpg"
+														width="110" height="110" style="float: left;"> <a
+														style="margin-left: 0px; padding-right: 10px;">${mypageReturnList.productName}</a>
+													<c:if test="${mypageReturnList.option1 != null}">
+														<p
+															style="margin-left: 140px; font-size: 13px; width: 100px;">${mypageReturnList.option1}</p>
+													</c:if>
+													<c:if test="${mypageReturnList.option2 != null}">
+														<p
+															style="margin-left: 140px; font-size: 13px; width: 100px;">${mypageReturnList.option2}</p>
+													</c:if>
+												</div>
+											</th>
+											<th style="text-align: center;">${mypageReturnList.productCnt}</th>
+											<th style="text-align: center;">${mypageReturnList.productPrice}</th>
+											<th style="text-align: center;"><a id="now-state"
+												style="color: red; font-size: 14px;">${mypageReturnList.currentStatus}</a><br>
+												<input type="button"
+												style="font-size: 14px; width: 110px; background-color: #212529; margin-bottom: 5px; color: white;"
+												onclick="location.href='${contextPath}/mypage/viewReturn.do?returnNum=${mypageReturnList.returnNum}'" value="반품상세보기"></th>
+										</tr>
+									</c:forEach>
+								</c:when>
+							</c:choose>
 						</tbody>
 					</table>
+
 				</div>
 			</div>
 			<!-- 내용 -->
+			<div class="page_wrap"
+				style="margin-left: 80px; margin-top: 60px; width: 1300px;">
+				<div class="page_nation">
+
+					<c:if test="${pageMaker.prev}">
+
+						<a class="arrow prev"
+							href='<c:url value="/mypage_07.do?page=${pageMaker.startPage-1 }"/>'><i
+							class="fa fa-chevron-left"></i></a>
+
+					</c:if>
+					<c:forEach begin="${pageMaker.startPage }"
+						end="${pageMaker.endPage }" var="pageNum">
+
+						<a href='<c:url value="/mypage_07.do?page=${pageNum }"/>'><i
+							class="fa">${pageNum }</i></a>
+
+					</c:forEach>
+					<c:if test="${pageMaker.next && pageMaker.endPage >0 }">
+
+						<a class="arrow next"
+							href='<c:url value="/mypage_07.do?page=${pageMaker.endPage+1 }"/>'><i
+							class="fa fa-chevron-right"></i></a>
+
+					</c:if>
+
+				</div>
+			</div>
 		</div>
 	</section>
 	<br>

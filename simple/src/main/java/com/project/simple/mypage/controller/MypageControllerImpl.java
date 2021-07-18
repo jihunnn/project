@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -41,24 +42,24 @@ import com.project.simple.page.Criteria;
 
 @Controller("mypageController")
 public class MypageControllerImpl implements MypageController {
-	
-	private static final String ARTICLE_IMAGE_REPO_review = "C:\\spring\\review_image";
+
+	private static String ARTICLE_IMAGE_REPO_review = "C:\\spring\\review_image";
+
+	private static final Collection Integer = null;
 
 	@Autowired
 	private MypageService mypageService;
-	
+
 	@Autowired
 	private ProductVO productVO;
-	
+
 	@Autowired
 	private MypageVO mypageVO;
 
 	@Autowired
 	private MemberVO memberVO;
 
-
-	
-	//마이페이지 주문조회
+	// 마이페이지 주문조회
 	@Override
 	@RequestMapping(value = "/mypage_04.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView listMyOrderInfo(Criteria cri, HttpServletRequest request, HttpServletResponse response)
@@ -86,15 +87,14 @@ public class MypageControllerImpl implements MypageController {
 		pageMaker.setTotalCount(myOrderInfoCount);
 		mav.addObject("myOrderInfoMap", myOrderInfoMap);
 		mav.addObject("pageMaker", pageMaker);
-		System.out.println(myOrderInfoMap);
 		return mav;
 
 	}
-	
-	//주문내역 구매확정
+
+	// 주문내역 구매확정
 	@RequestMapping(value = "/mypage/purchaseConfirm.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public ResponseEntity purchaseConfirm(@RequestParam("memOrderSeqNum") int memOrderSeqNum,HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	public ResponseEntity purchaseConfirm(@RequestParam("memOrderSeqNum") int memOrderSeqNum,
+			HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ResponseEntity resEnt = null;
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
@@ -102,14 +102,13 @@ public class MypageControllerImpl implements MypageController {
 		mypageVO.setMemOrderSeqNum(memOrderSeqNum);
 
 		try {
-		mypageService.purchaseConfirm(mypageVO);	
-		message = "<script>";
-		message += " alert('구매확정되었습니다.');";
-		message += " location.href='" + request.getContextPath() + "/mypage_04.do';";
-		message += " </script>";
-		resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
-		}
-		catch (Exception e) {
+			mypageService.purchaseConfirm(mypageVO);
+			message = "<script>";
+			message += " alert('구매확정되었습니다.');";
+			message += " location.href='" + request.getContextPath() + "/mypage_04.do';";
+			message += " </script>";
+			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
+		} catch (Exception e) {
 			message = "<script>";
 			message += " alert('오류가 발생했습니다. 다시 시도해주세요');";
 			message += "  location.href='" + request.getContextPath() + "/mypage_04.do';";
@@ -119,17 +118,15 @@ public class MypageControllerImpl implements MypageController {
 		}
 		return resEnt;
 	}
-	
-	//마이페이지 리뷰 글쓰기 폼
-	@RequestMapping(value = "/mypage/reviewWrite.do", method = RequestMethod.GET)
-	private ModelAndView reviewWrite(@RequestParam("memOrderSeqNum") int memOrderSeqNum, @RequestParam("productNum") String productNum, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		
-		//상품리뷰 글쓰기 시 기존 memOrderSeqNum과 productNum 세션 해제
-		HttpSession session = request.getSession();
-		if(session.getAttribute("memOrderSeqNum") != null && session.getAttribute("productNum") !=null) {
-		session.removeAttribute("memOrderSeqNum");
-		session.removeAttribute("productNum");}
 
+	// 마이페이지 리뷰 글쓰기 폼
+	@RequestMapping(value = "/mypage/reviewWrite.do", method = { RequestMethod.GET, RequestMethod.POST })
+	private ModelAndView reviewWrite(@RequestParam("memOrderSeqNum") int memOrderSeqNum,
+			@RequestParam("productNum") String productNum, HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+
+		HttpSession session = request.getSession();
+		mypageVO = mypageService.reviewWrite(memOrderSeqNum);
 		MemberVO memberVO = (MemberVO) session.getAttribute("member");
 		String memName = memberVO.getmemName();
 		String viewName = (String) request.getAttribute("viewName");
@@ -137,10 +134,11 @@ public class MypageControllerImpl implements MypageController {
 		mav.setViewName(viewName);
 		session.setAttribute("productNum", productNum);
 		session.setAttribute("memOrderSeqNum", memOrderSeqNum);
-		mav.addObject("memName",memName);
+		mav.addObject("mypageVO", mypageVO);
+		mav.addObject("memName", memName);
 		return mav;
 	}
-	
+
 	// 마이페이지 상품리뷰 리스트
 	@Override
 	@RequestMapping(value = "/mypage_14.do", method = { RequestMethod.GET, RequestMethod.POST })
@@ -150,6 +148,11 @@ public class MypageControllerImpl implements MypageController {
 		String viewName = (String) request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
 		HttpSession session = request.getSession();
+		// 기존 memOrderSeqNum과 productNum 세션 해제
+		if (session.getAttribute("memOrderSeqNum") != null && session.getAttribute("productNum") != null) {
+			session.removeAttribute("memOrderSeqNum");
+			session.removeAttribute("productNum");
+		}
 		MemberVO memberVO = (MemberVO) session.getAttribute("member");
 		String memId = memberVO.getmemId();
 		productVO.setMemId(memId);
@@ -161,7 +164,7 @@ public class MypageControllerImpl implements MypageController {
 		mypageReviewMap.put("pageStart", pageStart);
 		mypageReviewMap.put("perPageNum", perPageNum);
 		mypageReviewMap = mypageService.listMypageReview(mypageReviewMap);
-		int mypageReviewCount = mypageService.mypageReviewCount(memId);
+		int mypageReviewCount = mypageService.myOrderInfoCount(memId);
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
 		int pageNum = pageMaker.getCri().getPage();
@@ -172,15 +175,17 @@ public class MypageControllerImpl implements MypageController {
 		return mav;
 
 	}
-	
-	//마이페이지 리뷰 글쓰기
+
+	// 마이페이지 리뷰 글쓰기
 	@Override
 	@RequestMapping(value = "/mypage/addNewReview.do", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity addNewReview(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)
 			throws Exception {
-		
+
 		multipartRequest.setCharacterEncoding("utf-8");
+
+		
 		Map<String, Object> reviewMap = new HashMap<String, Object>();
 		Enumeration enu = multipartRequest.getParameterNames();
 		while (enu.hasMoreElements()) {
@@ -188,8 +193,6 @@ public class MypageControllerImpl implements MypageController {
 			String value = multipartRequest.getParameter(name);
 			reviewMap.put(name, value);
 		}
-		
-
 
 		String reviewFile = uploadReview(multipartRequest);
 		HttpSession session = multipartRequest.getSession();
@@ -197,8 +200,10 @@ public class MypageControllerImpl implements MypageController {
 		int memOrderSeqNum = (Integer) session.getAttribute("memOrderSeqNum");
 		String productNum = (String) session.getAttribute("productNum");
 		String memId = memberVO.getmemId();
-		
-		
+		String attach_path = "resources/review_image/";
+		ARTICLE_IMAGE_REPO_review=multipartRequest.getSession().getServletContext().getRealPath("/");
+		ARTICLE_IMAGE_REPO_review=ARTICLE_IMAGE_REPO_review+attach_path;
+		System.out.println(ARTICLE_IMAGE_REPO_review);
 		reviewMap.put("reviewNum", 0);
 		reviewMap.put("memId", memId);
 		reviewMap.put("memOrderSeqNum", memOrderSeqNum);
@@ -211,6 +216,7 @@ public class MypageControllerImpl implements MypageController {
 		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
 		try {
 			int reviewNum = mypageService.addNewReview(reviewMap);
+
 			if (reviewFile != null && reviewFile.length() != 0) {
 				File srcFile = new File(ARTICLE_IMAGE_REPO_review + "\\" + "temp" + "\\" + reviewFile);
 				File destDir = new File(ARTICLE_IMAGE_REPO_review + "\\" + reviewNum);
@@ -230,7 +236,7 @@ public class MypageControllerImpl implements MypageController {
 			message = "<script>";
 			message += " alert('오류가 발생했습니다. 다시 시도해주세요');";
 			message += "  location.href='" + multipartRequest.getContextPath() + "/mypage/reviewWrite.do?productNum="
-					+productNum + "&memOrderSeqNum=" + memOrderSeqNum + "';";
+					+ productNum + "&memOrderSeqNum=" + memOrderSeqNum + "';";
 
 			message += " </script>";
 			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
@@ -252,11 +258,11 @@ public class MypageControllerImpl implements MypageController {
 				if (!file.exists()) {
 					file.getParentFile().mkdirs();
 					mFile.transferTo(new File(ARTICLE_IMAGE_REPO_review + "\\" + "temp" + "\\" + reviewFile));// 임시로
-																													// 저장되
-																													// multipartFile을
-																													// 실제
-																													// 파일로
-																													// 전송
+																												// 저장되
+																												// multipartFile을
+																												// 실제
+																												// 파일로
+																												// 전송
 
 				}
 			}
@@ -264,7 +270,118 @@ public class MypageControllerImpl implements MypageController {
 		return reviewFile;
 
 	}
-	
+
+	@RequestMapping(value = "/mypage/modReview.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView reviewForm(@RequestParam("reviewNum") int reviewNum, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		HttpSession session = request.getSession();
+		MemberVO memberVO = (MemberVO) session.getAttribute("member");
+		String memName = memberVO.getmemName();
+		String viewName = (String) request.getAttribute("viewName");
+		mypageVO = mypageService.reviewForm(reviewNum);
+		mypageVO.setMemName(memName);
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName(viewName);
+		mav.addObject("reviewNum", mypageVO);
+
+		return mav;
+	}
+
+	@RequestMapping(value = "/mypage/modNewReview.do", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity modReview(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)
+			throws Exception {
+		multipartRequest.setCharacterEncoding("utf-8");
+		Map<String, Object> reviewMap = new HashMap<String, Object>();
+		Enumeration enu = multipartRequest.getParameterNames();
+		while (enu.hasMoreElements()) {
+			String name = (String) enu.nextElement();
+			String value = multipartRequest.getParameter(name);
+			reviewMap.put(name, value);
+
+		}
+
+		String reviewFile = uploadReview(multipartRequest);
+		reviewMap.put("reviewFile", reviewFile);
+
+		String reviewNum = (String) reviewMap.get("reviewNum");
+		reviewMap.put("reviewNum", reviewNum);
+
+		String message;
+		ResponseEntity resEnt = null;
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
+		try {
+
+			mypageService.modReview(reviewMap);
+
+			if (reviewFile != null && reviewFile.length() != 0) {
+				String OrignReviewFile = (String) reviewMap.get("OrignReviewFile");
+
+				File oldFile = new File(ARTICLE_IMAGE_REPO_review + "\\" + reviewNum + "\\" + OrignReviewFile);
+				oldFile.delete();
+
+				File srcFile = new File(ARTICLE_IMAGE_REPO_review + "\\" + "temp" + "\\" + reviewFile);
+				File destDir = new File(ARTICLE_IMAGE_REPO_review + "\\" + reviewNum);
+				FileUtils.moveFileToDirectory(srcFile, destDir, true);
+
+			}
+			message = "<script>";
+			message += " alert('리뷰를 수정했습니다.');";
+			message += " location.href='" + multipartRequest.getContextPath() + "/mypage_14.do" + "';";
+			message += " </script>";
+			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
+		} catch (Exception e) {
+			File srcFile = new File(ARTICLE_IMAGE_REPO_review + "\\" + "temp" + "\\" + reviewFile);
+			srcFile.delete();
+			message = "<script>";
+			message += " alert('오류가 발생했습니다.다시 수정해주세요');";
+			message += " location.href='" + multipartRequest.getContextPath() + "/mypage/modReview.do?reviewNum="
+					+ reviewNum + "';";
+			message += " </script>";
+			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
+		}
+		return resEnt;
+	}
+
+	@Override
+	@RequestMapping(value = "/mypage/removeReview.do", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity removeReview(@RequestParam("reviewNum") int reviewNum,
+			@RequestParam("memOrderSeqNum") int memOrderSeqNum, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+
+		response.setContentType("text/html; charset-utf-8");
+		String message;
+		ResponseEntity resEnt = null;
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
+		Map<String, Object> reviewMap = new HashMap<String, Object>();
+		reviewMap.put("reviewNum", reviewNum);
+		reviewMap.put("memOrderSeqNum", memOrderSeqNum);
+		try {
+			mypageService.removeReview(reviewMap);
+			File destDir = new File(ARTICLE_IMAGE_REPO_review + "\\" + reviewNum);
+			FileUtils.deleteDirectory(destDir);
+
+			message = "<script>";
+			message += " alert('리뷰를 삭제했습니다.');";
+			message += " location.href='" + request.getContextPath() + "/mypage_14.do" + "';";
+			message += " </script>";
+			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
+
+		} catch (Exception e) {
+			message = "<script>";
+			message += " alert('오류가 발생했습니다. 다시 삭제해주세요.);";
+			message += " location.href='" + request.getContextPath() + "/mypage_14.do" + "';";
+			message += " </script>";
+			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
+			e.printStackTrace();
+		}
+		return resEnt;
+
+	}
+
 	@Override
 	@RequestMapping(value = "/mypage_07.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView listMypageReturn(Criteria cri, HttpServletRequest request, HttpServletResponse response)
@@ -273,6 +390,11 @@ public class MypageControllerImpl implements MypageController {
 		String viewName = (String) request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
 		HttpSession session = request.getSession();
+		// 기존 memOrderSeqNum, productNum 세션 해제
+		if (session.getAttribute("memOrderSeqNum") != null && session.getAttribute("productNum") != null) {
+			session.removeAttribute("memOrderSeqNum");
+			session.removeAttribute("productNum");
+		}
 		MemberVO memberVO = (MemberVO) session.getAttribute("member");
 		String memId = memberVO.getmemId();
 		productVO.setMemId(memId);
@@ -283,26 +405,25 @@ public class MypageControllerImpl implements MypageController {
 		mypageReturnMap.put("memId", memId);
 		mypageReturnMap.put("pageStart", pageStart);
 		mypageReturnMap.put("perPageNum", perPageNum);
-		mypageReturnMap = mypageService.listMypageReview(mypageReturnMap);
+		mypageReturnMap = mypageService.listMypageReturn(mypageReturnMap);
 		int mypageReturnCount = mypageService.mypageReturnCount(memId);
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
 		int pageNum = pageMaker.getCri().getPage();
 		mypageReturnMap.put("pageNum", pageNum);
 		pageMaker.setTotalCount(mypageReturnCount);
-		mav.addObject("mypageReviewMap", mypageReturnMap);
+		mav.addObject("mypageReturnMap", mypageReturnMap);
 		mav.addObject("pageMaker", pageMaker);
 		return mav;
 
 	}
-	
-/*	@RequestMapping(value = "/mypage/ReturnWrite.do", method = RequestMethod.GET)
-	private ModelAndView ReturnWrite(@RequestParam("memOrderSeqNum") int memOrderSeqNum, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		
-		//반품 글쓰기 시 기존 memOrderSeqNum세션 해제
-		HttpSession session = request.getSession();		
-		if(session.getAttribute("memOrderSeqNum") !=null) {
-		session.removeAttribute("memOrderSeqNum");}
+
+	@RequestMapping(value = "/mypage/returnWrite.do", method = RequestMethod.GET)
+	private ModelAndView ReturnWrite(@RequestParam("memOrderSeqNum") int memOrderSeqNum,
+			@RequestParam("productNum") String productNum, HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+
+		HttpSession session = request.getSession();
 
 		MemberVO memberVO = (MemberVO) session.getAttribute("member");
 		String memName = memberVO.getmemName();
@@ -310,16 +431,17 @@ public class MypageControllerImpl implements MypageController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(viewName);
 		session.setAttribute("memOrderSeqNum", memOrderSeqNum);
-		mav.addObject("memName",memName);
+		session.setAttribute("productNum", productNum);
+		mav.addObject("memName", memName);
 		return mav;
 	}
-	
+
 	@Override
 	@RequestMapping(value = "/mypage/addNewReturn.do", method = RequestMethod.POST)
 	@ResponseBody
 	public ResponseEntity addNewRetrun(Criteria cri, HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-		
+
 		request.setCharacterEncoding("utf-8");
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		Enumeration enu = request.getParameterNames();
@@ -328,16 +450,16 @@ public class MypageControllerImpl implements MypageController {
 			String value = request.getParameter(name);
 			returnMap.put(name, value);
 		}
-		
+
 		HttpSession session = request.getSession();
 		MemberVO memberVO = (MemberVO) session.getAttribute("member");
 		int memOrderSeqNum = (Integer) session.getAttribute("memOrderSeqNum");
+		String productNum = (String) session.getAttribute("productNum");
 		String memId = memberVO.getmemId();
-		
-		
+
 		returnMap.put("memId", memId);
 		returnMap.put("memOrderSeqNum", memOrderSeqNum);
-
+		returnMap.put("productNum", productNum);
 
 		String message;
 		ResponseEntity resEnt = null;
@@ -345,29 +467,116 @@ public class MypageControllerImpl implements MypageController {
 		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
 		try {
 			mypageService.addNewReturn(returnMap);
-			
+
 			message = "<script>";
 			message += " alert('반품신청이 완료되었습니다.');";
-			message += "  location.href='" + request.getContextPath() + "/mypage_14.do';";
+			message += "  location.href='" + request.getContextPath() + "/mypage_07.do';";
 			message += " </script>";
 			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
 
 		} catch (Exception e) {
-			
 
 			message = "<script>";
 			message += " alert('오류가 발생했습니다. 다시 시도해주세요');";
-			message += "  location.href='" + request.getContextPath() + "/mypage/reviewWrite.do?memOrderSeqNum="
-					 + memOrderSeqNum + "';";
-
+			message += "  location.href='" + request.getContextPath() + "/mypage/returnWrite.do?productNum="
+					+ productNum + "&memOrderSeqNum=" + memOrderSeqNum + "';";
 			message += " </script>";
 			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
 			e.printStackTrace();
 		}
 		return resEnt;
 	}
-*/
 
+	@RequestMapping(value = "/mypage/viewReturn.do", method = RequestMethod.GET)
+	public ModelAndView viewInquiry(@RequestParam("returnNum") int returnNum, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		String viewName = (String) request.getAttribute("viewName");
+		HttpSession session = request.getSession();
+		MemberVO memberVO = (MemberVO) session.getAttribute("member");
+		String memId = memberVO.getmemId();
+		mypageVO.setMemId(memId);
+		mypageVO = mypageService.viewReturn(returnNum);
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName(viewName);
+		mav.addObject("returnNum", mypageVO);
+		return mav;
+	}
 
+	@RequestMapping(value = "/mypage/modNewReturn.do", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity modReturn(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		request.setCharacterEncoding("utf-8");
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+		Enumeration enu = request.getParameterNames();
+		while (enu.hasMoreElements()) {
+			String name = (String) enu.nextElement();
+			String value = request.getParameter(name);
+			returnMap.put(name, value);
+
+		}
+
+		String returnNum = (String) returnMap.get("returnNum");
+		returnMap.put("returnNum", returnNum);
+
+		String message;
+		ResponseEntity resEnt = null;
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
+		try {
+
+			mypageService.modReturn(returnMap);
+
+			message = "<script>";
+			message += " alert('반품신청을 수정했습니다.');";
+			message += " location.href='" + request.getContextPath() + "/mypage_07.do" + "';";
+			message += " </script>";
+			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
+		} catch (Exception e) {
+			message = "<script>";
+			message += " alert('오류가 발생했습니다.다시 수정해주세요');";
+			message += " location.href='" + request.getContextPath() + "/mypage/viewReturn.do?returnNum=" + returnNum
+					+ "';";
+			message += " </script>";
+			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
+		}
+		return resEnt;
+	}
+
+	@Override
+	@RequestMapping(value = "/mypage/removeReturn.do", method = RequestMethod.GET)
+	@ResponseBody
+	public ResponseEntity removeReturn(@RequestParam("returnNum") int returnNum, @RequestParam("memOrderSeqNum") int memOrderSeqNum, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+
+		response.setContentType("text/html; charset-utf-8");
+		String message;
+		ResponseEntity resEnt = null;
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+		returnMap.put("returnNum", returnNum);
+		returnMap.put("memOrderSeqNum", memOrderSeqNum);
+		try {
+			
+			mypageService.removeReturn(returnMap);
+
+			message = "<script>";
+			message += " alert('리뷰를 삭제했습니다.');";
+			message += " location.href='" + request.getContextPath() + "/mypage_07.do" + "';";
+			message += " </script>";
+			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
+
+		} catch (Exception e) {
+			message = "<script>";
+			message += " alert('오류가 발생했습니다. 다시 삭제해주세요.);";
+			message += " location.href='" + request.getContextPath() + "/mypage/viewReturn.do?returnNum=" + returnNum
+					+ "';";
+			message += " </script>";
+			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
+			e.printStackTrace();
+		}
+		return resEnt;
+
+	}
 
 }

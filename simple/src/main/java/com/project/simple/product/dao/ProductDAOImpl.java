@@ -72,8 +72,8 @@ public class ProductDAOImpl implements ProductDAO{
 	}
 	
 	@Override
-	public int selectProductReviewCount() throws DataAccessException {
-		int productReviewCount = sqlSession.selectOne("mapper.product.selectProductReviewCount");
+	public int selectProductReviewCount(String productNum) throws DataAccessException {
+		int productReviewCount = sqlSession.selectOne("mapper.product.selectProductReviewCount",productNum);
 
 		return productReviewCount;
 	}

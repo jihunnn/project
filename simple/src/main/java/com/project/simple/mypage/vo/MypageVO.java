@@ -16,6 +16,7 @@ public class MypageVO {
 	private int memOrderSeqNum;
 	private int memOrderNum;
 	private String memId;
+	private String memName;
 	private String productNum;
 	private String memSpName;
 	private String memSpPhoneNum1;
@@ -34,6 +35,15 @@ public class MypageVO {
 	private String productPrice;
 	private String deliveryStatus;
 	private String purchaseConfirm;
+	private String reviewConfirm;
+	private String returnConfirm;
+	
+	//마이페이지 리뷰
+	private int reviewNum;
+	private String productReviewTitle;
+	private Date reviewDate;
+	private String productContent;
+	private String reviewFile;
 	
 	
 	//마이페이지 반품
@@ -41,6 +51,7 @@ public class MypageVO {
 	private String returnType;
 	private String returnContent;
 	private String currentStatus;
+	private Date returnDate;
 
 
 	
@@ -72,6 +83,14 @@ public class MypageVO {
 	
 	public void setMemId(String memId) {
 		this.memId = memId;
+	}
+	
+	public String getMemName() {
+		return memName;
+	}
+	
+	public void setMemName(String memName) {
+		this.memName = memName;
 	}
 	
 	public String getProductNum() {
@@ -243,13 +262,75 @@ public class MypageVO {
 		this.returnContent = returnContent;
 	}
 	
-	public String getCurrentStatust() {
+	public String getCurrentStatus() {
 		return currentStatus;
 	}
 	
 	public void setCurrentStatus(String currentStatus) {
 		this.currentStatus = currentStatus;
 	}
+	
+	public Date getReturnDate() {
+		return returnDate;
+	}
+	
+	public void setReturnDate(Date returnDate) {
+		this.returnDate = returnDate;
+	}
+	
+	public String getReviewConfirm() {
+		return reviewConfirm;
+	}
+	
+	public void setReviewConfirm(String reviewConfirm) {
+		this.reviewConfirm = reviewConfirm;
+	}
+	
+	public String getReturnConfirm() {
+		return returnConfirm;
+	}
+	
+	public void setReConfirm(String returnConfirm) {
+		this.returnConfirm = returnConfirm;
+	}
+	
+	//상품리뷰
+	//상품 리뷰
+	public int getReviewNum() {
+		return reviewNum;
+	}
+	public void setReviewNum(int reviewNum) {
+		this.reviewNum = reviewNum;
+	}	
+	
+	public String getProductReviewTitle() {
+		return productReviewTitle;
+	}
+	public void setProductReviewTitle(String productReviewTitle) {
+		this.productReviewTitle = productReviewTitle;
+	}
+	
+	public Date getReviewDate() {
+		return reviewDate;
+	}
+	public void setReviewDate(Date reviewDate) {
+		this.reviewDate = reviewDate;
+	}
+	
+	public String getProductContent() {
+		return productContent;
+	}
+	public void setProductContent(String productContent) {
+		this.productContent = productContent;
+	}
+	
+	public String getReviewFile() {
+		return reviewFile;
+	}
+	public void setReviewFile(String reviewFile) {
+		this.reviewFile = reviewFile;
+	}
+
 	
 	
 }
