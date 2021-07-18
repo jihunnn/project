@@ -159,8 +159,14 @@ textarea {
 			form.form1.focus();
 			return false;
 		}
+		if (confirm("선택한 상품을 구매하시겠습니까?")) { //확인
+			
+		} else { //취소
+			return false;
+		}
 		
 		form.submit();
+	
 	}
 	
 	function addCartBtn() {
@@ -176,6 +182,12 @@ textarea {
 			alert("옵션을 선택해주세요.")
 			form.form1.focus();
 			return false;
+		}
+		
+		if (confirm("장바구니에 담으시겠습니까?")){ //확인
+			
+		} else { //취소
+			return;
 		}
 		
 		form.submit();
@@ -239,7 +251,7 @@ textarea {
 					</section>
 
 
-					<section style="width: 685px; height: 480px;">
+					<div style="width: 685px; height: 480px;">
 
 						<h3 class="heading">
 							<a
@@ -311,8 +323,20 @@ textarea {
 						<input type="text" name="total" value="0"
 							style="border: none; text-align: right; font-size: 40px;"
 							readonly />원
-
-					</section>
+							
+							
+						
+							<a
+								style="position: absolute; white-space: nowrap; float: left; font-size: 18px; font-size: 14px;">수량</a>
+						<input type="button" id="up" onclick="up()" value=" + " size="3"
+							style="width: 25px;  white-space: nowrap; float: left; font-size: 18px; font-size: 14px; border: 1px solid grey;">
+						<input type="text" name="quantity" id="quantity" value="1"
+							readonly="readonly"
+							style=" white-space: nowrap; float: left; font-size: 18px; font-size: 14px; width: 50px; text-align: center;" />
+						<input type="button" id="down" onclick="down()" value=" - "
+							size="3"
+							style="width: 25px;  white-space: nowrap;  float: left; font-size: 18px; font-size: 14px; border: 1px solid grey;">
+					</div>
 				</div>
 			</form>
 
