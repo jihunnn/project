@@ -59,12 +59,6 @@ public class ProductControllerImpl implements ProductController {
 			String name = (String) enu.nextElement();
 			String value = multipartRequest.getParameter(name);
 			productMap.put(name, value);
-
-
-
-
-
-
 		}
 
 		List<String> productImage1 = upload(multipartRequest);

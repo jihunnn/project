@@ -24,20 +24,58 @@ import com.project.simple.order.service.OrderService;
 import com.project.simple.order.vo.OrderVO;
 
 @Controller("orderController")
-@RequestMapping(value="/order")
 public class OrderControllerImpl  implements OrderController {
 	@Autowired
 	private OrderService orderService;
 	@Autowired
 	private OrderVO orderVO;
 	
+	
+	//주문페이지 이동(회원/비회원)
+	@RequestMapping(value = "/order.do", method = RequestMethod.POST)
+	private ModelAndView order(@ModelAttribute("orderVO") OrderVO orderVO, HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		
+		HttpSession session = request.getSession();
+		Boolean isLogOn = (Boolean)session.getAttribute("isLogOn");
+		
+		if(isLogOn==null || isLogOn==false){
+			session.setAttribute("orderInfo", orderVO);
+			mav.addObject("orderInfo", orderVO);
+			System.out.println(orderVO);
+			mav.setViewName("redirect:/order_02.do");
+		} else if(isLogOn == true) {
+			session.setAttribute("orderInfo", orderVO);
+			mav.addObject("orderInfo", orderVO);
+			mav.setViewName("redirect:/order_01.do");
+		}
+		return mav;
+	}
+	
+	//주문페이지 이동(회원)
+			@RequestMapping(value = "/order_01.do", method = RequestMethod.GET)
+			private ModelAndView order_01(HttpServletRequest request, HttpServletResponse response) {
+				ModelAndView mav = new ModelAndView();
+				return mav;
+			}
+	
+	//주문페이지 이동(비회원)
+		@RequestMapping(value = "/order_02.do", method = RequestMethod.GET)
+		private ModelAndView order_02(@ModelAttribute("orderVO") OrderVO orderVO, HttpServletRequest request, HttpServletResponse response) {
+			ModelAndView mav = new ModelAndView();
+			
+			return mav;
+		}
+
+		
+		
 	@RequestMapping(value="/orderEachGoods.do" ,method = RequestMethod.POST)
 	public ModelAndView orderEachGoods(@ModelAttribute("orderVO") OrderVO _orderVO,
 			                       HttpServletRequest request, HttpServletResponse response)  throws Exception{
 		
 		request.setCharacterEncoding("utf-8");
 		HttpSession session=request.getSession();
-		session=request.getSession();
+		
 		
 		Boolean isLogOn=(Boolean)session.getAttribute("isLogOn");
 		String action=(String)session.getAttribute("action");

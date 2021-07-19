@@ -129,18 +129,28 @@ textarea {
 <script type="text/javascript">
 
 
+	function getSelectValue1(frm)
+	{
+ 	frm.option1value.value = frm.option1.options[frm.option1.selectedIndex].text;
+	}
+	
+	function getSelectValue2(frm)
+	{
+ 	frm.option2value.value = frm.option2.options[frm.option2.selectedIndex].text;
+	}
+
 	
 	<!--옵션 + 수량 총 합계금액 -->
 	
 	var fo;
 	window.onload = function() {
 		fo = document.forms["form1"];
-		fo['total'].value = fo['price'].value;
+		fo['totalPrice'].value = fo['price'].value;
 	}
 
 	
 	function checkPrice() {
-		fo['total'].value= Number(fo['price'].value) + Number(fo['option1'].value) + Number(fo['option2'].value);
+		fo['totalPrice'].value= Number(fo['price'].value) + Number(fo['option1'].value) + Number(fo['option2'].value);
 	}
 		
 	<!-- 옵션선택 유효성 검사 -->
@@ -164,7 +174,7 @@ textarea {
 		} else { //취소
 			return false;
 		}
-		
+		form.action="${contextPath}/order.do"
 		form.submit();
 	
 	}
@@ -186,6 +196,7 @@ textarea {
 		
 		if (confirm("장바구니에 담으시겠습니까?")){ //확인
 			
+			
 		} else { //취소
 			return;
 		}
@@ -200,45 +211,58 @@ textarea {
 </head>
 <body>
 
+	<!-- 최근 본 상품 -->
+	<div id="recentlyProduct"
+		style="position: absolute; left: 180px; width: 120px; height: 310px; margin-left: 1570px; border: 1px solid #d2d2d2; margin-top: 0px;">
+		<ul
+			style="list-style: none; margin-top: 10px; padding-left: 20px; margin-bottom: 10px;">
+			<li><a href="#"
+				style="padding-left: -10px; padding-bottom: 1px; color: black;">최근본상품</a></li>
+		</ul>
+		<hr style="margin-top: 0px; margin-bottom: 0px; color: #d2d2d2;">
+		<ul style="list-style: none; padding-top: 5px;">
+			<li><a href="#"><img
+					src="${contextPath}/resources/images/image_1.jpg"
+					style="width: 100px; height: 100px; padding-top: 10px; margin-left: -30px;"></a></li>
+			<li><a href="#"><img
+					src="${contextPath}/resources/images/image_2.jpg"
+					style="width: 100px; height: 100px; padding-top: 10px; padding-top: 10px; margin-left: -30px;"></a></li>
+		</ul>
+		<hr style="margin-top: 0px; margin-bottom: 0px; color: #d2d2d2;">
+		<ul
+			style="list-style: none; padding-left: 30px; margin-bottom: 10px; margin-top: 8px;">
+			<li><a href="#"
+				style="color: black; text-align: center; margin-top: 8px; padding-top: 30px;">더보기▼</a></li>
+		</ul>
+	</div>
+	<!-- 최근 본 상품 끝 -->
+
 
 	<section class="ftco-section" style="padding-top: 20px;">
 		<div class="container">
 
-			<div class="row justify-content-center mb-5 pb-3"
-				style="background-color: #f5f5f5; border: 1px solid #e7e7e7;">
-				<div class="col-md-20 heading-section ftco-animate"
-					style="height: 60px;">
-					<h2 class="mb-4" style="font-size: 35px; margin-top: 18px;">${product.productName}</h2>
+
+			<form name="form1" method="post" id="addCartForm">
+				<input type="hidden" name="productNum" value="${product.productNum}" />
+				<input type="hidden" name="productName"
+					value="${product.productName}" /> 
+					<input type="hidden"
+					name="option1name" value="${option1[1].option1name}" /> 
+					<input
+					type="hidden" name="option2name" value="${option2[1].option2name}" />
+
+
+
+				<div class="row justify-content-center mb-5 pb-3"
+					style="background-color: #f5f5f5; border: 1px solid #e7e7e7;">
+					<div class="col-md-20 heading-section ftco-animate"
+						style="height: 60px;">
+						<h2 class="mb-4" style="font-size: 35px; margin-top: 18px;">${product.productName}</h2>
+
+					</div>
 				</div>
-			</div>
-			<!-- 최근 본 상품 -->
-			<div id="recentlyProduct"
-				style="position: absolute; left: 180px; width: 120px; height: 310px; margin-left: 1570px; border: 1px solid #d2d2d2; margin-top: 0px;">
-				<ul
-					style="list-style: none; margin-top: 10px; padding-left: 20px; margin-bottom: 10px;">
-					<li><a href="#"
-						style="padding-left: -10px; padding-bottom: 1px; color: black;">최근본상품</a></li>
-				</ul>
-				<hr style="margin-top: 0px; margin-bottom: 0px; color: #d2d2d2;">
-				<ul style="list-style: none; padding-top: 5px;">
-					<li><a href="#"><img
-							src="${contextPath}/resources/images/image_1.jpg"
-							style="width: 100px; height: 100px; padding-top: 10px; margin-left: -30px;"></a></li>
-					<li><a href="#"><img
-							src="${contextPath}/resources/images/image_2.jpg"
-							style="width: 100px; height: 100px; padding-top: 10px; padding-top: 10px; margin-left: -30px;"></a></li>
-				</ul>
-				<hr style="margin-top: 0px; margin-bottom: 0px; color: #d2d2d2;">
-				<ul
-					style="list-style: none; padding-left: 30px; margin-bottom: 10px; margin-top: 8px;">
-					<li><a href="#"
-						style="color: black; text-align: center; margin-top: 8px; padding-top: 30px;">더보기▼</a></li>
-				</ul>
-			</div>
-			<!-- 최근 본 상품 끝 -->
-			<!-- 내용 -->
-			<form name="form1" method="post" id="addCartForm"
-				action="${contextPath}/product/viewProduct.do?productNum=${product.productNum}">
+
+				<!-- 내용 -->
 				<div class="row">
 					<section>
 						<div class="col-md-4 ftco-animate">
@@ -288,14 +312,15 @@ textarea {
 									ㅤ</a>
 							</c:forEach>
 						</h3>
-						<select id="option1" name="option1" onchange="checkPrice()"
+						<select id="option1" name="option1" onchange="checkPrice();getSelectValue1(this.form);"
+							
 							style="margin-left: 180px; margin-top: 70px; float: left !important; width: 300px; height: 30px;">
 							<option value="">옵션 선택</option>
 							<c:forEach items="${option1}" var="option1">
 								<option value="${option1.option1price}">${option1.option1value}
 									+ (${option1.option1price}원)</option>
 							</c:forEach>
-						</select> <br> <br>
+						</select> <br> <br> <input type="hidden" name="option1value">
 						<h3 class="heading">
 							<c:forEach items="${option2}" var="name2">
 								<a
@@ -304,14 +329,14 @@ textarea {
 							</c:forEach>
 
 						</h3>
-						<select name="option2" id="option2" onchange="checkPrice()"
+						<select name="option2" id="option2" onchange="checkPrice();getSelectValue2(this.form);"
 							style="margin-left: 180px; margin-top: 70px; float: left !important; width: 300px; height: 30px;">
 							<option value="">옵션 선택</option>
 							<c:forEach items="${option2}" var="option2">
 								<option value="${option2.option2price}">${option2.option2value}
 									+ (${option2.option2price}원)</option>
 							</c:forEach>
-						</select> <br>
+						</select> <br> <input type="hidden" name="option2value">
 
 						<button type="button" class="btn btn-default" onclick="checkbuy()"
 							style="background-color: #dcdcdc; float: left; margin-left: 50px; margin-top: 30px; width: 280px; height: 50px; border-radius: 2px;">바로구매</button>
@@ -320,22 +345,19 @@ textarea {
 							style="background-color: #dcdcdc; float: left; margin-left: 350px; margin-top: -50px; width: 280px; height: 50px; border-radius: 2px;">장바구니</button>
 
 						<h2 style="margin-top: 250px; margin-left: 50px;">총 상품 금액</h2>
-						<input type="text" name="total" value="0"
+						<input type="text" name="totalPrice" value="0"
 							style="border: none; text-align: right; font-size: 40px;"
-							readonly />원
-							
-							
-						
-							<a
-								style="position: absolute; white-space: nowrap; float: left; font-size: 18px; font-size: 14px;">수량</a>
-						<input type="button" id="up" onclick="up()" value=" + " size="3"
-							style="width: 25px;  white-space: nowrap; float: left; font-size: 18px; font-size: 14px; border: 1px solid grey;">
+							readonly />원 <input type="button" name="up" onclick="up()"
+							value=" + " size="3"
+							style="width: 25px; white-space: nowrap; float: left; font-size: 18px; font-size: 14px; border: 1px solid grey;">
+
 						<input type="text" name="quantity" id="quantity" value="1"
 							readonly="readonly"
-							style=" white-space: nowrap; float: left; font-size: 18px; font-size: 14px; width: 50px; text-align: center;" />
-						<input type="button" id="down" onclick="down()" value=" - "
+							style="white-space: nowrap; float: left; font-size: 18px; font-size: 14px; width: 50px; text-align: center;" />
+
+						<input type="button" name="down" onclick="down()" value=" - "
 							size="3"
-							style="width: 25px;  white-space: nowrap;  float: left; font-size: 18px; font-size: 14px; border: 1px solid grey;">
+							style="width: 25px; white-space: nowrap; float: left; font-size: 18px; font-size: 14px; border: 1px solid grey;">
 					</div>
 				</div>
 			</form>

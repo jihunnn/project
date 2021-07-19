@@ -289,7 +289,7 @@ h3 {
 										<td class="user_name">
 											<div align="right" style="width: 80px;">
 												<a
-													style="color: red; padding-right: 5px; write-space: nowrap;">
+													style="color: red; padding-right: 5px; write-space: nowrap;"></a>
 											</div>
 										</td>
 										<td colspan="3" class="user_name" style="padding-left: 10px;">
