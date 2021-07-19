@@ -17,6 +17,8 @@ public class MypageVO {
 	private int memOrderNum;
 	private String memId;
 	private String memName;
+	private String memAdr;
+	private String memPhoneNum;
 	private String productNum;
 	private String memSpName;
 	private String memSpPhoneNum1;
@@ -37,6 +39,7 @@ public class MypageVO {
 	private String purchaseConfirm;
 	private String reviewConfirm;
 	private String returnConfirm;
+	
 	
 	//마이페이지 리뷰
 	private int reviewNum;
@@ -91,6 +94,22 @@ public class MypageVO {
 	
 	public void setMemName(String memName) {
 		this.memName = memName;
+	}
+	
+	public String getMemAdr() {
+		return memAdr;
+	}
+	
+	public void setMemAdr(String memAdr) {
+		this.memAdr = memAdr;
+	}
+	
+	public String getMemPhoneNum() {
+		return memPhoneNum;
+	}
+	
+	public void setMemPhoneNum(String memPhoneNum) {
+		this.memPhoneNum = memPhoneNum;
 	}
 	
 	public String getProductNum() {

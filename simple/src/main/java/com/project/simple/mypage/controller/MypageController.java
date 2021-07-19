@@ -15,12 +15,18 @@ public interface MypageController {
 
 	
 	public ModelAndView listMyOrderInfo(Criteria cri, HttpServletRequest request, HttpServletResponse response)throws Exception;
+	public ModelAndView myOrderInfoSearch(@RequestParam("search1") String search1, @RequestParam("search2") String search,Criteria cri, HttpServletRequest request, HttpServletResponse response) throws Exception;
 	
 	public ModelAndView listMypageReview(Criteria cri, HttpServletRequest request, HttpServletResponse response)throws Exception;
+
 	public ResponseEntity addNewReview(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)throws Exception;
 	public ResponseEntity removeReview(@RequestParam("reviewNum") int reviewNum, @RequestParam("memOrderSeqNum") int memOrderSeqNum, HttpServletRequest request,HttpServletResponse response) throws Exception;
+	public ModelAndView reviewSearch(@RequestParam("search1") String search1, @RequestParam("search2") String search2,
+			Criteria cri, HttpServletRequest request, HttpServletResponse response) throws Exception;
 	
 	public ModelAndView listMypageReturn(Criteria cri, HttpServletRequest request, HttpServletResponse response)throws Exception;
+	public ModelAndView returnSearch(@RequestParam("search1") String search1, @RequestParam("search2") String search2,
+			Criteria cri, HttpServletRequest request, HttpServletResponse response) throws Exception ;
 	public ResponseEntity addNewRetrun(Criteria cri, HttpServletRequest request, HttpServletResponse response)throws Exception;
 	public ResponseEntity removeReturn(@RequestParam("returnNum") int returnNum,  @RequestParam("memOrderSeqNum") int memOrderSeqNum,HttpServletRequest request,HttpServletResponse response) throws Exception;
 	

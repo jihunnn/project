@@ -42,8 +42,9 @@ import com.project.simple.page.Criteria;
 
 @Controller("mypageController")
 public class MypageControllerImpl implements MypageController {
+	
+	private String ARTICLE_IMAGE_REPO_review;
 
-	private static String ARTICLE_IMAGE_REPO_review = "C:\\spring\\review_image";
 
 	private static final Collection Integer = null;
 
@@ -87,6 +88,61 @@ public class MypageControllerImpl implements MypageController {
 		pageMaker.setTotalCount(myOrderInfoCount);
 		mav.addObject("myOrderInfoMap", myOrderInfoMap);
 		mav.addObject("pageMaker", pageMaker);
+		return mav;
+
+	}
+	
+	//마이페이지 주문내역 상세보기
+	@RequestMapping(value = "/mypage/viewMyOrderInfo.do", method = RequestMethod.GET)
+	public ModelAndView viewMyOrderInfo(@RequestParam("memOrderNum") int memOrderNum, @RequestParam("memOrderSeqNum") int memOrderSeqNum, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		String viewName = (String) request.getAttribute("viewName");
+		HttpSession session = request.getSession();
+		MemberVO memberVO = (MemberVO) session.getAttribute("member");
+		String memId = memberVO.getmemId();
+		mypageVO.setMemId(memId);
+		List<MypageVO> myOrderList = mypageService.viewMyOrderInfo(memOrderNum);
+		mypageVO = mypageService.viewMyOrderInfoMem(memOrderSeqNum);
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName(viewName);
+		mav.addObject("memOrderNum", myOrderList);
+		mav.addObject("memOrderSeqNum", mypageVO);
+
+		return mav;
+	}
+	
+	//날짜로 주문 조회
+	@Override
+	@RequestMapping(value = "/mypage/myOrderInfoSearch.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView myOrderInfoSearch(@RequestParam("search1") String search1, @RequestParam("search2") String search2,
+			Criteria cri, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String viewName = (String) request.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView(viewName);
+
+		HttpSession session = request.getSession();
+		MemberVO memberVO = (MemberVO) session.getAttribute("member");
+		String memId = memberVO.getmemId();
+		mypageVO.setMemId(memId);
+
+		Map<String, Object> myOrderInfoSearchMap = new HashMap<String, Object>();
+		int pageStart = cri.getPageStart();
+		int perPageNum = cri.getPerPageNum();
+		myOrderInfoSearchMap.put("pageStart", pageStart);
+		myOrderInfoSearchMap.put("perPageNum", perPageNum);
+		myOrderInfoSearchMap.put("search1", search1);
+		myOrderInfoSearchMap.put("search2", search2);
+		myOrderInfoSearchMap.put("memId", memId);
+		myOrderInfoSearchMap = mypageService.myOrderInfoSearch(myOrderInfoSearchMap);
+		int myOrderInfoSearchCount = mypageService.myOrderInfoSearchCount(myOrderInfoSearchMap);
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		int pageNum = pageMaker.getCri().getPage();
+		myOrderInfoSearchMap.put("pageNum", pageNum);
+		pageMaker.setTotalCount(myOrderInfoSearchCount);
+		mav.addObject("myOrderInfoSearchMap", myOrderInfoSearchMap);
+		session.setAttribute("pageMaker", pageMaker);
+		session.setAttribute("pageNum", pageNum);
+
 		return mav;
 
 	}
@@ -175,6 +231,41 @@ public class MypageControllerImpl implements MypageController {
 		return mav;
 
 	}
+	
+	//날짜로 리뷰 조회
+	@Override
+	@RequestMapping(value = "/mypage/reviewSearch.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView reviewSearch(@RequestParam("search1") String search1, @RequestParam("search2") String search2,
+			Criteria cri, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String viewName = (String) request.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView(viewName);
+
+		HttpSession session = request.getSession();
+		MemberVO memberVO = (MemberVO) session.getAttribute("member");
+		String memId = memberVO.getmemId();
+		mypageVO.setMemId(memId);
+
+		Map<String, Object> reviewSearchMap = new HashMap<String, Object>();
+		int pageStart = cri.getPageStart();
+		int perPageNum = cri.getPerPageNum();
+		reviewSearchMap.put("pageStart", pageStart);
+		reviewSearchMap.put("perPageNum", perPageNum);
+		reviewSearchMap.put("search1", search1);
+		reviewSearchMap.put("search2", search2);
+		reviewSearchMap.put("memId", memId);
+		reviewSearchMap = mypageService.reviewSearch(reviewSearchMap);
+		int reviewSearchCount = mypageService.reviewSearchCount(reviewSearchMap);
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		int pageNum = pageMaker.getCri().getPage();
+		reviewSearchMap.put("pageNum", pageNum);
+		pageMaker.setTotalCount(reviewSearchCount);
+		mav.addObject("reviewSearchMap", reviewSearchMap);
+		session.setAttribute("pageMaker", pageMaker);
+		session.setAttribute("pageNum", pageNum);
+		return mav;
+
+	}
 
 	// 마이페이지 리뷰 글쓰기
 	@Override
@@ -184,8 +275,10 @@ public class MypageControllerImpl implements MypageController {
 			throws Exception {
 
 		multipartRequest.setCharacterEncoding("utf-8");
-
 		
+		ARTICLE_IMAGE_REPO_review = multipartRequest.getSession().getServletContext().getRealPath("/resources/upload/review_image");
+		System.out.println(ARTICLE_IMAGE_REPO_review);
+
 		Map<String, Object> reviewMap = new HashMap<String, Object>();
 		Enumeration enu = multipartRequest.getParameterNames();
 		while (enu.hasMoreElements()) {
@@ -200,10 +293,7 @@ public class MypageControllerImpl implements MypageController {
 		int memOrderSeqNum = (Integer) session.getAttribute("memOrderSeqNum");
 		String productNum = (String) session.getAttribute("productNum");
 		String memId = memberVO.getmemId();
-		String attach_path = "resources/review_image/";
-		ARTICLE_IMAGE_REPO_review=multipartRequest.getSession().getServletContext().getRealPath("/");
-		ARTICLE_IMAGE_REPO_review=ARTICLE_IMAGE_REPO_review+attach_path;
-		System.out.println(ARTICLE_IMAGE_REPO_review);
+
 		reviewMap.put("reviewNum", 0);
 		reviewMap.put("memId", memId);
 		reviewMap.put("memOrderSeqNum", memOrderSeqNum);
@@ -417,6 +507,43 @@ public class MypageControllerImpl implements MypageController {
 		return mav;
 
 	}
+	
+	//날짜로 반품 조회
+	@Override
+	@RequestMapping(value = "/mypage/returnSearch.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView returnSearch(@RequestParam("search1") String search1, @RequestParam("search2") String search2,
+			Criteria cri, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String viewName = (String) request.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView(viewName);
+
+		HttpSession session = request.getSession();
+		MemberVO memberVO = (MemberVO) session.getAttribute("member");
+		String memId = memberVO.getmemId();
+		mypageVO.setMemId(memId);
+
+		Map<String, Object> returnSearchMap = new HashMap<String, Object>();
+		int pageStart = cri.getPageStart();
+		int perPageNum = cri.getPerPageNum();
+		returnSearchMap.put("pageStart", pageStart);
+		returnSearchMap.put("perPageNum", perPageNum);
+		returnSearchMap.put("search1", search1);
+		returnSearchMap.put("search2", search2);
+		returnSearchMap.put("memId", memId);
+		returnSearchMap = mypageService.returnSearch(returnSearchMap);
+		int returnSearchCount = mypageService.returnSearchCount(returnSearchMap);
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		int pageNum = pageMaker.getCri().getPage();
+		returnSearchMap.put("pageNum", pageNum);
+		pageMaker.setTotalCount(returnSearchCount);
+		mav.addObject("returnSearchMap", returnSearchMap);
+		session.setAttribute("pageMaker", pageMaker);
+		session.setAttribute("pageNum", pageNum);
+		System.out.println(returnSearchMap);
+		
+		return mav;
+
+	}
 
 	@RequestMapping(value = "/mypage/returnWrite.do", method = RequestMethod.GET)
 	private ModelAndView ReturnWrite(@RequestParam("memOrderSeqNum") int memOrderSeqNum,
@@ -488,7 +615,7 @@ public class MypageControllerImpl implements MypageController {
 	}
 
 	@RequestMapping(value = "/mypage/viewReturn.do", method = RequestMethod.GET)
-	public ModelAndView viewInquiry(@RequestParam("returnNum") int returnNum, HttpServletRequest request,
+	public ModelAndView viewReturn(@RequestParam("returnNum") int returnNum, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		String viewName = (String) request.getAttribute("viewName");
 		HttpSession session = request.getSession();

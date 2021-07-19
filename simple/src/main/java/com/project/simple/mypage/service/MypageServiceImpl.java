@@ -50,6 +50,23 @@ public class MypageServiceImpl implements MypageService{
 		return myOrderInfoCount;
 	}
 	
+	//마이페이지 주문조회  -->기간검색
+	public Map<String ,Object> myOrderInfoSearch(Map<String ,Object> myOrderInfoSearchMap) throws Exception{
+
+		List<MypageVO> myOrderInfoSearchList=mypageDAO.myOrderInfoSearchList(myOrderInfoSearchMap);
+
+		myOrderInfoSearchMap.put("myOrderInfoSearchList", myOrderInfoSearchList);
+		
+
+		return myOrderInfoSearchMap;
+	}
+
+	public int myOrderInfoSearchCount(Map<String, Object> search) throws Exception{
+
+		int myOrderInfoSearchCount = mypageDAO.myOrderInfoSearchCount(search);
+		return myOrderInfoSearchCount;
+	}
+	
 	//마이페이지 구매확정
 	@Override
 	public void purchaseConfirm(MypageVO mypageVO) throws Exception {
@@ -67,6 +84,34 @@ public class MypageServiceImpl implements MypageService{
 	public int mypageReviewCount(String memId) throws Exception{
 		int mypageReviewCount = mypageDAO.selectMypageReviewCount(memId);
 		return mypageReviewCount;
+	}
+	
+	//마이페이지 반품 상세보기
+	@Override
+	public List<MypageVO> viewMyOrderInfo(int memOrderNum) throws Exception {
+		List<MypageVO> mypageVO = mypageDAO.selectViewMyOrderInfo(memOrderNum);
+		return mypageVO;
+	}
+	
+	@Override
+	public MypageVO viewMyOrderInfoMem(int memOrderSeqNum) throws Exception {
+		MypageVO mypageVO = mypageDAO.selectViewMyOrderInfoMem(memOrderSeqNum);
+		return mypageVO;
+	}
+	
+	//마이페이지 리뷰조회  -->기간검색
+	public Map<String ,Object> reviewSearch(Map<String ,Object> reviewSearchMap) throws Exception{
+
+		List<MypageVO> reviewSearchList=mypageDAO.reviewSearchList(reviewSearchMap);
+		reviewSearchMap.put("reviewSearchList", reviewSearchList);	
+
+		return reviewSearchMap;
+	}
+
+	public int reviewSearchCount(Map<String, Object> search) throws Exception{
+
+		int reviewSearchCount = mypageDAO.reviewSearchCount(search);
+		return reviewSearchCount;
 	}
 	
 	//마이페이지 리뷰 글쓰기창 
@@ -113,6 +158,21 @@ public class MypageServiceImpl implements MypageService{
 	public int mypageReturnCount(String memId) throws Exception{
 		int mypageReturnCount = mypageDAO.selectMypageReturnCount(memId);
 		return mypageReturnCount;
+	}
+	
+	//마이페이지 반품 검색
+	public Map<String ,Object> returnSearch(Map<String ,Object> returnSearchMap) throws Exception{
+
+		List<MypageVO> returnSearchList=mypageDAO.returnSearchList(returnSearchMap);
+		returnSearchMap.put("returnSearchList", returnSearchList);
+		
+		return returnSearchMap;
+	}
+
+	public int returnSearchCount(Map<String, Object> search) throws Exception{
+
+		int returnSearchCount = mypageDAO.returnSearchCount(search);
+		return returnSearchCount;
 	}
 	
 	//마이페이지 반품 글쓰기

@@ -40,6 +40,31 @@ public class MypageDAOImpl implements MypageDAO{
 	}
 	
 	@Override
+	public List<MypageVO> selectViewMyOrderInfo(int memOrderNum) throws DataAccessException {
+		return sqlSession.selectList("mapper.mypage.selectMyOrderInfo", memOrderNum);
+	}
+	
+	@Override
+	public MypageVO selectViewMyOrderInfoMem(int memOrderSeqNum) throws DataAccessException {
+		return sqlSession.selectOne("mapper.mypage.selectMyOrderInfoMem", memOrderSeqNum);
+	}
+	
+	//상품 주문내역 -->>기간검색
+	@Override
+	public List<MypageVO> myOrderInfoSearchList(Map<String ,Object> myOrderInfoSearchMap) throws DataAccessException {
+
+		List<MypageVO> myOrderInfoSearchList =sqlSession.selectList("mapper.mypage.myOrderInfoSearchList",myOrderInfoSearchMap);		
+		return myOrderInfoSearchList;
+	}
+	
+	@Override
+	public int myOrderInfoSearchCount(Map<String, Object> search) throws DataAccessException {
+		int myOrderInfoSearchCount = sqlSession.selectOne("mapper.mypage.myOrderInfoSearchCount",search);
+
+		return myOrderInfoSearchCount;
+	}
+	
+	@Override
 	public void updatePurchaseConfirm(MypageVO mypageVO) throws DataAccessException {
 		sqlSession.update("mapper.mypage.updatePurchaseConfirm", mypageVO);
 	}
@@ -57,6 +82,23 @@ public class MypageDAOImpl implements MypageDAO{
 		int mypageReviewCount = sqlSession.selectOne("mapper.product.selectMypageReviewCount",memId);
 
 		return mypageReviewCount;
+	}
+	
+	
+	
+	//상품 리뷰내역 -->>기간검색
+	@Override
+	public List<MypageVO> reviewSearchList(Map<String ,Object> reviewSearchMap) throws DataAccessException {
+
+		List<MypageVO> reviewSearchList =sqlSession.selectList("mapper.mypage.reviewSearchList",reviewSearchMap);		
+		return reviewSearchList;
+	}
+	
+	@Override
+	public int reviewSearchCount(Map<String, Object> search) throws DataAccessException {
+		int reviewSearchCount = sqlSession.selectOne("mapper.mypage.reviewSearchCount",search);
+
+		return reviewSearchCount;
 	}
 	
 	@Override
@@ -109,6 +151,21 @@ public class MypageDAOImpl implements MypageDAO{
 		int mypageReturnCount = sqlSession.selectOne("mapper.mypage.selectMypageReturnCount",memId);
 
 		return mypageReturnCount;
+	}
+	
+	//상품 반품내역 -->>기간검색
+	@Override
+	public List<MypageVO> returnSearchList(Map<String ,Object> returnSearchMap) throws DataAccessException {
+
+		List<MypageVO> returnSearchList =sqlSession.selectList("mapper.mypage.returnSearchList",returnSearchMap);		
+		return returnSearchList;
+	}
+	
+	@Override
+	public int returnSearchCount(Map<String, Object> search) throws DataAccessException {
+		int returnSearchCount = sqlSession.selectOne("mapper.mypage.returnSearchCount",search);
+
+		return returnSearchCount;
 	}
 	
 	@Override

@@ -26,6 +26,11 @@
 			value="/WEB-INF/views/mypage_04.jsp" />
 	</definition>
 
+	<definition name="mypage/reviewSearch" extends="baseLayout">
+		<put-attribute name="title" value="마이페이지 리뷰 검색 목록" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/mypage_14.jsp" />
+	</definition>
 	<definition name="mypage/reviewWrite" extends="baseLayout">
 		<put-attribute name="title" value="상품리뷰 글쓰기창" />
 		<put-attribute name="body"
@@ -41,7 +46,11 @@
 		<put-attribute name="body"
 			value="/WEB-INF/views/mypage_07.jsp" />
 	</definition>
-
+	<definition name="mypage/returnSearch" extends="baseLayout">
+		<put-attribute name="title" value="마이페이지 반품 조회 검색 목록" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/mypage_07.jsp" />
+	</definition>
 	<definition name="mypage/returnWrite" extends="baseLayout">
 		<put-attribute name="title" value="마이페이지 반품 글쓰기창" />
 		<put-attribute name="body"
@@ -52,8 +61,17 @@
 		<put-attribute name="body"
 			value="/WEB-INF/views/mypage_06.jsp" />
 	</definition>
-
-
+	<definition name="mypage/myOrderInfoSearch"
+		extends="baseLayout">
+		<put-attribute name="title" value="마이페이지 주문 조회 검색 목록" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/mypage_04.jsp" />
+	</definition>
+	<definition name="mypage/viewMyOrderInfo" extends="baseLayout">
+		<put-attribute name="title" value="마이페이지 주문 상세보기" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/mypage_05.jsp" />
+	</definition>
 
 
 </tiles-definitions>	

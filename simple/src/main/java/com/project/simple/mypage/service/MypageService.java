@@ -17,10 +17,16 @@ public interface MypageService {
 	
 	public Map<String ,Object> listMyOrderInfo (Map<String ,Object> myOrderInfoMap) throws Exception;
 	public int myOrderInfoCount(String memId) throws Exception;
+	public List<MypageVO> viewMyOrderInfo(int memOrderSeqNum) throws Exception ;
+	public MypageVO viewMyOrderInfoMem(int memOrderSeqNum) throws Exception ;
+	public Map<String ,Object> myOrderInfoSearch(Map<String ,Object> myOrderInfoSearchMap) throws Exception;
+	public int myOrderInfoSearchCount(Map<String, Object> search) throws Exception;
 	public void purchaseConfirm(MypageVO mypageVO) throws Exception;
 	
 	public Map<String ,Object> listMypageReview(Map<String ,Object> mypageReviewMap) throws Exception;
 	public int mypageReviewCount(String memId) throws Exception;
+	public Map<String ,Object> reviewSearch(Map<String ,Object> reviewSearchMap) throws Exception;
+	public int reviewSearchCount(Map<String, Object> search) throws Exception;
 	public MypageVO reviewWrite(int memOrderSeqNum) throws Exception ;
 	public int addNewReview(Map reviewMap) throws Exception;
 	public MypageVO reviewForm(int reviewNum) throws Exception;
@@ -29,6 +35,8 @@ public interface MypageService {
 	
 	public Map<String ,Object> listMypageReturn(Map<String ,Object> mypageReturnMap) throws Exception;
 	public int mypageReturnCount(String memId) throws Exception;
+	public Map<String ,Object> returnSearch(Map<String ,Object> returnSearchMap) throws Exception;
+	public int returnSearchCount(Map<String, Object> search) throws Exception;
 	public void addNewReturn(Map returnMap) throws Exception;
 	public MypageVO viewReturn(int returnNum) throws Exception;
 	public void modReturn(Map returnMap) throws Exception ;

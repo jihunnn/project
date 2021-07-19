@@ -40,7 +40,7 @@
 		<result property="memOrderSeqNum" column="memOrderSeqNum" />
 		<result property="returnType" column="returnType" />
 		<result property="returnContent" column="returnContent" />
-		<result property="cuttentStatus" column="cuttentStatus" />
+		<result property="currentStatus" column="currentStatus" />
 	</resultMap>
 
 	<!--마이페이지 주문/배송조회 -->
@@ -50,7 +50,7 @@
 			
 		select memOrderNum, memOrderDate, purchaseConfirm, reviewConfirm, returnConfirm,  o.memOrderSeqNum, productCnt, option1, option2, p.productImage,p.productPrice, p.productName, p.productNum, d.deliveryStatus 
 		from memberOrder as o left join product as p on o.productNum=p.productNum 
-		join memdelivery as d on o.memOrderSeqNum=d.memOrderSeqNum  where o.memId=#{memId} order by memOrderDate desc
+		join memdelivery as d on o.memOrderSeqNum=d.memOrderSeqNum  where o.memId=#{memId} order by memOrderSeqNum desc
 		limit #{pageStart}, #{perPageNum};
 			
 	]]>
@@ -61,6 +61,59 @@
 			
 			select count(*)  from memberOrder where memId=#{memId};
 			
+	]]>
+	</select>
+
+	<select id="selectMyOrderInfo" resultType="mypageVO"
+		parameterType="int"> 
+	<![CDATA[
+			
+
+		select memOrderNum, memOrderDate, purchaseConfirm, reviewConfirm, returnConfirm,  o.memOrderSeqNum, productCnt, option1, option2, p.productImage,p.productPrice, p.productName, p.productNum, d.deliveryStatus 
+		from memberOrder as o left join product as p on o.productNum=p.productNum 
+		join memdelivery as d on o.memOrderSeqNum=d.memOrderSeqNum
+			where memOrderNum = #{memOrderNum} order by memOrderSeqNum desc;
+			
+
+	]]>
+	</select>
+
+	<select id="selectMyOrderInfoMem" resultType="mypageVO"
+		parameterType="int"> 
+	<![CDATA[
+			
+
+		select m.memName, memAdr, memPhoneNum, memSpName, memSpPhoneNum1, memSpPhoneNum2, memSpAdr,memOrderMsg, memDepositorName, memPaymentMethod, totalPrice
+		from memberOrder as o left join member as m on o.memId=m.memId 
+			where memOrderSeqNum = #{memOrderSeqNum} order by memOrderSeqNum desc;
+			
+
+	]]>
+	</select>
+
+
+
+	<select id="myOrderInfoSearchList" resultMap="myOrderInfoResult">
+	<![CDATA[
+			
+			select memOrderNum, memOrderDate, purchaseConfirm, reviewConfirm, returnConfirm,  o.memOrderSeqNum, productCnt, option1, option2, p.productImage,p.productPrice, p.productName, p.productNum, d.deliveryStatus 
+			from memberOrder as o left join product as p on o.productNum=p.productNum 
+			join memdelivery as d on o.memOrderSeqNum=d.memOrderSeqNum  
+			where memId=#{memId} and memOrderDate between #{search1} and DATE_ADD(#{search2}, interval 1 day) order by memOrderSeqNum desc
+			limit #{pageStart}, #{perPageNum};
+			;
+			
+
+	]]>
+	</select>
+
+	<select id="myOrderInfoSearchCount" resultType="int"
+		parameterType="java.util.Map">
+	<![CDATA[
+			
+			select count(*) from memberOrder where memId=#{memId} and memOrderDate between #{search1} and  DATE_ADD(#{search2}, interval 1 day);
+			
+
 	]]>
 	</select>
 
@@ -80,6 +133,30 @@
 		select memOrderNum, memOrderDate, o.memOrderSeqNum, productCnt, option1, option2, p.productImage, p.productPrice, p.productName
 		from memberOrder as o left join product as p on o.productNum=p.productNum 
 		join memdelivery as d on o.memOrderSeqNum=d.memOrderSeqNum  where o.memOrderSeqNum=#{memOrderSeqNum};
+			
+
+	]]>
+	</select>
+
+	<select id="reviewSearchList" resultMap="productReviewResult">
+	<![CDATA[
+			
+			select reviewNum, o.productImage, reviewFile, r.productNum, r.memOrderSeqNum , productReviewTitle, reviewDate, productContent, p.productName, o.option1, o.option2 
+			from productReview as r left join product as p on r.productNum=p.productNum
+			join memberOrder as o on r.memOrderSeqNum=o.memOrderSeqNum 
+			where r.memId=#{memId} and reviewDate between #{search1} and DATE_ADD(#{search2}, interval 1 day) order by reviewNum desc
+			limit #{pageStart}, #{perPageNum};
+			;
+			
+
+	]]>
+	</select>
+
+	<select id="reviewSearchCount" resultType="int"
+		parameterType="java.util.Map">
+	<![CDATA[
+			
+			select count(*) from productReview where memId=#{memId} and reviewDate between #{search1} and  DATE_ADD(#{search2}, interval 1 day);
 			
 
 	]]>
@@ -175,6 +252,30 @@
 	]]>
 	</select>
 
+	<select id="returnSearchList" resultMap="mypageReturnResult">
+	<![CDATA[
+			
+		select r.memOrderSeqNum, returnDate, returnNum, returnType, returnContent, r.currentStatus,  o.productCnt, o.option1, o.option2, o.productImage,o.productPrice, p.productName, o.productNum
+		from returnhistory as r left join memberOrder as o on r.memOrderSeqNum=o.memOrderSeqNum 
+		join product as p on r.productNum=p.productNum
+		where r.memId=#{memId} and returnDate between #{search1} and DATE_ADD(#{search2}, interval 1 day) order by returnNum desc
+		limit #{pageStart}, #{perPageNum};
+			
+			
+
+	]]>
+	</select>
+
+	<select id="returnSearchCount" resultType="int"
+		parameterType="java.util.Map">
+	<![CDATA[
+			
+			select count(*) from returnHistory where memId=#{memId} and returnDate between #{search1} and  DATE_ADD(#{search2}, interval 1 day);
+			
+
+	]]>
+	</select>
+
 
 	<insert id="insertNewReturn" parameterType="java.util.Map">
 		<![CDATA[
@@ -192,7 +293,7 @@
 		#{memOrderSeqNum};
 	</update>
 
-	<select id="selectReturn" resultType="MypageVO"
+	<select id="selectReturn" resultType="mypageVO"
 		parameterType="int"> 
 	<![CDATA[
 			

@@ -445,7 +445,7 @@
 									<input type="submit" value="등록" onclick="Review_write()"
 										style="width: 80px; background-color: #212529; color: white; margin-left: 300px; float: left; margin-right: 10px; cursor: pointer;">
 									<input type="button" value="취소"
-										onclick="location.href='${contextPath}/mypage_07.do'"
+										onclick="location.href='${contextPath}/mypage_04.do'"
 										style="width: 80px; background-color: #212529; color: white; float: left; cursor: pointer;">
 								</div>
 
