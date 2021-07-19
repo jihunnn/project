@@ -39,7 +39,7 @@ public class MemberControllerImpl implements MemberController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 
-		return "product_01";
+		return "cart";
 	}
 
 	// 멤버로그인작업 ppt226
