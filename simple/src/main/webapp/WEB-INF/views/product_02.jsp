@@ -200,7 +200,7 @@ textarea {
 		} else { //취소
 			return;
 		}
-		
+		form.action="${contextPath}/cartall.do"
 		form.submit();
 	}
 	
@@ -242,7 +242,7 @@ textarea {
 		<div class="container">
 
 
-			<form name="form1" method="post" id="addCartForm">
+			<form name="form1" method="GET" id="addCartForm">
 				<input type="hidden" name="productNum" value="${product.productNum}" />
 				<input type="hidden" name="productName"
 					value="${product.productName}" /> 
@@ -250,7 +250,9 @@ textarea {
 					name="option1name" value="${option1[1].option1name}" /> 
 					<input
 					type="hidden" name="option2name" value="${option2[1].option2name}" />
-
+					<input
+					type="hidden" name="deliverycharge" value="무료배송" />
+					
 
 
 				<div class="row justify-content-center mb-5 pb-3"
@@ -351,7 +353,7 @@ textarea {
 							value=" + " size="3"
 							style="width: 25px; white-space: nowrap; float: left; font-size: 18px; font-size: 14px; border: 1px solid grey;">
 
-						<input type="text" name="quantity" id="quantity" value="1"
+						<input type="text" name="productCnt" id="quantity" value="1"
 							readonly="readonly"
 							style="white-space: nowrap; float: left; font-size: 18px; font-size: 14px; width: 50px; text-align: center;" />
 

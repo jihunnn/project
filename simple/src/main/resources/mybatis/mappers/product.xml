@@ -21,6 +21,7 @@
         <result property="option2price" column="option2price" /> 
         <result property="option1value" column="option1value" />
         <result property="option2value" column="option2value" /> 
+        <result property="deliverycharge" column="deliverycharge" /> 
 	</resultMap>
 
 

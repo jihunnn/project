@@ -354,7 +354,6 @@ public class ProductControllerImpl implements ProductController {
 		mav.setViewName(viewName);
 		mav.addObject("option", option);
 		mav.addObject("product", productVO);
-		System.out.println(option);
 
 		return mav;
 

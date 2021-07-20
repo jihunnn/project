@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.cart">
+	<!-- notice 게시판 -->
+	<resultMap id="cartResult" type="cartVO">
+		<result property="memId" column="memId" />
+		<result property="productNum" column="productNum" />
+		<result property="productCnt" column="productCnt" />
+		<result property="productName" column="productName" />
+		<result property="option1name" column="option1name" />
+		<result property="option2name" column="option2name" />
+		<result property="option1value" column="option1value" />
+		<result property="option2value" column="option2value" />
+		<result property="totalPrice" column="totalPrice" />
+		<result property="productimage" column="productimage" />
+		<result property="deliverycharge" column="deliverycharge" />
+	</resultMap>
+
+
+	<!-- 장바구니테이블 추가 -->
+	<insert id="insertcartlist"  parameterType="cartVO">
+		<![CDATA[ 
+			insert into simple.membercart(memId, productNum, productCnt, productName, option1name, option1value, option2name, option2value, totalPrice, productimage, deliverycharge) 
+			values(#{memId},#{productNum},#{productCnt},#{productName},#{option1name},#{option1value},#{option2name},#{option2value},#{totalPrice},"이미지아직", #{deliverycharge});
+		
+		]]>	
+	</insert>
+	<!-- 장바구니리스트불러오기 -->
+	<select id="selectCartList"  parameterType="String" resultMap="cartResult">
+		<![CDATA[ 
+			select * from simple.membercart
+			where memId = #{memId};
+		
+		]]>	
+	</select>
+	
+</mapper>

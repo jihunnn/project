@@ -9,5 +9,6 @@
 		<typeAlias type="com.project.simple.member.vo.MemberVO" alias="memberVO" />
 		<typeAlias type="com.project.simple.board.vo.ArticleVO" alias="ArticleVO" />
 		<typeAlias alias="productVO" type="com.project.simple.product.vo.ProductVO"/>
+		<typeAlias type="com.project.simple.cart.vo.CartVO" alias="CartVO" />
 	</typeAliases>
 </configuration>
