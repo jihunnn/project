@@ -47,7 +47,7 @@
 		<result property="asCenterPwd" column="asCenterPwd" />
 	</resultMap>
 
-	<!-- 공지사항 -->
+	<!-- 공지사항 전제 목록 보기 -->
 	<select id="selectAllNoticeList" resultMap="noticeResult">
 	<![CDATA[
 			
@@ -57,6 +57,9 @@
 
 	]]>
 	</select>
+	
+	
+
 	<select id="selectNoticeCount" resultType="int"
 		parameterType="int">
 	<![CDATA[
@@ -66,7 +69,8 @@
 
 	]]>
 	</select>
-
+	
+	<!-- 공지사항 상세보기 -->
 	<select id="selectNotice" resultType="articleVO"
 		parameterType="int"> 
 	<![CDATA[

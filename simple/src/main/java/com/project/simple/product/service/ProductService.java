@@ -21,8 +21,10 @@ public interface ProductService {
 	public void modProduct(Map productMap) throws Exception;
 	public ProductVO productForm(String productNum) throws Exception;
 	
-	public Map<String, Object> listProductReview(Map<String, Object> productMap) throws Exception;
+	public List<ProductVO> listProductReview(Map<String, Object> productMap) throws Exception;
 	public int productReviewCount(String productNum) throws Exception;
+	public List<ProductVO> listProductQuestion(Map<String, Object> productMap) throws Exception;
+	public int productQuestionCount(String productNum) throws Exception;
 
 
 }

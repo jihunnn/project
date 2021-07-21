@@ -35,6 +35,12 @@ public class ProductVO {
 	private String productContent;
 	private String reviewFile;
 	
+	//상품 문의
+	private String productQuestionTitle;
+	private String productQuestionContent;
+	private Date productQuestionDate;
+	private String productAnswerContent;
+	
 	
 	
 	public ProductVO() {
@@ -206,10 +212,39 @@ public class ProductVO {
 	}
 	
 	public String getMemId() {
-		return reviewFile;
+		return memId;
 	}
 	public void setMemId(String memId) {
 		this.memId = memId;
+	}
+	
+	//상품 문의
+	public String getProductQuestionTitle() {
+		return productQuestionTitle;
+	}
+	public void setProductQuestionTitle(String productQuestionTitle) {
+		this.productQuestionTitle = productQuestionTitle;
+	}
+	
+	public String getProductQuestionContent() {
+		return productQuestionContent;
+	}
+	public void setProductQuestionContent(String productQuestionContent) {
+		this.productQuestionContent = productQuestionContent;
+	}
+	
+	public Date getProductQuestionDate() {
+		return productQuestionDate;
+	}
+	public void setProductQuestionDate(Date productQuestionDate) {
+		this.productQuestionDate = productQuestionDate;
+	}
+	
+	public String getProductAnswerContent() {
+		return productAnswerContent;
+	}
+	public void setProductAnswerContent(String productAnswerContent) {
+		this.productAnswerContent = productAnswerContent;
 	}
 	
 	

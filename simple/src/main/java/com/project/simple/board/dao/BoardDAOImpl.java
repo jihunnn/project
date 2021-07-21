@@ -19,12 +19,13 @@ import com.project.simple.page.Criteria;
 public class BoardDAOImpl implements BoardDAO{
 	@Autowired
 	private SqlSession sqlSession;
-	//notice게시판
+	//notice게시판 >> DB에서 전체 글 조회 
 	@Override
 	public List<ArticleVO> selectAllNoticeList(Criteria cri) throws DataAccessException {
 		List<ArticleVO> noticeList = sqlSession.selectList("mapper.board.selectAllNoticeList", cri);
 		return noticeList;
 	}
+	
 	
 	@Override
 	public int selectNoticeCount() throws DataAccessException {
@@ -33,6 +34,7 @@ public class BoardDAOImpl implements BoardDAO{
 		return noticeCount;
 	}
 	
+	//DB에서 글번호에 해당하는 상세보기 조회
 	@Override
 	public ArticleVO selectNotice(int noticeNum) throws DataAccessException {
 		return sqlSession.selectOne("mapper.board.selectNotice", noticeNum);

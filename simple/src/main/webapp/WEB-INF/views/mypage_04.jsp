@@ -445,7 +445,7 @@
 							<c:if test="${pageMaker.prev}">
 
 								<a class="arrow prev"
-									href='<c:url value="/mypage/myOrderInfoSearch.do?search1=${myOrderInfoSearchList.search1}&search2=${myOrderInfoSearchMap.search2}&page=${pageMaker.startPage-1 }"/>'><i
+									href='<c:url value="/mypage/myOrderInfoSearch.do?search1=${myOrderInfoSearchMap.search1}&search2=${myOrderInfoSearchMap.search2}&page=${pageMaker.startPage-1 }"/>'><i
 									class="fa fa-chevron-left"></i></a>
 
 							</c:if>
@@ -453,14 +453,14 @@
 								end="${pageMaker.endPage }" var="pageNum">
 
 								<a
-									href='<c:url value="/mypage/myOrderInfoSearch.do?search1=${myOrderInfoSearchList.search1}&search2=${myOrderInfoSearchMap.search2}&page=${pageNum }"/>'><i
+									href='<c:url value="/mypage/myOrderInfoSearch.do?search1=${myOrderInfoSearchMap.search1}&search2=${myOrderInfoSearchMap.search2}&page=${pageNum }"/>'><i
 									class="fa">${pageNum }</i></a>
 
 							</c:forEach>
 							<c:if test="${pageMaker.next && pageMaker.endPage >0 }">
 
 								<a class="arrow next"
-									href='<c:url value="/mypage/myOrderInfoSearch.do?search1=${myOrderInfoSearchList.search1}&search2=${myOrderInfoSearchMap.search2}&page=${pageMaker.endPage+1 }"/>'><i
+									href='<c:url value="/mypage/myOrderInfoSearch.do?search1=${myOrderInfoSearchMap.search1}&search2=${myOrderInfoSearchMap.search2}&page=${pageMaker.endPage+1 }"/>'><i
 									class="fa fa-chevron-right"></i></a>
 
 							</c:if>

@@ -16,142 +16,153 @@
 	height: 50px;
 	color: #777;
 }
+
 #recentlyProduct {
 	position: absolute;
 	top: 180px;
 	right: 50%;
 	margin-right: -670px;
 }
-<!-- 상품리뷰 오버랩 디자인------------->
- 
-    textarea {
-    	width: 439px;
-    	height: 27px;
-    	background-color: #efefef;
-    	border-radius: 6px;
-    	border: 1px solid #dedede; 
-    	padding: 10px;
-    	margin-top: 3px;
-    	font-size: 0.9em;
-    	color: #3a3a3a; 
-    }
-    
-    	input:focus, textarea:focus{
-    		border: 1px solid #97d6eb;
-    	}
-	
-    textarea{
-    	height: 60px;
-    	background-color: #efefef;
-    }
-    #submit{
-    	width: 127px;
-    	height: 48px;
-    	text-align: center;
-    	border: none;
-    	margin-top: 20px;
-    	cursor: pointer;
-    }
-    #submit:hover{
-    	color: #fff;
-    	background-color: #216282;
-    	opacity: 0.9;
-    }
-    #cancel {
-    	width: 127px; height: 48px;
-    	text-align: center;
-    	border: none;
-    	margin-top: 20px;
-    	cursor: pointer;
-    }
-    #cancel:hover{
-    	color: #fff;
-    	background-color: #216282;
-    	opacity: 0.9;
-    }
-	.review {
-        position: fixed;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-        opacity: 0;
-        visibility: hidden;
-        transform: scale(1.1);
-        transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
-    }
-    .review-content {
-        position: absolute;
-        top: 60%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background-color: white;
-        padding: 1rem 1.5rem;
-        width: 850px;
-        height: 500px;
-        border-radius: 0.5rem;
-    }
-    .close-button {
-        float: right;
-        width: 1.5rem;
-        line-height: 1.5rem;
-        text-align: center;
-        cursor: pointer;
-        border-radius: 0.25rem;
-        background-color: lightgray;
-    }
-    .close-button:hover {
-        background-color: darkgray;
-    }
-    .show-modal {
-        opacity: 1;
-        visibility: visible;
-        transform: scale(1.0);
-        transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
-    }
-   
+
+<!--
+상품리뷰 오버랩 디자인------------->textarea {
+	width: 439px;
+	height: 27px;
+	background-color: #efefef;
+	border-radius: 6px;
+	border: 1px solid #dedede;
+	padding: 10px;
+	margin-top: 3px;
+	font-size: 0.9em;
+	color: #3a3a3a;
+}
+
+input:focus, textarea:focus {
+	border: 1px solid #97d6eb;
+}
+
+textarea {
+	height: 60px;
+	background-color: #efefef;
+}
+
+#submit {
+	width: 127px;
+	height: 48px;
+	text-align: center;
+	border: none;
+	margin-top: 20px;
+	cursor: pointer;
+}
+
+#submit:hover {
+	color: #fff;
+	background-color: #216282;
+	opacity: 0.9;
+}
+
+#cancel {
+	width: 127px;
+	height: 48px;
+	text-align: center;
+	border: none;
+	margin-top: 20px;
+	cursor: pointer;
+}
+
+#cancel:hover {
+	color: #fff;
+	background-color: #216282;
+	opacity: 0.9;
+}
+
+.review {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	opacity: 0;
+	visibility: hidden;
+	transform: scale(1.1);
+	transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform
+		0.25s;
+}
+
+.review-content {
+	position: absolute;
+	top: 60%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: white;
+	padding: 1rem 1.5rem;
+	width: 850px;
+	height: 500px;
+	border-radius: 0.5rem;
+}
+
+.close-button {
+	float: right;
+	width: 1.5rem;
+	line-height: 1.5rem;
+	text-align: center;
+	cursor: pointer;
+	border-radius: 0.25rem;
+	background-color: lightgray;
+}
+
+.close-button:hover {
+	background-color: darkgray;
+}
+
+.show-modal {
+	opacity: 1;
+	visibility: visible;
+	transform: scale(1.0);
+	transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
+}
 </style>
 <!-- 수량체크 자바스크립트 -->
 <script language="JavaScript">
 <!--
-var amount;
-function init () {
-	amount = document.form.amount.value;
-	change();
-}
-function add () {
-	hm = document.form.amount;
-	hm.value ++ ;
-}
-function del () {
-	hm = document.form.amount;
+	var amount;
+	function init() {
+		amount = document.form.amount.value;
+		change();
+	}
+	function add() {
+		hm = document.form.amount;
+		hm.value++;
+	}
+	function del() {
+		hm = document.form.amount;
 		if (hm.value > 1) {
-			hm.value -- ;
+			hm.value--;
 		}
-}
-function change () {
-	hm = document.form.amount;
+	}
+	function change() {
+		hm = document.form.amount;
 		if (hm.value < 0) {
 			hm.value = 0;
 		}
-}  
+	}
 //-->
 </script>
 <script type="text/javascript">
-	function favoriteproduct(){
+	function favoriteproduct() {
 		var form = document.Chec;
-		if (confirm("관심상품에 등록하시겠습니까?")){ //확인
-			
+		if (confirm("관심상품에 등록하시겠습니까?")) { //확인
+
 		} else { //취소
 			return;
 		}
 		form.submit();
 	}
-	function addCartBtn(){
+	function addCartBtn() {
 		var form = document.Chec;
-		if (confirm("장바구니에 담으시겠습니까?")){ //확인
-			
+		if (confirm("장바구니에 담으시겠습니까?")) { //확인
+
 		} else { //취소
 			return;
 		}
@@ -162,7 +173,7 @@ function change () {
 <body onload="init();">
 
 
-	<section class="ftco-section" style="padding-top: 20px;">
+	<section class="ftco-section" style="padding-top: 20px; margin-bottom:200px;">
 		<div class="container">
 			<div class="row justify-content-center mb-5 pb-3"
 				style="background-color: #f5f5f5; border: 1px solid #e7e7e7;">
@@ -409,53 +420,65 @@ function change () {
 							</tr>
 							<c:set var="num"
 								value="${pageMaker.totalCount - ((pageNum-1) * 10) }" />
-							<c:forEach var="productReview"
-								items="${productMap.productReviewList}">
+							<c:choose>
+								<c:when test="${empty productReviewList}">
+									<tr style="backgroundcolor: white; width: 1000px;">
+										<td colspan="4" style="padding-top:100px;">등록 된 리뷰가 없습니다.</td>
+									</tr>
+								</c:when>
 
-								<!-- 레이어 팝업창 -->
-								<div id="tallModal" class="modal modal-wide fade" >
-									<div class="modal-dialog">
-										<div class="modal-content" style="width:600px; height:500px;">
-											<div class="modal-header">							
-												<h4 class="modal-title" style="float:left;">${productReview.productReviewTitle}</h4>
-												<button type="button" class="close" data-dismiss="modal"
-													aria-hidden="true">&times;</button>
+								<c:when test="${!empty productReviewList}">
+									<c:forEach var="productReview"
+										items="${productReviewList}">
+
+										<!-- 레이어 팝업창 -->
+										<div id="tallModal" class="modal modal-wide fade">
+											<div class="modal-dialog">
+												<div class="modal-content"
+													style="width: 600px; height: 500px;">
+													<div class="modal-header">
+														<h4 class="modal-title" style="float: left;">${productReview.productReviewTitle}</h4>
+														<button type="button" class="close" data-dismiss="modal"
+															aria-hidden="true">&times;</button>
+													</div>
+													<div class="modal-body"></div>
+													<p>${productReview.productContent}</p>
+													<img src="" />
+													<div class="modal-footer">
+														<button type="button" class="btn btn-primary"
+															data-dismiss="modal"
+															style="float: right; border-radius: 2px;">Close</button>
+													</div>
+												</div>
+												<!-- /.modal-content -->
 											</div>
-											<div class="modal-body"></div>
-											<p>${productReview.productContent}</p>
-											<img src=""/>
-											<div class="modal-footer">
-												<button type="button" class="btn btn-primary"
-													data-dismiss="modal" style="float:right; border-radius:2px;">Close</button>
-											</div>
+											<!-- /.modal-dialog -->
 										</div>
-										<!-- /.modal-content -->
-									</div>
-									<!-- /.modal-dialog -->
-								</div>
-								<!-- /.modal -->
-								<tr style="border-bottom: 1px solid grey;">
-									<td style="width: 100px;">${num}</td>
-									<td style="width: 200px;">${productReview.memName }</td>
-									<td style="width: 500px;"><a
-										style="color: black; cursor: pointer;" data-toggle="modal"
-										href="#tallModal"> ${productReview.productReviewTitle}</a> <!-- 팝업시킬 태그 -->
-									</td>
-									<td style="width: 200px;">2021-06-12</td>
-								</tr>
-								<c:set var="num" value="${num-1}"></c:set>
-							</c:forEach>
 
+
+										<!-- /.modal -->
+										<tr style="border-bottom: 1px solid grey;">
+											<td style="width: 100px;">${num}</td>
+											<td style="width: 200px;">${productReview.memName }</td>
+											<td style="width: 500px;"><a
+												style="color: black; cursor: pointer;" data-toggle="modal"
+												href="#tallModal"> ${productReview.productReviewTitle}</a> <!-- 팝업시킬 태그 -->
+											</td>
+											<td style="width: 200px;">2021-06-12</td>
+										</tr>
+										<c:set var="num" value="${num-1}"></c:set>
+									</c:forEach>
+								</c:when>
+							</c:choose>
 						</table>
 
 						<div class="page_wrap"
 							style="margin-left: 80px; margin-top: 60px;">
 							<div class="page_nation">
-
 								<c:if test="${pageMaker.prev}">
 
 									<a class="arrow prev"
-										href='<c:url value="/product/viewProduct.do?productNum=${productVO.productNum}&page=${pageMaker.startPage-1 }"/>'><i
+										href='<c:url value="/product/viewProduct.do?productNum=${product.productNum}&page=${pageMaker.startPage-1 }"/>'><i
 										class="fa fa-chevron-left"></i></a>
 
 								</c:if>
@@ -476,23 +499,6 @@ function change () {
 								</c:if>
 							</div>
 						</div>
-						<table class="table"
-							style="margin-top: 20px; text-align: center; width: 1000px; margin-left: -80px; margin-bottom: 1px;">
-							<tr>
-								<td
-									style="border: 1px solid grey; padding-top: 30px; padding-left: 0px;"><button
-										type="submit" class="btn btn-default"
-										style="background-color: #dcdcdc; margin-left: 845px; border-radius: 2px; width: 90px; height: 100px; margin-bottom: 3px;">등록</button>
-									<img id="preview" src="#"
-									style="background-color: #dcdcdc; margin-left: 630px; margin-top: -134px; width: 100px; height: 98px; margin-bottom: 0px; z-index: 1;" />
-									<input type="text"
-									placeholder="후기를 입력해주세요^^베스트 후기를 뽑아서 적립금을 드립니다."
-									style="margin-top: -126px; width: 730px; height: 97px; float: left; margin-left: 20px;" />
-									<input type="file" name="imageFileName"
-									onchange="readURL(this);"
-									style="margin-right: 670px; width: 300px; background-color: white; border: none; padding-top: 0px; padding-bottom: 50px; padding-left: 12px; padding-bottom: 10px;" /></td>
-							</tr>
-						</table>
 
 
 					</div>

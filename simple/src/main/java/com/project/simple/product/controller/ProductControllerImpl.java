@@ -34,6 +34,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.project.simple.board.vo.ArticleVO;
 import com.project.simple.member.vo.MemberVO;
+import com.project.simple.mypage.vo.MypageVO;
 import com.project.simple.page.Criteria;
 import com.project.simple.page.PageMaker;
 import com.project.simple.product.service.ProductService;
@@ -385,15 +386,15 @@ public class ProductControllerImpl implements ProductController {
 		String viewName = (String) request.getAttribute("viewName");
 		HttpSession session=request.getSession();
 		productVO = productService.viewProduct(productNum);
-
 		int pageStart = cri.getPageStart();
 		int perPageNum = cri.getPerPageNum();
 		productMap.put("pageStart", pageStart);
 		productMap.put("perPageNum", perPageNum);
 		productMap.put("productNum", productNum);
-		productMap = productService.listProductReview(productMap);
-		System.out.println(productMap);
+		List<ProductVO> productReviewList= productService.listProductReview(productMap);
 		int productReviewCount = productService.productReviewCount(productNum);
+		List<ProductVO> productQuestionList = productService.listProductQuestion(productMap);
+		int productQuestionCount = productService.productQuestionCount(productNum);
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(productReviewCount);
@@ -403,7 +404,8 @@ public class ProductControllerImpl implements ProductController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(viewName);
 		mav.addObject("product", productVO);
-		mav.addObject("productMap", productMap);
+		mav.addObject("productReviewList", productReviewList);
+		mav.addObject("productQuestionList", productQuestionList);
 		mav.addObject("pageMaker", pageMaker);
 		mav.addObject("pageNum", pageNum);
 

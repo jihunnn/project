@@ -12,7 +12,8 @@
 		<result property="category" column="category" />
 		<result property="subcategory" column="subcategory" />
 		<result property="productImage" column="productImage" />
-		<result property="productManufacturer" column="productManufacturer" />
+		<result property="productManufacturer"
+			column="productManufacturer" />
 		<result property="productOrigin" column="productOrigin" />
 		<result property="productContentImage"
 			column="productContentImage" />
@@ -21,12 +22,20 @@
 	</resultMap>
 	<resultMap id="productReviewResult" type="productVO">
 		<result property="reviewNum" column="reviewNum" />
-		<result property="productReviewTitle" column="productReviewTitle" />
+		<result property="productReviewTitle"
+			column="productReviewTitle" />
 		<result property="reviewDate" column="reviewDate" />
 		<result property="productContent" column="productContent" />
 		<result property="reviewFile" column="reviewFile" />
 		<result property="memId" column="memId" />
 		<result property="memOrderSeqNum" column="memOrderSeqNum" />
+	</resultMap>
+
+	<resultMap id="productQuestionResult" type="productVO">
+		<result property="productQuestionTitle" column="productQuestionTitle" />
+		<result property="productQuestionContent" column="productQuestionContent" />
+		<result property="productQuestionDate" column="productQuestionDate" />
+		<result property="productAnswerContent" column="productAnswerContent" />
 	</resultMap>
 
 
@@ -73,11 +82,13 @@
 	<update id="updateProduct" parameterType="java.util.Map">
 		update product
 		set productName = #{productName},
-		productPrice = #{productPrice},
+		productPrice =
+		#{productPrice},
 		category = #{category},
 		subcategory = #{subcategory},
 		productManufacturer = #{productManufacturer},
-		productOrigin =#{productOrigin}
+		productOrigin
+		=#{productOrigin}
 		<if test="productImage1!='' and productImage1!=null ">
 			, productImage=#{productImage1}
 		</if>
@@ -159,6 +170,23 @@
 	<![CDATA[
 			
 			select count(*)  from productReview where memId=#{memId};
+			
+	]]>
+	</select>
+
+	<select id="selectAllProductQuestionList"
+		resultMap="productQuestionResult">
+	<![CDATA[
+			select * from productQuestion where productNum=#{productNum}
+			limit #{pageStart}, #{perPageNum};
+			
+	]]>
+	</select>
+	<select id="selectProductQuestionCount" resultType="int"
+		parameterType="int">
+	<![CDATA[
+			
+			select count(*)  from productQuestion where memId=#{memId};
 			
 	]]>
 	</select>

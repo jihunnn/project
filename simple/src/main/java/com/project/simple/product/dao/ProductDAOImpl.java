@@ -78,6 +78,19 @@ public class ProductDAOImpl implements ProductDAO{
 		return productReviewCount;
 	}
 	
+	@Override
+	public List<ProductVO> selectAllProductQuestionList(Map<String, Object> productMap) throws DataAccessException {
+		List<ProductVO> productQuestionList = sqlSession.selectList("mapper.product.selectAllProductQuestionList", productMap);
+		return productQuestionList;
+	}
+	
+	@Override
+	public int selectProductQuestionCount(String productNum) throws DataAccessException {
+		int productQuestionCount = sqlSession.selectOne("mapper.product.selectProductQuestionCount",productNum);
+
+		return productQuestionCount;
+	}
+	
 
 
 }

@@ -22,5 +22,6 @@ public interface ProductDAO {
 	
 	public List<ProductVO> selectAllProductReviewList(Map<String, Object> productMap) throws DataAccessException;
 	public int selectProductReviewCount(String productNum) throws DataAccessException;
-	
+	public List<ProductVO> selectAllProductQuestionList(Map<String, Object> productMap) throws DataAccessException;
+	public int selectProductQuestionCount(String productNum) throws DataAccessException;
 }

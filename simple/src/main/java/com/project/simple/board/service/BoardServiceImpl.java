@@ -34,7 +34,7 @@ public class BoardServiceImpl implements BoardService{
 	
 
 	
-	//notice 게시판
+	//notice게시판 >> DB에서 전체 글 조회 
 	public List<ArticleVO> listNotice(Criteria cri) throws Exception{
 		List<ArticleVO> noticeList = boardDAO.selectAllNoticeList(cri);
 		return noticeList;
@@ -45,7 +45,7 @@ public class BoardServiceImpl implements BoardService{
 		return noticeCount;
 	}
 	
-
+	//DB에서 글번호에 해당하는 상세보기 조회
 	@Transactional(isolation = Isolation.READ_COMMITTED)
 	@Override
 	public ArticleVO viewNotice(int noticeNum) throws Exception {
