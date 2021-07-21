@@ -68,7 +68,7 @@ public class CartControllerImpl implements CartController {
 	
 	// 장바구니이동(비회원)
 	@RequestMapping(value = "/nonmemcart.do", method = RequestMethod.GET)
-	private ModelAndView nonmemcart(@ModelAttribute("orderVO") OrderVO orderVO, HttpServletRequest request,
+	private ModelAndView nonmemcart( HttpServletRequest request,
 			HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("cart");
@@ -77,7 +77,7 @@ public class CartControllerImpl implements CartController {
 
 	// 장바구니이동(회원)
 	@RequestMapping(value = "/memcart.do", method = RequestMethod.GET)
-	private ModelAndView memcart(@ModelAttribute("orderVO") OrderVO orderVO, HttpServletRequest request,
+	private ModelAndView memcart(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		HttpSession session = request.getSession();

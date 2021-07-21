@@ -16,6 +16,7 @@ public class CartVO {
 	private int totalPrice;
 	private String productimage;
 	private String deliverycharge;
+	private int memCartId;
 	
 	public String getMemId() {
 		return memId;
@@ -82,6 +83,12 @@ public class CartVO {
 	}
 	public void setDeliverycharge(String deliverycharge) {
 		this.deliverycharge = deliverycharge;
+	}
+	public int getMemCartId() {
+		return memCartId;
+	}
+	public void setMemCartId(int memCartId) {
+		this.memCartId = memCartId;
 	}
 	
 

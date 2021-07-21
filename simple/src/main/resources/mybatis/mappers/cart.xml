@@ -17,14 +17,15 @@
 		<result property="totalPrice" column="totalPrice" />
 		<result property="productimage" column="productimage" />
 		<result property="deliverycharge" column="deliverycharge" />
+		<result property="memCartId" column="memCartId" />
 	</resultMap>
 
 
 	<!-- 장바구니테이블 추가 -->
 	<insert id="insertcartlist"  parameterType="cartVO">
 		<![CDATA[ 
-			insert into simple.membercart(memId, productNum, productCnt, productName, option1name, option1value, option2name, option2value, totalPrice, productimage, deliverycharge) 
-			values(#{memId},#{productNum},#{productCnt},#{productName},#{option1name},#{option1value},#{option2name},#{option2value},#{totalPrice},"이미지아직", #{deliverycharge});
+			insert into simple.membercart(memCartId, memId, productNum, productCnt, productName, option1name, option1value, option2name, option2value, totalPrice, productimage, deliverycharge) 
+			values(default, #{memId},#{productNum},#{productCnt},#{productName},#{option1name},#{option1value},#{option2name},#{option2value},#{totalPrice},"이미지아직", #{deliverycharge});
 		
 		]]>	
 	</insert>

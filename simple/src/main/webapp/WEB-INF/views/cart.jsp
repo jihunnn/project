@@ -8,7 +8,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script type="text/javascript">
+<script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+<script>
 	function next() {
 		if (confirm("선택상품을 주문하시겠습니까?")) {
 			location.replace('order_01.jsp');
@@ -25,12 +26,7 @@
 		}
 	}
 
-	//function checkAll() {
 
-	// 체크박스의 이름과 prop 메서드를 사용하여 전체 선택
-	//$("input[name='chk']").prop('checked', true);
-
-	//}
 
 	function checkAll() {
 
@@ -42,7 +38,43 @@
 			$("input:checkbox[name='chk']").prop("checked", false) //체크해제
 		}
 	}
+	
+	function deleteValue(){
+		var url=  "delete"; //Controller로 보내고자 하는 URL
+		var valueArr = new Array();
+		var list = $("input[name='chk']");
+		for(var i = 0; i<list.length; i++){
+			if(list[i].checked){ //선택되어 있으면 배열에 값을 저장한다.
+				valueArr.push(list[i].value);
+			}
+		}
+		if(valueArr.length == 0){
+			alert("선택된 글이 없습니다.");
+		}
+		else{
+			var chk = confirm("정말 삭제하시겠습니까?");
+			$.ajax({
+				url : url,		//전송 URL
+				type : 'POST',	//POST방식
+				traditional : true,
+				data : {
+					valueArr : valueArr  //보내고자 하는 data 변수 설정
+				},
+				success:function(jdata){
+					if(jdata = 1) {
+						alert("삭제성공");
+						location.replace("list") //list 로 페이지 새로고침
+					}
+					else{
+						alert("삭제 실패");
+					}
+				}
+			});
+		}	
+	}
 </script>
+
+
 </head>
 <title>주문결제창</title>
 <body>
@@ -122,11 +154,12 @@
 									<td scope="col" width="80">가격</td>
 								</tr>
 							</thead>
-							<c:forEach items="${cartlist}" var="cartlist">
+						
 							<tbody>
+							<c:forEach items="${cartlist}" var="cartlist">
 								<tr>
 									<td scope="col" height="100" align=center><br> <br>
-										<input type="checkbox" name="chk" value="${cartlist.memCartId}">${cartlist.memCartId}</td>
+										<input type="checkbox" name="chk" value="${cartlist.memCartId}"></td>
 									<td scope="col"><img
 										src="${contextPath}/resources/images/sofa01.jpg" width=130
 										height=130></td>
@@ -142,10 +175,12 @@
 									<td scope="col" align=center><br> <br>${cartlist.deliverycharge}</td>
 									<td scope="col" align=center><br> <br>${cartlist.totalPrice}</td>
 								</tr>
-							</tbody>
 							</c:forEach>
+							</tbody>
+							
 							<tfoot>
 								<tr>
+							
 									<td></td>
 									<td></td>
 									<td></td>
@@ -212,8 +247,7 @@
 				<div>
 					<div class="container"
 						style="padding-left: 1000px; paddig-right: 0px !important; float: left; width: 1180px; margin-left: 85px;">
-						<button type="button" onclick="" class="btn-secondary btn-xs">선택삭제</button>
-						<button type="button" onclick="" class="btn-secondary btn-xs">전체삭제</button>
+						<button type="button" onclick="deleteValue();" class="btn-secondary btn-xs">선택삭제</button>
 
 					</div>
 				</div>
