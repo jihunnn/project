@@ -54,20 +54,18 @@ public class CartControllerImpl implements CartController {
 
 		} else if (isLogOn == true) {
 
+			int result = 0;		
 			MemberVO membervo = (MemberVO) session.getAttribute("member");
 			String memId = membervo.getmemId();
 			cartVO.setMemId(memId);
-			int result = 0;
-			result = cartService.addcartlist(cartVO);
-			List<CartVO> cartlist = cartService.selectcartlist(memId);
-
-			
-			mav.setViewName("redirect:/cart.do");
+			result = cartService.addcartlist(cartVO);	
+			mav.setViewName("redirect:/memcart.do");
 		}
 
 		return mav;
 	}
 
+	
 	// 장바구니이동(비회원)
 	@RequestMapping(value = "/nonmemcart.do", method = RequestMethod.GET)
 	private ModelAndView nonmemcart(@ModelAttribute("orderVO") OrderVO orderVO, HttpServletRequest request,
@@ -80,9 +78,22 @@ public class CartControllerImpl implements CartController {
 	// 장바구니이동(회원)
 	@RequestMapping(value = "/memcart.do", method = RequestMethod.GET)
 	private ModelAndView memcart(@ModelAttribute("orderVO") OrderVO orderVO, HttpServletRequest request,
-			HttpServletResponse response) {
+			HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView();
+		HttpSession session = request.getSession();
+		Boolean isLogOn = (Boolean) session.getAttribute("isLogOn");
+		
+		
+		if ( isLogOn == true) {
+			
+		MemberVO membervo = (MemberVO) session.getAttribute("member");
+		String memId = membervo.getmemId();
+		cartVO.setMemId(memId);
+		List<CartVO> cartlist = cartService.selectcartlist(memId);
+		mav.addObject("cartlist", cartlist);
 		mav.setViewName("cart");
+		}
+		
 		return mav;
 	}
 

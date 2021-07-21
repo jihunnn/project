@@ -35,7 +35,22 @@ public class MemberControllerImpl implements MemberController {
 	private MemberService memberService;
 	@Autowired
 	private MemberVO memberVO;
+	
+	private static final Logger logger = LoggerFactory.getLogger(MemberControllerImpl.class);
 
+	private String relaceParameter(String param) {
+		String result = param;
+		
+		if(param != null) {
+			result = result.replaceAll("<", "&lt;");
+			result = result.replaceAll(">", "&gt;");
+			result = result.replaceAll("&", "&amp;");
+			result = result.replaceAll("\"", "&quot;");
+		}
+		return result;
+	}
+	
+	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 
@@ -47,10 +62,27 @@ public class MemberControllerImpl implements MemberController {
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
 	public ModelAndView login(@ModelAttribute("member") MemberVO member, RedirectAttributes rAttr,
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
 		ModelAndView mav = new ModelAndView();
+		
+		try {
+			
+		//문자열 필터(크로스 사이트 스크립트 보안)
+		String memId = this.relaceParameter(member.getmemId());
+		member.setmemId(memId);
+		
+		//회원정보가져오기 Service 호출
 		memberVO = memberService.login(member);
+		
+		} catch(Exception e) {
+			logger.error(e.getMessage());
+			e.printStackTrace();
+		}
+		
+		
 		if (memberVO != null) {
 			HttpSession session = request.getSession();
+			
 			session.setAttribute("member", memberVO);
 			session.setAttribute("isLogOn", true);
 			mav.setViewName("redirect:/main.do");

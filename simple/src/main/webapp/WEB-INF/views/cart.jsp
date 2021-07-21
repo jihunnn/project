@@ -126,7 +126,7 @@
 							<tbody>
 								<tr>
 									<td scope="col" height="100" align=center><br> <br>
-										<input type="checkbox" name="chk" value="1" style="zoom: 2.0;"></td>
+										<input type="checkbox" name="chk" value="${cartlist.memCartId}">${cartlist.memCartId}</td>
 									<td scope="col"><img
 										src="${contextPath}/resources/images/sofa01.jpg" width=130
 										height=130></td>
@@ -160,7 +160,7 @@
 					
 					
 					
-					<c:otherwise>
+					<c:otherwise>		
 						<table class="table">
 							<thead class="table-dark" align=center>
 								<tr align="center">

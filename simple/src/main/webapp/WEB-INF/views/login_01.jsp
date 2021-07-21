@@ -347,7 +347,7 @@
 						
 						
 						
-						<form name="checkLogin" action="${contextPath}/login.do"
+						<form name="check" action="${contextPath}/login.do"
 							method="post">
 							<div class="id_pwd_text"
 								style="padding-top: 30px; margin-bottom: 5px;">
