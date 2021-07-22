@@ -38,4 +38,16 @@
 		]]>	
 	</select>
 	
+	
+	<!--  장바구니 리스트 삭제 -->
+	<delete id="deleteCartProduct"  parameterType="String" >
+		<![CDATA[ 
+			delete from simple.membercart
+			where memCartId = #{productNum};
+		
+		]]>	
+	</delete>
+	
+	
+	
 </mapper>

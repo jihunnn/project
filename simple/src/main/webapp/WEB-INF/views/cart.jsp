@@ -40,14 +40,16 @@
 	}
 	
 	function deleteValue(){
-		var url=  "delete"; //Controller로 보내고자 하는 URL
-		var valueArr = new Array();
-		var list = $("input[name='chk']");
-		for(var i = 0; i<list.length; i++){
-			if(list[i].checked){ //선택되어 있으면 배열에 값을 저장한다.
-				valueArr.push(list[i].value);
-			}
+	
+	var url = "delete.do"
+	var valueArr = new Array();
+	var list = $("input[name='chk']");
+	for(var i = 0; i<list.length; i++){
+		if(list[i].checked){ //선택되어 있으면 배열에 값을 저장한다.
+			valueArr.push(list[i].value);
 		}
+	}
+	
 		if(valueArr.length == 0){
 			alert("선택된 글이 없습니다.");
 		}
@@ -63,7 +65,7 @@
 				success:function(jdata){
 					if(jdata = 1) {
 						alert("삭제성공");
-						location.replace("list") //list 로 페이지 새로고침
+						location.replace("memcart.do") //list 로 페이지 새로고침
 					}
 					else{
 						alert("삭제 실패");

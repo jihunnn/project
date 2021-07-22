@@ -96,18 +96,19 @@ public class CartControllerImpl implements CartController {
 		
 		return mav;
 	}
-
-	@RequestMapping(value = "/removeCartProduct.do", method = RequestMethod.POST)
-	public ModelAndView removeCartProduct(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		ModelAndView mav = new ModelAndView();
-		String[] ajaxMsg = request.getParameterValues("valueArr");
+	
+	//장바구니 리스트 삭제(회원)
+	@RequestMapping(value = "/delete.do", method = RequestMethod.POST)
+	public String delete(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		
+		String [] ajaxMsg = request.getParameterValues("valueArr");
 		int size = ajaxMsg.length;
 		for (int i = 0; i < size; i++) {
 			cartService.removeCartProduct(ajaxMsg[i]);
 		}
 
-		mav.setViewName("redirect:/mypage_08.do");
-		return mav;
+		return "redirect:/memcart.do";
 	}
 
 }
