@@ -425,6 +425,9 @@ public class ProductControllerImpl implements ProductController {
 		String viewName = (String) request.getAttribute("viewName");
 		HttpSession session=request.getSession();
 		productVO = productService.viewProduct(productNum);
+		Map<String, Object> option = (Map<String, Object>) productService.viewOptionvalue(productNum);
+		ModelAndView mav = new ModelAndView();
+		
 		int pageStart = cri.getPageStart();
 		int perPageNum = cri.getPerPageNum();
 		productMap.put("pageStart", pageStart);
@@ -440,8 +443,8 @@ public class ProductControllerImpl implements ProductController {
 		int pageNum = pageMaker.getCri().getPage();
 
 		addQuick(productNum,productVO,session);
-		ModelAndView mav = new ModelAndView();
 		mav.setViewName(viewName);
+		mav.addObject("option", option);
 		mav.addObject("product", productVO);
 		mav.addObject("productReviewList", productReviewList);
 		mav.addObject("productQuestionList", productQuestionList);

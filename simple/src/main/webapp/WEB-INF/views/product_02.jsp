@@ -2,6 +2,8 @@
 	pageEncoding="utf-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<c:set var="option1" value="${option.optionList1}" />
+<c:set var="option2" value="${option.optionList2}" />
 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
@@ -124,108 +126,93 @@ textarea {
 }
 </style>
 <script type="text/javascript">
-	function add_favorite(productNum) {
-		if(confirm("관심상품에 등록하시겠습니까?"))
-		{
-			if(${isLogOn != true}){
-			      alert("로그인이 필요합니다.");
-			}else{
-	    	    $.ajax({
-		        	type : "post",
-		        	async : false, //false인 경우 동기식으로 처리한다.
-		        	url : "${contextPath}/addProductInFavorite.do",
-		        	data : {
-		        		productNum:productNum
-				
-	    	    	},
-	    	    	success : function(data, textStatus) {
-		        		//alert(data);
-		            	//	$('#message').append(data);
-		        		if(data.trim()=='add_success'){
-		        			alert("관심상품에 등록되었습니다.");	
-		        		}else if(data.trim()=='already_existed'){
-			    	    	alert("이미 관심상품에 등록된 상품입니다.");	
-			        	}
-		     		
-		        	},
-		        	error : function(data, textStatus) {
-		        		alert("에러가 발생했습니다."+data);
-	    	    	},
-	    	    	complete : function(data, textStatus) {
-	    	     		//alert("작업을완료 했습니다");
-	    	    	}
-	        	}); //end ajax	
-			}
-		}else{
-			return false;
-		}
-		
+
+
+function getSelectValue1(frm)
+{
+	frm.option1value.value = frm.option1.options[frm.option1.selectedIndex].text;
+}
+
+function getSelectValue2(frm)
+{
+	frm.option2value.value = frm.option2.options[frm.option2.selectedIndex].text;
+}
+
+<!--옵션 + 수량 총 합계금액 -->
+
+var fo;
+window.onload = function() {
+	fo = document.forms["form1"];
+	fo['totalPrice'].value = fo['price'].value;
+}
+
+
+function checkPrice() {
+	fo['totalPrice'].value= Number(fo['price'].value) + Number(fo['option1'].value) + Number(fo['option2'].value);
+}
+	
+	
+<!-- 옵션선택 유효성 검사 -->
+
+function checkbuy() {
+	var form = document.form1;
+
+	if (form.option1.value == "") {
+		alert("옵션을 선택해주세요.")
+		form.form1.focus();
+		return false;
 	}
 	
-	function add_cart(productNum) {
-		if(confirm("장바구니에 등록하시겠습니까?"))
-		{
-			if(${isLogOn != true }){
-			      alert("로그인이 필요합니다.");
-			}else{
-		        $.ajax({
-		        	type : "post",
-		        	async : false, //false인 경우 동기식으로 처리한다.
-		        	url : "${contextPath}/addProductInCart.do",
-		        	data : {
-		        		productNum:productNum
-				
-			        },
-			        success : function(data, textStatus) {
-			        	//alert(data);
-		            	//	$('#message').append(data);
-			        	if(data.trim()=='add_success'){
-			        		alert("장바구니에 담았습니다.");	
-		        		}else if(data.trim()=='already_existed'){
-		        			alert("이미 장바구니에 등록된 상품입니다.");	
-		    	    	}
-		  		
-		        	},
-		        	error : function(data, textStatus) {
-			        	alert("에러가 발생했습니다."+data);
-		        	},
-		        	complete : function(data, textStatus) {
-			        	//alert("작업을완료 했습니다");
-			        }
-		        }); //end ajax	
-			}
-		}else{
-			return false;
-		}
+	if (form.option2.value == "") {
+		alert("옵션을 선택해주세요.")
+		form.form1.focus();
+		return false;
 	}
+	if (confirm("선택한 상품을 구매하시겠습니까?")) { //확인
+		
+	} else { //취소
+		return false;
+	}
+	form.action="${contextPath}/order.do"
+	form.submit();
+
+}
+
+function addCartBtn() {
+	var form = document.form1;
+
+	if (form.option1.value == "") {
+		alert("옵션을 선택해주세요.")
+		form.form1.focus();
+		return false;
+	}
+	
+	if (form.option2.value == "") {
+		alert("옵션을 선택해주세요.")
+		form.form1.focus();
+		return false;
+	}
+	
+	if (confirm("장바구니에 담으시겠습니까?")){ //확인
+		
+		
+	} else { //취소
+		return;
+	}
+	form.action="${contextPath}/cartall.do"
+	form.submit();
+}
+	
+	
+
+
+	
 </script>
-<script type="text/javascript"> 
- function up() { 
-	 var count = document.getElementById("quantity").value; 
-	 document.getElementById("quantity").value = parseInt(count) + 1; 
-	 } 
- function down() { 
-	 var count = document.getElementById("quantity").value; 
-	 if (count != 1)  {
-		 document.getElementById("quantity").value = parseInt(count) - 1; 
-		 } 
-	 } 
- </script>
+
 
 </head>
 <body>
-
-
-	<section class="ftco-section" style="padding-top: 20px; margin-bottom:200px;">
-		<div class="container">
-			<div class="row justify-content-center mb-5 pb-3"
-				style="background-color: #f5f5f5; border: 1px solid #e7e7e7;">
-				<div class="col-md-20 heading-section ftco-animate"
-					style="height: 60px;">
-					<h2 class="mb-4" style="font-size: 35px; margin-top: 18px;">${product.productName}</h2>
-				</div>
-			</div>
-			<!-- 최근 본 상품 -->
+	<!-- 최근 본 상품 -->
 			<div id="recentlyProduct"
 				style="position: absolute; left: 180px; width: 120px; height: 310px; margin-left: 1570px; border: 1px solid #d2d2d2; margin-top: 0px;">
 				<ul
@@ -250,109 +237,131 @@ textarea {
 				</ul>
 			</div>
 			<!-- 최근 본 상품 끝 -->
-			<!-- 내용 -->
-			<div class="row">
+
+	<section class="ftco-section"
+		style="padding-top: 20px; margin-bottom: 200px;">
+		<div class="container">
+			<form name="form1" method="GET" id="addCartForm">
+				<input type="hidden" name="productNum" value="${product.productNum}" />
+				<input type="hidden" name="productName"
+					value="${product.productName}" /> 
+					<input type="hidden"
+					name="option1name" value="${option1[1].option1name}" /> 
+					<input
+					type="hidden" name="option2name" value="${option2[1].option2name}" />
+					<input
+					type="hidden" name="deliverycharge" value="무료배송" />
+					
 
 
-	<div class="col-md-4 ftco-animate">
-					<div class="blog-entry">
-					<c:choose>	
-						<c:when test="${not empty product.productImage && product.productImage != 'null'}">
-					<input type="hidden" name="OrignProductFile" value="${product.productImage}"class="block-20" />	
-						<a><img style="width: 600px; height:410px; padding-top: 10px; padding-top: 10px; margin-left: -15px; float: left;" src="${contextPath}/download_product.do?productNum=${product.productNum}&productImage=${product.productImage}" id="preview" /><br>
-						</a>
-						</c:when>
-			       </c:choose>
+				<div class="row justify-content-center mb-5 pb-3"
+					style="background-color: #f5f5f5; border: 1px solid #e7e7e7;">
+					<div class="col-md-20 heading-section ftco-animate"
+						style="height: 60px;">
+						<h2 class="mb-4" style="font-size: 35px; margin-top: 18px;">${product.productName}</h2>
+
+					</div>
+				</div>
+
+				<!-- 내용 -->
+				<div class="row">
+					<section>
+						<div class="col-md-4 ftco-animate">
+							<div class="blog-entry">
+								<a><img src="${contextPath}/resources/images/image_1.jpg"
+									style="width: 600px; padding-top: 10px; padding-top: 10px; margin-left: -15px; float: left;">
+								</a> <br>
+							</div>
+						</div>
+					</section>
+
+
+					<div style="width: 685px; height: 480px;">
+
 						<h3 class="heading">
 							<a
-								style="position: absolute; white-space: nowrap; margin-top: 5px; margin-left: 50px; float: left;">판매가ㅤㅤ
-								ㅤ</a>
+								style="position: absolute; white-space: nowrap; margin-top: 5px; margin-left: 50px; float: left; font-size: 18px;">판매가ㅤㅤ
+								ㅤ</a><a
+								style="position: absolute; white-space: nowrap; margin-top: 5px; margin-left: 180px; font-size: 18px;">${product.productPrice}원</a><input
+								type="hidden" name="price" value="${product.productPrice}">
 						</h3>
-						<br>
+
 						<h3 class="heading">
 							<a
 								style="position: absolute; white-space: nowrap; margin-top: 50px; margin-left: 51px; float: left; font-size: 18px;">제조사ㅤㅤ
+								ㅤ</a><a
+								style="position: absolute; white-space: nowrap; margin-top: 50px; margin-left: 180px; font-size: 18px;">${product.productManufacturer}</a>
+						</h3>
+						<br> <br>
+						<h3 class="heading">
+							<a
+								style="position: absolute; white-space: nowrap; margin-top: 50px; margin-left: 51px; float: left; font-size: 18px;">원산지ㅤㅤ
 								ㅤ</a>
 						</h3>
 						<h3 class="heading">
 							<a
-								style="position: absolute; white-space: nowrap; margin-top: 40px; margin-left: 180px; font-size: 18px;">${product.productManufacturer}</a>
-						</h3>
-						<br>
-						<h3 class="heading">
-							<a
-								style="position: absolute; white-space: nowrap; margin-top: 45px; margin-left: 51px; float: left; font-size: 18px;">원산지ㅤㅤ
-								ㅤ</a>
-						</h3>
-						<h3 class="heading">
-							<a
-								style="position: absolute; white-space: nowrap; margin-top: 35px; margin-left: 180px; font-size: 18px;">${product.productOrigin}</a>
+								style="position: absolute; white-space: nowrap; margin-top: 40px; margin-left: 180px; font-size: 18px;">${product.productOrigin}</a>
 						</h3>
 						<br>
 
 
-						<h3 class="heading">
-							<a
-								style="position: absolute; white-space: nowrap; margin-top: 80px; margin-left: 51px; float: left; font-size: 18px;">옵션1ㅤㅤ
-								ㅤ</a>
-						</h3>
 
-						<select id="selectBox" name="selectBox"
-							style="margin-left: 765px; margin-top: -230px; float: left !important; width: 300px; height: 30px;">
-							<option value="" selected="selected">옵션 선택</option>
-							<option value="option1">뭐지</option>
-						</select> <br>
 						<h3 class="heading">
-							<a
-								style="position: absolute; white-space: nowrap; margin-top: 100px; margin-left: -430px; float: left; font-size: 13px;">추가
-								옵션(추가 구매를 원하시면 클릭하세요)</a>
+							<c:forEach items="${option1}" var="name1">
+								<a
+									style="position: absolute; white-space: nowrap; margin-top: 80px; margin-left: 51px; float: left; font-size: 18px;">${name1.option1name}ㅤㅤ
+									ㅤ</a>
+							</c:forEach>
 						</h3>
-						<br>
+						<select id="option1" name="option1" onchange="checkPrice();getSelectValue1(this.form);"
+							
+							style="margin-left: 180px; margin-top: 70px; float: left !important; width: 300px; height: 30px;">
+							<option value="">옵션 선택</option>
+							<c:forEach items="${option1}" var="option1">
+								<option value="${option1.option1price}">${option1.option1value}
+									+ (${option1.option1price}원)</option>
+							</c:forEach>
+						</select> <br> <br> <input type="hidden" name="option1value">
 						<h3 class="heading">
-							<a
-								style="position: absolute; white-space: nowrap; margin-top: 90px; margin-left: -430px; float: left; font-size: 18px;">옵션2ㅤㅤ
-								ㅤ</a>
-						</h3>
-						<select
-							style="margin-left: 765px; margin-top: -150px; float: left !important; width: 300px; height: 30px;">
-							<option>옵션 선택</option>
-						</select> <br>
+							<c:forEach items="${option2}" var="name2">
+								<a
+									style="position: absolute; white-space: nowrap; margin-top: 80px; margin-left: 51px; float: left; font-size: 18px;">${name2.option2name}
+									ㅤ</a>
+							</c:forEach>
 
+						</h3>
+						<select name="option2" id="option2" onchange="checkPrice();getSelectValue2(this.form);"
+							style="margin-left: 180px; margin-top: 70px; float: left !important; width: 300px; height: 30px;">
+							<option value="">옵션 선택</option>
+							<c:forEach items="${option2}" var="option2">
+								<option value="${option2.option2price}">${option2.option2value}
+									+ (${option2.option2price}원)</option>
+							</c:forEach>
+						</select> <br> <input type="hidden" name="option2value">
+
+						<button type="button" class="btn btn-default" onclick="checkbuy()"
+							style="background-color: #dcdcdc; float: left; margin-left: 50px; margin-top: 30px; width: 280px; height: 50px; border-radius: 2px;">바로구매</button>
+						<button type="button" class="btn btn-default"
+							onclick="addCartBtn()"
+							style="background-color: #dcdcdc; float: left; margin-left: 350px; margin-top: -50px; width: 280px; height: 50px; border-radius: 2px;">장바구니</button>
+
+						<h2 style="margin-top: 250px; margin-left: 50px;">총 상품 금액</h2>
+						<input type="text" name="totalPrice" value="0"
+							style="border: none; text-align: right; font-size: 40px;"
+							readonly />원 <input type="button" name="up" onclick="up()"
+							value=" + " size="3"
+							style="width: 25px; white-space: nowrap; float: left; font-size: 18px; font-size: 14px; border: 1px solid grey;">
+
+						<input type="text" name="productCnt" id="quantity" value="1"
+							readonly="readonly"
+							style="white-space: nowrap; float: left; font-size: 18px; font-size: 14px; width: 50px; text-align: center;" />
+
+						<input type="button" name="down" onclick="down()" value=" - "
+							size="3"
+							style="width: 25px; white-space: nowrap; float: left; font-size: 18px; font-size: 14px; border: 1px solid grey;">
 					</div>
-				
-                   
-					<div>
-						<h3 class="heading">
-							<a
-								style="position: absolute; white-space: nowrap; margin-top: 115px; margin-left: -430px; float: left; font-size: 18px; font-size: 14px;">수량</a>
-						</h3>
-
-						<input type="button"  id="up" onclick="up()" value=" + "   size="3"
-							style="width: 25px; position: absolute; white-space: nowrap; margin-top: 109px; margin-left: -380px; float: left; font-size: 18px; font-size: 14px; border: 1px solid grey;">
-						<input type="text"  name="quantity" id="quantity"  value="1" readonly="readonly" 
-							style="position: absolute; white-space: nowrap; margin-top: 108px; margin-left: -350px; float: left; font-size: 18px; font-size: 14px; width: 50px; text-align: center;" />
-						<input type="button"id="down" onclick="down()" value=" - " size="3"
-							style="width: 25px; position: absolute; white-space: nowrap; margin-top: 109px; margin-left: -295px; float: left; font-size: 18px; font-size: 14px; border: 1px solid grey;">
-						<h3 class="heading" style="padding-left: 950px;padding-top: 100px;text-align: center;width: 400px;">
-							<a><fmt:formatNumber pattern="###,###,###" value="${product.productPrice}"/>원</a>
-						</h3>
-					</div>
-			
-				<input type="hidden" name="productNum" value="${product.productNum}"><a href="javascript:add_favorite('${product.productNum }')">
-				    <button  class="btn btn-default "
-						style="background-color: #dcdcdc; float: left; margin-left: 630px; margin-top: 20px; width: 50px; height: 50px; border-radius: 2px;"></button></a>
-				
-					<button type="submit" class="btn btn-default"
-						style="background-color: #dcdcdc; float: left; margin-left: 700px; margin-top: 20px; width: 280px; height: 50px; border-radius: 2px;">바로구매</button>
-					<a href="javascript:add_cart('${product.productNum }')">
-					<button type="submit" class="btn btn-default"
-						style="background-color: #dcdcdc; float: left; margin-left: 1000px; margin-top: -50px; width: 280px; height: 50px; border-radius: 2px;">장바구니</button></a>
-     	
-
-                
 				</div>
-			</div>
-
+			</form>
 
 			<!-- 탭메뉴 자바스크립트 -->
 			<c:choose>
@@ -450,13 +459,13 @@ textarea {
 							<c:choose>
 								<c:when test="${empty productReviewList}">
 									<tr style="backgroundcolor: white; width: 1000px;">
-										<td colspan="4" style="padding-top:100px;">등록 된 리뷰가 없습니다.</td>
+										<td colspan="4" style="padding-top: 100px;">등록 된 리뷰가
+											없습니다.</td>
 									</tr>
 								</c:when>
 
 								<c:when test="${!empty productReviewList}">
-									<c:forEach var="productReview"
-										items="${productReviewList}">
+									<c:forEach var="productReview" items="${productReviewList}">
 
 										<!-- 레이어 팝업창 -->
 										<div id="tallModal" class="modal modal-wide fade">

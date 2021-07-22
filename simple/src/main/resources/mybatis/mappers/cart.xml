@@ -2,68 +2,52 @@
 <!DOCTYPE mapper 
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-	
+
 <mapper namespace="mapper.cart">
-  <resultMap id="cartResult" type="CartVO">
-		<result property="memCartId" column="memCartId" />
+	<!-- notice 게시판 -->
+	<resultMap id="cartResult" type="cartVO">
 		<result property="memId" column="memId" />
 		<result property="productNum" column="productNum" />
 		<result property="productCnt" column="productCnt" />
+		<result property="productName" column="productName" />
+		<result property="option1name" column="option1name" />
+		<result property="option2name" column="option2name" />
+		<result property="option1value" column="option1value" />
+		<result property="option2value" column="option2value" />
+		<result property="totalPrice" column="totalPrice" />
+		<result property="productimage" column="productimage" />
+		<result property="deliverycharge" column="deliverycharge" />
+		<result property="memCartId" column="memCartId" />
 	</resultMap>
-	
-	<resultMap id="proResult" type="productVO">
-		<result property="productNum" column="productNum" />
-        <result property="productName" column="productName" />
-        <result property="productPrice" column="productPrice" />
-        <result property="category" column="category" />
-        <result property="subcategory" column="subcategory" />
-        <result property="productImage" column="productImage" />
-        <result property="productManufacturer" column="productManufacturer" />
-        <result property="productOrigin" column="productOrigin" />
-        <result property="productContentImage" column="productContentImage" />
-        <result property="option1" column="option1" />
-        <result property="option2" column="option2" />
-	</resultMap>
-	
-	<select id="selectCartList"  parameterType="cartVO"  resultMap="cartResult"   >
-	    <![CDATA[
-		select memCartId, memId, productNum, productCnt
-		from membercart 
-		where memId=#{memId} ;
-		]]>
-	</select>
-	<select id="selectProductList" resultMap="proResult" parameterType="java.util.Map">
-      <![CDATA[
-           select *
-          from membercart left join product on product.productNum=membercart.productNum and memId=memId;
-      ]]>
-	</select>
 
-	<select id="selectCountInCart" resultType="String" parameterType="cartVO">
-	    <![CDATA[
-		   select if(count(*) = 0,"false","true")
-	       from simple.membercart
-	       where productNum=#{productNum} and memId=#{memId};
 
-    	]]>
-	</select><!-- 장바구니 테이블에 추가하기 전에 그 상품 번호가 장바구니에 담겨 있는지 조회 -->
-	
-	<insert id="insertProductInCart" parameterType="cartVO">
-	  <![CDATA[
-	  insert into simple.membercart(memCartId,productNum,memId,productCnt) values(#{memCartId},#{productNum},#{memId},#{productCnt});
-	  ]]>
-	</insert><!-- 관심상품에 상품 추가 -->
-
-	<select id="selectMaxCartId" resultType="int">
-	    <![CDATA[
-			select ifnull(max(memCartId), 0) + 1 from membercart ;
-    	]]>
+	<!-- 장바구니테이블 추가 -->
+	<insert id="insertcartlist"  parameterType="cartVO">
+		<![CDATA[ 
+			insert into simple.membercart(memCartId, memId, productNum, productCnt, productName, option1name, option1value, option2name, option2value, totalPrice, productimage, deliverycharge) 
+			values(default, #{memId},#{productNum},#{productCnt},#{productName},#{option1name},#{option1value},#{option2name},#{option2value},#{totalPrice},"이미지아직", #{deliverycharge});
+		
+		]]>	
+	</insert>
+	<!-- 장바구니리스트불러오기 -->
+	<select id="selectCartList"  parameterType="String" resultMap="cartResult">
+		<![CDATA[ 
+			select * from simple.membercart
+			where memId = #{memId};
+		
+		]]>	
 	</select>
 	
-	<delete id="deleteCartProduct" parameterType="String">
-	    <![CDATA[
-	      delete from membercart
-	      where productNum=#{productNum};
-    	]]>
-	</delete><!-- 관심상품에 상품 삭제 -->
+	
+	<!--  장바구니 리스트 삭제 -->
+	<delete id="deleteCartProduct"  parameterType="String" >
+		<![CDATA[ 
+			delete from simple.membercart
+			where memCartId = #{productNum};
+		
+		]]>	
+	</delete>
+	
+	
+	
 </mapper>
