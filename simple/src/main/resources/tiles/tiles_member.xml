@@ -205,6 +205,10 @@
 			value="/WEB-INF/views/mypage_06.jsp" />
 	</definition>
 
+	<definition name="mypage_07" extends="baseLayout">
+		<put-attribute name="body"
+			value="/WEB-INF/views/mypage_07.jsp" />
+	</definition>
 
 	<definition name="mypage_08" extends="baseLayout">
 		<put-attribute name="body"
@@ -226,7 +230,10 @@
 			value="/WEB-INF/views/mypage_13.jsp" />
 	</definition>
 
-
+	<definition name="mypage_14" extends="baseLayout">
+		<put-attribute name="body"
+			value="/WEB-INF/views/mypage_14.jsp" />
+	</definition>
 
 	<definition name="deletemember" extends="baseLayout">
 		<put-attribute name="body"

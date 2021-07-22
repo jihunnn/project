@@ -9,8 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
-import com.project.simple.board.vo.ArticleVO;
-import com.project.simple.page.Criteria;
+import com.project.simple.product.page.Criteria1;
 import com.project.simple.product.vo.ProductVO;
 
 @Repository("productDAO")
@@ -22,12 +21,11 @@ public class ProductDAOImpl implements ProductDAO{
 	public List<ProductVO> selectAllProductList(Map<String, Object>ProductMap) throws DataAccessException{
 		
 		List<ProductVO> productList = sqlSession.selectList("mapper.product.selectAllProductList", ProductMap);
-		System.out.println(productList);
 		return productList;
 	}
 	@Override
-	public List<ProductVO> admin_selectAllProductList() throws DataAccessException{
-		List<ProductVO> productList = sqlSession.selectList("mapper.product.admin_selectAllProductList");
+	public List<ProductVO> admin_selectAllProductList(Criteria1 cri) throws DataAccessException{
+		List<ProductVO> productList = sqlSession.selectList("mapper.product.admin_selectAllProductList", cri);
 		return productList;
 	}
 	
@@ -65,6 +63,7 @@ public class ProductDAOImpl implements ProductDAO{
 		
 	}
 	
+	
 	@Override
 	public List<ProductVO> selectAllProductReviewList(Map<String, Object> productMap) throws DataAccessException {
 		List<ProductVO> productReviewList = sqlSession.selectList("mapper.product.selectAllProductReviewList", productMap);
@@ -89,6 +88,23 @@ public class ProductDAOImpl implements ProductDAO{
 		int productQuestionCount = sqlSession.selectOne("mapper.product.selectProductQuestionCount",productNum);
 
 		return productQuestionCount;
+	}
+	@Override
+	public int selectProductCount() throws DataAccessException {
+		int productCount = sqlSession.selectOne("mapper.product.selectProductCount");
+
+		return productCount;
+	}
+	@Override
+	public List<ProductVO> productSearchList(Map<String, Object> productSearchMap) throws DataAccessException {
+		List<ProductVO> productSearchList = sqlSession.selectList("mapper.product.productSearchList",productSearchMap);		
+		return productSearchList;
+	}
+	@Override
+	public int productSearchCount(Map<String, Object> search) throws DataAccessException {
+		int productSearchCount = sqlSession.selectOne("mapper.product.productSearchCount",search);
+
+		return productSearchCount;
 	}
 	
 

@@ -1,13 +1,16 @@
 package com.project.simple.member.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
+import com.project.simple.board.vo.ArticleVO;
 import com.project.simple.member.vo.MemberVO;
+import com.project.simple.page.Criteria;
 
 @Repository("memberDAO")
 public class MemberDAOImpl implements MemberDAO{
@@ -15,9 +18,8 @@ public class MemberDAOImpl implements MemberDAO{
 	private SqlSession sqlSession;
 	
 	@Override
-	public List selectAllMemberList() throws DataAccessException{
-		List<MemberVO> membersList = null;
-		membersList = sqlSession.selectList("mapper.member.selectAllMemberList");
+	public List<MemberVO> selectAllMemberList(Criteria cri) throws DataAccessException{
+		List<MemberVO> membersList = sqlSession.selectList("mapper.member.selectAllMemberList", cri);
 		return membersList;
 	}
 	
@@ -54,6 +56,32 @@ public class MemberDAOImpl implements MemberDAO{
 	
 	public int updateMember(MemberVO modmember) throws DataAccessException{
 		int result = sqlSession.update("mapper.member.updateMember", modmember);
+		return result;
+	}
+
+	@Override
+	public int selectMemberCount() throws DataAccessException {
+		int memberCount = sqlSession.selectOne("mapper.member.selectMemberCount");
+
+		return memberCount;
+	}
+
+	@Override
+	public List<MemberVO> memberSearchList(Map<String, Object> memberSearchMap) throws DataAccessException {
+		List<MemberVO> memberSearchList =sqlSession.selectList("mapper.member.memberSearchList",memberSearchMap);		
+		return memberSearchList;
+	}
+
+	@Override
+	public int memberSearchCount(Map<String, Object> search) throws DataAccessException {
+		int memberSearchCount = sqlSession.selectOne("mapper.member.memberSearchCount",search);
+
+		return memberSearchCount;
+	}
+
+	@Override
+	public MemberVO deleteMemberlist(String memId) throws DataAccessException {
+		MemberVO result = sqlSession.selectOne("mapper.member.deleteMemberlist",memId);
 		return result;
 	}
 }

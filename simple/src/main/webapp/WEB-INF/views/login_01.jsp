@@ -258,40 +258,43 @@
 
 	//비회원 주문조회
 	function Non_order_Inquiry() {
-
+		
+	
+		
 		var form = document.Non_order;
 		//주문번호 숫자만 입력
-		for (var i = 0; i < form.order_pwd.value.length; i++) {
-			ch = form.order_pwd.value.charAt(i)
+		for (var i = 0; i < form.nonMemOrderNum.value.length; i++) {
+			ch = form.nonMemOrderNum.value.charAt(i)
 			if (!(ch >= '0' && ch <= '9')) {
 				alert("주문번호는 숫자만 입력가능합니다.")
-				form.order_pwd.focus();
-				form.order_pwd.select();
+				form.nonMemOrderNum.focus();
+				form.nonMemOrderNum.select();
 				return false;
 			}
 		}
-		for (var i = 0; i < form.order_phone.value.length; i++) {
-			ch = form.order_phone.value.charAt(i)
-			if (!(ch >= '0' && ch <= '9')) {
-				alert("주문번호는 숫자만 입력가능합니다.")
-				form.order_phone.focus();
-				form.order_phone.select();
+		for (var i = 0; i < form.nonMemPwd.value.length; i++) {
+			ch = form.nonMemPwd.value.charAt(i)
+			if (!(ch >= '0' && ch <= '9') && !(ch >= 'a' && ch <= 'z')
+					&& !(ch >= 'A' && ch <= 'Z')) {
+				alert("주문 비밀번호는 영문 대소문자, 숫자만 입력가능합니다.")
+				form.nonMemPwd.focus();
+				form.nonMemPwd.select();
 				return false;
 			}
 		}
 
-		if (form.order_name.value == "") {
+		if (form.nonMemName.value == "") {
 			alert("주문자명을 입력해주세요!");
-			form.order_name.focus();
+			form.nonMemName.focus();
 
-		} else if (form.order_pwd.value == "") {
+		} else if (form.nonMemOrderNum.value == "") {
 			alert("주문 번호를 입력해주세요!");
-			form.order_pwd.focus();
-		} else if (form.order_phone.value == "") {
-			alert("핸드폰 번호를 입력해주세요!");
-			form.order_phone.focus();
+			form.nonMemOrderNum.focus();
+		} else if (form.nonMemPwd.value == "") {
+			alert("주문 비밀번호를 입력해주세요!");
+			form.nonMemPwd.focus();
 		} else {
-
+			
 			form.submit();
 
 		}
@@ -362,12 +365,13 @@
 										placeholder="비밀번호를 입력하세요">
 								</div>
 							</div>
+						</form>
 
 							<div class="id_save_find">
 								<input type="checkbox" name="save_id" id="chk_save_id"
 									value="on"> <label id="id_pwd_save" for="saveIdPwd"
 									class="on">아이디/비밀번호 저장</label> <span id="find_id_pwd">
-									<button onclick="location.href='Login-03.jsp'"
+									<button onclick="location.href='${contextPath}/login_03.do'"
 										style="border: 1px solid grey; color: black; margin-right: 1px;"
 										class="btn_member_id_pwd">아이디/비밀번호 찾기</button>
 								</span>
@@ -377,7 +381,7 @@
 								style="background-color: #212529; color: white; margin-left: -2px;">
 
 							</span>
-							</form>
+							
 							<section class="Easy-sgin-in-wrap3">
 								<ul class="sign-button-list3">
 									<li><button onclick="location.href='${url}'"
@@ -404,19 +408,19 @@
 			<div class="container" style="padding-left: 100px;">
 				<div id="RightBox">
 					<h3 id="Non_login_text">비회원 주문조회</h3>
-					<form name="Non_order" action="Non Order Inquiry.jsp" method="post">
+					<form name="Non_order" action="${contextPath}/nonmember/order_lookup.do" method="post">
 						<div class="order_input">
 							<div style="padding-right: 10px">
 								<p>
-									주문자명<input type="text" name="order_name" class="order_name"
-										size="20">
+									주문자명<input type="text" name="nonMemName" class="order_name"
+										size="18" style="margin-left: 13px;">
 								</p>
 								<p>
-									주문 번호<input type="text" name="order_pwd" class="order_pwd"
-										size="20">
+									주문 번호<input type="text" name="nonMemOrderNum" class="order_pwd"
+										size="18" style="margin-left: 13px;">
 								</p>
 								<p>
-									핸드폰 번호<input type="text" name="order_phone" size="20">
+									주문비밀번호<input  type="text"name="nonMemPwd" size="18">
 								</p>
 							</div>
 						</div>
@@ -426,7 +430,7 @@
 						style="background-color: #212529; color: white; height: 135px; border-radius: 2px;">
 					<div id="Non_order_content">
 						<ul>
-							<li>주문자명, 주문 번호, 핸드폰 번호가 일치 하지 않을 경우,조회가 불가능합니다.</li>
+							<li>주문자명, 주문 번호, 주문 비밀번호가 일치 하지 않을 경우,조회가 불가능합니다.</li>
 							<li>비회원으로 로그인 하시는 분께서 주문 번호를 잊으신 경우, 고객센터로 연락주시면 신속하게
 								처리해드리겠습니다.</li>
 							<li>비회원으로 주문 하실 경우, 회원 혜택을 받지 못합니다.</li>

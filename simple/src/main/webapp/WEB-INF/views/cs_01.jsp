@@ -168,12 +168,12 @@ request.setCharacterEncoding("utf-8");
 		<!-- 내용 끝 -->
 
 		<!-- 페이징 글번호 -->
-		<div class="page_wrap" style="margin-left: 80px; margin-top: 60px;">
+		<div class="page_wrap" style="margin-left: 80px; margin-top: 50px;">
 			<div class="page_nation">
 
 				<c:if test="${pageMaker.prev}">
 
-					<a class="arrow prev"
+					<a class="arrow prev" style="border: none; color:black; margin-right:0px; margin-left:0px;"
 						href='<c:url value="/board/listNotice.do?page=${pageMaker.startPage-1 }"/>'><i
 						class="fa fa-chevron-left"></i></a>
 
@@ -181,13 +181,13 @@ request.setCharacterEncoding("utf-8");
 				<c:forEach begin="${pageMaker.startPage }"
 					end="${pageMaker.endPage }" var="pageNum">
 
-					<a href='<c:url value="/board/listNotice.do?page=${pageNum }"/>'><i
+					<a style="border: none; color:black; margin-right:0px; margin-left:0px;" href='<c:url value="/board/listNotice.do?page=${pageNum }"/>'><i
 						class="fa">${pageNum }</i></a>
 
 				</c:forEach>
 				<c:if test="${pageMaker.next && pageMaker.endPage >0 }">
 
-					<a class="arrow next"
+					<a class="arrow next" style="border: none; color:black; margin-right:0px; margin-left:0px;"
 						href='<c:url value="/board/listNotice.do?page=${pageMaker.endPage+1 }"/>'><i
 						class="fa fa-chevron-right"></i></a>
 

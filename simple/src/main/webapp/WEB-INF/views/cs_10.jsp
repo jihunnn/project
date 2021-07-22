@@ -6,6 +6,65 @@
 <html lang="en">
 <head>
 <style>
+@import url(https://fonts.googleapis.com/css?family=Raleway:500);
+
+.snip1284 {
+	font-family: 'Raleway', Arial, sans-serif;
+	text-align: center;
+	text-transform: uppercase;
+	font-weight: 500;
+	letter-spacing: 1px;
+}
+
+.snip1284 * {
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-transition: all 0.35s ease;
+	transition: all 0.35s ease;
+}
+
+.snip1284 li {
+	display: inline-block;
+	list-style: outside none none;
+	margin: 0.5em 1.2em;
+	padding: 0;
+}
+
+.snip1284 a {
+	padding: 0 0.6em;
+	color: rgba(255, 255, 255, 0.5);
+	position: relative;
+	text-decoration: none;
+}
+
+.snip1284 a:before, .snip1284 a:after {
+	width: 3px;
+	height: 0;
+	position: absolute;
+	content: '';
+	-webkit-transition: all 0.35s ease;
+	transition: all 0.35s ease;
+	background-color: #d2d2d2;
+}
+
+.snip1284 a:before {
+	top: 0;
+	right: 0;
+}
+
+.snip1284 a:after {
+	bottom: 0;
+	left: 0;
+}
+
+.snip1284 a:hover, .snip1284 .current a {
+	color: #ffffff;
+}
+
+.snip1284 a:hover:before, .snip1284 .current a:before, .snip1284 a:hover:after,
+	.snip1284 .current a:after {
+	height: 100%;
+}
 
 .page_wrap {
 	text-align: center;
@@ -79,21 +138,48 @@
 	padding-top: 1.8px;
 }
 </style>
-
+<script>
+function InquiryList() {
+    if (${isLogOn != true && member == null}) {
+        alert("로그인이 필요합니다.");
+        location.href = '${contextPath}/login_01.do';
+    } else {
+    	location.href='${contextPath}/board/listInquiry.do'
+    }
+}
+</script>
 
 </head>
 <body>
 	<!-- 타이틀 -->
 	<section class="ftco-section"
-		style="padding-top: 50px; margin-bottom: 50px; padding-bottom: 0px; margin-bottom: 400px;">
+		style="padding-top: 50px; margin-bottom: 50px; padding-bottom: 0px; margin-bottom: 400px; margin-top: 30px;">
 		<div class="container">
-			<div class="row justify-content-center mb-5 pb-3"
-				style="background-color: #f5f5f5; border: 1px solid #e7e7e7; margin-top: 50px;">
-				<div class="col-md-20 heading-section ftco-animate"
-					style="height: 60px;">
-					<h2 class="mb-4" style="font-size: 35px; margin-top: 15px;">고객센터</h2>
-				</div>
-			</div>
+			<ul class="snip1284">
+				<li><a
+					onclick="location.href='${contextPath}/board/listNotice.do'"
+					data-hover="공지사항"
+					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; margin-left: 20px; padding-bottom: 0px;">공지사항</a></li>
+
+
+				<li><a
+					onclick="location.href='${contextPath}/board/listQuestion.do'"
+					data-hover="자주 묻는 질문"
+					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">자주
+						묻는 질문</a></li>
+
+
+				<li><a onclick="InquiryList()" data-hover="1:1문의"
+					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">1:1문의</a></li>
+
+
+				<li class="current"><a
+					onclick="location.href='${contextPath}/board/listAsCenter.do'"
+					data-hover="A/S센터"
+					style="font-size: 20px; border: none; color: #5a5a5a; background-color: white; cursor: pointer; padding-bottom: 0px;">A/S센터</a></li>
+			</ul>
+
+
 			<!-- 타이틀 끝 -->
 			<!-- 최근 본 상품 -->
 			<div id="recentlyProduct"
@@ -120,22 +206,26 @@
 				</ul>
 			</div>
 			<!-- 최근 본 상품 끝 -->
-			<jsp:include page="/WEB-INF/views/common/csMenu.jsp" flush="false" />			
+
 			<!-- 내용 -->
-			<form action="${contextPath}/board/viewAsCenter.do?asCenterNum=${asCenterNum}&page=${pageNum}" method="post">
-			<div>
-				<p style="padding-left: 500px; padding-top: 70px;">비밀번호를
-					입력해주세요^^</p>
-				<p style="padding-left: 350px; padding-top: 50px; float: left;">PASSWORD</p>
-			</div>
-			<div>
-				<input type=password name="asCenterPwdConfirm"
-					style="float: left; height: 28px; margin-left: 50px; border: 1px solid #aaaaaa; border-radius: 3px; margin-top: 50px;">
-				<button type="submit" id="buttonmy" class="btn btn-dark"
-					style="float: left; margin-left: 10px; margin-top: 49px; border-radius: 2px;">확인</button>
-				<button type="button" onClick="location.href='${contextPath}/board/listAsCenter.do?page=${pageNum}'" id="buttonmy" class="btn btn-dark"
-					style="float: left; margin-left: 10px; margin-top: 49px; border-radius: 2px;">목록</button>
-			</div>
+			<form
+				action="${contextPath}/board/viewAsCenter.do?asCenterNum=${asCenterNum}&page=${pageNum}"
+				method="post">
+				<div>
+					<p style="padding-left: 530px; padding-top: 70px;">비밀번호를
+						입력해주세요^^</p>
+					<p style="padding-left: 400px; padding-top: 50px; float: left;">PASSWORD</p>
+				</div>
+				<div>
+					<input type=password name="asCenterPwdConfirm"
+						style="float: left; height: 28px; margin-left: 10px; border: 1px solid #aaaaaa; border-radius: 3px; margin-top: 50px;">
+					<button type="submit" id="buttonmy" class="btn btn-dark"
+						style="float: left; margin-left: 10px; margin-top: 49px; border-radius: 2px; font-size: 14px; padding-top: 4px; background-color: #212529;">확인</button>
+					<button type="button"
+						onClick="location.href='${contextPath}/board/listAsCenter.do?page=${pageNum}'"
+						id="buttonmy" class="btn btn-dark"
+						style="float: left; margin-left: 10px; margin-top: 49px; border-radius: 2px; font-size: 14px; padding-top: 4px; background-color: #212529;">목록</button>
+				</div>
 			</form>
 		</div>
 	</section>

@@ -12,13 +12,25 @@
 		<result property="memEmail" column="memEmail" />
 		<result property="memPhoneNum" column="memPhoneNum" />
 		<result property="memAdr" column="memAdr" />
+		<result property="logintype" column="logintype" />
+		<result property="memRegdate" column="memRegdate" />
 	</resultMap>
 
 
 	<!-- 회원리스트 조회 -->
 	<select id="selectAllMemberList" resultMap="memResult">
 	<![CDATA[
-		select * from t_member order by joinDate desc
+		select * from simple.member order by memRegdate desc
+		limit #{pageStart}, #{perPageNum};
+	]]>
+	</select>
+		<select id="selectMemberCount" resultType="int"
+		parameterType="int">
+	<![CDATA[
+			
+			select count(*) as memberCount from simple.member;
+			
+
 	]]>
 	</select>
 
@@ -47,8 +59,8 @@
 	<select id="loginBynaver" resultType="memberVO" parameterType="memberVO">
 		<![CDATA[ 
 
-		select * from member
-		where memId = #{memId}
+		select * from simple.member
+		where memId = #{memId};
 		]]>
 	</select>
 
@@ -58,8 +70,8 @@
 	<select id="loginById" resultType="memberVO"
 		parameterType="memberVO">
 	<![CDATA[ 
-		select * from member
-		where memId = #{memId} and memPwd = #{memPwd}
+		select * from simple.member
+		where memId = #{memId} and memPwd = #{memPwd};
 	]]>
 	</select>
 
@@ -77,11 +89,96 @@
 	<!-- 회원탈퇴 -->
 	<delete id="deleteMember" parameterType="MemberVO">
 	<![CDATA[
-	   delete from  member
+	   delete from  simple.member
 	   where
 	   memId=#{memId} and memPwd=#{memPwd}
 	]]>
 	</delete>
+	
+	<!-- 회원삭제 -->
+	<delete id="deleteMemberlist" parameterType="MemberVO">
+	<![CDATA[
+	   delete from  simple.member
+	   where
+	   memId=#{memId};
+	]]>
+	</delete>
+	
+	
+	
+	<select id="memberSearchList" resultMap="memResult">
+			
+			select *
+			from member 
+			where
+			<if test="searchType=='memEmail' and search != null and search != '' ">
+
+				memEmail like CONCAT('%', #{search}, '%')
+			
+
+			</if>
+
+			<if test="searchType=='memPhoneNum' and search != null and search != '' ">
+
+				memPhoneNum like CONCAT('%', #{search}, '%')
+
+			</if>
+
+			<if test="searchType=='memAdr' and search != null and search != '' ">
+
+				memAdr like CONCAT('%', #{search}, '%')
+
+			</if>	
+			<if test="searchType=='logintype' and search != null and search != '' ">
+
+				logintype like CONCAT('%', #{search}, '%')
+
+			</if>	
+
+			limit #{pageStart}, #{perPageNum};
+			
+			
+	
+			
+			
+
+	
+	</select>
+	
+		<select id="memberSearchCount" resultType="int"
+		parameterType="java.util.Map">
+
+			
+			select count(*) 
+			from member 
+			where
+			<if test="searchType=='memEmail' and search != null and search != '' ">
+
+				memEmail like CONCAT('%', #{search}, '%')
+			
+
+			</if>
+
+			<if test="searchType=='memPhoneNum' and search != null and search != '' ">
+
+				memPhoneNum like CONCAT('%', #{search}, '%')
+
+			</if>
+
+			<if test="searchType=='memAdr' and search != null and search != '' ">
+
+				memAdr like CONCAT('%', #{search}, '%')
+
+			</if>	
+			<if test="searchType=='logintype' and search != null and search != '' ">
+
+				logintype like CONCAT('%', #{search}, '%')
+
+			</if>	
+			
+
+
+	</select>
 
 </mapper>
 		

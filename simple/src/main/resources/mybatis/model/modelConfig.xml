@@ -13,5 +13,7 @@
 		<typeAlias alias="cartVO" type="com.project.simple.cart.vo.CartVO"/>
 		<typeAlias alias="favoriteVO" type="com.project.simple.favorite.vo.FavoriteVO"/>
 		<typeAlias alias="MypageVO" type="com.project.simple.mypage.vo.MypageVO"/>
+		<typeAlias alias="nonmemberVO" type="com.project.simple.nonmember.vo.NonmemberVO"/>
+		<typeAlias alias="delmemberVO" type="com.project.simple.delmember.vo.DelMemberVO"/>
 	</typeAliases>
 </configuration>

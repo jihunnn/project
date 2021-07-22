@@ -10,9 +10,9 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.project.simple.product.vo.ProductVO;
-import com.project.simple.board.vo.ArticleVO;
-import com.project.simple.page.Criteria;
+
 import com.project.simple.product.dao.ProductDAO;
+import com.project.simple.product.page.Criteria1;
 
 
 @Service("productService")
@@ -27,8 +27,8 @@ public class ProductServiceImpl implements ProductService{
 		return productList;
 	}
 	@Override
-	public List<ProductVO> admin_listProduct() throws Exception {
-		List<ProductVO>  productList = productDAO.admin_selectAllProductList();
+	public List<ProductVO> admin_listProduct(Criteria1 cri) throws DataAccessException {
+		List<ProductVO>  productList = productDAO.admin_selectAllProductList(cri);
 		return productList;
 	}
 	@Override
@@ -94,6 +94,26 @@ public class ProductServiceImpl implements ProductService{
 		int productQuestionCount = productDAO.selectProductQuestionCount(productNum);
 		return productQuestionCount;
 	}
-	
+
+	@Override
+	public int productCount() throws Exception {
+		int productCount = productDAO.selectProductCount();
+		return productCount;
+	}
+	@Override
+	public Map<String, Object> productSearch(Map<String, Object> productSearchMap) throws Exception {
+		List<ProductVO> productSearchList=productDAO.productSearchList(productSearchMap);
+
+		productSearchMap.put("productSearchList", productSearchList);
+		
+		return productSearchMap;
+	}
+	@Override
+	public int productSearchCount(Map<String, Object> search) throws Exception {
+		int productSearchCount = productDAO.productSearchCount(search);
+		return productSearchCount;
+	}
+
+
 	
 }

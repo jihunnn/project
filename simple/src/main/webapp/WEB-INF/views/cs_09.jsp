@@ -31,7 +31,7 @@ request.setCharacterEncoding("UTF-8");
 			form.asCenterPwd.focus();
 			return false;
 		}
-		
+
 		form.submit();
 
 	}
@@ -70,9 +70,78 @@ request.setCharacterEncoding("UTF-8");
 		obj.submit();
 
 	}
+	
+	function InquiryList() {
+	    if (${isLogOn != true && member == null}) {
+	        alert("로그인이 필요합니다.");
+	        location.href = '${contextPath}/login_01.do';
+	    } else {
+	    	location.href='${contextPath}/board/listInquiry.do'
+	    }
+	}
 </script>
 
 <style>
+@import url(https://fonts.googleapis.com/css?family=Raleway:500);
+
+.snip1284 {
+	font-family: 'Raleway', Arial, sans-serif;
+	text-align: center;
+	text-transform: uppercase;
+	font-weight: 500;
+	letter-spacing: 1px;
+}
+
+.snip1284 * {
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-transition: all 0.35s ease;
+	transition: all 0.35s ease;
+}
+
+.snip1284 li {
+	display: inline-block;
+	list-style: outside none none;
+	margin: 0.5em 1.2em;
+	padding: 0;
+}
+
+.snip1284 a {
+	padding: 0 0.6em;
+	color: rgba(255, 255, 255, 0.5);
+	position: relative;
+	text-decoration: none;
+}
+
+.snip1284 a:before, .snip1284 a:after {
+	width: 3px;
+	height: 0;
+	position: absolute;
+	content: '';
+	-webkit-transition: all 0.35s ease;
+	transition: all 0.35s ease;
+	background-color: #d2d2d2;
+}
+
+.snip1284 a:before {
+	top: 0;
+	right: 0;
+}
+
+.snip1284 a:after {
+	bottom: 0;
+	left: 0;
+}
+
+.snip1284 a:hover, .snip1284 .current a {
+	color: #ffffff;
+}
+
+.snip1284 a:hover:before, .snip1284 .current a:before, .snip1284 a:hover:after,
+	.snip1284 .current a:after {
+	height: 100%;
+}
+
 .page_wrap {
 	text-align: center;
 	font-size: 0;
@@ -151,14 +220,37 @@ request.setCharacterEncoding("UTF-8");
 <body>
 	<!-- 타이틀 -->
 	<section class="ftco-section"
-		style="padding-top: 50px; margin-bottom: 50px; padding-bottom: 0px; margin-bottom: 150px;">
+		style="padding-top: 50px; margin-bottom: 50px; padding-bottom: 0px; margin-bottom: 150px; margin-top: 30px;">
 		<div class="container">
-			<div class="row justify-content-center mb-5 pb-3"
-				style="background-color: #f5f5f5; border: 1px solid #e7e7e7; margin-top: 50px;">
-				<div class="col-md-20 heading-section ftco-animate"
-					style="height: 60px;">
-					<h2 class="mb-4" style="font-size: 35px; margin-top: 15px;">고객센터</h2>
-				</div>
+			<ul class="snip1284">
+				<li><a
+					onclick="location.href='${contextPath}/board/listNotice.do'"
+					data-hover="공지사항"
+					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; margin-left: 20px; padding-bottom: 0px;">공지사항</a></li>
+
+
+				<li><a
+					onclick="location.href='${contextPath}/board/listQuestion.do'"
+					data-hover="자주 묻는 질문"
+					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">자주
+						묻는 질문</a></li>
+
+
+				<li><a onclick="InquiryList()" data-hover="1:1문의"
+					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">1:1문의</a></li>
+
+
+				<li class="current"><a
+					onclick="location.href='${contextPath}/board/listAsCenter.do'"
+					data-hover="A/S센터"
+					style="font-size: 20px; border: none; color: #5a5a5a; background-color: white; cursor: pointer; padding-bottom: 0px;">A/S센터</a></li>
+			</ul>
+
+			<div>
+				<h2 style="font-size: 28px; margin-top: 15px; float: left;">A/S센터</h2>
+				<h5
+					style="color: #828282; float: left; font-size: 18px; margin-left: 20px; margin-top: 25px;">빠르게
+					접수 도와드리겠습니다.</h5>
 			</div>
 			<!-- 타이틀 끝 -->
 			<!-- 최근 본 상품 -->
@@ -186,59 +278,66 @@ request.setCharacterEncoding("UTF-8");
 				</ul>
 			</div>
 			<!-- 최근 본 상품 끝 -->
-			<jsp:include page="/WEB-INF/views/common/csMenu.jsp" flush="false" />
+
 			<!-- 내용 -->
 
 			<form name="asCenterForm"
 				action="${contextPath}/board/addNewAsCenter.do" method="post"
 				enctype="multipart/form-data">
-				<table class=table style="padding-top: 50px; border-top: #212529;">
+				<table class=table
+					style="padding-top: 50px; border-top: #212529; font-size: 14px;">
 					<c:choose>
 						<c:when test="${!empty asCenterNum}">
 							<tr style="background-color: #212529; margin-top: 20px;"
 								align="center">
-								<td colspan="6" style="color: white;">글쓰기</td>
+								<td colspan="6" style="color: white;">글수정하기</td>
 							</tr>
-							<tr style="border-top: 1px solid #212529;">
+							<tr style="border-bottom: 1px solid #dcdcdc;">
 								<td
-									style="padding-left: 95px; font-weight: bold; padding-right: 100px; padding-top: 20px;">작성자</td>
-								<td style="padding-top: 25px; background-color: white;"><input
+									style="padding-left: 95px; font-weight: bold; padding-right: 100px; padding-top: 15px;">작성자</td>
+								<td colspan="2"
+									style="padding-top: 15px; background-color: white;"><input
 									type=text name="memName" value="${asCenter.memName}" size=60
 									disabled
-									style="height: 28px; border: 1px solid #aaaaaa; border-radius: 3px; width: 150px;"></td>
+									style="height: 28px; border: 1px solid #d2d2d2; border-radius: 3px; width: 150px;"></td>
 							</tr>
-							<tr>
+							<tr style="border-bottom: 1px solid #dcdcdc;">
 								<td
-									style="padding-left: 95px; font-weight: bold; padding-top: 25px;">제목</td>
-								<td style="padding-top: 25px; background-color: white;"><input
-									type=text name="asCenterTitle"
-									value="${asCenter.asCenterTitle}" size=60
-									style="height: 28px; border: 1px solid #aaaaaa; border-radius: 3px;"></td>
+									style="padding-left: 95px; font-weight: bold; padding-top: 17px;">제목</td>
+								<td colspan="2"
+									style="padding-top: 17px; background-color: white;"><input
+									type=text name="asCenterTitle" size=60
+									value="${asCenter.asCenterTitle}"
+									style="height: 28px; border: 1px solid #d2d2d2; border-radius: 3px; border: 1px solid #d2d2d2;"></td>
 							</tr>
-							<tr>
+							<tr style="border-bottom: 1px solid #dcdcdc;">
 								<td
-									style="padding-left: 95px; font-weight: bold; vertical-align: middle;">내용</td>
-								<td style="padding-top: 25px; background-color: white;"><input
+									style="padding-left: 95px; font-weight: bold; padding-top: 20px;">내용</td>
+								<td colspan="2"
+									style="padding-top: 17px; background-color: white; height: 300px;"><input
 									type="text" name="asCenterContent"
 									value="${asCenter.asCenterContent}"
-									style="width: 510px; height: 300px"
-									style="padding-top:25px; border-color:	#aaaaaa;"></td>
+									style="width: 725px; height: 300px; padding-top: 17px; border: 1px solid #d2d2d2;"></td>
 							</tr>
-							<tr>
+							<tr style="border-bottom: 1px solid #dcdcdc;">
 								<td
-									style="padding-left: 95px; font-weight: bold; padding-top: 20px;">비밀번호</td>
-								<td style="padding-top: 25px; background-color: white;"><input
+									style="padding-left: 95px; font-weight: bold; padding-top: 15px;">비밀번호</td>
+								<td colspan="2"
+									style="padding-top: 15px; background-color: white;"><input
 									type="password" name="asCenterPwd" size=60
-									style="height: 28px; border: 1px solid #aaaaaa; border-radius: 3px; width: 150px;"></td>
+									style="height: 28px; border: 1px solid #d2d2d2; border-radius: 3px; width: 150px;"></td>
 							</tr>
 							<tr>
 								<td
-									style="padding-left: 95px; font-weight: bold; padding-top: 30px;">파일첨부</td>
-								<td style="background-color: white;">기존파일: ${asCenter.asCenterFile}<input type="hidden" name="OrignAsCenterFile" value="${asCenter.asCenterFile}" /><br><input type="file"
-									onchange="readURL(this);" name="asCenterFile"
-									style="padding-top: 25px;"></td>
+									style="padding-left: 95px; font-weight: bold; padding-top: 17px;">파일첨부</td>
+								<td style="background-color: white;">기존파일:
+									${asCenter.asCenterFile}<input type="hidden"
+									name="OrignAsCenterFile" value="${asCenter.asCenterFile}" /><br>
+									<input type="file" style="padding-top: 5px; font-size: 14px;"
+									name="asCenterFile" onchange="readURL(this);">
+								</td>
 								<td><img id="preview"
-									src="${contextPath}/download_asCenter.do?asCenterNum=${asCenter.asCenterNum}&asCenterFile=${asCenter.asCenterFile}"
+									src="${contextPath}/resources/images/simpleLogo.jpg"
 									width="150" height="150" /></td>
 							</tr>
 						</c:when>
@@ -247,42 +346,44 @@ request.setCharacterEncoding("UTF-8");
 								align="center">
 								<td colspan="6" style="color: white;">글쓰기</td>
 							</tr>
-							<tr style="border-top: 1px solid #212529;">
+							<tr style="border-bottom: 1px solid #dcdcdc;">
 								<td
-									style="padding-left: 95px; font-weight: bold; padding-right: 100px; padding-top: 20px;">작성자</td>
-								<td style="padding-top: 25px; background-color: white;"><input
-									type=text name="memName" value="${memName}" size=60
-									disabled
-									style="height: 28px; border: 1px solid #aaaaaa; border-radius: 3px; width: 150px;"></td>
+									style="padding-left: 95px; font-weight: bold; padding-right: 100px; padding-top: 15px;">작성자</td>
+								<td colspan="2"
+									style="padding-top: 15px; background-color: white;"><input
+									type=text name="memName" value="${memName}" size=60 disabled
+									style="height: 28px; border: 1px solid #d2d2d2; border-radius: 3px; width: 150px;"></td>
 							</tr>
-							<tr>
+							<tr style="border-bottom: 1px solid #dcdcdc;">
 								<td
-									style="padding-left: 95px; font-weight: bold; padding-top: 25px;">제목</td>
-								<td style="padding-top: 25px; background-color: white;"><input
-									type=text name="asCenterTitle" value="" size=60
-									style="height: 28px; border: 1px solid #aaaaaa; border-radius: 3px;"></td>
+									style="padding-left: 95px; font-weight: bold; padding-top: 17px;">제목</td>
+								<td colspan="2"
+									style="padding-top: 17px; background-color: white;"><input
+									type=text name="asCenterTitle" size=60
+									style="height: 28px; border: 1px solid #d2d2d2; border-radius: 3px; border: 1px solid #d2d2d2;"></td>
 							</tr>
-							<tr>
+							<tr style="border-bottom: 1px solid #dcdcdc;">
 								<td
-									style="padding-left: 95px; font-weight: bold; vertical-align: middle;">내용</td>
-								<td style="padding-top: 25px; background-color: white;"><input
-									type="text" name="asCenterContent" value=""
-									style="width: 510px; height: 300px"
-									style="padding-top:25px; border-color:	#aaaaaa;"></td>
+									style="padding-left: 95px; font-weight: bold; padding-top: 20px;">내용</td>
+								<td colspan="2"
+									style="padding-top: 17px; background-color: white; height: 300px;"><input
+									type="text" name="asCenterContent"
+									style="width: 725px; height: 300px; padding-top: 17px; border: 1px solid #d2d2d2;"></td>
 							</tr>
-							<tr>
+							<tr style="border-bottom: 1px solid #dcdcdc;">
 								<td
-									style="padding-left: 95px; font-weight: bold; padding-top: 20px;">비밀번호</td>
-								<td style="padding-top: 25px; background-color: white;"><input
+									style="padding-left: 95px; font-weight: bold; padding-top: 15px;">비밀번호</td>
+								<td colspan="2"
+									style="padding-top: 15px; background-color: white;"><input
 									type="password" name="asCenterPwd" size=60
-									style="height: 28px; border: 1px solid #aaaaaa; border-radius: 3px; width: 150px;"></td>
+									style="height: 28px; border: 1px solid #d2d2d2; border-radius: 3px; width: 150px;"></td>
 							</tr>
 							<tr>
 								<td
-									style="padding-left: 95px; font-weight: bold; padding-top: 30px;">파일첨부</td>
+									style="padding-left: 95px; font-weight: bold; padding-top: 17px;">파일첨부</td>
 								<td style="background-color: white;"><input type="file"
-									onchange="readURL(this);" name="asCenterFile"
-									style="padding-top: 25px;"></td>
+									style="padding-top: 5px; font-size: 14px;" name="asCenterFile"
+									onchange="readURL(this);"></td>
 								<td><img id="preview"
 									src="${contextPath}/resources/images/simpleLogo.jpg"
 									width="150" height="150" /></td>
@@ -296,19 +397,20 @@ request.setCharacterEncoding("UTF-8");
 						<div>
 							<button type="button" onClick="modAsCenter(this.form)"
 								class="btn btn-dark " id="buttonmy"
-								style="margin-left: 630px; margin-top: 30px;">수정</button>
+								style="margin-left: 630px; margin-top: 30px; background-color: #212529; font-size: 14px; padding-top: 4px;">수정</button>
 							<button type="button" class="btn btn-dark " id="buttonmy"
 								onClick="location.href='${contextPath}/board/listAsCenter.do'"
-								style="margin-left: 730px; margin-top: -30px;">목록</button>
+								style="margin-left: 730px; margin-top: -30px; background-color: #212529; font-size: 14px; padding-top: 4px;">목록</button>
 						</div>
 					</c:when>
 					<c:when test="${empty asCenterNum}">
 						<div>
 							<button type="button" onclick="CS_write()" class="btn btn-dark "
-								id="buttonmy" style="margin-left: 630px; margin-top: 30px;">등록</button>
+								id="buttonmy"
+								style="margin-left: 630px; margin-top: 30px; background-color: #212529; font-size: 14px; padding-top: 4px;">등록</button>
 							<button type="button" class="btn btn-dark " id="buttonmy"
 								onClick="location.href='${contextPath}/board/listAsCenter.do'"
-								style="margin-left: 730px; margin-top: -30px;">목록</button>
+								style="margin-left: 730px; margin-top: -30px; background-color: #212529; font-size: 14px; padding-top: 4px;">목록</button>
 						</div>
 					</c:when>
 				</c:choose>

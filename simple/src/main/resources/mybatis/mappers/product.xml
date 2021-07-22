@@ -56,10 +56,21 @@
 	</select>
 
 
-	<!-- 관리자 상품 조회 -->
+	  <!-- 관리자 상품 조회 -->
 	<select id="admin_selectAllProductList" resultMap="proResult">
 	<![CDATA[
-		select * from product order by category;
+		select * from simple.product
+		limit #{pageStart}, #{perPageNum};
+	]]>
+	</select>
+		<select id="selectProductCount" resultType="int"
+		parameterType="int">
+	<![CDATA[
+			
+			select count(*) as productCount
+			from simple.product;
+			
+
 	]]>
 	</select>
 
@@ -189,6 +200,79 @@
 			select count(*)  from productQuestion where memId=#{memId};
 			
 	]]>
+	</select>
+	<select id="productSearchList" resultMap="proResult">
+			
+			select *
+			from simple.product
+			where
+			<if test="searchType=='productName' and search != null and search != '' ">
+
+				productName like CONCAT('%', #{search}, '%')
+			
+
+			</if>
+
+			<if test="searchType=='productNum' and search != null and search != '' ">
+
+				productNum like CONCAT('%', #{search}, '%')
+
+			</if>
+
+			<if test="searchType=='category' and search != null and search != '' ">
+
+				category like CONCAT('%', #{search}, '%')
+
+			</if>	
+			<if test="searchType=='subcategory' and search != null and search != '' ">
+
+				subcategory like CONCAT('%', #{search}, '%')
+
+			</if>	
+
+			limit #{pageStart}, #{perPageNum};
+			
+			
+	
+			
+			
+
+	
+	</select>
+	
+		<select id="productSearchCount" resultType="int"
+		parameterType="java.util.Map">
+
+			
+			select count(*) 
+			from simple.product 
+			where
+			<if test="searchType=='productName' and search != null and search != '' ">
+
+				productName like CONCAT('%', #{search}, '%')
+			
+
+			</if>
+
+			<if test="searchType=='productNum' and search != null and search != '' ">
+
+				productNum like CONCAT('%', #{search}, '%')
+
+			</if>
+
+			<if test="searchType=='category' and search != null and search != '' ">
+
+				category like CONCAT('%', #{search}, '%')
+
+			</if>	
+			<if test="searchType=='subcategory' and search != null and search != '' ">
+
+				subcategory like CONCAT('%', #{search}, '%')
+
+			</if>	
+			
+
+
 	</select>
 
 </mapper>

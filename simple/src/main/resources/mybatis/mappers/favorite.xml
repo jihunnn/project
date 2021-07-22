@@ -34,8 +34,13 @@
 	<select id="selectProductList" resultMap="proResult" parameterType="java.util.Map">
       <![CDATA[
           select *
-          from favoriteproduct left join product on product.productNum=favoriteproduct.productNum and memId=memId;
+          from product
+          where productNum in
+          
       ]]>
+      <foreach item="item" collection="list" open="(" separator="," close=")">
+			#{item.productNum}
+		</foreach>
 		
 	</select>
 	<select id="selectCountInFavorite" resultType="String" parameterType="favoriteVO">

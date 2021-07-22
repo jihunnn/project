@@ -123,54 +123,97 @@ textarea {
 	transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
 }
 </style>
-<!-- 수량체크 자바스크립트 -->
-<script language="JavaScript">
-<!--
-	var amount;
-	function init() {
-		amount = document.form.amount.value;
-		change();
-	}
-	function add() {
-		hm = document.form.amount;
-		hm.value++;
-	}
-	function del() {
-		hm = document.form.amount;
-		if (hm.value > 1) {
-			hm.value--;
-		}
-	}
-	function change() {
-		hm = document.form.amount;
-		if (hm.value < 0) {
-			hm.value = 0;
-		}
-	}
-//-->
-</script>
 <script type="text/javascript">
-	function favoriteproduct() {
-		var form = document.Chec;
-		if (confirm("관심상품에 등록하시겠습니까?")) { //확인
-
-		} else { //취소
-			return;
+	function add_favorite(productNum) {
+		if(confirm("관심상품에 등록하시겠습니까?"))
+		{
+			if(${isLogOn != true}){
+			      alert("로그인이 필요합니다.");
+			}else{
+	    	    $.ajax({
+		        	type : "post",
+		        	async : false, //false인 경우 동기식으로 처리한다.
+		        	url : "${contextPath}/addProductInFavorite.do",
+		        	data : {
+		        		productNum:productNum
+				
+	    	    	},
+	    	    	success : function(data, textStatus) {
+		        		//alert(data);
+		            	//	$('#message').append(data);
+		        		if(data.trim()=='add_success'){
+		        			alert("관심상품에 등록되었습니다.");	
+		        		}else if(data.trim()=='already_existed'){
+			    	    	alert("이미 관심상품에 등록된 상품입니다.");	
+			        	}
+		     		
+		        	},
+		        	error : function(data, textStatus) {
+		        		alert("에러가 발생했습니다."+data);
+	    	    	},
+	    	    	complete : function(data, textStatus) {
+	    	     		//alert("작업을완료 했습니다");
+	    	    	}
+	        	}); //end ajax	
+			}
+		}else{
+			return false;
 		}
-		form.submit();
+		
 	}
-	function addCartBtn() {
-		var form = document.Chec;
-		if (confirm("장바구니에 담으시겠습니까?")) { //확인
-
-		} else { //취소
-			return;
+	
+	function add_cart(productNum) {
+		if(confirm("장바구니에 등록하시겠습니까?"))
+		{
+			if(${isLogOn != true }){
+			      alert("로그인이 필요합니다.");
+			}else{
+		        $.ajax({
+		        	type : "post",
+		        	async : false, //false인 경우 동기식으로 처리한다.
+		        	url : "${contextPath}/addProductInCart.do",
+		        	data : {
+		        		productNum:productNum
+				
+			        },
+			        success : function(data, textStatus) {
+			        	//alert(data);
+		            	//	$('#message').append(data);
+			        	if(data.trim()=='add_success'){
+			        		alert("장바구니에 담았습니다.");	
+		        		}else if(data.trim()=='already_existed'){
+		        			alert("이미 장바구니에 등록된 상품입니다.");	
+		    	    	}
+		  		
+		        	},
+		        	error : function(data, textStatus) {
+			        	alert("에러가 발생했습니다."+data);
+		        	},
+		        	complete : function(data, textStatus) {
+			        	//alert("작업을완료 했습니다");
+			        }
+		        }); //end ajax	
+			}
+		}else{
+			return false;
 		}
-		form.submit();
 	}
 </script>
+<script type="text/javascript"> 
+ function up() { 
+	 var count = document.getElementById("quantity").value; 
+	 document.getElementById("quantity").value = parseInt(count) + 1; 
+	 } 
+ function down() { 
+	 var count = document.getElementById("quantity").value; 
+	 if (count != 1)  {
+		 document.getElementById("quantity").value = parseInt(count) - 1; 
+		 } 
+	 } 
+ </script>
+
 </head>
-<body onload="init();">
+<body>
 
 
 	<section class="ftco-section" style="padding-top: 20px; margin-bottom:200px;">
@@ -211,20 +254,15 @@ textarea {
 			<div class="row">
 
 
-
-				<div class="col-md-4 ftco-animate">
+	<div class="col-md-4 ftco-animate">
 					<div class="blog-entry">
-						<c:choose>
-							<c:when
-								test="${not empty product.productImage && product.productImage != 'null'}">
-								<input type="hidden" name="OrignProductFile"
-									value="${product.productImage}" class="block-20" />
-								<a><img
-									style="width: 600px; height: 410px; padding-top: 10px; padding-top: 10px; margin-left: -15px; float: left;"
-									src="${contextPath}/download_product.do?productNum=${product.productNum}&productImage=${product.productImage}"
-									id="preview" /><br> </a>
-							</c:when>
-						</c:choose>
+					<c:choose>	
+						<c:when test="${not empty product.productImage && product.productImage != 'null'}">
+					<input type="hidden" name="OrignProductFile" value="${product.productImage}"class="block-20" />	
+						<a><img style="width: 600px; height:410px; padding-top: 10px; padding-top: 10px; margin-left: -15px; float: left;" src="${contextPath}/download_product.do?productNum=${product.productNum}&productImage=${product.productImage}" id="preview" /><br>
+						</a>
+						</c:when>
+			       </c:choose>
 						<h3 class="heading">
 							<a
 								style="position: absolute; white-space: nowrap; margin-top: 5px; margin-left: 50px; float: left;">판매가ㅤㅤ
@@ -281,52 +319,41 @@ textarea {
 						</select> <br>
 
 					</div>
-
-
+				
+                   
 					<div>
 						<h3 class="heading">
 							<a
 								style="position: absolute; white-space: nowrap; margin-top: 115px; margin-left: -430px; float: left; font-size: 18px; font-size: 14px;">수량</a>
 						</h3>
 
-						<input type="button" id="up" onclick="up()" value=" + " size="3"
+						<input type="button"  id="up" onclick="up()" value=" + "   size="3"
 							style="width: 25px; position: absolute; white-space: nowrap; margin-top: 109px; margin-left: -380px; float: left; font-size: 18px; font-size: 14px; border: 1px solid grey;">
-						<input type="text" name="quantity" id="quantity" value="1"
-							readonly="readonly"
+						<input type="text"  name="quantity" id="quantity"  value="1" readonly="readonly" 
 							style="position: absolute; white-space: nowrap; margin-top: 108px; margin-left: -350px; float: left; font-size: 18px; font-size: 14px; width: 50px; text-align: center;" />
-						<input type="button" id="down" onclick="down()" value=" - "
-							size="3"
+						<input type="button"id="down" onclick="down()" value=" - " size="3"
 							style="width: 25px; position: absolute; white-space: nowrap; margin-top: 109px; margin-left: -295px; float: left; font-size: 18px; font-size: 14px; border: 1px solid grey;">
-						<h3 class="heading"
-							style="padding-left: 950px; padding-top: 100px; text-align: center; width: 400px;">
-							<a><fmt:formatNumber pattern="###,###,###"
-									value="${product.productPrice}" />원</a>
+						<h3 class="heading" style="padding-left: 950px;padding-top: 100px;text-align: center;width: 400px;">
+							<a><fmt:formatNumber pattern="###,###,###" value="${product.productPrice}"/>원</a>
 						</h3>
 					</div>
-
-					<input type="hidden" name="productNum"
-						value="${product.productNum}"><a
-						href="javascript:add_favorite('${product.productNum }')">
-						<button class="btn btn-default "
-							style="background-color: #dcdcdc; float: left; margin-left: 630px; margin-top: 20px; width: 50px; height: 50px; border-radius: 2px;"></button>
-					</a>
-
+			
+				<input type="hidden" name="productNum" value="${product.productNum}"><a href="javascript:add_favorite('${product.productNum }')">
+				    <button  class="btn btn-default "
+						style="background-color: #dcdcdc; float: left; margin-left: 630px; margin-top: 20px; width: 50px; height: 50px; border-radius: 2px;"></button></a>
+				
 					<button type="submit" class="btn btn-default"
 						style="background-color: #dcdcdc; float: left; margin-left: 700px; margin-top: 20px; width: 280px; height: 50px; border-radius: 2px;">바로구매</button>
 					<a href="javascript:add_cart('${product.productNum }')">
-						<button type="submit" class="btn btn-default"
-							style="background-color: #dcdcdc; float: left; margin-left: 1000px; margin-top: -50px; width: 280px; height: 50px; border-radius: 2px;">장바구니</button>
-					</a>
+					<button type="submit" class="btn btn-default"
+						style="background-color: #dcdcdc; float: left; margin-left: 1000px; margin-top: -50px; width: 280px; height: 50px; border-radius: 2px;">장바구니</button></a>
+     	
 
-
-
+                
 				</div>
 			</div>
 
 
-
-
-			<!-- 탭메뉴 자바스크립트 -->
 			<!-- 탭메뉴 자바스크립트 -->
 			<c:choose>
 				<c:when test="${pageNum != 1}">

@@ -13,5 +13,14 @@
 	    <put-attribute name="title" value="관리자로그인창" />
         <put-attribute name="body" value="/WEB-INF/views/admin_login.jsp"/>
     </definition>
+    <definition name="admin_listmember" extends="baseLayout">
+	    <put-attribute name="title" value="관리자 회원관리창" />
+        <put-attribute name="body" value="/WEB-INF/views/admin_listmember.jsp"/>
+    </definition>
+        <definition name="admin_listmember/memberSearch" extends="baseLayout">
+	    <put-attribute name="title" value="관리자 회원조회창" />
+        <put-attribute name="body" value="/WEB-INF/views/admin_listmember.jsp"/>
+    </definition>
+    
 
 </tiles-definitions>	

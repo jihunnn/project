@@ -1,5 +1,6 @@
 package com.project.simple.cart.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -9,15 +10,18 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.simple.cart.service.CartService;
 import com.project.simple.cart.vo.CartVO;
 import com.project.simple.member.vo.MemberVO;
+import com.project.simple.order.vo.OrderVO;
 
 @Controller("cartController")
 public class CartControllerImpl implements CartController {
@@ -27,56 +31,84 @@ public class CartControllerImpl implements CartController {
 	private CartVO cartVO;
 	@Autowired
 	private MemberVO memberVO;
-	
-	@RequestMapping(value="/myCartList.do" ,method = RequestMethod.GET)
-	public ModelAndView myCartMain(HttpServletRequest request, HttpServletResponse response)  throws Exception {
-		String viewName=(String)request.getAttribute("viewName");
-		ModelAndView mav = new ModelAndView(viewName);
-		HttpSession session=request.getSession();
-		MemberVO memberVO=(MemberVO)session.getAttribute("member");
-		String memId=memberVO.getmemId();
-		cartVO.setmemId(memId);
-		Map<String ,List> cartMap=cartService.myCartList(cartVO);//장바구니페이지에 표시할 상품 정보를 조회
-		System.out.println(cartMap);
-		session.setAttribute("cartMap", cartMap);//장바구니 목록 화면에서 상품 주문 시 사용하기 위해서 장바구니 목록을 세션에 저장한다.
-		//mav.addObject("cartMap", cartMap);
-		return mav;
-	}
-	
-	@RequestMapping(value="/addProductInCart.do" ,method = RequestMethod.POST,produces = "application/text; charset=utf8")
-	public @ResponseBody String addProductInCart(@RequestParam("productNum") String productNum,
-			                    HttpServletRequest request, HttpServletResponse response)  throws Exception{
-		HttpSession session=request.getSession();
-		MemberVO memberVO=(MemberVO)session.getAttribute("member");
-		String memId=memberVO.getmemId();
-		
-		
-		cartVO.setmemId(memId);
-		//장바구니에 등록된 상품인지 판별
-		cartVO.setproductNum(productNum);
-		boolean isAreadyExisted=cartService.findCartProduct(cartVO); //상품번호가 장바구니에 있는지 조회
-		System.out.println("isAreadyExisted:"+isAreadyExisted);
-		if(isAreadyExisted==true){//상품 번호가 이미 장바구니 테이블에 있으면 이미 추가되었다는 메시지 전송
-			return "already_existed";
-		}else{//없으면 장바구니 테이블에 추가
-			cartService.addProductInCart(cartVO);
-			return "add_success";
+
+	// 장바구니이동(회원/비회원)
+	@RequestMapping(value = "/cartall.do", method = RequestMethod.GET)
+	private ModelAndView cartall(@ModelAttribute("cartVO") CartVO cartVO, HttpServletRequest request,
+			HttpServletResponse response, RedirectAttributes redirect) throws Exception {
+		ModelAndView mav = new ModelAndView();
+
+		HttpSession session = request.getSession();
+		Boolean isLogOn = (Boolean) session.getAttribute("isLogOn");
+
+		if (isLogOn == null || isLogOn == false) {
+
+			List<CartVO> list = (ArrayList) session.getAttribute("cartlist");
+			if (list == null) {
+				list = new ArrayList<CartVO>();
+				session.setAttribute("cartlist", list);
+			}
+			list.add(cartVO);
+			System.out.println(cartVO);
+			mav.setViewName("redirect:/nonmemcart.do");
+
+		} else if (isLogOn == true) {
+
+			int result = 0;		
+			MemberVO membervo = (MemberVO) session.getAttribute("member");
+			String memId = membervo.getmemId();
+			cartVO.setMemId(memId);
+			result = cartService.addcartlist(cartVO);	
+			mav.setViewName("redirect:/memcart.do");
 		}
-	}
-	
-	@RequestMapping(value="/removeCartProduct.do" ,method = RequestMethod.POST)
-	public ModelAndView removeCartProduct( HttpServletRequest request, HttpServletResponse response)  throws Exception{
-		ModelAndView mav=new ModelAndView();
-		String[] ajaxMsg = request.getParameterValues("valueArr");
-		int size = ajaxMsg.length;
-		for(int i = 0 ; i < size; i++) {
-			cartService.removeCartProduct(ajaxMsg[i]);
-		}
-		
-		mav.setViewName("redirect:/mypage_08.do");
+
 		return mav;
 	}
 
 	
+	// 장바구니이동(비회원)
+	@RequestMapping(value = "/nonmemcart.do", method = RequestMethod.GET)
+	private ModelAndView nonmemcart( HttpServletRequest request,
+			HttpServletResponse response) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("cart");
+		return mav;
+	}
+
+	// 장바구니이동(회원)
+	@RequestMapping(value = "/memcart.do", method = RequestMethod.GET)
+	private ModelAndView memcart(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		HttpSession session = request.getSession();
+		Boolean isLogOn = (Boolean) session.getAttribute("isLogOn");
+		
+		
+		if ( isLogOn == true) {
+			
+		MemberVO membervo = (MemberVO) session.getAttribute("member");
+		String memId = membervo.getmemId();
+		cartVO.setMemId(memId);
+		List<CartVO> cartlist = cartService.selectcartlist(memId);
+		mav.addObject("cartlist", cartlist);
+		mav.setViewName("cart");
+		}
+		
+		return mav;
+	}
+	
+	//장바구니 리스트 삭제(회원)
+	@RequestMapping(value = "/delete.do", method = RequestMethod.POST)
+	public String delete(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		
+		String [] ajaxMsg = request.getParameterValues("valueArr");
+		int size = ajaxMsg.length;
+		for (int i = 0; i < size; i++) {
+			cartService.removeCartProduct(ajaxMsg[i]);
+		}
+
+		return "redirect:/memcart.do";
+	}
 
 }

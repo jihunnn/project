@@ -40,7 +40,7 @@
   content: '';
   -webkit-transition: all 0.35s ease;
   transition: all 0.35s ease;
-  background-color: #ffcdcd;
+  background-color: #d2d2d2;
 }
 .snip1284 a:before {
   top: 0;
@@ -79,7 +79,7 @@
 				<ul class="snip1284" >
 					<li class="current"><a  onclick="location.href='${contextPath}/board/listNotice.do'"
 						 data-hover="공지사항"
-						style="font-size: 20px;border: none; color: #5a5a5a; margin-right: 150px; cursor:pointer; background-color: white; margin-left: 100px; padding-bottom:0px;">공지사항</a></li>
+						style="font-size: 20px;border: none; color: #5a5a5a; margin-right: 150px; cursor:pointer; background-color: white; margin-left: 20px; padding-bottom:0px;">공지사항</a></li>
 				
 			
 					<li><a onclick="location.href='${contextPath}/board/listQuestion.do'"
