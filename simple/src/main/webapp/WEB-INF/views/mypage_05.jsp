@@ -1,16 +1,37 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 
 
 <script type="text/javascript">
-	//구매확정 이벤트창
-	function confirm() {
-		alert("구매 확정 하시겠습니까?");}
+//구매확정 이벤트창
+function confirmOrderConfirm(obj) {
+	if (confirm("구매확정하시겠습니까??") == true) { //확인
+		var memOrderSeqNum = jQuery('#memOrderSeqNum').val();
+		obj.action = "${contextPath}/mypage/purchaseConfirm.do?memOrderSeqNum=memOrderSeqNum";
+		obj.submit();
+
+	} else { //취소
+
+		return false;
+
+	}
+
+}
+function reviewConfirmResult() {
+
+	alert("이미 리뷰를 작성하였습니다.")
+}
+function returnConfirmResult() {
+
+	alert("이미 반품을 신청하셨습니다. 반품내역을 확인해주세요.")
+}
 </script>
 
 <style>
@@ -188,7 +209,7 @@
 				</div>
 			</div>
 
-		<!-- 최근 본 상품 -->
+			<!-- 최근 본 상품 -->
 			<div id="recentlyProduct"
 				style="position: absolute; width: 120px; height: 310px; margin-left: 1370px; border: 1px solid #d2d2d2; margin-top: -100px;">
 				<ul
@@ -215,14 +236,15 @@
 
 
 
-		<!-- Left Menu -->
-			<jsp:include page="/WEB-INF/views/common/mypage_sidemenu.jsp" flush="false" />
-		<!-- left Menu 끝-->
+			<!-- Left Menu -->
+			<jsp:include page="/WEB-INF/views/common/mypage_sidemenu.jsp"
+				flush="false" />
+			<!-- left Menu 끝-->
 
 			<div class="table_01"
 				style="padding-top: 30px; margin-top: 20px; margin-left: 50px;">
 				<div>
-					<table style="width:1000px; height:80px; margin-left: 80px;">
+					<table style="width: 1000px; height: 80px; margin-left: 80px;">
 						<tbody id="MyPage_center1">
 							<tr height="60px;">
 								<th
@@ -245,24 +267,28 @@
 					</table>
 				</div>
 
-			<!-- 내용 -->
+				<!-- 내용 -->
 
 				<div class="container2"
 					style="padding-left: 220px; padding-top: 0px;">
 
 					<div style="width: 20px;">
-						<table style="wdith:800px; height:40px; align:center;padding-top: 10px;">
+						<table
+							style="wdith: 800px; height: 40px; align: center; padding-top: 10px;">
 							<tbody id="MyPage_center3">
 								<tr>
 									<th
-										style="font-size: 18px; font-weight: bold; padding-top: 30px; white-space:nowrap;"
+										style="font-size: 18px; font-weight: bold; padding-top: 30px; white-space: nowrap;"
 										colspan="4">주문/배송조회(최근 1개월)</th>
 								</tr>
 							</tbody>
 						</table>
 					</div>
+
 					<div id="MyPage_top" style="padding-top: 20px; width: 600px;">
-						<table border="1"  style="width:980px; height:180px; align:center;">
+
+						<table border="1"
+							style="width: 980px; height: 180px; align: center;">
 							<tbody id="MyPage_center2">
 								<tr height="50%"
 									style="background-color: #212529; color: white;">
@@ -273,81 +299,138 @@
 									<th style="font-size: 12px; text-align: center;" width="120">금액</th>
 									<th style="font-size: 12px; text-align: center;" width="140">현재상태</th>
 								</tr>
-								<tr height="80%">
-									<th style="text-align: center;">2021/6/15</th>
-									<th style="padding: 10px; text-align: center;"
-										onClick="location.href='Product-02'">
-										<div>
-											<img src="${contextPath}/resources/images/image_1.jpg"
-												width="110" height="110" style="float: left;"> <a
-												style="margin-left: 0px;">패브릭 소파(2인용)</a>
-											<p style="margin-left: 130px; font-size: 13px; width: 100px;">그레이색</p>
-										</div>
-									</th>
-									<th style="text-align: center;">1</th>
-									<th style="text-align: center;">230,000</th>
-									<th style="text-align: center;"><ins
-											onclick="location='#'" id="now-state"
-											style="color: red; font-size: 14px;">
-											배송완료<br>
-										</ins>
-										<button
-											style="font-size: 14px; width: 110px; background-color: #212529; color: white; margin-bottom:5px;"
-											class="confirmation" onclick="confirm()">구매확정
-										<!-- 구매확정 버튼 사라지는 기능 위에다 놓으면 안먹힘 -->
-											<script>		
-﻿﻿﻿												$("button.confirmation").click(function(event){
- 												event.preventDefault(); 
-												 $(this).hide("fast"); });
-											</script>
-										</button>
-										<button
-											style="font-size: 14px; width: 110px; background-color: #212529; color: white;"
-											onclick="location='#'">반품신청</button></th>
-								</tr>
+								<c:forEach var="memOrderNum" items="${memOrderNum}">
+									<tr height="80%">
+										<th style="text-align: center;"><fmt:formatDate
+												value="${memOrderNum.memOrderDate}" /></th>
+										<th style="padding: 10px; text-align: center;"
+											onClick="location.href='Product-02'">
+											<div>
+												<img src="${contextPath}/resources/images/image_1.jpg"
+													width="110" height="110" style="float: left;"> <a
+													style="margin-left: 0px;">${memOrderNum.productName}</a>
+												<c:if test="${memOrderNum.option1 !=null}">
+													<p
+														style="margin-left: 130px; font-size: 13px; width: 100px;">옵션1
+														: ${memOrderNum.option1}</p>
+												</c:if>
+												<c:if test="${memOrderNum.option2 !=null}">
+													<p
+														style="margin-left: 130px; font-size: 13px; width: 100px;">옵션1
+														: ${memOrderNum.option2}</p>
+												</c:if>
+
+											</div>
+										</th>
+										<th style="text-align: center;">${memOrderNum.productCnt}</th>
+										<th style="text-align: center;">${memOrderNum.productPrice}</th>
+										<th style="text-align: center;"><ins
+												onclick="location='#'" id="now-state"
+												style="color: red; font-size: 14px;">
+												${memOrderNum.deliveryStatus}<br>
+											</ins>
+											 <c:choose>
+														<c:when test="${memOrderNum.purchaseConfirm =='구매'}">
+
+															<form>
+																<input type="button" name="purchaseConfirm"
+																	style="font-size: 14px; width: 110px; background-color: #212529; margin-bottom: 5px; color: white;"
+																	class="confirmation"
+																	onclick="confirmOrderConfirm(this.form)" value="구매확정">
+																<input type="hidden" id="memOrderSeqNum"
+																	name="memOrderSeqNum"
+																	value="${memOrderNum.memOrderSeqNum}" />
+															</form>
+														</c:when>
+														<c:when test="${memOrderNum.purchaseConfirm =='구매확정'}">
+
+
+															<c:choose>
+																<c:when test="${memOrderNum.reviewConfirm == '리뷰'}">
+																	<input type="button" name="reviewConfirm"
+																		style="font-size: 14px; width: 110px; background-color: #212529; margin-bottom: 5px; color: white;"
+																		id="pressbtn1" class="confirmation"
+																		onclick="location.href='${contextPath}/mypage/reviewWrite.do?productNum=${memOrderNum.productNum}&memOrderSeqNum=${memOrderNum.memOrderSeqNum}'"
+																		value="리뷰작성">
+																</c:when>
+																<c:when
+																	test="${memOrderNum.reviewConfirm == '리뷰작성'}">
+																	<input type="button" name="reviewConfirm"
+																		style="font-size: 14px; width: 110px; background-color: #212529; margin-bottom: 5px; color: white;"
+																		id="pressbtn1" class="confirmation"
+																		onclick="reviewConfirmResult()" value="리뷰작성">
+																</c:when>
+															</c:choose>
+														</c:when>
+													</c:choose> <c:choose>
+														<c:when test="${memOrderNum.returnConfirm == '반품'}">
+															<input type="button"
+																style="font-size: 14px; width: 110px; background-color: #212529; margin-bottom: 5px; color: white;"
+																onclick="location.href='${contextPath}/mypage/returnWrite.do?&productNum=${memOrderNum.productNum}&memOrderSeqNum=${memOrderNum.memOrderSeqNum}'"
+																value="반품신청">
+														</c:when>
+														<c:when test="${memOrderNum.returnConfirm == '반품신청'}">
+															<input type="button"
+																style="font-size: 14px; width: 110px; background-color: #212529; margin-bottom: 5px; color: white;"
+																onclick="returnConfirmResult()" value="반품신청">
+														</c:when>
+													</c:choose>
+									</tr>
+								</c:forEach>
 								<tr height="100">
 									<th colspan="2"
 										style="padding-left: 10px; padding-bottom: 15px;">
 										<div style="font-size: 12px;">주문자 정보</div>
 										<div style="font-size: 10px;">
-											<a>이름 :</a> <a>홍길동</a>
+											<a>이름 :</a> <a>${memOrderSeqNum.memName}</a>
 										</div>
 										<div style="font-size: 11px;">
-											<a>주소 :</a> <a>대전 서구 가장동 95-70 프라지아 301호</a>
+											<a>주소 :</a> <a>${memOrderSeqNum.memAdr}</a>
 										</div>
 										<div style="font-size: 11px;">
-											<a>연락처 :</a> <a>010-0000-0000</a>
+											<a>연락처 :</a> <a>${memOrderSeqNum.memPhoneNum}</a>
 										</div>
 									</th>
 									<th colspan="4" style="padding-left: 10px;">
 										<div style="font-size: 15px;">배송 정보</div>
 										<div style="font-size: 11px;">
-											<a>수령인 :</a> <a>홍길동</a>
+											<a>수령인 :</a> <a>${memOrderSeqNum.memSpName}</a>
+										</div>
+
+										<div style="font-size: 11px;">
+											<a>연락처 :</a> <a>${memOrderSeqNum.memSpPhoneNum1}</a>
+											<c:if test="${memOrderSeqNum.memSpPhoneNum2 !=null}">
+												<a>/ ${memOrderSeqNum.memSpPhone2}</a>
+											</c:if>
 										</div>
 										<div style="font-size: 11px;">
-											<a>연락처 :</a> <a>010-0000-0000</a>
+											<a>배송지 :</a> <a>${memOrderSeqNum.memSpAdr}</a>
 										</div>
 										<div style="font-size: 11px;">
-											<a>배송지 :</a> <a>대전 서구 가장동 95-70 프라지아 301호</a>
+											<a>주문메시지 :</a> <a>${memOrderSeqNum.memOrderMsg}</a>
 										</div>
 										<div style="font-size: 11px;">
-											<a>주문메시지 :</a> <a></a>
+											<a>결제방법 :</a> <a>${memOrderSeqNum.memPaymentMethod}</a>
+										</div>
+										<div style="font-size: 11px; float:right; font-size:20px;">
+											<a>총결제금액 :</a> <a>${memOrderSeqNum.totalPrice}원</a>
 										</div>
 									</th>
 								</tr>
 							</tbody>
 						</table>
+
 						<div align="center" id="btn_modify_reset"
 							style="padding-top: 10px">
-							<input type="button" name="return_MyPage_05" value="목 록"
-								onclick="location.href='#'"
+							<input type="button"  value="목 록"
+								onclick="location.href='${contextPath}/mypage_04.do'"
 								style="width: 80px; background-color: #212529; color: white; margin-left: 400px; margin-top: 30px;">
 						</div>
 					</div>
 				</div>
-			<!-- 내용 -->
+				<!-- 내용 -->
 			</div>
-		</div>	
+		</div>
 	</section>
 	<br>
 	<br>
@@ -367,5 +450,5 @@
 	<br>
 	<br>
 	<br>
-  </body>
+</body>
 </html>

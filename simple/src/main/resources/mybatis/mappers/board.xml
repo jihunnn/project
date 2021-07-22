@@ -12,6 +12,7 @@
 		<result property="noticeWriter" column="noticeWriter" />
 		<result property="noticeContent" column="noticeContent" />
 		<result property="noticeImg" column="noticeImg" />
+		<result property="noticeHit" column="noticeHit" />
 	</resultMap>
 
 	<!-- question 게시판 -->
@@ -46,16 +47,19 @@
 		<result property="asCenterPwd" column="asCenterPwd" />
 	</resultMap>
 
-	<!-- 공지사항 -->
+	<!-- 공지사항 전제 목록 보기 -->
 	<select id="selectAllNoticeList" resultMap="noticeResult">
 	<![CDATA[
 			
-			select noticeNum, noticeDate, noticeTitle, noticeWriter from notice order by noticeNum desc
+			select noticeNum, noticeDate, noticeTitle, noticeWriter, noticeHit from notice order by noticeNum desc
 			limit #{pageStart}, #{perPageNum};
 			
 
 	]]>
 	</select>
+	
+	
+
 	<select id="selectNoticeCount" resultType="int"
 		parameterType="int">
 	<![CDATA[
@@ -65,7 +69,8 @@
 
 	]]>
 	</select>
-
+	
+	<!-- 공지사항 상세보기 -->
 	<select id="selectNotice" resultType="articleVO"
 		parameterType="int"> 
 	<![CDATA[
@@ -76,6 +81,11 @@
 
 	]]>
 	</select>
+
+	<update id="updateNoticeHit" parameterType="int">
+		UPDATE notice SET
+		noticeHit = noticeHit + 1 WHERE noticeNum = #{noticeNum}
+	</update>
 
 	<!-- 자주 묻는 질문 -->
 	<select id="selectAllQuestionList" resultMap="questionResult">
@@ -102,6 +112,7 @@
 	<![CDATA[
 			
 			select * from question where questionTitle like CONCAT('%', #{search}, '%')  order by questionNum desc
+			limit #{pageStart}, #{perPageNum}
 			;
 			
 
@@ -221,7 +232,7 @@
 	<select id="selectAllAsCenterList" resultMap="asCenterResult">
 	<![CDATA[
 			
-			select asCenterTitle , asCenterContent, asCenterDate, asCenterStatus, m.memName from member as m right join asCenter as a on m.memId=a.memId order by asCenterNum desc
+			select asCenterNum, asCenterPwd, asCenterTitle , asCenterContent, asCenterDate, asCenterStatus, m.memName from member as m right join asCenter as a on m.memId=a.memId order by asCenterNum desc
 			limit #{pageStart}, #{perPageNum};
 			
 
@@ -232,7 +243,7 @@
 		parameterType="int">
 	<![CDATA[
 			
-			select count(*) from asCenter;
+			select count(*) as asCenterCount from asCenter;
 			
 
 	]]>
@@ -242,13 +253,106 @@
 		parameterType="int"> 
 	<![CDATA[
 			
-			select * from asCenter
-			where asCenterNum = #{asCenterNum}
+		select asCenterNum, asCenterTitle , asCenterContent, asCenterPwd, asCenterDate, asCenterFile, m.memName from member as m right join asCenter as a on m.memId=a.memId where asCenterNum=#{asCenterNum};
 			
+
+	]]>
+
+	</select>
+
+	<insert id="insertNewAsCenter" parameterType="java.util.Map">
+		<![CDATA[
+			insert into asCenter(memId,asCenterNum, asCenterTitle, asCenterContent, asCenterPwd, asCenterFile)
+			values(#{memId},#{asCenterNum}, #{asCenterTitle},  #{asCenterContent}, #{asCenterPwd}, #{asCenterFile});
+		]]>
+
+	</insert>
+
+	<select id="selectNewAsCenterNum" resultType="int">
+	<![CDATA[
+			
+			select max(asCenterNum)+1 from asCenter;
+	
 
 	]]>
 	</select>
 
+	<update id="updateAsCenter" parameterType="java.util.Map">
+		update asCenter
+		set asCenterTitle = #{asCenterTitle},
+		asCenterContent =
+		#{asCenterContent},
+		asCenterPwd = #{asCenterPwd}
+		<if test="asCenterFile!='' and asCenterFile!=null">
+			, asCenterFile=#{asCenterFile}
+		</if>
+		where asCenterNum=#{asCenterNum}
+	</update>
+
+	<update id="deleteAsCenter" parameterType="java.util.Map">
+
+		delete from AsCenter
+		where asCenterNum=#{asCenterNum};
+
+	</update>
+	
+	<select id="asCenterSearchList" resultMap="asCenterResult">
+			
+			select asCenterNum, asCenterTitle , asCenterContent, asCenterPwd, asCenterDate, asCenterFile, asCenterStatus, m.memName from member as m right join asCenter as a on m.memId=a.memId where
+			<if test="searchType=='asCenterTitle' and search != null and search != '' ">
+
+				asCenterTitle like CONCAT('%', #{search}, '%')
+			
+
+			</if>
+
+			<if test="searchType=='asCenterContent' and search != null and search != '' ">
+
+				asCenterContent like CONCAT('%', #{search}, '%')
+
+			</if>
+
+			<if test="searchType=='memName' and search != null and search != '' ">
+
+				m.memName like CONCAT('%', #{search}, '%')
+
+			</if>	
+
+			limit #{pageStart}, #{perPageNum};
+			
+			
+	
+			
+			
+
+	
+	</select>
+	
+		<select id="asCenterSearchCount" resultType="int"
+		parameterType="java.util.Map">
+
+			
+			select count(*) from member as m right join asCenter as a on m.memId=a.memId where
+			<if test="searchType=='asCenterTitle' and search != null and search != '' ">
+
+				asCenterTitle like CONCAT('%', #{search}, '%')
+
+			</if>
+
+			<if test="searchType=='asCenterContent' and search != null and search != '' ">
+
+				asCenterContent like CONCAT('%', #{search}, '%')
+
+			</if>
+
+			<if test="searchType=='memName' and search != null and search != '' ">
+
+				memName like CONCAT('%', #{search}, '%')
+
+			</if> 
+			
+			
 
 
+	</select>
 </mapper>

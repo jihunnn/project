@@ -7,6 +7,7 @@
 </c:if>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 <script>
 	$(document).on('click', '#btnSearch', function(object) {
@@ -90,7 +91,64 @@
 #recentlyProduct {
 	
 }
+<style>
+@import url(https://fonts.googleapis.com/css?family=Raleway:400,500,800);
+.snip1226 {
+  font-family: 'Raleway', Arial, sans-serif;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.snip1226 * {
+  box-sizing: border-box;
+  -webkit-transition: all 0.35s ease;
+  transition: all 0.35s ease;
+}
+.snip1226 li {
+  display: inline-block;
+  list-style: outside none none;
+  margin: 0 1.5em;
+  overflow: hidden;
+}
+.snip1226 a {
+  padding: 0.3em 0;
+  color: red;
+  position: relative;
+  display: inline-block;
+  letter-spacing: 1px;
+  margin: 0;
+  text-decoration: none;
+}
+.snip1226 a:before,
+.snip1226 a:after {
+  position: absolute;
+  -webkit-transition: all 0.35s ease;
+  transition: all 0.35s ease;
+}
+.snip1226 a:before {
+  bottom: 100%;
+  display: block;
+  height: 2px;
+  width: 100%;
+  content: "";
+  background-color: #ffcdcd;
+}
+.snip1226 a:after {
+  padding: 0.3em 0;
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  content: attr(data-hover);
+  color: black;
+  white-space: nowrap;
+}
+.snip1226 li:hover a,
+.snip1226 .current a {
+  transform: translateY(100%);
+}
+
 </style>
+
 
 
 </head>
@@ -99,11 +157,34 @@
 	<!--  -->
 	<section class="ftco-section" style="padding-top: 50px;">
 		<div class="container">
-			<div class="row justify-content-center mb-5 pb-3"
-				style="background-color: #f5f5f5; border: 1px solid #e7e7e7; margin-top: 50px;">
+					
+				<ul class="snip1226" >
+					<li><a  onclick="location.href='${contextPath}/board/listNotice.do'"
+						data-hover="공지사항"
+						style="font-size: 20px;border: none; color: #5a5a5a; margin-right: 150px; background-color: white; margin-left: 100px;">공지사항</a></li>
+				
+			
+					<li class="current" ><a onclick="location.href='${contextPath}/board/listQuestion.do'"
+						 data-hover="자주 묻는 질문" 
+						style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 150px; background-color: white;">자주
+						묻는 질문</a></li>
+			
+				
+					<li><a  onclick="InquiryList()"
+						 data-hover="1:1문의"
+						style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 150px; background-color: white;">1:1문의</a></li>
+				
+				
+					<li><a onclick="location.href='${contextPath}/board/listAsCenter.do'"
+						 data-hover="A/S센터"
+						style="font-size: 20px; border: none; color: #5a5a5a; background-color: white;">A/S센터</a></li>
+				</ul>
+
+			<div class="row justify-content-center mb-5"
+				style="background-color:none; margin-top: 30px;">
 				<div class="col-md-20 heading-section ftco-animate"
 					style="height: 60px;">
-					<h2 class="mb-4" style="font-size: 35px; margin-top: 15px;">고객센터</h2>
+					<h2 class="mb-4" style="font-size: 30px; margin-top: 15px;">고객센터</h2>
 				</div>
 			</div>
 			<!-- 타이틀 끝 -->
@@ -132,7 +213,7 @@
 				</ul>
 			</div>
 			<!--  최근 본 상품 끝 -->
-			<jsp:include page="/WEB-INF/views/common/csMenu.jsp" flush="false" />
+
 			<!-- 내용 -->
 
 		</div>
@@ -145,10 +226,10 @@
 
 		<div>
 
-			<table class="table"
-				style="margin-bottom: 50px; width: 1275px; margin-left: 320px;">
+			<table class="table" 
+				style="margin-bottom: 50px; width: 1275px; margin-left: 320px; height:25px; font-size:14px;">
 				<thead class="table-dark" align=center>
-					<tr align="center">
+					<tr align="center" style="background-color: #212529;">
 						<td scope="col" width="100">번호</td>
 						<td scope="col" width="500">내용</td>
 

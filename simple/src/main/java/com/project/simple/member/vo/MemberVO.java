@@ -17,13 +17,14 @@ public class MemberVO{
 	private String memAdr;
 	private String memAdr1;
 	private String memAdr2;
-	
+	private String logintype;
+	private String memRegdate;
 	
 	public MemberVO() {
 		
 	}
 	
-	public MemberVO(String memId, String memName, String memPwd, String memEmail, String memEmail1, String memPhoneNum,String memPhoneNum1,String memPhoneNum2, String memAdr, String memAdr1, String memAdr2) {
+	public MemberVO(String memId, String memName, String memPwd, String memEmail, String memEmail1, String memPhoneNum,String memPhoneNum1,String memPhoneNum2, String memAdr, String memAdr1, String memAdr2, String logintype, String memRegdate) {
 		this.memId = memId;
 		this.memName = memName;
 		this.memPwd = memPwd;
@@ -35,6 +36,8 @@ public class MemberVO{
 		this.memAdr = memAdr1;
 		this.memAdr = memAdr2;
 		this.memEmail1 = memEmail1;
+		this.logintype = logintype;
+		this.memRegdate = memRegdate;
 	}
 	
 	public String getmemId() {
@@ -124,7 +127,20 @@ public class MemberVO{
 	public void setmemAdr2(String memAdr2) {
 		this.memAdr2 = memAdr2;
 	}
+	public String getlogintype() {
+		return logintype;
+	}
 	
+	public void setlogintype(String logintype) {
+		this.logintype = logintype;
+	}
+	public String getmemRegdate() {
+		return memRegdate;
+	}
+	
+	public void setmemRegdate(String memRegdate) {
+		this.memRegdate = memRegdate;
+	}
 
 
 }

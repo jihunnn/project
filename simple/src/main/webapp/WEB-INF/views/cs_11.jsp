@@ -1,13 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<%
+request.setCharacterEncoding("UTF-8");
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>
+function removeAsCenter(obj) {
+	if (confirm("삭제하시겠습니까??")) {
+	obj.action="${contextPath}/board/removeAsCenter.do?asCenterNum=${asCenter.asCenterNum}";
+	} else {
+		return false;
+	}
+	obj.submit();
+}
+</script>
 <style>
-
-
 .page_wrap {
 	text-align: center;
 	font-size: 0;
@@ -72,7 +84,6 @@
 	border: 1px solid #42454c;
 }
 
-
 #buttonmy {
 	width: 80px;
 	height: 30px;
@@ -122,36 +133,60 @@
 				</ul>
 			</div>
 			<!-- 최근 본 상품 끝 -->
-			<jsp:include page="/WEB-INF/views/common/csMenu.jsp" flush="false" />			
+			<jsp:include page="/WEB-INF/views/common/csMenu.jsp" flush="false" />
 			<!-- 내용 -->
-			<table class="table">
-				<thead class="table-dark" align=center>
-					<tr align="center">
-						<td scope="col" colspan="6"
-							style="border-bottom: 1px solid white;">a/s 접수 신청합니다.</td>
-					</tr>
-					<tr>
-						<td scope="col" width="150">작성자</td>
-						<td scope="col" width="150"
-							style="background-color: white; color: black;"><a>홍길동</a></td>
-						<td scope="col" width="100">작성일</td>
-						<td scope="col" width="100"
-							style="background-color: white; color: black;">2021-06-12</td>
-					</tr>
-					<tr
-						style="border-bottom: 1px solid #32383e !important; background-color: white; color: black;">
+			<form name="frmAsCenter" method="post"  action="${contextPath}/board/modAsCenter.do?asCenterNum=${asCenter.asCenterNum}"  enctype="multipart/form-data">
+				<table class="table">
+					<thead class="table-dark" align=center>
+						<tr align="center">
+							<td scope="col" colspan="6"
+								style="border-bottom: 1px solid white;">${asCenter.asCenterTitle}</td>
+						</tr>
+						<tr>
+							<td scope="col" width="150">작성자</td>
+							<td scope="col" width="150"
+								style="background-color: white; color: black;"><a>${asCenter.memName}</a></td>
+							<td scope="col" width="100">작성일</td>
+							<td scope="col" width="100"
+								style="background-color: white; color: black;"><fmt:formatDate
+									value="${asCenter.asCenterDate}" /></td>
+						</tr>
+						<c:choose>
+							<c:when
+								test="${not empty asCenter.asCenterFile && asCenter.asCenterFile != 'null'}">
+								<tr
+									style="border-bottom: 1px solid #32383e !important; background-color: white; color: black;">
 
-						<td colspan="6" align="left" scope="col" width="500" height="500"><a
-							href="#" style="color: black; padding-left: 30px;">글 내용</a></td>
-					</tr>
-				</thead>
-			</table>
-			<button onClick="#" id="bottonmy" class="btn btn-dark"
-				style="float: left; margin-left: 580px; margin-top: 27px; border-radius: 2px; width: 80px; height: 30px; padding-top: 1.8px;">목록</button>
-			<button type="submit" id="bottonmy" class="btn btn-dark"
-				style="float: left; margin-left: 1100px; margin-top: -35px; border-radius: 2px; width: 80px; height: 30px; padding-top: 1.8px;">수정</button>
-			<button type="submit" id="bottonmy" class="btn btn-dark"
-				style="float: left; margin-left: 1190px; margin-top: -35px; border-radius: 2px; width: 80px; height: 30px; padding-top: 1.8px;">삭제</button>
+									<td colspan="6" align="left" scope="col" width="500"
+										height="500"><a href="#"
+										style="color: black; padding-left: 30px;">${asCenter.asCenterContent}</a><br>
+										<input type="hidden" name="OrignAsCenterFile"
+										value="${asCenter.asCenterFile}" /> <img
+										src="${contextPath}/download_asCenter.do?asCenterNum=${asCenter.asCenterNum}&asCenterFile=${asCenter.asCenterFile}"
+										id="preview" /></td>
+								</tr>
+							</c:when>
+							<c:otherwise>
+								<tr
+									style="border-bottom: 1px solid #32383e !important; background-color: white; color: black;">
+
+									<td colspan="6" align="left" scope="col" width="500"
+										height="500"><a href="#"
+										style="color: black; padding-left: 30px;">${asCenter.asCenterContent}</a></td>
+								</tr>
+							</c:otherwise>
+						</c:choose>
+					</thead>
+				</table>
+				<button type="button"
+					onClick="location.href='${contextPath}/board/listAsCenter.do?page=${pageNum}'"
+					id="bottonmy" class="btn btn-dark"
+					style="float: left; margin-left: 580px; margin-top: 27px; border-radius: 2px; width: 80px; height: 30px; padding-top: 1.8px;">목록</button>
+				<button type="submit" id="bottonmy" class="btn btn-dark"
+					style="float: left; margin-left: 1100px; margin-top: -35px; border-radius: 2px; width: 80px; height: 30px; padding-top: 1.8px;">수정</button>
+				<button type="button" id="bottonmy" class="btn btn-dark" onclick="removeAsCenter(this.form)"
+					style="float: left; margin-left: 1190px; margin-top: -35px; border-radius: 2px; width: 80px; height: 30px; padding-top: 1.8px;">삭제</button>
+			</form>
 		</div>
 	</section>
 	<!-- 내용 끝 -->

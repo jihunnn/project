@@ -122,7 +122,7 @@
 			<!-- 최근 본 상품 끝 -->
 			<jsp:include page="/WEB-INF/views/common/csMenu.jsp" flush="false" />			
 			<!-- 내용 -->
-			<form action="${contextPath}/board/viewAsCenter.do" method="post">
+			<form action="${contextPath}/board/viewAsCenter.do?asCenterNum=${asCenterNum}&page=${pageNum}" method="post">
 			<div>
 				<p style="padding-left: 500px; padding-top: 70px;">비밀번호를
 					입력해주세요^^</p>
@@ -133,7 +133,7 @@
 					style="float: left; height: 28px; margin-left: 50px; border: 1px solid #aaaaaa; border-radius: 3px; margin-top: 50px;">
 				<button type="submit" id="buttonmy" class="btn btn-dark"
 					style="float: left; margin-left: 10px; margin-top: 49px; border-radius: 2px;">확인</button>
-				<button onClick="#" id="buttonmy" class="btn btn-dark"
+				<button type="button" onClick="location.href='${contextPath}/board/listAsCenter.do?page=${pageNum}'" id="buttonmy" class="btn btn-dark"
 					style="float: left; margin-left: 10px; margin-top: 49px; border-radius: 2px;">목록</button>
 			</div>
 			</form>

@@ -32,7 +32,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.project.simple.board.vo.ArticleVO;
 import com.project.simple.member.vo.MemberVO;
+import com.project.simple.page.Criteria;
+import com.project.simple.page.PageMaker;
+import com.project.simple.product.page.Criteria1;
+import com.project.simple.product.page.PageMaker1;
 import com.project.simple.product.service.ProductService;
 import com.project.simple.product.vo.ProductVO;
 
@@ -40,13 +45,16 @@ import com.project.simple.product.vo.ProductVO;
 
 public class ProductControllerImpl implements ProductController {
 	private static final String ARTICLE_IMAGE_REPO = "C:\\spring\\product_image";
+	private static final String ARTICLE_IMAGE_REPO_productReview = "C:\\spring\\asCenter_image";
 	@Autowired
 	private ProductService productService;
 	@Autowired
 	private ProductVO productVO;
-	private ProductVO optionVO;
-	
 	private static final Logger logger = LoggerFactory.getLogger(ProductControllerImpl.class);
+	
+	
+	
+	
 
 	@Override //상품등록하기
 	@RequestMapping(value="product/addProduct.do", method=RequestMethod.POST)
@@ -59,6 +67,8 @@ public class ProductControllerImpl implements ProductController {
 			String name = (String) enu.nextElement();
 			String value = multipartRequest.getParameter(name);
 			productMap.put(name, value);
+
+
 		}
 
 		List<String> productImage1 = upload(multipartRequest);
@@ -66,7 +76,7 @@ public class ProductControllerImpl implements ProductController {
 		String productContentImage = productImage1.get(1).toString();
 		productMap.put("productImage", productImage);
 		productMap.put("productContentImage", productContentImage);
-		
+
 		//HttpSession session = multipartRequest.getSession();
 		//MemberVO memberVO = (MemberVO) session.getAttribute("member");
 		//String memId = memberVO.getmemId();
@@ -94,6 +104,7 @@ public class ProductControllerImpl implements ProductController {
 				}
 
 			productService.addProduct(productMap);	
+			
 			
 			
 
@@ -197,25 +208,25 @@ public class ProductControllerImpl implements ProductController {
 				return mav;
 			}
 			if ("화장대/옷장/수납".equals(sort)) {
-				
+
 				List<ProductVO> productList = productService.listProduct(ProductMap);
-				
+
 				mav.addObject("productList", productList);
 				mav.setViewName("product/listProduct_wardrobe");
 				return mav;
 			}
 			if ("식탁/의자".equals(sort)) {
-				
+
 				List<ProductVO> productList = productService.listProduct(ProductMap);
-				
+
 				mav.addObject("productList", productList);
 				mav.setViewName("product/listProduct_table01");
 				return mav;
 			}
 			if ("테이블/책상/책장".equals(sort)) {
-				
+
 				List<ProductVO> productList = productService.listProduct(ProductMap);
-				
+
 				mav.addObject("productList", productList);
 				mav.setViewName("product/listProduct_table02");
 				return mav;
@@ -228,12 +239,54 @@ public class ProductControllerImpl implements ProductController {
 
 	@Override // 관리자 상품목록 조회
 	@RequestMapping(value = "product/admin_listProduct.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView admin_listProduct(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ModelAndView admin_listProduct(Criteria1 cri, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewName = (String) request.getAttribute("viewName");
-		List<ProductVO> admin_productList = productService.admin_listProduct();
+		List<ProductVO> admin_productList = productService.admin_listProduct(cri);
+		int productCount = productService.productCount();
 		ModelAndView mav = new ModelAndView(viewName);
+		PageMaker1 pageMaker1 = new PageMaker1();
+		pageMaker1.setCri(cri);
+		pageMaker1.setTotalCount(productCount);
+		int pageNum = pageMaker1.getCri().getPage();
+		
+		mav.addObject("pageNum", pageNum);
 		mav.addObject("admin_productList", admin_productList);
+		mav.addObject("pageMaker1", pageMaker1);
+		
 		return mav;
+	}
+
+	@Override
+	@RequestMapping(value = "/product/admin_listProduct/productSearch.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView productSearch(@RequestParam("search") String search, @RequestParam("searchType") String searchType,
+			Criteria1 cri, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String viewName = (String) request.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView(viewName);
+
+		Map<String, Object> productSearchMap = new HashMap<String, Object>();
+		int pageStart = cri.getPageStart();
+		int perPageNum = cri.getPerPageNum();
+		productSearchMap.put("pageStart", pageStart);
+		productSearchMap.put("perPageNum", perPageNum);
+		productSearchMap.put("search", search);
+		System.out.println(search);
+		productSearchMap.put("searchType", searchType);
+		System.out.println(searchType);
+		productSearchMap = productService.productSearch(productSearchMap);
+		System.out.println(productSearchMap);
+		int productSearchCount = productService.productSearchCount(productSearchMap);
+		PageMaker1 pageMaker1 = new PageMaker1();
+		pageMaker1.setCri(cri);
+		int pageNum = pageMaker1.getCri().getPage();
+		productSearchMap.put("pageNum", pageNum);
+		pageMaker1.setTotalCount(productSearchCount);
+		mav.addObject("productSearchMap", productSearchMap);
+		mav.addObject("pageMaker1", pageMaker1);
+		mav.addObject("pageNum", pageNum);
+		System.out.println(productSearchMap);
+		
+		return mav;
+
 	}
 
 	// 수정화면
@@ -251,9 +304,8 @@ public class ProductControllerImpl implements ProductController {
 	}
 
 	
-	/*@RequestMapping(value = "/product/modNewProduct.do", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "/product/modNewProduct.do", method = { RequestMethod.GET, RequestMethod.POST })
 	@ResponseBody
-	
 	public ResponseEntity modProduct(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)
 			throws Exception {
 		multipartRequest.setCharacterEncoding("utf-8");
@@ -266,9 +318,20 @@ public class ProductControllerImpl implements ProductController {
 
 		}
 		
-		String productImage = upload(multipartRequest);
-		productMap.put("productImage", productImage);
+		List<String> productImage = upload(multipartRequest);
 
+				
+
+		String productImage1 = productImage.get(0).toString();
+				
+		String productContentImage1 = productImage.get(1).toString();
+	
+
+		
+
+		productMap.put("productImage1", productImage1);
+		productMap.put("productContentImage1", productContentImage1);
+		
 		String productNum = (String) productMap.get("productNum");
 		productMap.put("productNum", productNum);
 
@@ -277,18 +340,30 @@ public class ProductControllerImpl implements ProductController {
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
 		try {
-
+	
 			productService.modProduct(productMap);
 
-			if (productImage != null && productImage.length() != 0) {
+			if (productImage != null && productImage.size() != 0) {
+
 				String OrignProductImage = (String) productMap.get("OrignProductImage");
+				String OrignProductContentImage = (String) productMap.get("OrignProductContentImage");
+				
+				if(OrignProductImage !=null) {
+					File oldFile = new File(ARTICLE_IMAGE_REPO + "\\" + productNum + "\\" + OrignProductImage);
+					oldFile.delete();}
+				if (OrignProductContentImage != null){					
+					File oldFile1 = new File(ARTICLE_IMAGE_REPO + "\\" + productNum + "\\" + OrignProductContentImage);
+					oldFile1.delete();}
 
-				File oldFile = new File(ARTICLE_IMAGE_REPO + "\\" + productNum + "\\" + OrignProductImage);
-				oldFile.delete();
-
-				File srcFile = new File(ARTICLE_IMAGE_REPO + "\\" + "temp" + "\\" + productImage);
+				if(productImage1 !=null) {
+				File srcFile = new File(ARTICLE_IMAGE_REPO + "\\" + "temp" + "\\" + productImage1);
 				File destDir = new File(ARTICLE_IMAGE_REPO + "\\" + productNum);
-				FileUtils.moveFileToDirectory(srcFile, destDir, true);
+				FileUtils.moveFileToDirectory(srcFile, destDir, true); } 
+				if(productContentImage1 !=null){
+					File srcFile1 = new File(ARTICLE_IMAGE_REPO + "\\" + "temp" + "\\" + productContentImage1);
+					File destDir1 = new File(ARTICLE_IMAGE_REPO + "\\" + productNum);
+					FileUtils.moveFileToDirectory(srcFile1, destDir1, true);
+				}
 
 			}
 			message = "<script>";
@@ -308,8 +383,8 @@ public class ProductControllerImpl implements ProductController {
 			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
 		}
 		return resEnt;
-	}*/
-	
+	}
+			
 
 	@Override
 	@RequestMapping(value = "/product/removeProduct.do", method = RequestMethod.POST)
@@ -343,21 +418,42 @@ public class ProductControllerImpl implements ProductController {
 		}
 		return resEnt;
 	}
-
-	@RequestMapping(value = "/product/viewProduct.do", method = RequestMethod.GET)
-	public ModelAndView viewProduct(@RequestParam("productNum") String productNum, HttpServletRequest request,
+           	@RequestMapping(value = "/product/viewProduct.do", method = RequestMethod.GET)
+	public ModelAndView viewProduct(@RequestParam("productNum") String productNum, Criteria cri,HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
+		Map<String, Object> productMap = new HashMap();
 		String viewName = (String) request.getAttribute("viewName");
+		HttpSession session=request.getSession();
 		productVO = productService.viewProduct(productNum);
-		Map<String, Object> option = (Map<String, Object>) productService.viewOptionvalue(productNum);
+		int pageStart = cri.getPageStart();
+		int perPageNum = cri.getPerPageNum();
+		productMap.put("pageStart", pageStart);
+		productMap.put("perPageNum", perPageNum);
+		productMap.put("productNum", productNum);
+		List<ProductVO> productReviewList= productService.listProductReview(productMap);
+		int productReviewCount = productService.productReviewCount(productNum);
+		List<ProductVO> productQuestionList = productService.listProductQuestion(productMap);
+		int productQuestionCount = productService.productQuestionCount(productNum);
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(productReviewCount);
+		int pageNum = pageMaker.getCri().getPage();
+
+		addQuick(productNum,productVO,session);
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(viewName);
-		mav.addObject("option", option);
 		mav.addObject("product", productVO);
+		mav.addObject("productReviewList", productReviewList);
+		mav.addObject("productQuestionList", productQuestionList);
+		mav.addObject("pageMaker", pageMaker);
+		mav.addObject("pageNum", pageNum);
+
 
 		return mav;
 
 	}
+
+
 
 	@RequestMapping(value = "product/admin_detailproduct.do", method = RequestMethod.GET)
 	public ModelAndView admin_detailproduct(@RequestParam("productNum") String productNum, HttpServletRequest request,
@@ -409,5 +505,100 @@ public class ProductControllerImpl implements ProductController {
 		return mav;
 
 	}
+	
+	//최근본 상품
+	private void addQuick(String productNum,ProductVO productVO,HttpSession session){
+		boolean already_existed=false;
+		List<ProductVO> quickList; //최근 본 상품 저장 ArrayList
+		List<ProductVO> quickListAll;
+		
+		//MemberVO memberVO=(MemberVO)session.getAttribute("member");
+		//String memId=memberVO.getmemId();
+		
+		quickList=(ArrayList<ProductVO>)session.getAttribute("quickList");//세션에 저장된 최근 본 상품 목록을 가져옴
+		quickListAll=(ArrayList<ProductVO>)session.getAttribute("quickListAll");
+		
+		if(quickList!=null){//최근 본 상품이 있는 경우
+			if(quickList.size() < 2){ //미리본 상품 리스트에 상품개수가 2개 이하인 경우
+				for(int i=0; i<quickList.size();i++){
+					ProductVO productBean=(ProductVO)quickList.get(i);
+					if(productNum.equals(productBean.getproductNum())){
+						already_existed=true;
+						break;
+					}
+				}//상품 목록을 가져와 이미 존재하는 상품인지 비교
+				if(already_existed==false){
+					quickList.add(productVO);
+				}//already_existed가 false이면 상품 정보를 목록에 저장
+			}
+			
+		}else{
+			quickList =new ArrayList<ProductVO>();
+			quickList.add(productVO);
+			
+		}//최근 본 상품 목록이 없으면 생성하여 상품 정보를 저장
+		
+		//quickList =new ArrayList<ProductVO>();
+		//quickList.add(productVO);
+		
+		session.setAttribute("quickList",quickList);//최근 본 상품 목록을 세션에 저장
+		session.setAttribute("quickListNum", quickList.size());//최근 본 상품 목록에 저장된 상품개수를 세션에 저장
+		
+		if(quickListAll!=null){//최근 본 상품이 있는 경우
+				for(int i=0; i<quickListAll.size();i++){
+					ProductVO productBean=(ProductVO)quickListAll.get(i);
+					if(productNum.equals(productBean.getproductNum())){
+						already_existed=true;
+						break;
+					}
+				}//상품 목록을 가져와 이미 존재하는 상품인지 비교
+				if(already_existed==false){
+					quickListAll.add(productVO);
+				}//already_existed가 false이면 상품 정보를 목록에 저장
+		
+		}else{
+			quickListAll =new ArrayList<ProductVO>();
+			quickListAll.add(productVO);
+			
+		}//최근 본 상품 목록이 없으면 생성하여 상품 정보를 저장
+		session.setAttribute("quickListAll",quickListAll);//최근 본 상품 목록을 세션에 저장
+		session.setAttribute("quickListAllNum", quickListAll.size());//최근 본 상품 목록에 저장된 상품개수를 세션에 저장
+
+		
+	}
+	
+	@RequestMapping(value="/mypage_09.do" ,method = RequestMethod.GET)
+	public ModelAndView QuickMain(HttpServletRequest request, HttpServletResponse response)  throws Exception {
+		String viewName=(String)request.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView(viewName);
+		HttpSession session=request.getSession();
+		List<ProductVO> quickListAll; //최근 본 상품 저장 ArrayList
+		quickListAll=(ArrayList<ProductVO>)session.getAttribute("quickListAll");//세션에 저장된 최근 본 상품 목록을 가져옴
+		session.setAttribute("quickListAll",quickListAll);//최근 본 상품 목록을 세션에 저장
+		session.setAttribute("quickListAllNum", quickListAll.size());//최근 본 상품 목록에 저장된 상품개수를 세션에 저장
+		System.out.println(quickListAll);
+		
+	
+		return mav;
+	}
+	/*@Override
+	@RequestMapping(value = "product/listProductReview.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView listProductReview(Criteria cri, HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		String viewName = (String) request.getAttribute("viewName");
+		List<ProductVO> productReviewList = productService.listProductReview(cri);
+		int productReviewCount = productService.productReviewCount();
+		ModelAndView mav = new ModelAndView(viewName);
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(productReviewCount);
+		int pageNum = pageMaker.getCri().getPage();
+		mav.addObject("productReviewList", productReviewList);
+		mav.addObject("pageMaker", pageMaker);
+		mav.addObject("pageNum", pageNum);
+		
+		return mav;
+	}*/
+
 
 }

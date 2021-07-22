@@ -32,7 +32,7 @@ h4 {
 				style="background-color: #f5f5f5; border: 1px solid #e7e7e7; margin-top: 50px;">
 				<div class="col-md-20 heading-section ftco-animate"
 					style="height: 60px;">
-					<h2 class="mb-4" style="font-size: 35px; margin-top: 15px;">비회원 주문결제</h2>
+					<h2 class="mb-4" style="font-size: 35px; margin-top: 15px;">주문결제</h2>
 				</div>
 			</div>
 			<!-- 타이틀 끝 -->

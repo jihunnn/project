@@ -91,13 +91,7 @@
 	<!--  타이틀 --><!--  -->
 	<section class="ftco-section" style="padding-top: 50px;">
 		<div class="container">
-			<div class="row justify-content-center mb-5 pb-3"
-				style="background-color: #f5f5f5; border: 1px solid #e7e7e7; margin-top: 50px;">
-				<div class="col-md-20 heading-section ftco-animate"
-					style="height: 60px;">
-					<h2 class="mb-4" style="font-size: 35px; margin-top: 15px;">고객센터</h2>
-				</div>
-			</div>
+			
 			<!-- 타이틀 끝 -->
 			<!-- 최근 본 상품 -->
 			<div id="recentlyProduct"
@@ -127,13 +121,13 @@
 			<jsp:include page="/WEB-INF/views/common/csMenu.jsp" flush="false" />
 			<!-- 내용 -->
 
-			<table class="table">
+			<table class="table" style="height:25px; font-size:14px; margin-top:57px;">
 				<thead class="table-dark" align=center>
-					<tr align="center">
+					<tr align="center" style="background-color: #212529;" >
 						<td scope="col" colspan="6"
 							style="border-bottom: 1px solid white;">${notice.noticeTitle}</td>
 					</tr>
-					<tr>
+					<tr style="background-color: #212529;">
 						<td scope="col" width="150">작성자</td>
 						<td scope="col" width="150"
 							style="background-color: white; color: black;"><a>${notice.noticeWriter }</a></td>
@@ -142,7 +136,7 @@
 							style="background-color: white; color: black;"><fmt:formatDate value="${notice.noticeDate}" /></td>
 						<td scope="col" width="80">조회수</td>
 						<td scope="col" width="80"
-							style="background-color: white; color: black;">0</td>
+							style="background-color: white; color: black;">${notice.noticeHit}</td>
 					</tr>
 
 					<tr
@@ -156,7 +150,7 @@
 
 			<button type="button" onclick="location.href='${contextPath}/board/listNotice.do'" id="buttonmy"
 				class="btn btn-dark"
-				style="float: left; margin-left: 600px; margin-top: 30px; border-radius: 2px;">목록</button>
+				style="float: left; margin-left: 610px; margin-top: 30px; border-radius: 2px; background-color: #212529;">목록</button>
 		</div>
 		<!-- 내용 끝 -->
 	</section>
