@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,7 +34,7 @@ public class BoardServiceImpl implements BoardService{
 	
 
 	
-	//notice 게시판
+	//notice게시판 >> DB에서 전체 글 조회 
 	public List<ArticleVO> listNotice(Criteria cri) throws Exception{
 		List<ArticleVO> noticeList = boardDAO.selectAllNoticeList(cri);
 		return noticeList;
@@ -44,11 +45,18 @@ public class BoardServiceImpl implements BoardService{
 		return noticeCount;
 	}
 	
+	//DB에서 글번호에 해당하는 상세보기 조회
+	@Transactional(isolation = Isolation.READ_COMMITTED)
 	@Override
 	public ArticleVO viewNotice(int noticeNum) throws Exception {
+		boardDAO.noticeHit(noticeNum);
 		ArticleVO articleVO = boardDAO.selectNotice(noticeNum);
+		
 		return articleVO;
 	}
+	
+
+	
 	
 	//qustion 게시판
 	public List<ArticleVO> listQuestion(Criteria cri) throws Exception{
@@ -92,12 +100,12 @@ public class BoardServiceImpl implements BoardService{
 
 		inquirySearchMap.put("inquirySearchList", inquirySearchList);
 		
-		System.out.println(inquirySearchMap);
+
 		return inquirySearchMap;
 	}
 
 	public int inquirySearchCount(Map<String, Object> search) throws Exception{
-		System.out.println(search);
+
 		int inquirySearchCount = boardDAO.inquirySeachCount(search);
 		return inquirySearchCount;
 	}
@@ -149,6 +157,40 @@ public class BoardServiceImpl implements BoardService{
 		ArticleVO articleVO = boardDAO.selectAsCenter(asCenterNum);
 		return articleVO;
 	}
+
+	@Override
+	public int addNewAsCenter(Map asCenterMap) throws Exception{
+		return boardDAO.insertNewAsCenter(asCenterMap);
+	}
+	
+	@Override
+	public void modAsCenter(Map asCenterMap) throws Exception {
+		boardDAO.updateAsCenter(asCenterMap);
+	}
+	
+	@Override
+	public void removeAsCenter(int asCenterNum) throws Exception {
+		boardDAO.deleteAsCenter(asCenterNum);
+	}
+	
+	public Map<String ,Object> asCenterSearch(Map<String ,Object> asCenterSearchMap) throws Exception{
+
+		List<ArticleVO> asCenterSearchList=boardDAO.asCenterSearchList(asCenterSearchMap);
+
+		asCenterSearchMap.put("asCenterSearchList", asCenterSearchList);
+		
+
+		return asCenterSearchMap;
+	}
+	
+
+	@Override
+	public int asCenterSearchCount(Map<String, Object> search) throws Exception{
+
+		int asCenterSearchCount = boardDAO.asCenterSeachCount(search);
+		return asCenterSearchCount;
+	}
+
 	
 	
 }	

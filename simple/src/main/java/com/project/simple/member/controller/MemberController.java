@@ -10,9 +10,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.simple.member.vo.MemberVO;
+import com.project.simple.page.Criteria;
 
 public interface MemberController{
-	public ModelAndView listMembers(HttpServletRequest request, HttpServletResponse response)throws Exception;
+	public ModelAndView listMembers(Criteria cri,HttpServletRequest request, HttpServletResponse response)throws Exception;
 	public ModelAndView addMember(@ModelAttribute("info")
 	MemberVO memberVO, HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView addMember_naver(@ModelAttribute("info")
@@ -21,5 +22,8 @@ public interface MemberController{
 	MemberVO removemember, HttpServletRequest request, HttpServletResponse response,RedirectAttributes rAttr) throws Exception;
 	public ModelAndView modMember(@ModelAttribute("modmember")
 	MemberVO modmember,HttpServletRequest request, HttpServletResponse response,RedirectAttributes rAttr) throws Exception;
+	public ModelAndView memberSearch(@RequestParam("search") String search, @RequestParam("searchType") String searchType, Criteria cri, HttpServletRequest request,
+			HttpServletResponse response) throws Exception;
+	
 	
 }

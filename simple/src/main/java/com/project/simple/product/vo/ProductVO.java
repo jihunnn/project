@@ -20,21 +20,35 @@ public class ProductVO {
 	private String productOrigin;         //惑前 盔魂瘤
 	private Date productDate;             //惑前 殿废朝楼
 	private String productContentImage;    //惑前 惑技捞固瘤
-
+	
 	private int productOptionNum;      //惑前 可记 锅龋
-	private String option1name;            //惑前 可记1
-	private String option2name;           //惑前 可记2
-	private int option1price;	//惑前 可记1 啊拜
-	private int option2price;	//惑前 可记2 啊拜
-	private String option1value; //可记1 格废
-	private String option2value; //可记2 格废
+	private String option1;            //惑前 可记1
+	private String option2;           //惑前 可记2
+
+	//惑前 府轰
+	private int reviewNum;
+	private int memOrderSeqNum;
+	private String memName;
+	private String memId;
+	private String productReviewTitle;
+	private Date reviewDate;
+	private String productContent;
+	private String reviewFile;
+	
+	//惑前 巩狼
+	private String productQuestionTitle;
+	private String productQuestionContent;
+	private Date productQuestionDate;
+	private String productAnswerContent;
+	
+	
 	
 	public ProductVO() {
 
 	}
 	public ProductVO(String productNum, String productName, String productPrice,String category, String subcategory,
 			String productImage,String productManufacturer,String productOrigin,String productContentImage
-			, int productOptionNum, String option1name, String option2name) {
+			, int productOptionNum, String option1, String option2) {
 		this.productNum = productNum;
 		this.productName = productName;
 		this.productPrice = productPrice;
@@ -45,8 +59,8 @@ public class ProductVO {
 		this.productOrigin = productOrigin;
 		this.productContentImage = productContentImage;
 		this.productOptionNum = productOptionNum;
-		this.option1name = option1name;
-		this.option2name = option2name;
+		this.option1 = option1;
+		this.option2 = option2;
 	
 	}
 	public String getproductNum() {
@@ -133,48 +147,107 @@ public class ProductVO {
 		this.productOptionNum = productOptionNum;
 	}
 	
-	public String getoption2name() {
-		return option2name;
+	public String getoption2() {
+		return option2;
 	}
-	public void setoption2name(String option2name) {
-		this.option2name = option2name;
-	}
-	
-	public String getoption1name() {
-		return option1name;
-	}
-	public void setoption1name(String option1name) {
-		this.option1name = option1name;
-	}
-	public int getoption2price() {
-		return option2price;
-	}
-	public void setoption2price(int option2price) {
-		this.option2price = option2price;
+	public void setoption2(String option2) {
+		this.option2 = option2;
 	}
 	
-	public int getoption1price() {
-		return option1price;
+	public String getoption1() {
+		return option1;
 	}
-	public void setoption1price(int option1price) {
-		this.option1price = option1price;
+	public void setoption1(String option1) {
+		this.option1 = option1;
 	}
-	
-	public String getoption1value() {
-		return option1value;
+
+	//惑前 府轰
+	public int getReviewNum() {
+		return reviewNum;
 	}
-	
-	public void setoption1value(String option1value) {
-		this.option1value = option1value;
-	}
-	
-	public String getoption2value() {
-		return option2value;
+	public void setReviewNum(int reviewNum) {
+		this.reviewNum = reviewNum;
 	}
 	
-	public void setoption2value(String option2value) {
-		this.option2value = option2value;
+	public int getMemOrderSeqNum() {
+		return memOrderSeqNum;
 	}
+	public void setMemOrderNum(int memOrderSeqNum) {
+		this.memOrderSeqNum = memOrderSeqNum;
+	}
+	
+	public String getMemName() {
+		return memName;
+	}
+	public void setMemName(String memName) {
+		this.memName = memName;
+	}
+	
+	public String getProductReviewTitle() {
+		return productReviewTitle;
+	}
+	public void setProductReviewTitle(String productReviewTitle) {
+		this.productReviewTitle = productReviewTitle;
+	}
+	
+	public Date getReviewDate() {
+		return reviewDate;
+	}
+	public void setReviewDate(Date reviewDate) {
+		this.reviewDate = reviewDate;
+	}
+	
+	public String getProductContent() {
+		return productContent;
+	}
+	public void setProductContent(String productContent) {
+		this.productContent = productContent;
+	}
+	
+	public String getReviewFile() {
+		return reviewFile;
+	}
+	public void setReviewFile(String reviewFile) {
+		this.reviewFile = reviewFile;
+	}
+	
+	public String getMemId() {
+		return memId;
+	}
+	public void setMemId(String memId) {
+		this.memId = memId;
+	}
+	
+	//惑前 巩狼
+	public String getProductQuestionTitle() {
+		return productQuestionTitle;
+	}
+	public void setProductQuestionTitle(String productQuestionTitle) {
+		this.productQuestionTitle = productQuestionTitle;
+	}
+	
+	public String getProductQuestionContent() {
+		return productQuestionContent;
+	}
+	public void setProductQuestionContent(String productQuestionContent) {
+		this.productQuestionContent = productQuestionContent;
+	}
+	
+	public Date getProductQuestionDate() {
+		return productQuestionDate;
+	}
+	public void setProductQuestionDate(Date productQuestionDate) {
+		this.productQuestionDate = productQuestionDate;
+	}
+	
+	public String getProductAnswerContent() {
+		return productAnswerContent;
+	}
+	public void setProductAnswerContent(String productAnswerContent) {
+		this.productAnswerContent = productAnswerContent;
+	}
+	
+	
 
 
 }

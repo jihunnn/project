@@ -279,7 +279,7 @@ h3 {
 						<div id="LeftBox" style="margin-right: 100px;">
 							<h3 id="login_text">아이디 찾기</h3>
 							<div class="id_find_text">
-								<form name="find_user_id_password" action="login-02.jsp"
+								<form name="find_user_id_password" action="${contextPath}/login_findid.do"
 									method="post">
 									<div id="id_find_name">
 										<input type="text" name="id_find_name" size="37"

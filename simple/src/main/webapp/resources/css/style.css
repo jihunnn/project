@@ -203,8 +203,8 @@ button {
   border-radius: 0; }
 
 button:focus {
-  outline: 1px dotted;
-  outline: 5px auto -webkit-focus-ring-color; }
+
+  outline: 5px auto text-decoration-skip; }
 
 input,
 button,
@@ -2525,7 +2525,7 @@ input[type="button"].btn-block {
   text-align: left;
   list-style: none;
   background-color: #fff;
-  background-clip: padding-box;
+  background-clip: padding-box; 
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 0.25rem; }
 

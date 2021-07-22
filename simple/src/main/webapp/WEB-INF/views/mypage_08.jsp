@@ -2,23 +2,68 @@
 	pageEncoding="utf-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
+
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
+<script> src="http://code.jquery.com/jquery-1.6.4.min.js"</script>
 <script type="text/javascript">
-	//전체선택 버튼
-		function checkAll() {
- 
-    	if($("input:checkbox[name='chk']").is(":checked") == false){
-        	//chk 체크박스가 체크되어습니다.
-    		$("input[name='chk']").prop('checked', true); //전체선택
-        }else {
-        	//chk 체크박스가 체크되어 있지 않습니다.
-        	$("input:checkbox[name='chk']").prop("checked", false) //체크해제
-        }
-    }
 
+	$(function(){
+		var chkObj = document.getElementsByName("RowCheck");
+		var rowCnt = chkObj.length;
+		
+		$("input[name='allCheck']").click(function(){
+			var chk_listArr = $("input[name='RowCheck']");
+			for(var i=0; i<chk_listArr.length; i++){
+				chk_listArr[i].checked = this.checked;
+			}
+		});
+		$("input[name='RowCheck']").click(function(){
+			if($("input[name='RowCheck']:checked").length==rowCnt){
+				$("input[name='allCheck']")[0].checked = true;
+			}else{
+				$("input[name='allCheck']")[0].checked = false;
+			}
+		});
+	});
+	function deleteValue(){
+		var url="removeFavoriteProduct.do"; //Controller로 보내고자 하는 url
+		var valueArr = new Array();
+		var list = $("input[name='RowCheck']");
+		for(var i = 0; i < list.length; i++){
+			if(list[i].checked){//선택되어 있으면 배열에 값을 저장
+					valueArr.push(list[i].value);
+				}
+			}
+			if(valueArr.length == 0){
+				alert("선택된 상품이 없습니다.");
+			}else{
+				var chk = confirm("정말 삭제하시겠습니까?");
+				$.ajax({
+					url : "removeFavoriteProduct.do", //전송 URL
+					type: 'POST',
+					traditional : true,
+					data : {
+						valueArr : valueArr   //보내고자 하는 data 변수 설정
+					},
+					success: function(jdata){
+						if(jdata = 1){
+							alert("상품을 삭제하셨습니다.");
+							location.replace("mypage_08.do"); //mypage_08로 페이지 새로고침
+						}else{
+							alert("상품삭제에 실패하셨습니다.");
+						}	
+					}
+
+				});
+			}
+	}
+		
+		
+	
+	
 	
 </script>
 
@@ -183,7 +228,7 @@
 }
 </style>
 </head>
-<title>주문결제창</title>
+<title>관심목록창</title>
 <body>
 
 	<!-- 타이틀 -->
@@ -194,7 +239,7 @@
 				style="background-color: #f5f5f5; border: 1px solid #e7e7e7; margin-top: 50px;">
 				<div class="col-md-20 heading-section ftco-animate"
 					style="height: 60px;">
-					<h2 class="mb-4" style="font-size: 35px; margin-top: 15px;">관심상품</h2>
+					<h2 class="mb-4" style="font-size: 35px; margin-top: 15px;">관심목록</h2>
 				</div>
 			</div>
 			<!-- 타이틀 끝 -->
@@ -233,7 +278,7 @@
 
 			<div class="order_list">
 				<div class="container" style="padding-left: 0px;">
-					<button type="button" onclick="checkAll()" class="btn-secondary btn-xs ">전체선택</button>
+					<input type="checkBox" class="btn-secondary btn-xs " id="allCheck" name="allCheck" style="width: 25px;height: 20px;" ><a>전체선택</a>
 				</div>
 				<br>
 				<table class="table" style="width: 1400px;">
@@ -242,49 +287,46 @@
 							style="background-color: #212529; color: white;">
 							<td scope="col" width="100">선택</td>
 							<td scope="col" width="150"></td>
-							<td scope="col" width="500" align=left>상품</td>
+							<td scope="col" width="500" style="padding-right: 200px;">상품</td>
 							<td scope="col" width="120">금액</td>
-							<td scope="col" width="120">배송비</td>
-							<td scope="col" width="120">합계</td>
+
 						</tr>
 					</thead>
 					<tbody>
+					<c:choose>
+						<c:when test="${empty favoriteMap.myFavoriteList}">
+						<tr height="200">
+							<td colspan="5" style="background-color:white; padding-top:100px;">
+								<p align="center">
+									<b><span style="color:black; ">관심상품이 없습니다.</sapn></b>
+								</p>
+							</td>
+						</tr>	
+					</c:when>
+					<c:when test="${!empty favoriteMap.myFavoriteList }">
+					<c:forEach var="item" items="${favoriteMap.myProductList}">
 						<tr>
-							<td scope="col" align=center><br> <br> <input
-								type="checkbox" style="zoom: 2.0;" name="chk"></td>
-							<td scope="col"><img
-								src="${contextPath}/resources/images/sofa01.jpg" width=130
-								height=130></td>
-							<td scope="col" align=left style="padding-top: 0px;"><br>
-								<br> <br>패브릭 쇼파 (2인분)</td>
-							<td scope="col" align=center style=""><br> <br> <br>230,000</td>
-							<td scope="col" align=center style="padding-top: 0px;"><br>
-								<br> <br>무료배송</td>
-							<td scope="col" align=center style="padding-top: 0px;"><br>
-								<br> <br>230,000</td>
+							<td scope="col" align=center><br> <br> 
+							<input type="checkbox" name="RowCheck" style="zoom: 2.0;"  value="${item.productNum}"></td>
+							<td scope="col"> 
+							<img  class="block-20" style="width: 130px; height:130px;"src="${contextPath}/download_product.do?productNum=${item.productNum}&productImage=${item.productImage}" id="preview" /></td>
+							<td scope="col" style="padding-left: 230px;"><br>
+								<br> <br><a href="${contextPath}/product/viewProduct.do?productNum=${item.productNum}">${item.productName}</a></td>
+							<td scope="col" align=center ><br> <br><fmt:formatNumber pattern="###,###,###" value="${item.productPrice}"/><br></td>
+
 						</tr>
-						<tr>
-							<td scope="col" align=center><br> <br> <input
-								type="checkbox" style="zoom: 2.0;" name="chk"></td>
-							<td scope="col"><img
-								src="${contextPath}/resources/images/chair01.jpg" width=130
-								height=130></td>
-							<td scope="col" align=left style="padding-top: 0px;"><br>
-								<br> <br>원목의자</td>
-							<td scope="col" align=center style="padding-top: 0px;"><br>
-								<br> <br>100,000</td>
-							<td scope="col" align=center style="padding-top: 0px;"><br>
-								<br> <br>2,500</td>
-							<td scope="col" align=center style="padding-top: 0px;"><br>
-								<br> <br>102,500</td>
-						</tr>
+                     </c:forEach>
+                     </c:when>
+                     </c:choose>
 
 					</tbody>
+				
 				</table>
+				
 				<div class="container"
-					style="padding-left: 1100px; padding-right: 0px; margin-bottom: 150px;">
-					<button type="button" class="btn-secondary btn-xs">선택삭제</button>
-					<button type="button" class="btn-secondary btn-xs" onclick="">전체삭제</button>
+					style="padding-left: 1180px; padding-right: 0px; margin-bottom: 150px;">
+					 <input type="button" class="btn-secondary btn-xs" onclick="deleteValue();" value="선택삭제">
+
 				</div>
 			</div>
 		</div>

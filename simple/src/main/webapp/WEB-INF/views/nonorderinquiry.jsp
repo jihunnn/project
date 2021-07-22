@@ -6,50 +6,24 @@
 <html lang="en">
 <head>
 <style>
-#main_box { /*아이디 선택자*/
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	padding-top: 10px;
+
+
+<style type="text/css">
+.table-light {
+	background: #F7F7F7;
 }
 
-#login { /*아이디 선택자*/
-	display: flex;
-	flex-direction: column;
-	width: 1300px;
-	height: 100px;
-	align-items: center;
-	padding-top: 10px;
-	font-size: 20px;
+.table {
+	table-border: 2px;
 }
 
-.order_text {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	padding-bottom: 20px;
-	font-size: 20px;
-}
-
-table {
-	height: 100px;
-}
-
-th, td {
-	text-align: center;
-}
-
-th:nth-child(2n+1), td:nth-child(2n+1) {
-	background-color: rgb(200, 200, 200);
-}
-
-#main-back {
-	padding-top: 20px;
-	text-align: center;
+h4 {
+	margin-top: 60px;
+	font-weight: bold;
 }
 </style>
 </head>
-<title>주문결제창</title>
+<title>비회원 주문상세창</title>
 <body>
 	<!-- 최근 본 상품 -->
 	<div id="recentlyProduct"
@@ -93,53 +67,137 @@ th:nth-child(2n+1), td:nth-child(2n+1) {
 			<section class="ftco-section testimony-section"
 				style="padding-top: 30px;">
 				<div class="container">
-					<div>
-						<h4 class="order_text">주문하신 내역입니다.</h4>
-					</div>
-				</div>
-				<div class="container">
-					<table border="1" width="1000" align="center">
-						<tr height="60">
-							<th width="250" style="background-color: #212529; color: white;">주문번호</th>
-							<th width="300">20210604-012345</th>
-							<th width="250" style="background-color: #212529; color: white;">고객명</th>
-							<th width="300">김삼순</th>
-						</tr>
-						<tr height="80">
-							<th width="250" style="background-color: #212529; color: white;">주소</th>
-							<th width="300">대전 서구 관저동</th>
-							<th width="250" style="background-color: #212529; color: white;">핸드폰번호</th>
-							<th width="300">010-0000-0000</th>
-						</tr>
-						<tr height="140">
-							<th width="250" style="background-color: #212529; color: white;">상품옵션</th>
-							<th width="300">
-								<div>
-									<a>상품 이름 :</a> <a>패브릭 소파</a>
-								</div>
-								<div>
-									<a>옵션1 :</a> <a>노랑</a>
-								</div>
-								<div>
-									<a>옵션2 :</a> <a>4인</a>
-								</div>
-							</th>
-							<th width="250" style="background-color: #212529; color: white;">결제방법</th>
-							<th width="300">카드</th>
-						</tr>
-						<tr height="60">
-							<th width="250" style="background-color: #212529; color: white;">현재상태</th>
-							<th width="300"><ins onclick="location='#'" id="now-state"
-									style="color: red;">배송중[배송조회]</ins></th>
-							<th width="250" style="background-color: #212529; color: white;">결제금액</th>
-							<th width="300">230,000</th>
-						</tr>
-					</table>
+						<h4>주문하신 내역입니다.</h4>
 
 				</div>
+
+			<div class="order_list text-center">
+				<table class="table">
+                  
+					<thead class="table-dark">
+						<tr>
+						    <th scope="col" style="">주문번호</th>
+							<th scope="col">제품</th>
+							<th scope="col">수량</th>
+							<th scope="col">가격</th>
+						</tr>
+					</thead>
+					<tbody>
+					<c:forEach var="item" items="${nonOrderLookupList }">
+						<tr>
+						    <th scope="col" style=" padding-top: 15px;">${item.nonMemOrderNum}</th>
+							<th scope="col"><img src="${contextPath}/download_product.do?productNum=${item.productNum}&productImage=${item.productImage}"style="width: 40px;height: 40px;margin-right: 20px;" >${item.productName}
+							
+							</th>
+							<th scope="col" style=" padding-top: 15px;">${item.productCnt}</th>
+							<th scope="col" style=" padding-top: 15px;">${item.productPrice}</th>
+						</tr>
+					</c:forEach>
+					</tbody>
+					
+				</table>
+			</div>
+
+          
+			<h4>주문자정보</h4>
+			<a>주문일자: ${nonOrderLookupList[0].nonMemOrderDate }</a>
+			<div class="order_list">
+				<table class="table">
+				
+					<colgroup>
+						<col width="20%" />
+					</colgroup>
+					<tbody>
+						<tr>
+							<th scope="col" style="padding-left: 40px"class="table-dark">이름</th>
+							<th scope="col">${nonOrderLookupList[0].nonMemName }</th>
+						</tr>
+						<tr>
+							<th scope="col" style="padding-left: 40px"class="table-dark">전화번호</th>
+							<th scope="col">${nonOrderLookupList[0].nonMemPhoneNum }</th>
+						</tr>
+						<tr>
+							<th scope="col" style="padding-left: 40px"class="table-dark">이메일</th>
+							<th scope="col">${nonOrderLookupList[0].nonEmail }</th>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<h4>수령인정보</h4>
+			<div class="order_list">
+				<table class="table">
+					<colgroup>
+						<col width="20%" />
+					</colgroup>
+					<tbody>
+						<tr>
+							<th scope="col" style="padding-left: 40px" class="table-dark">이름</th>
+							<th scope="col">${nonOrderLookupList[0].nonMemSpName }</th>
+						</tr>
+						<tr>
+							<th scope="col" style="padding-left: 40px"class="table-dark">주소</th>
+							<th scope="col">${nonOrderLookupList[0].nonMemSpAdr }</th>
+						</tr>
+						<tr>
+							<th scope="col" style="padding-left: 40px"class="table-dark">연락처1</th>
+							<th scope="col">${nonOrderLookupList[0].nonMemPhoneNum1 }</th>
+						</tr>
+						<tr>
+							<th scope="col" style="padding-left: 40px"class="table-dark">연락처2</th>
+							<th scope="col">${nonOrderLookupList[0].nonMemPhoneNum2 }</th>
+						</tr>
+						<tr>
+						<th scope="col" style="padding-left: 40px; padding-bottom: 50px;"class="table-dark"><br>주문메세지<br>(100자내외)</th>
+						<th scope="col"><textarea name="textarea" rows="4" cols="40" readonly>${nonOrderLookupList[0].nonMemOrderMsg }</textarea></th>
+						</tr>
+					
+					</tbody>
+				</table>
+			</div>
+			
+			<h4>배송정보</h4>
+			<div class="order_list">
+				<table class="table">
+					<colgroup>
+						<col width="20%" />
+					</colgroup>
+					<tbody>
+						<tr>
+							<th scope="col" style="padding-left: 40px"class="table-dark">배송상태</th>
+							<th scope="col">${nonOrderLookupList[0].currentStatus }</th>
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+
+			<h4>결제정보</h4>
+			<div class="order_list">
+				<table class="table">
+					<colgroup>
+						<col width="20%" />
+					</colgroup>
+					<tbody>
+						<tr>
+							<th scope="col" style="padding-left: 40px"class="table-dark">결제방법</th>
+							<th scope="col">${nonOrderLookupList[0].nonMemPaymentMethod }</th>
+						</tr>
+						<tr>
+							<th scope="col" style="padding-left: 40px"class="table-dark">무통장 입금자명</th>
+							<th scope="col">${nonOrderLookupList[0].nonMemDepositorName }</th>
+
+						</tr>
+						
+					</tbody>
+				</table>
+			</div>
+		
+			<br> <br>
+
 				<div class="container">
-					<div id="main-back">
-						<button onclick="location=''"
+					<div id="main-back" style="text-align: center;">
+						<button onclick="location='${contextPath}/main.do'"
 							style="height: 50px; width: 150px; font-size: 17px; background-color: #212529; color: white; border-radius: 2px;">확인</button>
 					</div>
 				</div>

@@ -240,11 +240,8 @@ $('document').ready(function() {
 </script>
 
 </head>
-<title>관리자상품</title>
+<title>상품등록창</title>
 <body>
-<img src="${contextPath}/resources/images/product-01.jpg" width=100%
-		height=350px>
-
 
 	<section class="ftco-section testimony-section"
 		style="padding-top: 50px;">
@@ -253,7 +250,7 @@ $('document').ready(function() {
 				style="background-color: #f5f5f5; border: 1px solid #e7e7e7; margin-top: 20px;">
 				<div class="col-md-20 heading-section ftco-animate"
 					style="height: 60px;">
-					<h2 class="mb-4" style="font-size: 35px; margin-top: 15px;">상품 관리</h2>
+					<h2 class="mb-4" style="font-size: 35px; margin-top: 15px;">관리자 페이지</h2>
 				</div>
 			</div>
 
@@ -266,6 +263,14 @@ $('document').ready(function() {
 				<div class="btn-group" role="group">
 					<button type="button" class="btn btn-default" onclick="location.href='${contextPath}/product/add_product.do'"
 						style="font-size: 25px; border: none; color: #5a5a5a; padding-right: 210px; background-color: white; font-weight: bold;">*상품등록</button>
+				</div>
+				<div class="btn-group" role="group">
+					<button type="button" class="btn btn-default" onclick="location.href='${contextPath}/admin_listmember.do'"
+						style="font-size: 25px; border: none; color: #5a5a5a; padding-right: 210px; background-color: white;">회원조회</button>
+				</div>
+				<div class="btn-group" role="group">
+					<button type="button" class="btn btn-default" onclick="location.href='${contextPath}/board/listNotice.do'"
+						style="font-size: 25px; border: none; color: #5a5a5a; background-color: white;">게시판조회</button>
 				</div>
 			
 			</div>

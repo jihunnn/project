@@ -19,6 +19,7 @@ public class ArticleVO {
 	private String noticeWriter;
 	private String noticeContent;
 	private String noticeImg;
+	private int noticeHit;
 
 	//question 게시판
 	private int questionNum;
@@ -44,6 +45,7 @@ public class ArticleVO {
 	private String asCenterStatus;
 	private String asCenterPwd;
 	private String memName;
+	private String asCenterFile;
 	
 	
 	//notice 게시판
@@ -87,7 +89,7 @@ public class ArticleVO {
 		return noticeContent;
 	}
 	
-	public void noticeContentt(String noticeContent) {
+	public void setNoticeContent(String noticeContent) {
 		this.noticeContent = noticeContent;
 	}
 	
@@ -110,6 +112,14 @@ public class ArticleVO {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public int getNoticeHit() {
+		return noticeHit;
+	}
+	
+	public void setNoticeHit(int noticeHit) {
+		this.noticeHit = noticeHit;
 	}
 	
 	//question 게시판
@@ -265,6 +275,14 @@ public class ArticleVO {
 	
 	public void setMemName(String memName) {
 		this.memName = memName;
+	}
+	
+	public String getAsCenterFile() {
+		return asCenterFile;
+	}
+	
+	public void setAsCenterFile(String asCenterFile) {
+		this.asCenterFile = asCenterFile;
 	}
 	
 }

@@ -2,7 +2,9 @@ package com.project.simple.member.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -25,6 +27,8 @@ import javax.servlet.http.HttpSession;
 
 import com.project.simple.member.service.MemberService;
 import com.project.simple.member.vo.MemberVO;
+import com.project.simple.page.Criteria;
+import com.project.simple.page.PageMaker;
 
 /**
  * Handles requests for the application home page.
@@ -35,26 +39,11 @@ public class MemberControllerImpl implements MemberController {
 	private MemberService memberService;
 	@Autowired
 	private MemberVO memberVO;
-	
-	private static final Logger logger = LoggerFactory.getLogger(MemberControllerImpl.class);
 
-	private String relaceParameter(String param) {
-		String result = param;
-		
-		if(param != null) {
-			result = result.replaceAll("<", "&lt;");
-			result = result.replaceAll(">", "&gt;");
-			result = result.replaceAll("&", "&amp;");
-			result = result.replaceAll("\"", "&quot;");
-		}
-		return result;
-	}
-	
-	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 
-		return "cart";
+		return "admin_listmember";
 	}
 
 	// 멤버로그인작업 ppt226
@@ -62,27 +51,10 @@ public class MemberControllerImpl implements MemberController {
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
 	public ModelAndView login(@ModelAttribute("member") MemberVO member, RedirectAttributes rAttr,
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
-		
 		ModelAndView mav = new ModelAndView();
-		
-		try {
-			
-		//문자열 필터(크로스 사이트 스크립트 보안)
-		String memId = this.relaceParameter(member.getmemId());
-		member.setmemId(memId);
-		
-		//회원정보가져오기 Service 호출
 		memberVO = memberService.login(member);
-		
-		} catch(Exception e) {
-			logger.error(e.getMessage());
-			e.printStackTrace();
-		}
-		
-		
 		if (memberVO != null) {
 			HttpSession session = request.getSession();
-			
 			session.setAttribute("member", memberVO);
 			session.setAttribute("isLogOn", true);
 			mav.setViewName("redirect:/main.do");
@@ -99,6 +71,8 @@ public class MemberControllerImpl implements MemberController {
 		HttpSession session = request.getSession();
 		session.removeAttribute("member");
 		session.removeAttribute("isLogOn");
+		session.removeAttribute("quickList");
+		session.removeAttribute("quickListNum");
 			
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("redirect:/main.do");
@@ -293,11 +267,78 @@ public class MemberControllerImpl implements MemberController {
 		mav.setViewName(viewName);
 		return mav;
 	}
+	
+	@RequestMapping(value = "/login_03.do", method = RequestMethod.GET)
+	private ModelAndView login_03(HttpServletRequest request, HttpServletResponse response) {
+		String viewName = (String) request.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName(viewName);
+		return mav;
+	}
+
 
 	@Override
-	public ModelAndView listMembers(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	@RequestMapping(value = "/admin_listmember.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView listMembers(Criteria cri, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String viewName = (String) request.getAttribute("viewName");
+		List<MemberVO> membersList = memberService.listMembers(cri);
+		int memberCount = memberService.memberCount();
+		ModelAndView mav = new ModelAndView(viewName);
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(memberCount);
+		int pageNum = pageMaker.getCri().getPage();
+
+		mav.addObject("pageNum", pageNum);
+		mav.addObject("membersList", membersList);
+		mav.addObject("pageMaker", pageMaker);
+
+		return mav;
 	}
+
+	@Override
+	@RequestMapping(value = "/admin_listmember/memberSearch.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView memberSearch(@RequestParam("search") String search, @RequestParam("searchType") String searchType,
+			Criteria cri, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String viewName = (String) request.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView(viewName);
+
+		Map<String, Object> memberSearchMap = new HashMap<String, Object>();
+		int pageStart = cri.getPageStart();
+		int perPageNum = cri.getPerPageNum();
+		memberSearchMap.put("pageStart", pageStart);
+		memberSearchMap.put("perPageNum", perPageNum);
+		memberSearchMap.put("search", search);
+		System.out.println(search);
+		memberSearchMap.put("searchType", searchType);
+		System.out.println(searchType);
+		memberSearchMap = memberService.memberSearch(memberSearchMap);
+		System.out.println(memberSearchMap);
+		int memberSearchCount = memberService.memberSearchCount(memberSearchMap);
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		int pageNum = pageMaker.getCri().getPage();
+		memberSearchMap.put("pageNum", pageNum);
+		pageMaker.setTotalCount(memberSearchCount);
+		mav.addObject("memberSearchMap", memberSearchMap);
+		mav.addObject("pageMaker", pageMaker);
+		mav.addObject("pageNum", pageNum);
+		
+		return mav;
+
+	}
+	
+	@RequestMapping(value = "/admin_removeMember.do", method = RequestMethod.GET)
+	private ModelAndView admin_removeMember(@RequestParam("memId") String memId, HttpServletRequest request, HttpServletResponse response)  throws Exception{
+		String viewName = (String) request.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView();
+		memberVO = memberService.admin_removeMember(memId);
+		mav.addObject("memId", memberVO);
+		System.out.println(memId);
+		mav.setViewName("redirect:/admin_listmember.do");
+		return mav;
+	}
+	
+	
 
 }

@@ -31,6 +31,11 @@ public interface BoardService {
 	public List<ArticleVO> listAsCenter(Criteria cri) throws Exception;
 	public int asCenterCount() throws Exception;
 	public ArticleVO viewAsCenter(int asCenterNum) throws Exception;
-
+	public int addNewAsCenter(Map asCenterMap) throws Exception;
+	public void modAsCenter(Map asCenterMap) throws Exception;
+	public void removeAsCenter(int asCenterNum) throws Exception;
+	public Map<String ,Object> asCenterSearch(Map<String ,Object> asCenterSearchMap) throws Exception;
+	public int asCenterSearchCount(Map<String, Object> search) throws Exception;
+	
 
 }
