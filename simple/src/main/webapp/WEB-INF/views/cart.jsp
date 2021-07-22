@@ -64,7 +64,7 @@
 						alert("삭제성공");
 						location.replace("memcart.do") //list 로 페이지 새로고침
 					} else {
-						alert("삭제 실패");
+						alert("오류 발생");
 					}
 				}
 			});
@@ -74,7 +74,7 @@
 	
 	//회원구매
 	function buy() {
-		var url = "order_01.do"
+		var url = "order.do"
 		var valueArr = new Array();
 		var list = $("input[name='chk']");
 		for (var i = 0; i < list.length; i++) {
@@ -94,6 +94,13 @@
 					valueArr : valueArr
 				//보내고자 하는 data 변수 설정
 				},
+				success : function(jdata) {
+					if (jdata = 1) {
+						location.replace("order_01.do") //list 로 페이지 새로고침
+					} else {
+						alert("오류 발생");
+					}
+				}
 				
 			});
 		}

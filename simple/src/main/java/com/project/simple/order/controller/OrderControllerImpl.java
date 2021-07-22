@@ -35,18 +35,7 @@ public class OrderControllerImpl implements OrderController {
 	// 장바구니에서 주문페이지 이동(회원/비회원)
 	@RequestMapping(value = "/order.do", method = RequestMethod.POST)
 	private ModelAndView order(@ModelAttribute("orderVO") OrderVO orderVO, HttpServletRequest request,
-			HttpServletResponse response, RedirectAttributes redirect) throws Exception {
-		ModelAndView mav = new ModelAndView();
-
-		return mav;
-	}
-
-	
-	// 주문페이지 이동(회원)
-	@RequestMapping(value = "/order_01.do", method = RequestMethod.POST)
-	private ModelAndView order_01(@ModelAttribute("orderVO") OrderVO orderVO, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		
 		ModelAndView mav = new ModelAndView();
 		HttpSession session = request.getSession();
 		Boolean isLogOn = (Boolean) session.getAttribute("isLogOn");
@@ -60,11 +49,25 @@ public class OrderControllerImpl implements OrderController {
 			orderlist.add(orderService.selectcartlist(ajaxMsg[i]));	
 			}
 			
-			mav.addObject("orderlist", orderlist); 
-		}	
+			session.setAttribute("orderlist", orderlist); 
+			mav.setViewName("order_01");
+		}
 		return mav;
+	}
+
+	
+	// 주문페이지 이동(회원)
+	@RequestMapping(value = "/order_01.do", method = RequestMethod.GET)
+	private ModelAndView order_01(@ModelAttribute("orderVO") OrderVO orderVO, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		
+		ModelAndView mav = new ModelAndView();
+		return mav;
+		
 		}
 
+	
+		
 	// 주문페이지 이동(비회원)
 	@RequestMapping(value = "/order_02.do", method = RequestMethod.GET)
 	private ModelAndView order_02(@ModelAttribute("orderVO") OrderVO orderVO, HttpServletRequest request,
