@@ -73,10 +73,6 @@
 			value="/WEB-INF/views/login_06.jsp" />
 	</definition>
 
-	<definition name="cart" extends="baseLayout">
-		<put-attribute name="body"
-			value="/WEB-INF/views/cart.jsp" />
-	</definition>
 
 	<definition name="cs_01" extends="baseLayout">
 		<put-attribute name="body"
