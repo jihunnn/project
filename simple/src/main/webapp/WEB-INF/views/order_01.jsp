@@ -241,7 +241,7 @@ h4 {
 
 
 			
-			<h4>주문리스트 ${orderlist[0].productNum}</h4>
+			<h4>주문리스트</h4>
 
 
 
