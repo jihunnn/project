@@ -15,5 +15,6 @@
 		<typeAlias alias="MypageVO" type="com.project.simple.mypage.vo.MypageVO"/>
 		<typeAlias alias="nonmemberVO" type="com.project.simple.nonmember.vo.NonmemberVO"/>
 		<typeAlias alias="delmemberVO" type="com.project.simple.delmember.vo.DelMemberVO"/>
+		<typeAlias alias="orderVO" type="com.project.simple.order.vo.OrderVO"/>
 	</typeAliases>
 </configuration>

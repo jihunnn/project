@@ -3,9 +3,9 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="mapper.cart">
+<mapper namespace="mapper.order">
 	<!-- notice 게시판 -->
-	<resultMap id="cartResult" type="cartVO">
+	<resultMap id="orderResult" type="orderVO">
 		<result property="memId" column="memId" />
 		<result property="productNum" column="productNum" />
 		<result property="productCnt" column="productCnt" />
@@ -21,33 +21,14 @@
 	</resultMap>
 
 
-	<!-- 장바구니테이블 추가 -->
-	<insert id="insertcartlist"  parameterType="CartVO">
-		<![CDATA[ 
-			insert into simple.membercart(memCartId, memId, productNum, productCnt, productName, option1name, option1value, option2name, option2value, totalPrice, productimage, deliverycharge) 
-			values(default, #{memId},#{productNum},#{productCnt},#{productName},#{option1name},#{option1value},#{option2name},#{option2value},#{totalPrice},"이미지아직", #{deliverycharge});
-		
-		]]>	
-	</insert>
+
 	<!-- 장바구니리스트불러오기 -->
-	<select id="selectCartList"  parameterType="String" resultMap="cartResult">
+	<select id="selectcartlist"  parameterType="String" resultMap="orderResult">
 		<![CDATA[ 
 			select * from simple.membercart
-			where memId = #{memId};
+			where memCartId = #{memCartId};
 		
 		]]>	
 	</select>
-	
-	
-	<!--  장바구니 리스트 삭제 -->
-	<delete id="deleteCartProduct"  parameterType="String" >
-		<![CDATA[ 
-			delete from simple.membercart
-			where memCartId = #{productNum};
-		
-		]]>	
-	</delete>
-	
-	
 	
 </mapper>
