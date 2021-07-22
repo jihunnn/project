@@ -55,6 +55,25 @@
 
 	</select>
 
+	<!-- 옵션조회 -->
+	<select id="selectOptionList1" resultMap="proResult" parameterType="string"> 
+	<![CDATA[
+			
+			select option1name, option1value, option1price from detailoption where productNum = #{productNum} group by option1name, option1value, option1price;
+		
+	]]>
+	</select>
+	
+	<select id="selectOptionList2" resultMap="proResult" parameterType="string"> 
+	<![CDATA[
+			
+			select option2name, option2value, option2price from detailoption where productNum = #{productNum} group by option2name, option2value, option2price;
+		
+	]]>
+	</select>
+	
+	
+
 
 	  <!-- 관리자 상품 조회 -->
 	<select id="admin_selectAllProductList" resultMap="proResult">

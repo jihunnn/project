@@ -1,6 +1,7 @@
 package com.project.simple.product.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -35,7 +36,15 @@ public class ProductDAOImpl implements ProductDAO{
 		return result;
 	}
 	
-	
+	@Override
+	public Map<String, Object> selectOptionvalue(String productNum) throws DataAccessException {
+		List<ProductVO> optionList1 = sqlSession.selectList("mapper.product.selectOptionList1", productNum);
+		List<ProductVO> optionList2 = sqlSession.selectList("mapper.product.selectOptionList2", productNum);
+		Map<String, Object> option = new HashMap<String, Object>();
+		option.put("optionList1", optionList1);
+		option.put("optionList2", optionList2);
+		return option;
+	}
 
 	@Override
 	public ProductVO selectProduct(String productNum) throws DataAccessException {
