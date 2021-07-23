@@ -113,6 +113,14 @@ public class ProductServiceImpl implements ProductService{
 		int productSearchCount = productDAO.productSearchCount(search);
 		return productSearchCount;
 	}
+	
+	@Override
+	public Map<String, Object> viewOptionvalue(String productNum) throws Exception {
+		Map<String, Object> option = productDAO.selectOptionvalue(productNum);
+		
+		return option;
+	}
+
 
 
 	

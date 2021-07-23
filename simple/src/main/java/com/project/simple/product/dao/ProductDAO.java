@@ -19,7 +19,8 @@ public interface ProductDAO {
 	public List<ProductVO> selectProductBySearchWord(String searchWord) throws DataAccessException;
 	public void updateProduct(Map productMap) throws DataAccessException ;
 	
-	
+
+	public Map<String, Object> selectOptionvalue(String productNum) throws DataAccessException;
 	public List<ProductVO> selectAllProductReviewList(Map<String, Object> productMap) throws DataAccessException;
 	public int selectProductReviewCount(String productNum) throws DataAccessException;
 	public List<ProductVO> selectAllProductQuestionList(Map<String, Object> productMap) throws DataAccessException;

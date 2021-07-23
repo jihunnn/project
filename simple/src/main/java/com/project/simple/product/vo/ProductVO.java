@@ -22,9 +22,13 @@ public class ProductVO {
 	private String productContentImage;    //惑前 惑技捞固瘤
 	
 	private int productOptionNum;      //惑前 可记 锅龋
-	private String option1;            //惑前 可记1
-	private String option2;           //惑前 可记2
-
+	private String option1name;            //惑前 可记1
+	private String option2name;           //惑前 可记2
+	private int option1price;	//惑前 可记1 啊拜
+	private int option2price;	//惑前 可记2 啊拜
+	private String option1value; //可记1 格废
+	private String option2value; //可记2 格废
+	
 	//惑前 府轰
 	private int reviewNum;
 	private int memOrderSeqNum;
@@ -40,7 +44,6 @@ public class ProductVO {
 	private String productQuestionContent;
 	private Date productQuestionDate;
 	private String productAnswerContent;
-	
 	
 	
 	public ProductVO() {
@@ -59,9 +62,8 @@ public class ProductVO {
 		this.productOrigin = productOrigin;
 		this.productContentImage = productContentImage;
 		this.productOptionNum = productOptionNum;
-		this.option1 = option1;
-		this.option2 = option2;
-	
+		this.option1name = option1name;
+		this.option2name = option2name;
 	}
 	public String getproductNum() {
 		return productNum;
@@ -147,19 +149,48 @@ public class ProductVO {
 		this.productOptionNum = productOptionNum;
 	}
 	
-	public String getoption2() {
-		return option2;
+	public String getoption2name() {
+		return option2name;
 	}
-	public void setoption2(String option2) {
-		this.option2 = option2;
+	public void setoption2name(String option2name) {
+		this.option2name = option2name;
 	}
 	
-	public String getoption1() {
-		return option1;
+	public int getOption1price() {
+		return option1price;
 	}
-	public void setoption1(String option1) {
-		this.option1 = option1;
+	public void setOption1price(int option1price) {
+		this.option1price = option1price;
 	}
+	public int getOption2price() {
+		return option2price;
+	}
+	public void setOption2price(int option2price) {
+		this.option2price = option2price;
+	}
+	public String getOption1value() {
+		return option1value;
+	}
+	public void setOption1value(String option1value) {
+		this.option1value = option1value;
+	}
+	public String getOption2value() {
+		return option2value;
+	}
+	public void setOption2value(String option2value) {
+		this.option2value = option2value;
+	}
+	public String getoption1name() {
+		return option1name;
+	}
+	public void setoption1name(String option1name) {
+		this.option1name = option1name;
+	}
+
+	
+	
+	
+	
 
 	//惑前 府轰
 	public int getReviewNum() {

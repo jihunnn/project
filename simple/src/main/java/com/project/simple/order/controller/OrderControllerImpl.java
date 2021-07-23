@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.project.simple.cart.vo.CartVO;
 //import com.bookshop01.common.base.BaseController;
 //import com.bookshop01.goods.vo.GoodsVO;
 import com.project.simple.member.vo.MemberVO;
@@ -29,36 +32,43 @@ public class OrderControllerImpl implements OrderController {
 	private OrderService orderService;
 	@Autowired
 	private OrderVO orderVO;
-
-	// 주문페이지 이동(회원/비회원)
-	@RequestMapping(value = "/order.do", method = RequestMethod.GET)
+	
+	// 장바구니에서 주문페이지 이동(회원/비회원)
+	@RequestMapping(value = "/order.do", method = RequestMethod.POST)
 	private ModelAndView order(@ModelAttribute("orderVO") OrderVO orderVO, HttpServletRequest request,
-			HttpServletResponse response) {
+			HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView();
-
 		HttpSession session = request.getSession();
 		Boolean isLogOn = (Boolean) session.getAttribute("isLogOn");
 
-		if (isLogOn == null || isLogOn == false) {
-			session.setAttribute("orderInfo", orderVO);
-			mav.addObject("orderInfo", orderVO);
-			System.out.println(orderVO);
-			mav.setViewName("redirect:/order_02.do");
-		} else if (isLogOn == true) {
-			session.setAttribute("orderInfo", orderVO);
-			mav.addObject("orderInfo", orderVO);
-			mav.setViewName("redirect:/order_01.do");
+		if (isLogOn == true) {
+			List<OrderVO> orderlist = new ArrayList();
+			String [] ajaxMsg = request.getParameterValues("valueArr");
+			int size = ajaxMsg.length;
+		
+			for (int i = 0; i < size; i++) {
+			orderlist.add(orderService.selectcartlist(ajaxMsg[i]));	
+			}
+			
+			session.setAttribute("orderlist", orderlist); 
+			mav.setViewName("order_01");
 		}
 		return mav;
 	}
 
+	
 	// 주문페이지 이동(회원)
 	@RequestMapping(value = "/order_01.do", method = RequestMethod.GET)
-	private ModelAndView order_01(HttpServletRequest request, HttpServletResponse response) {
+	private ModelAndView order_01(@ModelAttribute("orderVO") OrderVO orderVO, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		
 		ModelAndView mav = new ModelAndView();
 		return mav;
-	}
+		
+		}
 
+	
+		
 	// 주문페이지 이동(비회원)
 	@RequestMapping(value = "/order_02.do", method = RequestMethod.GET)
 	private ModelAndView order_02(@ModelAttribute("orderVO") OrderVO orderVO, HttpServletRequest request,
