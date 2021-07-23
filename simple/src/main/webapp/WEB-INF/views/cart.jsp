@@ -2,6 +2,9 @@
 	pageEncoding="utf-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
+<%@ page import="com.project.simple.cart.vo.CartVO"%>
+
+
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
@@ -37,8 +40,8 @@
 		}
 	}
 	
-	
-	function deleteValue() {
+	//회원장바구니 선택삭제
+	function deleteValue01() {
 		var url = "delete.do"
 		var valueArr = new Array();
 		var list = $("input[name='chk']");
@@ -71,9 +74,79 @@
 		}
 	}
 	
+	//비회원 장바구니 선택삭제
+	function deleteValue02() {
+		var url = "delete.do"
+		var valueArr = new Array();
+		var list = $("input[name='chk']");
+		for (var i = 0; i < list.length; i++) {
+			if (list[i].checked) { //선택되어 있으면 배열에 값을 저장한다.
+				valueArr.push(list[i].value);
+			}
+		}
+		if (valueArr.length == 0) {
+			alert("선택된 상품이 없습니다.");
+		} else {
+			var chk = confirm("정말 삭제하시겠습니까?");
+			$.ajax({
+				url : url, //전송 URL
+				type : 'POST', //POST방식
+				traditional : true,
+				data : {
+					valueArr : valueArr
+				//보내고자 하는 data 변수 설정
+				},
+				success : function(jdata) {
+					if (jdata = 1) {
+						alert("삭제성공");
+						location.replace("nonmemcart.do") //list 로 페이지 새로고침
+					} else {
+						alert("오류 발생");
+					}
+				}
+			});
+		}
+	}
+	
+	
+	
 	
 	//회원구매
-	function buy() {
+	function memberbuy() {
+		var url = "order.do"
+		var valueArr = new Array();
+		var list = $("input[name='chk']");
+		for (var i = 0; i < list.length; i++) {
+			if (list[i].checked) { //선택되어 있으면 배열에 값을 저장한다.
+				valueArr.push(list[i].value);
+			}
+		}
+		if (valueArr.length == 0) {
+			alert("선택된 상품이 없습니다.");
+		} else {
+			var chk = confirm("주문 하시겠습니까?");
+			$.ajax({
+				url : url, //전송 URL
+				type : 'POST', //POST방식
+				traditional : true,
+				data : {
+					valueArr : valueArr
+				//보내고자 하는 data 변수 설정
+				},
+				success : function(jdata) {
+					if (jdata = 1) {
+						location.replace("order_01.do") //list 로 페이지 새로고침
+					} else {
+						alert("오류 발생");
+					}
+				}
+				
+			});
+		}
+	}
+	
+	//비회원구매
+	function nonmemberbuy() {
 		var url = "order.do"
 		var valueArr = new Array();
 		var list = $("input[name='chk']");
@@ -108,9 +181,13 @@
 </script>
 
 
+
 </head>
 <title>주문결제창</title>
 <body>
+
+
+
 
 
 	<!-- 장바구니 타이틀 -->
@@ -229,7 +306,7 @@
 						<div>
 							<div class="container"
 								style="padding-left: 1000px; paddig-right: 0px !important; float: left; width: 1180px; margin-left: 85px;">
-								<button type="button" onclick="deleteValue();"
+								<button type="button" onclick="deleteValue01();"
 									class="btn-secondary btn-xs">선택삭제</button>
 
 							</div>
@@ -238,7 +315,7 @@
 						<br>
 						<br>
 						<div class="container" style="padding-left: 450px;">
-							<button type="button" onclick="buy()" class="btn btn-dark "
+							<button type="button" onclick="memberbuy()" class="btn btn-dark "
 								id="buttonmy" style="margin-left: 90px; width: 120px;">선택상품주문</button>
 							&nbsp;&nbsp;&nbsp;
 							<button type="button" onclick="buyall()" id="buttonmy"
@@ -249,6 +326,7 @@
 
 
 					<c:otherwise>
+
 						<table class="table">
 							<thead class="table-dark" align=center>
 								<tr align="center">
@@ -260,12 +338,12 @@
 									<td scope="col" width="80">가격</td>
 								</tr>
 							</thead>
-							<c:forEach items="${cartlist}" var="cartlist">
+							<c:forEach items="${cartlist}" var="cartlist" varStatus="status">
 								<tbody>
 									<tr>
 										<td scope="col" height="100" align=center><br> <br>
-											<input type="checkbox" name="chk" value="1"
-											style="zoom: 2.0;"></td>
+											<input type="checkbox" name="chk" value="${status.index}"
+											></td>
 										<td scope="col"><img
 											src="${contextPath}/resources/images/sofa01.jpg" width=130
 											height=130></td>
@@ -299,7 +377,7 @@
 						<div>
 							<div class="container"
 								style="padding-left: 1000px; paddig-right: 0px !important; float: left; width: 1180px; margin-left: 85px;">
-								<button type="button" onclick="#"
+								<button type="button" onclick="deleteValue02();"
 									class="btn-secondary btn-xs">선택삭제</button>
 
 							</div>
@@ -308,7 +386,7 @@
 						<br>
 						<br>
 						<div class="container" style="padding-left: 450px;">
-							<button type="button" onclick="next()" class="btn btn-dark "
+							<button type="button"  onclick="nonmemberbuy()" class="btn btn-dark "
 								id="buttonmy" style="margin-left: 90px; width: 120px;">선택상품주문</button>
 							&nbsp;&nbsp;&nbsp;
 							<button type="button" onclick="nextt()" id="buttonmy"
