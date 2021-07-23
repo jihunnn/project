@@ -181,15 +181,9 @@
 <body>
 	<!-- 마이페이지 상단메뉴 -->
 	<section class="ftco-section"
-		style="padding-top: 50px; margin-bottom: 50px; padding-bottom: 0px; height: 700px;">
+		style="padding-top: 50px; margin-bottom: 50px; padding-bottom: 0px; height: 700px; margin-top:30px;">
 		<div class="container">
-			<div class="row justify-content-center mb-5 pb-3"
-				style="background-color: #f5f5f5; border: 1px solid #e7e7e7; margin-top: 50px;">
-				<div class="col-md-20 heading-section ftco-animate"
-					style="height: 60px;">
-					<h2 class="mb-4" style="font-size: 35px; margin-top: 15px;">마이페이지</h2>
-				</div>
-			</div>
+
 			<!-- 마이페이지 상단메뉴 끝 -->
 			<!-- 최근 본 상품 -->
 			<div id="recentlyProduct"
@@ -222,29 +216,31 @@
 			<jsp:include page="/WEB-INF/views/common/mypage_sidemenu.jsp"
 				flush="false" />
 			<!-- left Menu 끝-->
+
 			<form action="${contextPath}/mypage_03.do" method="post">
 				<div class="container02"
 					style="padding-left: 300px; padding-top: 30px;">
 					<div id="MyPage_top">
 						<h4
-							style="text-align: center; padding-left: 60px; font-size: 18px;">회원정보를
-							수정하시려면 비밀번호를 입력해주세요</h4>
+							style="text-align: center; padding-left: 60px; font-size: 20px; font-weight:bold;">비밀번호 재확인</h4>
+													<h6
+							style="text-align: center; padding-left: 60px; font-size: 14px;">회원님의 정보를 안전하게 보호하기 위해 비밀번호를 다시 한번 확인해주세요.</h6>
 					</div>
 					<div id="MyPage_top1" style="padding-top: 20px; margin-left: 30px;">
-						<img src="${contextPath}/resources/images/smile.png" width="60">
+						<img src="${contextPath}/resources/images/pwd.png" width="60">
 					</div>
 					<div id="MyPage_top2" style="padding-top: 10px; height: 50px;">
 						<p>
 							PASSWORD<input type="password" name="memPwd"
-								class="PASSWORD_confirm_text" size="22"
+								class="PASSWORD_confirm_text" size="22" style="font-size:14px;"
 								placeholder="비밀번호를 입력하세요">
 						</p>
 
 						<div id="MyPage_top3" style="padding-left: 99px;">
-							<button type="submit" id="buttonmy" class="btn_PASSWORD_confirm"
-								style="width: 90px;">확인</button>
+							<button type="submit" id="buttonmy" class="btn btn-dark"
+								style="width: 80px; font-size:14px;padding-top:4px;">확인</button>
 							<button onClick="location.href='${contextPath}/main.do'" id="buttonmy"
-								class="btn_main_back" style="width: 90px; margin-left: 0px;">취소</button>
+								class="btn btn-dark" style="width: 80px; margin-left: 20px; font-size:14px;padding-top:4px;">취소</button>
 						</div>
 					</div>
 				</div>

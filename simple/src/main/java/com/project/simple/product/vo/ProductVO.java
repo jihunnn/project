@@ -29,7 +29,6 @@ public class ProductVO {
 	private String option1value; //可记1 格废
 	private String option2value; //可记2 格废
 	
-	
 	//惑前 府轰
 	private int reviewNum;
 	private int memOrderSeqNum;
@@ -45,7 +44,6 @@ public class ProductVO {
 	private String productQuestionContent;
 	private Date productQuestionDate;
 	private String productAnswerContent;
-	
 	
 	
 	public ProductVO() {
@@ -188,6 +186,11 @@ public class ProductVO {
 	public void setoption1name(String option1name) {
 		this.option1name = option1name;
 	}
+
+	
+	
+	
+	
 
 	//惑前 府轰
 	public int getReviewNum() {

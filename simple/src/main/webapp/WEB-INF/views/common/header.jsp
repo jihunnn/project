@@ -30,11 +30,9 @@ hr {
 			},
 			complete : function(data, textStatus) {
 				//alert("작업을완료 했습니다");
-
 			}
 		}); //end ajax	
 	}
-
 	function displayResult(jsonInfo) {
 		var count = jsonInfo.keyword.length; //json 데이터 개수를 구함
 		if (count > 0) {
@@ -70,19 +68,18 @@ hr {
 </script>
 <script>
 	$(document).on('click', '#btnSearch', function(object) {
-
 		object.preventDefault();
 		var url = "${contextPath}/product/listProduct.do";
 		url = url + "?productType=" + $('#productType').val();
 		location.href = url;
 		console.log(url);
-
 	});
 </script>
 <!-------------header------------------------------------------------------------------------------------------------------------------------>
+
 <nav
 	class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
-	id="ftco-navbar" style="padding-bottom:0px;">
+	id="ftco-navbar" style="padding-bottom: 0px;">
 	<div class="container" style="height: 150px;">
 		<a class="navbar-brand" href="${contextPath}/main.do">SIMPLE</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -96,45 +93,50 @@ hr {
 
 				<c:choose>
 					<c:when test="${isLogOn == true && member != null}">
-						<h6>환영합니다.${member.memName}님!</h6>
+						<h6 style="font-size: 12px; margin-top:18px;">
+							<span
+								style="text-decoration: underline; text-underline-position: under;">${member.memName}님! </span>환영합니다.
+						</h6>
 						<li class="nav-item active"><a
 							href="${contextPath}/logout.do" class="nav-link"
-							style="margin-bottom: 100px; padding-right: 10px;">LOGOUT</a></li>
+							style="margin-bottom: 100px; padding-right: 10px; font-size: 12px;">LOGOUT</a></li>
 					</c:when>
 					<c:otherwise>
 						<li class="nav-item active"><a
 							href="${contextPath}/login_01.do" class="nav-link"
-							style="margin-bottom: 100px; padding-right: 10px;">LOGIN</a></li>
+							style="margin-bottom: 100px; padding-right: 10px; font-size: 12px;">LOGIN</a></li>
 					</c:otherwise>
 				</c:choose>
 				<li class="nav-item"><a href="${contextPath}/join_01.do"
-					class="nav-link" style="padding-right: 10px;">JOIN</a></li>
-				<li class="nav-item"><a href=""
-					class="nav-link" style="padding-right: 10px;">CART</a></li>
+					class="nav-link" style="padding-right: 10px; font-size: 12px;">JOIN</a></li>
+				<li class="nav-item"><a href="" class="nav-link"
+					style="padding-right: 10px; font-size: 12px;">CART</a></li>
 				<c:choose>
 					<c:when test="${isLogOn == true && member != null}">
 						<li class="nav-item"><a href="${contextPath}/mypage_01.do"
-							class="nav-link">MYPAGE</a></li>
+							style="padding-right: 10px; font-size: 12px;" class="nav-link">MYPAGE</a></li>
 					</c:when>
 					<c:otherwise>
 						<li class="nav-item"><a href="${contextPath}/login_01.do"
-							class="nav-link" style="padding-right: 10px;">MYPAGE</a></li>
+							class="nav-link" style="padding-right: 10px; font-size: 12px;">MYPAGE</a></li>
 					</c:otherwise>
 				</c:choose>
 				<li class="nav-item"><a
 					href="${contextPath}/storeinfomation.do" class="nav-link"
-					style="padding-right: 10px;">매장안내</a></li>
+					style="padding-right: 10px; font-size: 12px;">매장안내</a></li>
 				<li class="nav-item"><a
 					href="${contextPath}/board/listNotice.do" class="nav-link"
-					style="padding-right: 10px;">고객센터</a></li>
+					style="font-size: 12px;">고객센터</a></li>
 				<c:choose>
 					<c:when test="${adminisLogOn == true && admin != null }">
 						<li class="nav-item active"><a
-							href="${contextPath}/admin/logout.do" class="nav-link">LOGOUT</a></li>
+							href="${contextPath}/admin/logout.do" class="nav-link"
+							style="font-size: 12px;">LOGOUT</a></li>
 					</c:when>
 					<c:otherwise>
 						<li class="nav-item active" style="height: 50px;"><a
-							href="${contextPath}/admin_login.do" class="nav-link">관리자</a></li>
+							href="${contextPath}/admin_login.do" class="nav-link"
+							style="padding-left: 10px; font-size: 12px; padding-right:0px;">관리자</a></li>
 					</c:otherwise>
 				</c:choose>
 			</ul>
@@ -143,26 +145,26 @@ hr {
 				<button type="button" id="dropdownMenu1"
 					onclick="location.href = '${contextPath}/product/listProduct.do?sort=침대&subsort=x'"
 					data-toggle="dropdown" class="category"
-					style="margin-left: -950px; margin-bottom: 0px; font-size: 17px; cursor: pointer;">침대
+					style="margin-left: -950px; margin-bottom: 0px; font-size: 16px; cursor: pointer; margin-top:40px;">침대
 				</button>
 				<ul class="dropdown-menu" role="menu"
 					aria-labelledby="dropdownMenu1"
 					style="margin-left: -1010px; text-align: center;">
 					<li role="presentation" style="margin-top: 11px;"><a
 						role="menuitem" tabindex="-1" href="" id="categorydetile"
-						style="color: #000000; font-size:15px;">싱글</a></li>
+						style="color: #000000; font-size: 15px;">싱글</a></li>
 					<li role="presentation" style="margin-top: 11px;"><a
 						role="menuitem" tabindex="-1" href="" id="categorydetile"
-						style="color: #000000;font-size:15px;">킹</a></li>
+						style="color: #000000; font-size: 15px;">킹</a></li>
 					<li role="presentation" style="margin-top: 11px;"><a
 						role="menuitem" tabindex="-1" href="" id="categorydetile"
-						style="color: #000000;font-size:15px;">이층침대</a></li>
+						style="color: #000000; font-size: 15px;">이층침대</a></li>
 					<li role="presentation" style="margin-top: 11px;"><a
 						role="menuitem" tabindex="-1" href="" id="categorydetile"
-						style="color: #000000;font-size:15px;">패밀리</a></li>
+						style="color: #000000; font-size: 15px;">패밀리</a></li>
 					<li role="presentation" style="margin-top: 11px;"><a
 						role="menuitem" tabindex="-1" href="" id="categorydetile"
-						style="color: #000000;font-size:15px;">퀸</a></li>
+						style="color: #000000; font-size: 15px;">퀸</a></li>
 				</ul>
 			</div>
 
@@ -172,26 +174,26 @@ hr {
 				<button type="button" id="dropdownMenu1"
 					onclick="location.href = '${contextPath}/product/listProduct.do?sort=소파&subsort=x'"
 					data-toggle="dropdown" aria-expanded="true" class="category"
-					style="margin-left: -850px; cursor: pointer; font-size: 17px;">
+					style="margin-left: -850px; cursor: pointer; font-size: 16px; margin-top:40px;">
 					소파</button>
 				<ul class="dropdown-menu" role="menu"
 					aria-labelledby="dropdownMenu1"
 					style="margin-left: -910px; text-align: center;">
 					<li role="presentation" style="margin-top: 11px;"><a
 						role="menuitem" tabindex="-1" href="" id="categorydetile"
-						style="color: #000000; font-size:15px;">코너형</a></li>
+						style="color: #000000; font-size: 15px;">코너형</a></li>
 					<li role="presentation" style="margin-top: 11px;"><a
 						role="menuitem" tabindex="-1" href="" id="categorydetile"
-						style="color: #000000; font-size:15px;">1인/웜체어</a></li>
+						style="color: #000000; font-size: 15px;">1인/웜체어</a></li>
 					<li role="presentation" style="margin-top: 11px;"><a
 						role="menuitem" tabindex="-1" href="" id="categorydetile"
-						style="color: #000000; font-size:15px;">패브릭</a></li>
+						style="color: #000000; font-size: 15px;">패브릭</a></li>
 					<li role="presentation" style="margin-top: 11px;"><a
 						role="menuitem" tabindex="-1" href="" id="categorydetile"
-						style="color: #000000; font-size:15px;">리클라이너</a></li>
+						style="color: #000000; font-size: 15px;">리클라이너</a></li>
 					<li role="presentation" style="margin-top: 11px;"><a
 						role="menuitem" tabindex="-1" href="" id="categorydetile"
-						style="color: #000000; font-size:15px;">4/6인 일자형</a></li>
+						style="color: #000000; font-size: 15px;">4/6인 일자형</a></li>
 				</ul>
 			</div>
 
@@ -199,52 +201,52 @@ hr {
 				<button type="button" id="dropdownMenu1"
 					onclick="location.href = '${contextPath}/product/listProduct.do?sort=화장대/옷장/수납'"
 					data-toggle="dropdown" aria-expanded="true" class="category"
-					style="margin-left: -760px; cursor: pointer; font-size: 17px;">
+					style="margin-left: -760px; cursor: pointer; font-size: 16px; margin-top:40px;">
 					화장대/옷장/수납</button>
 				<ul class="dropdown-menu" role="menu"
 					aria-labelledby="dropdownMenu1"
 					style="margin-left: -770px; text-align: center;">
 					<li role="presentation" style="margin-top: 11px;"><a
 						role="menuitem" tabindex="-1" href="" id="categorydetile"
-						style="color: #000000; font-size:15px;">거실장</a></li>
+						style="color: #000000; font-size: 15px;">거실장</a></li>
 					<li role="presentation" style="margin-top: 11px;"><a
 						role="menuitem" tabindex="-1" href="" id="categorydetile"
-						style="color: #000000; font-size:15px;">장식장</a></li>
+						style="color: #000000; font-size: 15px;">장식장</a></li>
 					<li role="presentation" style="margin-top: 11px;"><a
 						role="menuitem" tabindex="-1" href="" id="categorydetile"
-						style="color: #000000; font-size:15px;">화장대/콘솔</a></li>
+						style="color: #000000; font-size: 15px;">화장대/콘솔</a></li>
 					<li role="presentation" style="margin-top: 11px;"><a
 						role="menuitem" tabindex="-1" href="" id="categorydetile"
-						style="color: #000000; font-size:15px;">옷장</a></li>
+						style="color: #000000; font-size: 15px;">옷장</a></li>
 					<li role="presentation" style="margin-top: 11px;"><a
 						role="menuitem" tabindex="-1" href="" id="categorydetile"
-						style="color: #000000; font-size:15px;">서랍장</a></li>
+						style="color: #000000; font-size: 15px;">서랍장</a></li>
 				</ul>
 			</div>
 			<div class="dropdown">
 				<button type="button" id="dropdownMenu1"
 					onclick="location.href = '${contextPath}/product/listProduct.do?sort=식탁/의자'"
 					data-toggle="dropdown" aria-expanded="true" class="category"
-					style="margin-left: -570px; cursor: pointer; font-size: 17px;">
+					style="margin-left: -570px; cursor: pointer; font-size: 16px; margin-top:40px;">
 					식탁/의자</button>
 				<ul class="dropdown-menu" role="menu"
 					aria-labelledby="dropdownMenu1"
 					style="margin-left: -610px; text-align: center;">
 					<li role="presentation" style="margin-top: 11px;"><a
 						role="menuitem" tabindex="-1" href="" id="categorydetile"
-						style="color: #000000; font-size:15px;">2인 이상</a></li>
+						style="color: #000000; font-size: 15px;">2인 이상</a></li>
 					<li role="presentation" style="margin-top: 11px;"><a
 						role="menuitem" tabindex="-1" href="" id="categorydetile"
-						style="color: #000000; font-size:15px;">4인 이상</a></li>
+						style="color: #000000; font-size: 15px;">4인 이상</a></li>
 					<li role="presentation" style="margin-top: 11px;"><a
 						role="menuitem" tabindex="-1" href="" id="categorydetile"
-						style="color: #000000; font-size:15px;">8인 이상</a></li>
+						style="color: #000000; font-size: 15px;">8인 이상</a></li>
 					<li role="presentation" style="margin-top: 11px;"><a
 						role="menuitem" tabindex="-1" href="" id="categorydetile"
-						style="color: #000000; font-size:15px;">식탁 의자</a></li>
+						style="color: #000000; font-size: 15px;">식탁 의자</a></li>
 					<li role="presentation" style="margin-top: 11px;"><a
 						role="menuitem" tabindex="-1" href="" id="categorydetile"
-						style="color: #000000; font-size:15px;">테이블의자</a></li>
+						style="color: #000000; font-size: 15px;">테이블의자</a></li>
 				</ul>
 			</div>
 
@@ -252,26 +254,26 @@ hr {
 				<button type="button" id="dropdownMenu1"
 					onclick="location.href = '${contextPath}/product/listProduct.do?sort=테이블/책상/책장'"
 					data-toggle="dropdown" aria-expanded="true" class="category"
-					style="margin-left: -440px; cursor: pointer; font-size: 17px;">
+					style="margin-left: -440px; cursor: pointer; font-size: 16px; margin-top:40px;">
 					테이블/책상/책장</button>
 				<ul class="dropdown-menu" role="menu"
 					aria-labelledby="dropdownMenu1"
 					style="margin-left: -445px; text-align: center;">
 					<li role="presentation" style="margin-top: 11px;"><a
 						role="menuitem" tabindex="-1" href="" id="categorydetile"
-						style="color: #000000; font-size:15px;">소파 테이블</a></li>
+						style="color: #000000; font-size: 15px;">소파 테이블</a></li>
 					<li role="presentation" style="margin-top: 11px;"><a
 						role="menuitem" tabindex="-1" href="" id="categorydetile"
-						style="color: #000000; font-size:15px;">좌식 테이블</a></li>
+						style="color: #000000; font-size: 15px;">좌식 테이블</a></li>
 					<li role="presentation" style="margin-top: 11px;"><a
 						role="menuitem" tabindex="-1" href="" id="categorydetile"
-						style="color: #000000; font-size:15px;">원목 테이블</a></li>
+						style="color: #000000; font-size: 15px;">원목 테이블</a></li>
 					<li role="presentation" style="margin-top: 11px;"><a
 						role="menuitem" tabindex="-1" href="" id="categorydetile"
-						style="color: #000000; font-size:15px;">다용도 테이블</a></li>
+						style="color: #000000; font-size: 15px;">다용도 테이블</a></li>
 					<li role="presentation" style="margin-top: 11px;"><a
 						role="menuitem" tabindex="-1" href="" id="categorydetile"
-						style="color: #000000; font-size:15px;">책상/책장</a></li>
+						style="color: #000000; font-size: 15px;">책상/책장</a></li>
 				</ul>
 
 			</div>
@@ -280,9 +282,9 @@ hr {
 			<form name="frmSearch" action="${contextPath}/searchProduct.do">
 				<input type="text" onKeyUp="keywordSearch()" name="searchWord"
 					class="main_input"
-					style="margin-top: 75px; position: relative; margin-left: -230px; left:1490px; border-radius: 10px; background-color: #EEEEEE; border: none; width: 170px; margin-bottom: 10px;">
+					style="margin-top: 55px; position: relative; margin-left: -230px; border-radius: 5px; background-color: #EEEEEE; border: none; width: 170px; margin-bottom: 15px;">
 				<button type="submit" name="search" class="btn1"
-					style="background-image:url(${contextPath}/resources/images/header-01.png); left:1480px; cusor:pointer; position:absolute ;  background-size:20px; width:35px; height:40px; border:1px solid #828282; background-color: transparent !important; background-repeat:no-repeat; border:none; margin-top:70px; margin-left:1px; background-position:center;color:white; cursor:pointer;"></button>
+					style="background-image:url(${contextPath}/resources/images/header-01.png); left:1490px; cusor:pointer; position:absolute ;  background-size:20px; width:35px; height:40px; border:1px solid #828282; background-color: transparent !important; background-repeat:no-repeat; border:none; margin-top:50px; margin-left:1px; background-position:center;color:white; cursor:pointer;"></button>
 
 
 			</form>
@@ -293,8 +295,8 @@ hr {
 			<div class="dropdown" style="width: 0px;">
 				<button id="dropdownMenu1" data-toggle="dropdown"
 					aria-expanded="true" class="category"
-					style="right:50px; position: relative;  cursor: pointer; font-size: 17px; margin-top:75px;
-					background-image:url(${contextPath}/resources/images/header-02.png); cusor:pointer;  border:none; background-size:38px 38px; width:38px; height:38px; background-repeat:no-repeat; border-radius:2px; background-position:center; background-color: transparent !important; cursor:pointer;"></button>
+					style="right:55px; position: relative;  cursor: pointer; font-size: 17px; margin-top:47px;
+					background-image:url(${contextPath}/resources/images/header-02.png); cusor:pointer;  border:none; background-size:38px 40px; width:45px; height:38px; background-repeat:no-repeat; margin-left:20px; border-radius:2px; background-position:center; background-color: transparent !important; cursor:pointer;"></button>
 
 
 				<!-- 사이트맵 -->
@@ -512,7 +514,7 @@ hr {
 
 </nav>
 <hr
-	style="margin-top: -100px; color: red; margin-bottom: 100px; width: 52%; margin-left: 595px;" />
-<hr style="margin-bottom: 0px;" class="ftco-navbar-light.scrolled"/>
+	style="margin-top: -100px; color: red; margin-bottom: 100px; width: 49%; margin-left: 655px;" />
+<hr class="awake"style="margin-bottom: 0px; box-shadow:0 0 10px 0 rgb(0 0 0 / 10%) !important; -webkit-box-shadow: 0 0 10px 0 rgb(0 0 0 / 10%) !important;" />
 
 <!-------------header 끝------------------------------------------------------------------------------------------------------------------------>

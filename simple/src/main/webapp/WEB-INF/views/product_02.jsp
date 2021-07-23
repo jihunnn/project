@@ -236,7 +236,9 @@ function addCartBtn() {
 						style="color: black; text-align: center; margin-top: 8px; padding-top: 30px;">더보기▼</a></li>
 				</ul>
 			</div>
+
 			<!-- 최근 본 상품 끝 -->
+
 
 	<section class="ftco-section"
 		style="padding-top: 20px; margin-bottom: 200px;">
@@ -360,7 +362,9 @@ function addCartBtn() {
 							size="3"
 							style="width: 25px; white-space: nowrap; float: left; font-size: 18px; font-size: 14px; border: 1px solid grey;">
 					</div>
+
 				</div>
+
 			</form>
 
 			<!-- 탭메뉴 자바스크립트 -->
@@ -459,6 +463,7 @@ function addCartBtn() {
 							<c:choose>
 								<c:when test="${empty productReviewList}">
 									<tr style="backgroundcolor: white; width: 1000px;">
+
 										<td colspan="4" style="padding-top: 100px;">등록 된 리뷰가
 											없습니다.</td>
 									</tr>
