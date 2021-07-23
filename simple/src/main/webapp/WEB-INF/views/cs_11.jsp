@@ -58,7 +58,7 @@ request.setCharacterEncoding("UTF-8");
 	content: '';
 	-webkit-transition: all 0.35s ease;
 	transition: all 0.35s ease;
-	background-color: #d2d2d2;
+	background-color: #7e9c8c;
 }
 
 .snip1284 a:before {

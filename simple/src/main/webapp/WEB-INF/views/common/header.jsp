@@ -76,6 +76,7 @@ hr {
 	});
 </script>
 <!-------------header------------------------------------------------------------------------------------------------------------------------>
+
 <nav
 	class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
 	id="ftco-navbar" style="padding-bottom: 0px;">
@@ -135,7 +136,7 @@ hr {
 					<c:otherwise>
 						<li class="nav-item active" style="height: 50px;"><a
 							href="${contextPath}/admin_login.do" class="nav-link"
-							style="padding-left: 10px; font-size: 12px;">관리자</a></li>
+							style="padding-left: 10px; font-size: 12px; padding-right:0px;">관리자</a></li>
 					</c:otherwise>
 				</c:choose>
 			</ul>
@@ -144,7 +145,7 @@ hr {
 				<button type="button" id="dropdownMenu1"
 					onclick="location.href = '${contextPath}/product/listProduct.do?sort=침대&subsort=x'"
 					data-toggle="dropdown" class="category"
-					style="margin-left: -950px; margin-bottom: 0px; font-size: 17px; cursor: pointer;">침대
+					style="margin-left: -950px; margin-bottom: 0px; font-size: 16px; cursor: pointer; margin-top:40px;">침대
 				</button>
 				<ul class="dropdown-menu" role="menu"
 					aria-labelledby="dropdownMenu1"
@@ -173,7 +174,7 @@ hr {
 				<button type="button" id="dropdownMenu1"
 					onclick="location.href = '${contextPath}/product/listProduct.do?sort=소파&subsort=x'"
 					data-toggle="dropdown" aria-expanded="true" class="category"
-					style="margin-left: -850px; cursor: pointer; font-size: 17px;">
+					style="margin-left: -850px; cursor: pointer; font-size: 16px; margin-top:40px;">
 					소파</button>
 				<ul class="dropdown-menu" role="menu"
 					aria-labelledby="dropdownMenu1"
@@ -200,7 +201,7 @@ hr {
 				<button type="button" id="dropdownMenu1"
 					onclick="location.href = '${contextPath}/product/listProduct.do?sort=화장대/옷장/수납'"
 					data-toggle="dropdown" aria-expanded="true" class="category"
-					style="margin-left: -760px; cursor: pointer; font-size: 17px;">
+					style="margin-left: -760px; cursor: pointer; font-size: 16px; margin-top:40px;">
 					화장대/옷장/수납</button>
 				<ul class="dropdown-menu" role="menu"
 					aria-labelledby="dropdownMenu1"
@@ -226,7 +227,7 @@ hr {
 				<button type="button" id="dropdownMenu1"
 					onclick="location.href = '${contextPath}/product/listProduct.do?sort=식탁/의자'"
 					data-toggle="dropdown" aria-expanded="true" class="category"
-					style="margin-left: -570px; cursor: pointer; font-size: 17px;">
+					style="margin-left: -570px; cursor: pointer; font-size: 16px; margin-top:40px;">
 					식탁/의자</button>
 				<ul class="dropdown-menu" role="menu"
 					aria-labelledby="dropdownMenu1"
@@ -253,7 +254,7 @@ hr {
 				<button type="button" id="dropdownMenu1"
 					onclick="location.href = '${contextPath}/product/listProduct.do?sort=테이블/책상/책장'"
 					data-toggle="dropdown" aria-expanded="true" class="category"
-					style="margin-left: -440px; cursor: pointer; font-size: 17px;">
+					style="margin-left: -440px; cursor: pointer; font-size: 16px; margin-top:40px;">
 					테이블/책상/책장</button>
 				<ul class="dropdown-menu" role="menu"
 					aria-labelledby="dropdownMenu1"
@@ -281,9 +282,9 @@ hr {
 			<form name="frmSearch" action="${contextPath}/searchProduct.do">
 				<input type="text" onKeyUp="keywordSearch()" name="searchWord"
 					class="main_input"
-					style="margin-top: 75px; position: relative; margin-left: -230px; border-radius: 10px; background-color: #EEEEEE; border: none; width: 170px; margin-bottom: 10px;">
+					style="margin-top: 55px; position: relative; margin-left: -230px; border-radius: 5px; background-color: #EEEEEE; border: none; width: 170px; margin-bottom: 15px;">
 				<button type="submit" name="search" class="btn1"
-					style="background-image:url(${contextPath}/resources/images/header-01.png); left:1490px; cusor:pointer; position:absolute ;  background-size:20px; width:35px; height:40px; border:1px solid #828282; background-color: transparent !important; background-repeat:no-repeat; border:none; margin-top:70px; margin-left:1px; background-position:center;color:white; cursor:pointer;"></button>
+					style="background-image:url(${contextPath}/resources/images/header-01.png); left:1490px; cusor:pointer; position:absolute ;  background-size:20px; width:35px; height:40px; border:1px solid #828282; background-color: transparent !important; background-repeat:no-repeat; border:none; margin-top:50px; margin-left:1px; background-position:center;color:white; cursor:pointer;"></button>
 
 
 			</form>
@@ -294,8 +295,8 @@ hr {
 			<div class="dropdown" style="width: 0px;">
 				<button id="dropdownMenu1" data-toggle="dropdown"
 					aria-expanded="true" class="category"
-					style="right:50px; position: relative;  cursor: pointer; font-size: 17px; margin-top:75px;
-					background-image:url(${contextPath}/resources/images/header-02.png); cusor:pointer;  border:none; background-size:38px 38px; width:38px; height:38px; background-repeat:no-repeat; border-radius:2px; background-position:center; background-color: transparent !important; cursor:pointer;"></button>
+					style="right:55px; position: relative;  cursor: pointer; font-size: 17px; margin-top:47px;
+					background-image:url(${contextPath}/resources/images/header-02.png); cusor:pointer;  border:none; background-size:38px 40px; width:45px; height:38px; background-repeat:no-repeat; margin-left:20px; border-radius:2px; background-position:center; background-color: transparent !important; cursor:pointer;"></button>
 
 
 				<!-- 사이트맵 -->
@@ -513,7 +514,7 @@ hr {
 
 </nav>
 <hr
-	style="margin-top: -100px; color: red; margin-bottom: 100px; width: 52%; margin-left: 595px;" />
-<hr style="margin-bottom: 0px;" />
+	style="margin-top: -100px; color: red; margin-bottom: 100px; width: 49%; margin-left: 655px;" />
+<hr class="awake"style="margin-bottom: 0px; box-shadow:0 0 10px 0 rgb(0 0 0 / 10%) !important; -webkit-box-shadow: 0 0 10px 0 rgb(0 0 0 / 10%) !important;" />
 
 <!-------------header 끝------------------------------------------------------------------------------------------------------------------------>
