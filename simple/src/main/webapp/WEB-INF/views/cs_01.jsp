@@ -91,8 +91,8 @@ request.setCharacterEncoding("utf-8");
 			<jsp:include page="/WEB-INF/views/common/csMenu.jsp" flush="false" />
 
 			<div>
-				<h2 style="font-size: 28px; margin-top: 15px; float:left;">공지사항</h2>
-				<h5 style="color:#828282; float:left; font-size:18px; margin-left:20px; margin-top:25px;">SIMPLE의 새로운 소식을 확인해보세요.</h5>
+				<h2 style="font-size: 25px; margin-top: 15px; float:left;">공지사항</h2>
+				<h5 style="color:#828282; float:left; font-size:15px; margin-left:20px; margin-top:25px;">SIMPLE의 새로운 소식을 확인해보세요.</h5>
 			</div>
 
 			<!-- 타이틀 끝 -->
@@ -125,14 +125,14 @@ request.setCharacterEncoding("utf-8");
 
 			<!-- 내용 -->
 
-			<table class="table" style="height: 25px; font-size: 14px;">
+			<table class="table" style="height: 25px; font-size: 13px;">
 				<thead class="table-dark" align=center>
-					<tr align="center" style="background-color: #212529;">
-						<td scope="col" width="100">번호</td>
-						<td scope="col" width="500">내용</td>
-						<td scope="col" width="150">작성자</td>
-						<td scope="col" width="150">작성일</td>
-						<td scope="col" width="80">조회수</td>
+					<tr align="center" style="background-color: #eeeeee; border-top:1px solid #7e9c8c; border-bottom: 1px solid #c6c8ca;">
+						<td scope="col" width="100"><p style="color:black; margin-bottom:0px;">번호</p></td>
+						<td scope="col" width="500" ><p style="color:black; margin-bottom:0px;">내용</p></td>
+						<td scope="col" width="150"><p style="color:black; margin-bottom:0px;">작성자</p></td>
+						<td scope="col" width="150"><p style="color:black; margin-bottom:0px;">작성일</p></td>
+						<td scope="col" width="80" ><p style="color:black; margin-bottom:0px;">조회수</p></td>
 					</tr>
 					<c:choose>
 						<c:when test="${empty noticeList}">
@@ -173,7 +173,7 @@ request.setCharacterEncoding("utf-8");
 
 				<c:if test="${pageMaker.prev}">
 
-					<a class="arrow prev" style="border: none; color:black; margin-right:0px; margin-left:0px;"
+					<a class="arrow prev" style="border: 1px solid #7e9c8c; color:#7e9c8c; margin-right:0px; margin-left:2px; colo"
 						href='<c:url value="/board/listNotice.do?page=${pageMaker.startPage-1 }"/>'><i
 						class="fa fa-chevron-left"></i></a>
 
@@ -181,13 +181,13 @@ request.setCharacterEncoding("utf-8");
 				<c:forEach begin="${pageMaker.startPage }"
 					end="${pageMaker.endPage }" var="pageNum">
 
-					<a style="border: none; color:black; margin-right:0px; margin-left:0px;" href='<c:url value="/board/listNotice.do?page=${pageNum }"/>'><i
+					<a style="border: 1px solid #7e9c8c; color:#7e9c8c;margin-right:0px; margin-left:2px;" href='<c:url value="/board/listNotice.do?page=${pageNum }"/>'><i
 						class="fa">${pageNum }</i></a>
 
 				</c:forEach>
 				<c:if test="${pageMaker.next && pageMaker.endPage >0 }">
 
-					<a class="arrow next" style="border: none; color:black; margin-right:0px; margin-left:0px;"
+					<a class="arrow next" style="border: 1px solid #7e9c8c; color:#7e9c8c; margin-right:0px; margin-left:2px;"
 						href='<c:url value="/board/listNotice.do?page=${pageMaker.endPage+1 }"/>'><i
 						class="fa fa-chevron-right"></i></a>
 

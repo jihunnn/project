@@ -10,16 +10,76 @@ request.setCharacterEncoding("UTF-8");
 <html lang="en">
 <head>
 <script>
-function removeAsCenter(obj) {
-	if (confirm("삭제하시겠습니까??")) {
-	obj.action="${contextPath}/board/removeAsCenter.do?asCenterNum=${asCenter.asCenterNum}";
-	} else {
-		return false;
+	function removeAsCenter(obj) {
+		if (confirm("삭제하시겠습니까??")) {
+			obj.action = "${contextPath}/board/removeAsCenter.do?asCenterNum=${asCenter.asCenterNum}";
+		} else {
+			return false;
+		}
+		obj.submit();
 	}
-	obj.submit();
-}
 </script>
 <style>
+@import url(https://fonts.googleapis.com/css?family=Raleway:500);
+
+.snip1284 {
+	font-family: 'Raleway', Arial, sans-serif;
+	text-align: center;
+	text-transform: uppercase;
+	font-weight: 500;
+	letter-spacing: 1px;
+}
+
+.snip1284 * {
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-transition: all 0.35s ease;
+	transition: all 0.35s ease;
+}
+
+.snip1284 li {
+	display: inline-block;
+	list-style: outside none none;
+	margin: 0.5em 1.2em;
+	padding: 0;
+}
+
+.snip1284 a {
+	padding: 0 0.6em;
+	color: rgba(255, 255, 255, 0.5);
+	position: relative;
+	text-decoration: none;
+}
+
+.snip1284 a:before, .snip1284 a:after {
+	width: 3px;
+	height: 0;
+	position: absolute;
+	content: '';
+	-webkit-transition: all 0.35s ease;
+	transition: all 0.35s ease;
+	background-color: #7e9c8c;
+}
+
+.snip1284 a:before {
+	top: 0;
+	right: 0;
+}
+
+.snip1284 a:after {
+	bottom: 0;
+	left: 0;
+}
+
+.snip1284 a:hover, .snip1284 .current a {
+	color: #ffffff;
+}
+
+.snip1284 a:hover:before, .snip1284 .current a:before, .snip1284 a:hover:after,
+	.snip1284 .current a:after {
+	height: 100%;
+}
+
 .page_wrap {
 	text-align: center;
 	font-size: 0;
@@ -92,20 +152,51 @@ function removeAsCenter(obj) {
 	padding-top: 1.8px;
 }
 </style>
-
+<script>
+function InquiryList() {
+    if (${isLogOn != true && member == null}) {
+        alert("로그인이 필요합니다.");
+        location.href = '${contextPath}/login_01.do';
+    } else {
+    	location.href='${contextPath}/board/listInquiry.do'
+    }
+}
+</script>
 
 </head>
 <body>
 	<!-- 타이틀 -->
 	<section class="ftco-section"
-		style="padding-top: 50px; margin-bottom: 50px; padding-bottom: 0px; margin-bottom: 400px;">
+		style="padding-top: 50px; margin-bottom: 50px; padding-bottom: 0px; margin-bottom: 400px; margin-top:30px;">
 		<div class="container">
-			<div class="row justify-content-center mb-5 pb-3"
-				style="background-color: #f5f5f5; border: 1px solid #e7e7e7; margin-top: 50px;">
-				<div class="col-md-20 heading-section ftco-animate"
-					style="height: 60px;">
-					<h2 class="mb-4" style="font-size: 35px; margin-top: 15px;">고객센터</h2>
-				</div>
+			<ul class="snip1284">
+				<li><a
+					onclick="location.href='${contextPath}/board/listNotice.do'"
+					data-hover="공지사항"
+					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; margin-left: 20px; padding-bottom: 0px;">공지사항</a></li>
+
+
+				<li><a
+					onclick="location.href='${contextPath}/board/listQuestion.do'"
+					data-hover="자주 묻는 질문"
+					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">자주
+						묻는 질문</a></li>
+
+
+				<li><a onclick="InquiryList()" data-hover="1:1문의"
+					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">1:1문의</a></li>
+
+
+				<li class="current"><a
+					onclick="location.href='${contextPath}/board/listAsCenter.do'"
+					data-hover="A/S센터"
+					style="font-size: 20px; border: none; color: #5a5a5a; background-color: white; cursor: pointer; padding-bottom: 0px;">A/S센터</a></li>
+			</ul>
+			<div>
+				<h2 style="font-size: 28px; margin-top: 15px; float: left;">A/S센터</h2>
+				<h5
+					style="color: #828282; float: left; font-size: 18px; margin-left: 20px; margin-top: 25px;">빠르게
+					접수 도와드리겠습니다.</h5>
 			</div>
 			<!-- 타이틀 끝 -->
 			<!-- 최근 본 상품 -->
@@ -133,22 +224,24 @@ function removeAsCenter(obj) {
 				</ul>
 			</div>
 			<!-- 최근 본 상품 끝 -->
-			<jsp:include page="/WEB-INF/views/common/csMenu.jsp" flush="false" />
+
 			<!-- 내용 -->
-			<form name="frmAsCenter" method="post"  action="${contextPath}/board/modAsCenter.do?asCenterNum=${asCenter.asCenterNum}"  enctype="multipart/form-data">
-				<table class="table">
+			<form name="frmAsCenter" method="post"
+				action="${contextPath}/board/modAsCenter.do?asCenterNum=${asCenter.asCenterNum}"
+				enctype="multipart/form-data">
+				<table class="table" style="font-size: 14px; height: 25px;">
 					<thead class="table-dark" align=center>
-						<tr align="center">
+						<tr align="center" style="background-color: #212529;">
 							<td scope="col" colspan="6"
 								style="border-bottom: 1px solid white;">${asCenter.asCenterTitle}</td>
 						</tr>
 						<tr>
-							<td scope="col" width="150">작성자</td>
+							<td scope="col" width="150" style="background-color: #212529;">작성자</td>
 							<td scope="col" width="150"
-								style="background-color: white; color: black;"><a>${asCenter.memName}</a></td>
-							<td scope="col" width="100">작성일</td>
+								style="background-color: white; border-bottom: 1px solid #212529; color: black;"><a>${asCenter.memName}</a></td>
+							<td scope="col" width="100" style="background-color: #212529;">작성일</td>
 							<td scope="col" width="100"
-								style="background-color: white; color: black;"><fmt:formatDate
+								style="background-color: white; color: black; border-bottom: 1px solid #212529;"><fmt:formatDate
 									value="${asCenter.asCenterDate}" /></td>
 						</tr>
 						<c:choose>
@@ -158,10 +251,10 @@ function removeAsCenter(obj) {
 									style="border-bottom: 1px solid #32383e !important; background-color: white; color: black;">
 
 									<td colspan="6" align="left" scope="col" width="500"
-										height="500"><a href="#"
-										style="color: black; padding-left: 30px;">${asCenter.asCenterContent}</a><br>
+										height="500"><a href="#" style="color: black;">${asCenter.asCenterContent}</a><br>
 										<input type="hidden" name="OrignAsCenterFile"
-										value="${asCenter.asCenterFile}" /> <img
+										value="${asCenter.asCenterFile}" /> <img width="300"
+										height="300"
 										src="${contextPath}/download_asCenter.do?asCenterNum=${asCenter.asCenterNum}&asCenterFile=${asCenter.asCenterFile}"
 										id="preview" /></td>
 								</tr>
@@ -181,11 +274,12 @@ function removeAsCenter(obj) {
 				<button type="button"
 					onClick="location.href='${contextPath}/board/listAsCenter.do?page=${pageNum}'"
 					id="bottonmy" class="btn btn-dark"
-					style="float: left; margin-left: 580px; margin-top: 27px; border-radius: 2px; width: 80px; height: 30px; padding-top: 1.8px;">목록</button>
+					style="float: left; margin-left: 580px; margin-top: 27px; border-radius: 2px; width: 80px; height: 30px; padding-top: 1.8px; font-size: 14px; padding-top: 4px;">목록</button>
 				<button type="submit" id="bottonmy" class="btn btn-dark"
-					style="float: left; margin-left: 1100px; margin-top: -35px; border-radius: 2px; width: 80px; height: 30px; padding-top: 1.8px;">수정</button>
-				<button type="button" id="bottonmy" class="btn btn-dark" onclick="removeAsCenter(this.form)"
-					style="float: left; margin-left: 1190px; margin-top: -35px; border-radius: 2px; width: 80px; height: 30px; padding-top: 1.8px;">삭제</button>
+					style="float: left; margin-left: 1100px; margin-top: -35px; border-radius: 2px; width: 80px; height: 30px; padding-top: 1.8px; font-size: 14px; padding-top: 4px;">수정</button>
+				<button type="button" id="bottonmy" class="btn btn-dark"
+					onclick="removeAsCenter(this.form)"
+					style="float: left; margin-left: 1190px; margin-top: -35px; border-radius: 2px; width: 80px; height: 30px; padding-top: 1.8px; font-size: 14px; padding-top: 4px;">삭제</button>
 			</form>
 		</div>
 	</section>

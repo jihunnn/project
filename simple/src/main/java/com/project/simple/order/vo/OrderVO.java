@@ -28,6 +28,7 @@ public class OrderVO {
 	private String memPaymentMethod;
 	private String option1value;
 	private String option2value;
+
 	private String option1name;
 	private String option2name;
 	private int totalPrice;

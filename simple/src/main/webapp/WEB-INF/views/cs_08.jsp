@@ -4,8 +4,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <c:if test="${!empty asCenterSearchMap.search}">
-		<c:set var="asCenterSearchList"
-			value="${asCenterSearchMap.asCenterSearchList}" />
+	<c:set var="asCenterSearchList"
+		value="${asCenterSearchMap.asCenterSearchList}" />
 </c:if>
 
 <!DOCTYPE html>
@@ -25,6 +25,66 @@
 </script>
 
 <style>
+@import url(https://fonts.googleapis.com/css?family=Raleway:500);
+
+.snip1284 {
+	font-family: 'Raleway', Arial, sans-serif;
+	text-align: center;
+	text-transform: uppercase;
+	font-weight: 500;
+	letter-spacing: 1px;
+}
+
+.snip1284 * {
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-transition: all 0.35s ease;
+	transition: all 0.35s ease;
+}
+
+.snip1284 li {
+	display: inline-block;
+	list-style: outside none none;
+	margin: 0.5em 1.2em;
+	padding: 0;
+}
+
+.snip1284 a {
+	padding: 0 0.6em;
+	color: rgba(255, 255, 255, 0.5);
+	position: relative;
+	text-decoration: none;
+}
+
+.snip1284 a:before, .snip1284 a:after {
+	width: 3px;
+	height: 0;
+	position: absolute;
+	content: '';
+	-webkit-transition: all 0.35s ease;
+	transition: all 0.35s ease;
+	background-color: #7e9c8c;
+}
+
+.snip1284 a:before {
+	top: 0;
+	right: 0;
+}
+
+.snip1284 a:after {
+	bottom: 0;
+	left: 0;
+}
+
+.snip1284 a:hover, .snip1284 .current a {
+	color: #ffffff;
+}
+
+.snip1284 a:hover:before, .snip1284 .current a:before, .snip1284 a:hover:after,
+	.snip1284 .current a:after {
+	height: 100%;
+}
+
 .page_wrap {
 	text-align: center;
 	font-size: 0;
@@ -97,21 +157,52 @@
 	padding-top: 1.8px;
 }
 </style>
-
+<script>
+function InquiryList() {
+    if (${isLogOn != true && member == null}) {
+        alert("로그인이 필요합니다.");
+        location.href = '${contextPath}/login_01.do';
+    } else {
+    	location.href='${contextPath}/board/listInquiry.do'
+    }
+}
+</script>
 
 </head>
 <body>
 
 	<!-- 타이틀 -->
 	<section class="ftco-section"
-		style="padding-top: 50px; margin-bottom: 50px; padding-bottom: 0px;">
+		style="padding-top: 50px; margin-bottom: 50px; padding-bottom: 0px; margin-top:30px;">
 		<div class="container">
-			<div class="row justify-content-center mb-5 pb-3"
-				style="background-color: #f5f5f5; border: 1px solid #e7e7e7; margin-top: 50px;">
-				<div class="col-md-20 heading-section ftco-animate"
-					style="height: 60px;">
-					<h2 class="mb-4" style="font-size: 35px; margin-top: 15px;">고객센터</h2>
-				</div>
+			<ul class="snip1284">
+				<li><a
+					onclick="location.href='${contextPath}/board/listNotice.do'"
+					data-hover="공지사항"
+					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; margin-left: 20px; padding-bottom: 0px;">공지사항</a></li>
+
+
+				<li><a
+					onclick="location.href='${contextPath}/board/listQuestion.do'"
+					data-hover="자주 묻는 질문"
+					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">자주
+						묻는 질문</a></li>
+
+
+				<li><a onclick="InquiryList()" data-hover="1:1문의"
+					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">1:1문의</a></li>
+
+
+				<li class="current"><a
+					onclick="location.href='${contextPath}/board/listAsCenter.do'"
+					data-hover="A/S센터"
+					style="font-size: 20px; border: none; color: #5a5a5a; background-color: white; cursor: pointer; padding-bottom: 0px;">A/S센터</a></li>
+			</ul>
+
+			<div>
+				<h2 style="font-size: 28px; margin-top: 15px; float: left;">A/S센터</h2>
+				<h5
+					style="color: #828282; float: left; font-size: 18px; margin-left: 20px; margin-top: 25px;">빠르게 접수 도와드리겠습니다.</h5>
 			</div>
 			<!-- 타이틀 끝 -->
 
@@ -140,25 +231,29 @@
 				</ul>
 			</div>
 			<!-- 최근 본 상품 -->
-			<jsp:include page="/WEB-INF/views/common/csMenu.jsp" flush="false" />
+
 			<!-- 내용 -->
 			<form name="asCenterSearch"
 				action="${contextPath}/board/asCenterSearch.do" method="post">
 				<div>
-					<select name="searchType"
-						style="margin-left: 895px; float: left; width: 80px; height: 31px; border: 1px solid #b3b5b6;">
+
+					<button type="submit" id="buttonmy" class="btn btn-dark"
+						style="margin-top: 20px; float: right; padding-top: 4px; height: 33px; font-size: 14px; padding-top: 4px;">검색</button>
+					<input type="text" class="form-control" id="inputbox"
+						style="margin-top: 21px; float: right; border: 1px solid #bebebe; margin-right: 5px;"
+						name="search"> <select name="searchType"
+						style="font-size: 14px; margin-right: 210px; float: right; width: 80px; height: 31px; border: 1px solid #bebebe; margin-top: 21px;">
 						<option value="asCenterTitle">제목</option>
 						<option value="memName">작성자</option>
 						<option value="asCenterContent">내용</option>
-					</select> <input type="text" class="form-control" id="inputbox"
-						style="margin-top: 10px; margin-left: 980px;" name="search">
-					<button type="submit" id="buttonmy" class="btn btn-dark"
-						style="margin-top: -33px; margin-left: 1190px; padding-top: 4px; height: 33px;">검색</button>
+					</select>
 				</div>
 			</form>
-			<table class="table" style="margin-top: 20px; text-align: center;">
+			<table class="table"
+				style="margin-top: 20px; text-align: center; font-size: 14px;">
 				<thead class="table-dark" align=center>
-					<tr style="border-bottom: 1px solid grey; height: 30px;">
+					<tr
+						style="border-bottom: 1px solid #c6c8ca; height: 30px; background-color: #212529;">
 						<td style="width: 100px;">번호</td>
 						<td style="width: 500px;">제목</td>
 						<td style="width: 200px;">작성자</td>
@@ -171,7 +266,8 @@
 							<c:choose>
 								<c:when test="${empty asCenterSearchMap.asCenterSearchList}">
 									<tr style="background-color: white;">
-										<td colspan="5" style="color: black; height: 300px;">검색된 글이 없습니다.</td>
+										<td colspan="5" style="color: black; height: 300px;">검색된
+											글이 없습니다.</td>
 									</tr>
 								</c:when>
 								<c:otherwise>
@@ -179,7 +275,7 @@
 										value="${pageMaker.totalCount - ((pageNum-1) * 10) }" />
 									<c:forEach var="asCenterSearch" items="${asCenterSearchList}">
 										<tr
-											style="border-bottom: 0.5px solid grey; height: 30px; background-color: white;">
+											style="border-bottom: 1px solid #c6c8ca; height: 30px; background-color: white;">
 											<td style="width: 100px; color: black;">${num}</td>
 											<td
 												style="width: 500px; color: black; text-align: left; padding-left: 50px;"><a
@@ -208,7 +304,7 @@
 										value="${pageMaker.totalCount - ((pageNum-1) * 10) }" />
 									<c:forEach var="asCenter" items="${asCenterList}">
 										<tr
-											style="border-bottom: 0.5px solid grey; height: 30px; background-color: white;">
+											style="border-bottom: 1px solid #c6c8ca; height: 30px; background-color: white;">
 											<td style="width: 100px; color: black;">${num}</td>
 											<td
 												style="width: 500px; color: black; text-align: left; padding-left: 50px;"><a
@@ -229,37 +325,38 @@
 				</thead>
 			</table>
 			<a id="buttonmy" class="btn btn-dark" onClick="asCenterForm()"
-				style="float: left; margin-left: 1190px; margin-top: 25px; border-radius: 2px;">글쓰기</a>
+				style="float: right; margin-top: 25px; border-radius: 2px; color: white; font-size: 14px; padding-top: 4px;">글쓰기</a>
+			<!-- 페이징 글번호 -->
+			<div class="page_wrap" style="margin-left: 80px; margin-top: 50px;">
+				<div class="page_nation">
+
+					<c:if test="${pageMaker.prev}">
+
+						<a class="arrow prev" style="border: none; color:black; margin-right:0px; margin-left:0px;"
+							href='<c:url value="/board/listAsCenter.do?page=${pageMaker.startPage-1 }"/>'><i
+							class="fa fa-chevron-left"></i></a>
+
+					</c:if>
+					<c:forEach begin="${pageMaker.startPage }"
+						end="${pageMaker.endPage }" var="pageNum">
+
+						<a style="border: none; color:black; margin-right:0px; margin-left:0px;" href='<c:url value="/board/listAsCenter.do?page=${pageNum}"/>'><i
+							class="fa">${pageNum}</i></a>
+
+					</c:forEach>
+					<c:if test="${pageMaker.next && pageMaker.endPage >0 }">
+
+						<a class="arrow next" style="border: none; color:black; margin-right:0px; margin-left:0px;"
+							href='<c:url value="/board/listAsCenter.do?page=${pageMaker.endPage+1 }"/>'><i
+							class="fa fa-chevron-right"></i></a>
+
+					</c:if>
+
+				</div>
+			</div>
 		</div>
 	</section>
 	<!-- 내용 끝 -->
-	<!-- 페이징 글번호 -->
-	<div class="page_wrap" style="margin-left: 80px; margin-top: 60px;">
-		<div class="page_nation">
 
-			<c:if test="${pageMaker.prev}">
-
-				<a class="arrow prev"
-					href='<c:url value="/board/listAsCenter.do?page=${pageMaker.startPage-1 }"/>'><i
-					class="fa fa-chevron-left"></i></a>
-
-			</c:if>
-			<c:forEach begin="${pageMaker.startPage }"
-				end="${pageMaker.endPage }" var="pageNum">
-
-				<a href='<c:url value="/board/listAsCenter.do?page=${pageNum}"/>'><i
-					class="fa">${pageNum}</i></a>
-
-			</c:forEach>
-			<c:if test="${pageMaker.next && pageMaker.endPage >0 }">
-
-				<a class="arrow next"
-					href='<c:url value="/board/listAsCenter.do?page=${pageMaker.endPage+1 }"/>'><i
-					class="fa fa-chevron-right"></i></a>
-
-			</c:if>
-
-		</div>
-	</div>
 </body>
 </html>

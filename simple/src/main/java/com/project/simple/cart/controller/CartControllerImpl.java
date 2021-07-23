@@ -105,24 +105,24 @@ public class CartControllerImpl implements CartController {
 			List<CartVO> list = (ArrayList) session.getAttribute("cartlist");
 			String[] ajaxMsg01 = request.getParameterValues("valueArr");
 			
-			int[] ajaxMsg = null;
+			List ajaxMsg = null;
 			
 			if(ajaxMsg01 != null){
 				
-				ajaxMsg = new int[ajaxMsg01.length];		
+				ajaxMsg = new ArrayList<CartVO>();		
 				for( int i=0; i<ajaxMsg01.length; i++ ) {
-				ajaxMsg[i] = Integer.parseInt( ajaxMsg01[i] );
+				ajaxMsg.add(i);
 				}		
 			}
 			
 
 			int size = ajaxMsg01.length;
-			for (int i=0; i< size; i++) {
-				System.out.println(ajaxMsg[i]);
-				list.remove(ajaxMsg[i]);
-				
-			}
 			
+			Iterator<Integer> CartList = ajaxMsg.iterator();
+			while (CartList.hasNext()) {
+				int Cart = CartList.next();
+				list.remove(Cart);}
+				
 			return "redirect:/nonmemcart.do";
 		}
 		

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.simple.cart.vo.CartVO;
@@ -76,8 +77,6 @@ public class OrderControllerImpl implements OrderController {
 
 		return mav;
 	}
-	
-	
 
 	
 	@RequestMapping(value = "/orderEachGoods.do", method = RequestMethod.POST)

@@ -143,7 +143,7 @@
 <title>hello!</title>
 <body>
 
-	<div id="header">
+	<div id="header" style="height:160px;">
 		<tiles:insertAttribute name="header" />
 	</div>
 	

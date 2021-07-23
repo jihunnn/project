@@ -53,7 +53,7 @@
 		<div class="container">
 			<div class="row justify-content-center mb-5 pb-3">
 				<div class="col-md-20 heading-section ftco-animate">
-					<h2 class="mb-4">이달의 BEST 상품</h2>
+					<h2 class="mb-4" style="font-size:25px;">이달의 <span style="color: #7e9c8c; font-size:27px;">BEST</span> 상품</h2>
 
 				</div>
 			</div>
@@ -66,16 +66,13 @@
 						<div class="text d-flex py-1">
 							<div class="desc pl-2">
 								<h3 class="heading">
-									<a href="#">소피아 대리석 4인 식탁 세트</a>
+									<a href="#" style="font-size:15px;">소피아 대리석 4인 식탁 세트</a>
 								</h3>
-								<h3 class="heading" style="line-height: 10px;">
-									<a href="#" style="color: #acaaaa; font-size: 15px">식탁 1ea
-										+ 의자 4ea</a>
-								</h3>
-								<hr style="margin-top: 25px;">
+
+								<hr style="margin-top: 15px; margin-bottom:10px;">
 								<h3 class="heading"
-									style="padding-left: 67%; white-space: nowrap;">
-									<a href="#" style="font-size: 22px;">2,190,000원</a>
+									style="float:right; white-space: nowrap; margin-bottom:10px;">
+									<a href="#" style="font-size: 17px; ">2,190,000원</a>
 								</h3>
 							</div>
 						</div>
@@ -87,21 +84,16 @@
 							style="background-image: url('${contextPath}/resources/images/image_2.jpg');">
 						</a>
 						<div class="text d-flex py-1">
-
 							<div class="desc pl-2">
 								<h3 class="heading">
-									<a href="#">에바 세라믹 6인 식탁세트(오로라)</a>
-								</h3>
-								<h3 class="heading" style="line-height: 10px;">
-									<a href="#" style="color: #acaaaa; font-size: 15px">식탁 1ea
-										+ 의자 3ea + 벤치 1ea</a>
-								</h3>
-								<hr style="margin-top: 25px;">
-								<h3 class="heading"
-									style="padding-left: 67%; white-space: nowrap;">
-									<a href="#" style="font-size: 22px;">1,890,000원</a>
+									<a href="#" style="font-size:15px;">소피아 대리석 4인 식탁 세트</a>
 								</h3>
 
+								<hr style="margin-top: 15px; margin-bottom:10px;">
+								<h3 class="heading"
+									style="float:right; white-space: nowrap; margin-bottom:10px;">
+									<a href="#" style="font-size: 17px; ">2,190,000원</a>
+								</h3>
 							</div>
 						</div>
 					</div>
@@ -111,19 +103,16 @@
 						<a href="blog-single.html" class="block-20"
 							style="background-image: url('${contextPath}/resources/images/image_3.jpg');">
 						</a>
-						<div class="text d-flex py-1">
+							<div class="text d-flex py-1">
 							<div class="desc pl-2">
 								<h3 class="heading">
-									<a href="#">천연면피 통가죽 카우치형 소파</a>
+									<a href="#" style="font-size:15px;">소피아 대리석 4인 식탁 세트</a>
 								</h3>
-								<h3 class="heading" style="line-height: 10px;">
-									<a href="#" style="color: #acaaaa; font-size: 15px">1인팔걸이1ea
-										+ 카우치</a>
-								</h3>
-								<hr style="margin-top: 25px;">
+
+								<hr style="margin-top: 15px; margin-bottom:10px;">
 								<h3 class="heading"
-									style="padding-left: 67%; white-space: nowrap;">
-									<a href="#" style="font-size: 22px;">2,190,000원</a>
+									style="float:right; white-space: nowrap; margin-bottom:10px;">
+									<a href="#" style="font-size: 17px;">2,190,000원</a>
 								</h3>
 							</div>
 						</div>
