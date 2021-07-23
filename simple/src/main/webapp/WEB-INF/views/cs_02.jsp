@@ -88,14 +88,14 @@
 <body>
 	<!--  타이틀 -->
 	<!--  -->
-	<section class="ftco-section" 
-		style="padding-top: 50px; margin-top: 30px; padding-bottom:130px;">
+	<section class="ftco-section"
+		style="padding-top: 50px; margin-top: 30px; padding-bottom: 130px;">
 		<div class="container">
 			<jsp:include page="/WEB-INF/views/common/csMenu.jsp" flush="false" />
 			<div>
-				<h2 style="font-size: 28px; margin-top: 15px; float: left;">공지사항</h2>
+				<h2 style="font-size: 25px; margin-top: 15px; float: left;">공지사항</h2>
 				<h5
-					style="color: #828282; float: left; font-size: 18px; margin-left: 20px; margin-top: 25px;">SIMPLE의
+					style="color: #828282; float: left; font-size: 15px; margin-left: 20px; margin-top: 25px;">SIMPLE의
 					새로운 소식을 확인해보세요.</h5>
 			</div>
 			<!-- 타이틀 끝 -->
@@ -127,13 +127,15 @@
 
 			<!-- 내용 -->
 
-			<table class="table" style="height: 25px; font-size: 14px;">
+			<table class="table" style="height: 25px; font-size: 13px;">
 				<thead class="table-dark" align=center>
-					<tr align="center" style="background-color: #212529;">
+					<tr align="center"
+						style="background-color: #eeeeee; border-top: 1px solid #7e9c8c;  border-bottom: 1px solid #c6c8ca !important;">
 						<td scope="col" colspan="6"
-							style="border-bottom: 1px solid white;">${notice.noticeTitle}</td>
+							><a
+							style="color: black;">${notice.noticeTitle}</a></td>
 					</tr>
-					<tr style="background-color: #212529;">
+					<tr style="background-color: #eeeeee; color: black;  border-bottom: 1px solid #c6c8ca !important;">
 						<td scope="col" width="150">작성자</td>
 						<td scope="col" width="150"
 							style="background-color: white; color: black;"><a>${notice.noticeWriter }</a></td>
@@ -147,7 +149,7 @@
 					</tr>
 
 					<tr
-						style="border-bottom: 1px solid #32383e !important; background-color: white; color: black;">
+						style="border-bottom: 1px solid #c6c8ca !important; background-color: white; color: black;">
 
 						<td colspan="6" align="left" scope="col" width="500" height="500"><a
 							href="#" style="color: black; padding-left: 30px;">${notice.noticeContent }</a></td>
@@ -158,7 +160,7 @@
 			<button type="button"
 				onclick="location.href='${contextPath}/board/listNotice.do'"
 				id="buttonmy" class="btn btn-dark"
-				style="float: right;border-radius: 2px; background-color: #212529; font-size: 14px;">목록</button>
+				style="float: right; border-radius: 2px; background-color: #7e9c8c; font-size: 14px; padding-top:4px; border:none;">목 록</button>
 		</div>
 		<!-- 내용 끝 -->
 	</section>
