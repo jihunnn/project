@@ -39,7 +39,35 @@ public class OrderControllerImpl implements OrderController {
 			HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		HttpSession session = request.getSession();
+		List<CartVO> cartlist = (ArrayList) session.getAttribute("cartlist");
 		Boolean isLogOn = (Boolean) session.getAttribute("isLogOn");
+		
+		
+		if (isLogOn == null) {
+			List<CartVO> list = (ArrayList) session.getAttribute("orderlist");
+			if (list == null) {
+				list = new ArrayList<CartVO>();
+				session.setAttribute("orderlist", list);
+			}
+			
+			String[] ajaxMsg01 = request.getParameterValues("valueArr");
+			int[] ajaxMsg = null;
+			if(ajaxMsg01 != null){
+				ajaxMsg = new int[ajaxMsg01.length];		
+				for( int i=0; i<ajaxMsg01.length; i++ ) {
+				ajaxMsg[i] = Integer.parseInt( ajaxMsg01[i] );
+				}		
+			}
+			int size = ajaxMsg01.length;
+			for (int i = 0; i < size; i++) {
+			int no = ajaxMsg[i];
+			CartVO vo = cartlist.get(no);
+			list.add(vo);
+			}
+			
+			session.setAttribute("orderlist", list); 
+			mav.setViewName("order_02");
+		}
 
 		if (isLogOn == true) {
 			List<OrderVO> orderlist = new ArrayList();
@@ -71,13 +99,25 @@ public class OrderControllerImpl implements OrderController {
 		
 	// 주문페이지 이동(비회원)
 	@RequestMapping(value = "/order_02.do", method = RequestMethod.GET)
-	private ModelAndView order_02(@ModelAttribute("orderVO") OrderVO orderVO, HttpServletRequest request,
+	private String order_02(HttpServletRequest request,
 			HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
 
-		return mav;
+		return "order_02";
 	}
+	
+	// 관리자 주문리스트 조회
+	@RequestMapping(value = "/admin_listorder.do", method = RequestMethod.GET)
+	private ModelAndView admin_listorder(@ModelAttribute("orderVO") OrderVO orderVO, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		
+		ModelAndView mav = new ModelAndView();
+		return mav;
+		
+		}
 
+	
+	
 	
 	@RequestMapping(value = "/orderEachGoods.do", method = RequestMethod.POST)
 	public ModelAndView orderEachGoods(@ModelAttribute("orderVO") OrderVO _orderVO, HttpServletRequest request,
@@ -116,6 +156,8 @@ public class OrderControllerImpl implements OrderController {
 		session.setAttribute("orderer", memberInfo);
 		return mav;
 	}
+	
+	
 
 	/*
 	 * @RequestMapping(value="/orderAllCartGoods.do" ,method = RequestMethod.POST)

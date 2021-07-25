@@ -2,6 +2,8 @@
 	pageEncoding="utf-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<%@ page import="com.project.simple.member.vo.MemberVO"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,6 +15,10 @@
 
 
 <style type="text/css">
+
+
+			
+			
 .table-light {
 	background: #F7F7F7;
 }
@@ -47,7 +53,6 @@ h4 {
 			form.phone1.focus();
 			return false;
 		}
-
 
 		if (form.phone2.value == "") {
 			alert("주문자정보의 연락처를 입력하지 않았습니다.")
@@ -124,124 +129,152 @@ h4 {
 			}
 		}
 
-		
 		form.submit();
 
 	}
-
+	
+	function sameInfo(f){
+		f.memSpName.value = f.memName.value;
+		f.memSpAdr.value = f.memAdr.value;
+		f.memSpAdr1.value = f.memAdr1.value;
+		f.memSpAdr2.value = f.memAdr2.value;
+		f.memSpPhoneNum1_0.value = f.memPhoneNum.value;
+		f.memSpPhoneNum1_1.value = f.memPhoneNum1.value;
+		f.memSpPhoneNum1_2.value = f.memPhoneNum2.value;
+	}
 </script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
-    //주문자 우편번호
-    function sample6_execDaumPostcode() {
-        new daum.Postcode(
-                {
-                    oncomplete : function(data) {
-                        // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
- 
-                        // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-                        // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                        var fullAddr = ''; // 최종 주소 변수
-                        var extraAddr = ''; // 조합형 주소 변수
- 
-                        // 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-                        if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-                            fullAddr = data.roadAddress;
- 
-                        } else { // 사용자가 지번 주소를 선택했을 경우(J)
-                            fullAddr = data.jibunAddress;
-                        }
- 
-                        // 사용자가 선택한 주소가 도로명 타입일때 조합한다.
-                        if (data.userSelectedType === 'R') {
-                            //법정동명이 있을 경우 추가한다.
-                            if (data.bname !== '') {
-                                extraAddr += data.bname;
-                            }
-                            // 건물명이 있을 경우 추가한다.
-                            if (data.buildingName !== '') {
-                                extraAddr += (extraAddr !== '' ? ', '
-                                        + data.buildingName : data.buildingName);
-                            }
-                            // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
-                            fullAddr += (extraAddr !== '' ? ' (' + extraAddr
-                                    + ')' : '');
-                        }
- 
-                        // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                        document.getElementById('sample6_postcode').value = data.zonecode; //5자리 새우편번호 사용
-                        document.getElementById('sample6_address').value = fullAddr;
- 
-                        // 커서를 상세주소 필드로 이동한다.
-                        document.getElementById('sample6_address2').focus();
-                    }
-                }).open();
-    }
-    //배송지 우편번호
-    function sample6_execDaumPostcode1() {
-        new daum.Postcode(
-                {
-                    oncomplete : function(data) {
-                        // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
- 
-                        // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-                        // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                        var fullAddr = ''; // 최종 주소 변수
-                        var extraAddr = ''; // 조합형 주소 변수
- 
-                        // 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-                        if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-                            fullAddr = data.roadAddress;
- 
-                        } else { // 사용자가 지번 주소를 선택했을 경우(J)
-                            fullAddr = data.jibunAddress;
-                        }
- 
-                        // 사용자가 선택한 주소가 도로명 타입일때 조합한다.
-                        if (data.userSelectedType === 'R') {
-                            //법정동명이 있을 경우 추가한다.
-                            if (data.bname !== '') {
-                                extraAddr += data.bname;
-                            }
-                            // 건물명이 있을 경우 추가한다.
-                            if (data.buildingName !== '') {
-                                extraAddr += (extraAddr !== '' ? ', '
-                                        + data.buildingName : data.buildingName);
-                            }
-                            // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
-                            fullAddr += (extraAddr !== '' ? ' (' + extraAddr
-                                    + ')' : '');
-                        }
- 
-                        // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                        document.getElementById('sample6_postcode1').value = data.zonecode; //5자리 새우편번호 사용
-                        document.getElementById('sample6_address_1').value = fullAddr;
- 
-                        // 커서를 상세주소 필드로 이동한다.
-                        document.getElementById('sample6_address2_1').focus();
-                    }
-                }).open();
-    }
+	//주문자 우편번호
+	function sample6_execDaumPostcode() {
+		new daum.Postcode(
+				{
+					oncomplete : function(data) {
+						// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+						// 각 주소의 노출 규칙에 따라 주소를 조합한다.
+						// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+						var fullAddr = ''; // 최종 주소 변수
+						var extraAddr = ''; // 조합형 주소 변수
+
+						// 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+						if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+							fullAddr = data.roadAddress;
+
+						} else { // 사용자가 지번 주소를 선택했을 경우(J)
+							fullAddr = data.jibunAddress;
+						}
+
+						// 사용자가 선택한 주소가 도로명 타입일때 조합한다.
+						if (data.userSelectedType === 'R') {
+							//법정동명이 있을 경우 추가한다.
+							if (data.bname !== '') {
+								extraAddr += data.bname;
+							}
+							// 건물명이 있을 경우 추가한다.
+							if (data.buildingName !== '') {
+								extraAddr += (extraAddr !== '' ? ', '
+										+ data.buildingName : data.buildingName);
+							}
+							// 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
+							fullAddr += (extraAddr !== '' ? ' (' + extraAddr
+									+ ')' : '');
+						}
+
+						// 우편번호와 주소 정보를 해당 필드에 넣는다.
+						document.getElementById('sample6_postcode').value = data.zonecode; //5자리 새우편번호 사용
+						document.getElementById('sample6_address').value = fullAddr;
+
+						// 커서를 상세주소 필드로 이동한다.
+						document.getElementById('sample6_address2').focus();
+					}
+				}).open();
+	}
+	//배송지 우편번호
+	function sample6_execDaumPostcode1() {
+		new daum.Postcode(
+				{
+					oncomplete : function(data) {
+						// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+						// 각 주소의 노출 규칙에 따라 주소를 조합한다.
+						// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+						var fullAddr = ''; // 최종 주소 변수
+						var extraAddr = ''; // 조합형 주소 변수
+
+						// 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+						if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+							fullAddr = data.roadAddress;
+
+						} else { // 사용자가 지번 주소를 선택했을 경우(J)
+							fullAddr = data.jibunAddress;
+						}
+
+						// 사용자가 선택한 주소가 도로명 타입일때 조합한다.
+						if (data.userSelectedType === 'R') {
+							//법정동명이 있을 경우 추가한다.
+							if (data.bname !== '') {
+								extraAddr += data.bname;
+							}
+							// 건물명이 있을 경우 추가한다.
+							if (data.buildingName !== '') {
+								extraAddr += (extraAddr !== '' ? ', '
+										+ data.buildingName : data.buildingName);
+							}
+							// 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
+							fullAddr += (extraAddr !== '' ? ' (' + extraAddr
+									+ ')' : '');
+						}
+
+						// 우편번호와 주소 정보를 해당 필드에 넣는다.
+						document.getElementById('sample6_postcode1').value = data.zonecode; //5자리 새우편번호 사용
+						document.getElementById('sample6_address_1').value = fullAddr;
+
+						// 커서를 상세주소 필드로 이동한다.
+						document.getElementById('sample6_address2_1').focus();
+					}
+				}).open();
+	}
 </script>
 </head>
 <title>주문결제창</title>
 <body>
 
+<%
+	MemberVO member = (MemberVO) session.getAttribute("member");
+	String FullmemPhoneNum = member.getmemPhoneNum();
+	String FullmemEmail = member.getmemEmail();
+	String FullmemAdr = member.getmemAdr();
+
+	String a1 = "-";
+	String e1 = "@";
+	String p1 = "-";
+
+	String[] memAdr = FullmemAdr.split(a1);
+	String[] memEmail = FullmemEmail.split(e1);
+	String[] memPhoneNum= FullmemPhoneNum.split(p1);
+
+	for (int i = 0; i < memAdr.length; i++) {
+	}
+	for (int i = 0; i < memEmail.length; i++) {
+	}
+	for (int i = 0; i < memPhoneNum.length; i++) {
+	}
+%>
+	
+	
+
 	<!-- 타이틀 -->
-	<section class="ftco-section" style="padding-top: 50px;">
+	<section class="ftco-section" style="padding-top: 100px; ">
 		<div class="container">
-			<div class="row justify-content-center mb-5 pb-3"
-				style="background-color: #f5f5f5; border: 1px solid #e7e7e7; margin-top: 50px;">
-				<div class="col-md-20 heading-section ftco-animate"
-					style="height: 60px;">
-					<h2 class="mb-4" style="font-size: 35px; margin-top: 15px;">회원 주문결제</h2>
-				</div>
-			</div>
+
 			<!-- 타이틀 끝 -->
 
 
-			
-			<h4>주문리스트</h4>
+
+			<div style="font-size: 25px; font-weight: bold;">
+				<a style="color: #7e9c8c;">주문리스트</a>
+			</div>
 
 
 
@@ -272,171 +305,234 @@ h4 {
 			<!-- 최근본상품끝 -->
 
 
-         <form name="CheckOrder" action="order_03.jsp" method="post">
-			<div class="order_list text-center">
-				<table class="table">
+			<form name="CheckOrder" action="order_03.jsp" method="post">
+			<input type="hidden" value="${member.memId}"/>
+			
+			
+				<div class="order_list text-center">
+					<table class="table" style="font-size: 13px;">
 
-					<thead class="table-dark">
-						<tr>
-							<th scope="col">제품</th>
-							<th scope="col">수량</th>
-							<th scope="col">가격</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<th scope="col">커스틴 천연면피 통가죽 4인 카우치형 소파</th>
-							<th scope="col">1개</th>
-							<th scope="col">3,740,000</th>
-						</tr>
-						<tr>
-							<th scope="col">커스틴 천연면피 통가죽 4인 카우치형 소파</th>
-							<th scope="col">1개</th>
-							<th scope="col">3,740,000</th>
-						</tr>
-					</tbody>
-				</table>
-			</div>
+						<thead class="table-dark">
+							<tr
+								style="background-color: #eeeeee; border-top: 1px solid #7e9c8c; color: black; border-bottom: 1px solid #c6c8ca; font-size: 15px;">
+								<th scope="col" width="150"></th>
+								<th scope="col">상품명</th>
+								<th scope="col" width="250">옵션</th>
+								<th scope="col" width="100">수량</th>	
+								<th scope="col" width="80">배송비</th>
+								<th scope="col" width="150">가격</th>
+							</tr>
+						</thead>
+						<c:forEach items="${orderlist}" var="orderlist" varStatus="status">
+							<tbody>
+								<tr class="tr1" style="border-bottom: 1px solid rgba(0, 0, 0, 0.1);">
+									<th scope="col" style="vertical-align:middle;"><img
+										src="${contextPath}/resources/images/sofa01.jpg" width=80 height=80
+										></th>
+									<th scope="col" style="vertical-align:middle;">${orderlist.productName}</th>
+									<th scope="col" style="text-align: left; vertical-align:middle;">${orderlist.option1name} : ${orderlist.option1value}<br>${orderlist.option2name} : ${orderlist.option2value}</th>
+									<th scope="col" style="vertical-align:middle;">${orderlist.productCnt}개</th>
+									<th scope="col" style="vertical-align:middle;">${orderlist.deliverycharge}</th>
+									<th scope="col" style="vertical-align:middle;">${orderlist.totalPrice}원</th>
+								</tr>
+							</tbody>
+							</c:forEach>		
+					</table>
+
+					<div style="font-size: 18px; float: right;">
+						<span>총금액ㅤ</span><a style="color: #7e9c8c; font-weight: bold;">2,400,000원</a>
+					</div>
+
+				</div>
 
 
-			<h4>주문자정보</h4>
-			<div class="order_list">
-				<table class="table">
-					<colgroup>
-						<col width="20%" />
-					</colgroup>
-					<tbody>
-						<tr>
-							<th scope="col" style="padding-left: 40px"><a style="color: red; padding-right: 5px; write-space:nowrap;">*</a>이름</th>
-							<th scope="col"><input type="text" name="user_name"></th>
-						</tr>
-						<tr>
-							<th scope="col" style="padding-left: 40px"><br><a style="color: red; padding-right: 5px; write-space:nowrap;">*</a>주소</th>
-							<th scope="col"><input type="text" name="zipcode" id="sample6_postcode" readonly>&nbsp;&nbsp;&nbsp;
-							<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
-								<p>
-									<br> <input type="text" name="address1" id="sample6_address" readonly style="width: 325px">
+				<div style="font-size: 25px; font-weight: bold; margin-top: 70px;">
+					<a style="color: #7e9c8c; margin-top: 40px;">주문자정보</a>
+				</div>
+				<div class="order_list">
+					<table class="table">
+						<colgroup>
+							<col width="20%" />
+						</colgroup>
+						<tbody>
+							<tr
+								style="border-bottom: 1px solid #eeeeee; border-top: 1px solid rgba(0, 0, 0, 0.1);">
+								<th scope="col"><a
+									style="color: red; padding-right: 5px; write-space: nowrap;">*</a>이름</th>
+								<th scope="col"><input type="text" name="memName" value="${member.memName}" readonly disabled
+									style="font-size: 14px; border: 1px solid #dcdcdc; width: 326px; height: 36px;"></th>
+							</tr>
+							<tr style="border-bottom: 1px solid #eeeeee;">
+								<th scope="col"><a
+									style="color: red; padding-right: 5px; write-space: nowrap;">*</a>주소</th>
+								<th scope="col"><input type="text" name="memAdr" value="<%=memAdr[0]%>" disabled
+									id="sample6_postcode" readonly
+									style="font-size: 14px; border: 1px solid #dcdcdc; width: 211px; height: 36px;">
+									&nbsp;&nbsp;&nbsp;
 									
-								</p>
-								<p>
-									<input type="text" name="address2" id="sample6_address2" style="width: 325px">
-									
-								</p>
-								</th>
-						</tr>
-						<tr>
-							<th scope="col" style="padding-left: 40px"><a style="color: red; padding-right: 5px; write-space:nowrap;">*</a>연락처</th>
-							<th scope="col"><select name="phone1" id="txtMobile1" style="width: 80px; height:33px">
-									<option value="">선택</option>
-									<option value="011">011</option>
-									<option value="016">016</option>
-									<option value="017">017</option>
-									<option value="019">019</option>
-									<option value="010">010</option>
-							</select> - <input type="text" name="phone2" style="width: 80px"> - <input
-								type="text" name="phone3" style="width: 80px"></th>
-						</tr>
-					</tbody>
-				</table>
-			</div>
+									<p>
+										<br> <input type="text" name="memAdr1" value="<%=memAdr[1]%>" disabled
+											id="sample6_address" readonly
+											style="font-size: 14px; border: 1px solid #dcdcdc; width: 326px; height: 36px;">
+	
+									</p>
+									<p>
+										<input type="text" name="memAdr2" id="sample6_address2" value="<%=memAdr[2]%>" readonly disabled
+											style="font-size: 14px; border: 1px solid #dcdcdc; width: 326px; height: 36px;">
 
-			<h4>배송정보</h4>
-			<a>주문자 정보와 동일</a><input type="checkbox" value="on">
-			<div class="order_list">
-				<table class="table">
-					<colgroup>
-						<col width="20%" />
-					</colgroup>
-					<tbody>
-						<tr>
-							<th scope="col" style="padding-left: 40px"><a style="color: red; padding-right: 5px; write-space:nowrap;">*</a>이름</th>
-							<th scope="col"><input type="text" name="user_SpName" ></th>
-						</tr>
-						<tr>
-							<th scope="col" style="padding-left: 40px"><br><a style="color: red; padding-right: 5px; write-space:nowrap;">*</a>주소</th>
-							<th scope="col"><input type="text" name="zipcode1" id="sample6_postcode1" readonly>&nbsp;&nbsp;&nbsp;
-							<input type="button" onclick="sample6_execDaumPostcode1()" value="우편번호 찾기">
-								<p>
-									<br> <input type="text" name="address1_1" id="sample6_address_1" readonly style="width: 325px">
-									
-								</p>
-								<p>
-									<input type="text" name="address2_1" id="sample6_address2_1" style="width: 325px">
-									
-								</p>
-							</th>
-                        </tr>
-						<tr>
-							<th scope="col" style="padding-left: 40px"><a style="color: red; padding-right: 5px; write-space:nowrap;">*</a>연락처1</th>
-							<th scope="col"><select  name="phone1_Sp" id="txtMobile1" style="width: 80px; height:33px">
-									<option value="">선택</option>
-									<option value="011">011</option>
-									<option value="016">016</option>
-									<option value="017">017</option>
-									<option value="019">019</option>
-									<option value="010">010</option>
-							</select> - <input type="text" name="phone2_Sp"style="width: 80px"> - <input
-								type="text" name="phone3_Sp" style="width: 80px"></th>
-						</tr>
-						<tr>
-							<th scope="col" style="padding-left: 40px">연락처2</th>
-							<th scope="col"><select id="txtMobile1" name="phone1_Sp1"style="width: 80px; height:33px">
-									<option value="">선택</option>
-									<option value="011">011</option>
-									<option value="016">016</option>
-									<option value="017">017</option>
-									<option value="019">019</option>
-									<option value="010">010</option>
-							</select> - <input type="text" name="phone2_Sp1"style="width: 80px"> - <input
-								type="text" name="phone3_Sp1" style="width: 80px"></th>
-						</tr>
-						<tr>
-						<th scope="col" style="padding-left: 40px; padding-bottom: 50px;"><br>주문메세지<br>(100자내외)</th>
-						<th scope="col"><textarea name="textarea" rows="4" cols="40"></textarea></th>
-						</tr>
-						<tr>
-							<th scope="col">무통장 입금자명</th>
-							<th scope="col"><input type="text"> (주문자와 같을 경우 생략 가능)</th>
-					    </tr>
-					</tbody>
-				</table>
-			</div>
+									</p></th>
+							</tr>
+							<tr style="border-bottom: 1px solid rgba(0, 0, 0, 0.1);">
+								<th scope="col"><a
+									style="color: red; padding-right: 5px; write-space: nowrap;">*</a>연락처</th>
+								<th scope="col"><select name="memPhoneNum"  disabled
+									style="width: 80px; font-size: 14px; border: 1px solid #dcdcdc; height: 36px;">
+										<option value="<%=memPhoneNum[0]%>"><%=memPhoneNum[0]%></option>
+										<option value="011">011</option>
+										<option value="016">016</option>
+										<option value="017">017</option>
+										<option value="019">019</option>
+										<option value="010">010</option>
+								</select> - <input type="text" name="memPhoneNum1" value="<%=memPhoneNum[1]%>" readonly disabled
+									style="width: 109px; font-size: 14px; border: 1px solid #dcdcdc; height: 36px;">
+									- <input type="text" name="memPhoneNum2" value="<%=memPhoneNum[2]%>" readonly disabled
+									style="width: 109px; font-size: 14px; border: 1px solid #dcdcdc; height: 36px;"></th>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 
-			<h4>결제정보</h4>
-			<div class="order_list">
-				<table class="table">
-					<colgroup>
-						<col width="20%" />
-					</colgroup>
-					<tbody>
-						<tr>
-							<th scope="col" style="padding-left: 40px"><a style="color: red; padding-right: 5px; write-space:nowrap;">*</a>결제방법</th>
-							<th scope="col"><input type="radio" name="chk_info"
-								value="HTML">신용/체크카드&nbsp;&nbsp;&nbsp; <input
-								type="radio" name="chk_info" value="mutongjang">무통장입금&nbsp;&nbsp;&nbsp;&nbsp;
-								<input type="radio" name="chk_info" value="cellphone">휴대폰결제</th>
-						</tr>
-						<tr>
-							<th scope="col" style="padding-left: 40px">카드선택</th>
-							<th scope="col"><select id="month" style="width: 130px; height:33px">
-									<option value="현대카드">현대카드</option>
-									<option value="kukmin">국민카드</option>
-									<option value="nonghyep">농협카드</option>
-									<option value="bc">BC카드</option>
-									<option value="woori">우리카드</option>
-									<option value="shinhan">신한카드</option></th>
 
-						</tr>
-						
-					</tbody>
-				</table>
-			</div>
-			<br> <br>
-		</form>
+				<div style="font-size: 25px; margin-top: 40px; font-weight: bold;">
+					<a style="color: #7e9c8c;">배송정보</a>
+				</div>
+				<a style="font-size: 14px;">주문자 정보와 동일</a><input type="checkbox" name="same" onclick="sameInfo(document.CheckOrder)"
+					>
+				<div class="order_list">
+					<table class="table">
+						<colgroup>
+							<col width="20%" />
+						</colgroup>
+						<tbody>
+							<tr
+								style="border-bottom: 1px solid #eeeeee; border-top: 1px solid rgba(0, 0, 0, 0.1);">
+								<th scope="col"><a
+									style="color: red; padding-right: 5px; write-space: nowrap;">*</a>이름</th>
+								<th scope="col"><input type="text" name="memSpName" value=""
+									style="font-size: 14px; width: 326px; border: 1px solid #dcdcdc; height: 36px;"></th>
+							</tr>
+							<tr style="border-bottom: 1px solid #eeeeee;">
+								<th scope="col"><a
+									style="color: red; padding-right: 5px; write-space: nowrap;">*</a>주소</th>
+								<th scope="col"><input type="text" name="memSpAdr" value=""
+									id="sample6_postcode1" readonly
+									style="font-size: 14px; width: 211px; border: 1px solid #dcdcdc; height: 36px;">&nbsp;&nbsp;&nbsp;
+									<input type="button" onclick="sample6_execDaumPostcode1()"
+									value="우편번호 찾기"
+									style="font-size: 14px; border: none; background-color: #c6c6c6; color: white; width: 100px; height: 37px;">
+									<p>
+										<br> <input type="text" name="memSpAdr1" value=""
+											id="sample6_address_1" readonly
+											style="width: 325px; font-size: 14px; border: 1px solid #dcdcdc; height: 36px;">
+
+									</p>
+									<p>
+										<input type="text" name="memSpAdr2" id="sample6_address2_1" value=""
+											style="width: 325px; font-size: 14px; border: 1px solid #dcdcdc; height: 36px;">
+
+									</p></th>
+							</tr>
+							<tr style="border-bottom: 1px solid #eeeeee;">
+								<th scope="col"><a
+									style="color: red; padding-right: 5px; write-space: nowrap;">*</a>연락처1</th>
+								<th scope="col"><select name="memSpPhoneNum1_0" 
+									style="width: 80px; font-size: 14px; border: 1px solid #dcdcdc; height: 36px;">
+										<option value=""></option>
+										<option value="011">011</option>
+										<option value="016">016</option>
+										<option value="017">017</option>
+										<option value="019">019</option>
+										<option value="010">010</option>
+								</select> - <input type="text" name="memSpPhoneNum1_1" value=""
+									style="width: 109px; font-size: 14px; border: 1px solid #dcdcdc; height: 36px;">
+									- <input type="text" name="memSpPhoneNum1_2" value=""
+									style="width: 109px; font-size: 14px; border: 1px solid #dcdcdc; height: 36px;"></th>
+							</tr>
+							<tr style="border-bottom: 1px solid #eeeeee;">
+								<th scope="col" style="padding-left: 23px;">연락처2</th>
+								<th scope="col"><select  name="memSpPhoneNum2_0"
+									style="width: 80px; font-size: 14px; border: 1px solid #dcdcdc; height: 36px;">
+										<option value="">선택</option>
+										<option value="011">011</option>
+										<option value="016">016</option>
+										<option value="017">017</option>
+										<option value="019">019</option>
+										<option value="010">010</option>
+								</select> - <input type="text" name="memSpPhoneNum2_1"
+									style="width: 109px; font-size: 14px; border: 1px solid #dcdcdc; height: 36px;">
+									- <input type="text" name="memSpPhoneNum2_2"
+									style="width: 109px; font-size: 14px; border: 1px solid #dcdcdc; height: 36px;"></th>
+							</tr>
+							<tr style="border-bottom: 1px solid #eeeeee;">
+								<th scope="col"
+									style="padding-bottom: 50px; padding-left: 23px;"><br>주문메세지<br>(100자내외)</th>
+								<th scope="col"><input type="text" name="memOrderMsg"  style=" width:327px; height:175px; border: 1px solid #dcdcdc;"></th>
+							</tr>
+							<tr style="border-bottom: 1px solid rgba(0, 0, 0, 0.1);">
+								<th scope="col" style="padding-left: 23px;">무통장 입금자명</th>
+								<th scope="col"><input name="memDepositorName" type="text" value="${member.memName}"
+									style="font-size: 14px; border: 1px solid #dcdcdc; height: 36px; width: 326px;"><a
+									style="font-size: 14px; color: color:#b3b3b3;">ㅤ(주문자와 같을 경우
+										생략 가능)</a></th>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<div style="font-size: 25px; font-weight: bold;">
+					<a style="color: #7e9c8c; margin-top: 40px;">결제정보</a>
+				</div>
+				<div class="order_list">
+					<table class="table" style="font-size: 14px;">
+						<colgroup>
+							<col width="20%" />
+						</colgroup>
+						<tbody>
+							<tr
+								style="border-top: 1px solid rgba(0, 0, 0, 0.1); border-bottom: 1px solid #eeeeee;">
+								<th scope="col"><a
+									style="color: red; padding-right: 5px; write-space: nowrap;">*</a>결제방법</th>
+								<th scope="col"><input type="radio" name="chk_info"
+									value="HTML">신용/체크카드&nbsp;&nbsp;&nbsp; <input
+									type="radio" name="chk_info" value="mutongjang">무통장입금&nbsp;&nbsp;&nbsp;&nbsp;
+									<input type="radio" name="chk_info" value="cellphone">휴대폰결제</th>
+							</tr>
+							<tr style="border-bottom: 1px solid rgba(0, 0, 0, 0.1);">
+								<th scope="col" style="padding-left: 23px;">카드선택</th>
+								<th scope="col"><select id="month"
+									style="width: 326px; font-size: 14px; border: 1px solid #dcdcdc; height: 36px;">
+										<option value="현대카드">현대카드</option>
+										<option value="kukmin">국민카드</option>
+										<option value="nonghyep">농협카드</option>
+										<option value="bc">BC카드</option>
+										<option value="woori">우리카드</option>
+										<option value="shinhan">신한카드</option></th>
+
+							</tr>
+
+						</tbody>
+					</table>
+				</div>
+				<br> <br>
+			</form>
 			<div style="text-align: center">
-				<button type="button" class="btn btn-secondary" onclick="Check_Order()">결제하기</button>
+				<button type="button" class="btn btn-secondary"
+					onclick="Check_Order()"
+					style="padding-left: 10px; margin-left: 40px; background-color: #7e9c8c; color: white; border: none; border-radius: 2px; width: 130px; height: 45px;">결제하기</button>
 				&nbsp;&nbsp;
-				<button type="button" class="btn btn-secondary"onclick="location.href='/cart'">취소하기</button>
+				<button type="button" class="btn btn-secondary"
+					onclick="location.href='/cart'"
+					style="padding-left: 10px; background-color: white; color: #7e9c8c; border: 1px solid #7e9c8c; border-radius: 2px; width: 130px; height: 45px;">취소하기</button>
 			</div>
 			<br> <br>
 		</div>
