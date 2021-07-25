@@ -39,7 +39,7 @@
 			$("input:checkbox[name='chk']").prop("checked", false) //체크해제
 		}
 	}
-	
+
 	//회원장바구니 선택삭제
 	function deleteValue01() {
 		var url = "delete.do"
@@ -73,7 +73,7 @@
 			});
 		}
 	}
-	
+
 	//비회원 장바구니 선택삭제
 	function deleteValue02() {
 		var url = "delete.do"
@@ -107,10 +107,7 @@
 			});
 		}
 	}
-	
-	
-	
-	
+
 	//회원구매
 	function memberbuy() {
 		var url = "order.do"
@@ -140,11 +137,11 @@
 						alert("오류 발생");
 					}
 				}
-				
+
 			});
 		}
 	}
-	
+
 	//비회원구매
 	function nonmemberbuy() {
 		var url = "order.do"
@@ -169,15 +166,30 @@
 				},
 				success : function(jdata) {
 					if (jdata = 1) {
-						location.replace("order_01.do") //list 로 페이지 새로고침
+						location.replace("order_02.do") //list 로 페이지 새로고침
 					} else {
 						alert("오류 발생");
 					}
 				}
-				
+
 			});
 		}
 	}
+	
+
+	//체크된박스 가격 더하기 (총합계)
+	function itemSum(frm) {
+		var sum = 0;
+		var count = frm.chkbox.length;
+		for (var i = 0; i < count; i++) {
+			if (frm.chkbox[i].checked == true) {
+				sum += parseInt(frm.chkbox[i].value);
+			}
+		}
+		frm.total_sum.value = sum;
+	}
+	
+	
 </script>
 
 
@@ -342,8 +354,7 @@
 								<tbody>
 									<tr>
 										<td scope="col" height="100" align=center><br> <br>
-											<input type="checkbox" name="chk" value="${status.index}"
-											></td>
+											<input type="checkbox" name="chk" value="${status.index}"></td>
 										<td scope="col"><img
 											src="${contextPath}/resources/images/sofa01.jpg" width=130
 											height=130></td>
@@ -386,8 +397,9 @@
 						<br>
 						<br>
 						<div class="container" style="padding-left: 450px;">
-							<button type="button"  onclick="nonmemberbuy()" class="btn btn-dark "
-								id="buttonmy" style="margin-left: 90px; width: 120px;">선택상품주문</button>
+							<button type="button" onclick="nonmemberbuy()"
+								class="btn btn-dark " id="buttonmy"
+								style="margin-left: 90px; width: 120px;">선택상품주문</button>
 							&nbsp;&nbsp;&nbsp;
 							<button type="button" onclick="nextt()" id="buttonmy"
 								class="btn btn-dark" style="margin-left: 20px; width: 120px;">전체상품주문</button>

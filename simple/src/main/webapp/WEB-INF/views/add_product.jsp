@@ -8,6 +8,67 @@
 
 
 <style>
+
+@import url(https://fonts.googleapis.com/css?family=Raleway:500);
+
+.snip1284 {
+	font-family: 'Raleway', Arial, sans-serif;
+	text-align: center;
+	text-transform: uppercase;
+	font-weight: 500;
+	letter-spacing: 1px;
+}
+
+.snip1284 * {
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-transition: all 0.35s ease;
+	transition: all 0.35s ease;
+}
+
+.snip1284 li {
+	display: inline-block;
+	list-style: outside none none;
+	margin: 0.5em 1.2em;
+	padding: 0;
+}
+
+.snip1284 a {
+	padding: 0 0.6em;
+	color: rgba(255, 255, 255, 0.5);
+	position: relative;
+	text-decoration: none;
+}
+
+.snip1284 a:before, .snip1284 a:after {
+	width: 3px;
+	height: 0;
+	position: absolute;
+	content: '';
+	-webkit-transition: all 0.35s ease;
+	transition: all 0.35s ease;
+	background-color: #7e9c8c;
+}
+
+.snip1284 a:before {
+	top: 0;
+	right: 0;
+}
+
+.snip1284 a:after {
+	bottom: 0;
+	left: 0;
+}
+
+.snip1284 a:hover, .snip1284 .current a {
+	color: #ffffff;
+}
+
+.snip1284 a:hover:before, .snip1284 .current a:before, .snip1284 a:hover:after,
+	.snip1284 .current a:after {
+	height: 100%;
+}
+
 #main_box { /*아이디 선택자*/
 	display: flex;
 	flex-direction: column;
@@ -26,9 +87,9 @@
 }
 
 #LeftBox {
-	width: 500px;
-	height: 450px;
-	border: 1px solid #a9aaac;
+	width: 600px;
+	height: 620px;
+	border: 1px solid #eeeeee;
 	margin: 10 10 10 10;
 }
 
@@ -244,36 +305,33 @@ $('document').ready(function() {
 <body>
 
 	<section class="ftco-section testimony-section"
-		style="padding-top: 50px;">
+		style="padding-top: 100px;">
 		<div class="container">
-			<div class="row justify-content-center mb-5 pb-3"
-				style="background-color: #f5f5f5; border: 1px solid #e7e7e7; margin-top: 20px;">
-				<div class="col-md-20 heading-section ftco-animate"
-					style="height: 60px;">
-					<h2 class="mb-4" style="font-size: 35px; margin-top: 15px;">관리자 페이지</h2>
-				</div>
-			</div>
 
-				<div class="btn-group btn-group-justified" role="group"
-				aria-label="..." style="margin-bottom: 30px; margin-top: 10px;">
-				<div class="btn-group" role="group">
-					<button type="button" class="btn btn-default" onclick="location.href='${contextPath}/product/admin_listProduct.do'"
-						style="font-size: 25px; border: none; color: #5a5a5a; padding-right: 210px; background-color: white; margin-left: 10px;">상품조회</button>
-				</div>
-				<div class="btn-group" role="group">
-					<button type="button" class="btn btn-default" onclick="location.href='${contextPath}/product/add_product.do'"
-						style="font-size: 25px; border: none; color: #5a5a5a; padding-right: 210px; background-color: white; font-weight: bold;">*상품등록</button>
-				</div>
-				<div class="btn-group" role="group">
-					<button type="button" class="btn btn-default" onclick="location.href='${contextPath}/admin_listmember.do'"
-						style="font-size: 25px; border: none; color: #5a5a5a; padding-right: 210px; background-color: white;">회원조회</button>
-				</div>
-				<div class="btn-group" role="group">
-					<button type="button" class="btn btn-default" onclick="location.href='${contextPath}/board/listNotice.do'"
-						style="font-size: 25px; border: none; color: #5a5a5a; background-color: white;">게시판조회</button>
-				</div>
-			
-			</div>
+			<ul class="snip1284" style="padding-left: 0px; margin-bottom: 30px;">
+				<li><a
+					onclick="location.href='${contextPath}/product/admin_listProduct.do'"
+					data-hover="상품관리"
+					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; margin-left: 20px; padding-bottom: 0px;">상품관리</a></li>
+
+
+				<li class="current"><a
+					onclick="location.href='${contextPath}/product/add_product.do'"
+					data-hover="상품등록"
+					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">상품등록</a></li>
+
+
+				<li><a
+					onclick="location.href='${contextPath}/admin_listmember.do'"
+					data-hover="회원관리"
+					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">회원관리</a></li>
+
+
+				<li><a
+					onclick="location.href='location.href='${contextPath}/board/listNotice.do'"
+					data-hover="게시판관리"
+					style="font-size: 20px; border: none; color: #5a5a5a; background-color: white; cursor: pointer; padding-bottom: 0px;">게시판관리</a></li>
+			</ul>
 			
 			<hr style="margin-top: -10px;">
 
@@ -281,50 +339,50 @@ $('document').ready(function() {
 				style="padding-top: 40px;">
 				<div class="container">
 					<section class="Easy-sgin-in-wrap4">
-						<div id="LeftBox" style="height:580px">
-							<h3 id="login_text">상품등록</h3>
+						<div id="LeftBox" style="font-size:14px;">
+							<h3 id="login_text" style="color:#7e9c8c; font-weight:bold; padding-left:70px;">상품등록</h3>
 							<form name="newProduct" action="${contextPath}/product/addProduct.do?productNum=${product.productNum}" method="post" enctype="multipart/form-data">
-								<div style="padding-left: 107px;"> 
-                                     <label><a style="color: red; padding-right: 5px; write-space: nowrap;">*</a>상품번호</label>
-                                          <input type="text" name="productNum" value="">
+								<div style="padding-left: 70px;"> 
+                                     <label style="margin-right:50px;"><a style="color: red; padding-right: 5px; write-space: nowrap;">*</a>상품번호</label>
+                                          <input type="text" name="productNum" value="" style="font-size: 14px; margin-top: 10px; border: 1px solid #dcdcdc; width: 326px; height: 36px;">
                                </div>
-                               <div style="padding-left: 107px;"> 
-                                     <label><a style="color: red; padding-right: 5px; write-space: nowrap;">*</a>상품이름</label>
-                                         <input type="text" name="productName" value="">
+                               <div style="padding-left: 70px;"> 
+                                     <label style="margin-right:50px;"><a style="color: red; padding-right: 5px; write-space: nowrap;">*</a>상품이름</label>
+                                         <input type="text" name="productName" value="" style="font-size: 14px; margin-top: 10px; border: 1px solid #dcdcdc; width: 326px; height: 36px;">
                                </div>
-                               <div style="padding-left: 107px;"> 
-                                    <label><a style="color: red; padding-right: 5px; write-space: nowrap;">*</a>상품가격</label>
-                                         <input type="text" name="productPrice" value="">
+                               <div style="padding-left:70px;"> 
+                                    <label style="margin-right:50px;"><a style="color: red; padding-right: 5px; write-space: nowrap;">*</a>상품가격</label>
+                                         <input type="text" name="productPrice" value="" style="font-size: 14px; margin-top: 10px; border: 1px solid #dcdcdc; width: 326px; height: 36px;">
                                </div>
-                               <div style="padding-left: 80px;"> 
-                                       <div style="padding-left: 107px;"> 
-                                       <select style="width:190px; height:35px;" name="category" id="category"></select>                   
-                                       <select style="width:190px; height:35px;" name="subcategory" id="subcategory"></select> 
+                               <div style="padding-left: 70px;"> 
+                                       <div style="padding-left: 120px;"> 
+                                       <select name="category" id="category" style="font-size: 14px; margin-top: 10px; border: 1px solid #dcdcdc; width: 326px; height: 36px;"></select>                   
+                                       <select name="subcategory" id="subcategory" style="font-size: 14px; margin-top: 10px; border: 1px solid #dcdcdc; width: 326px; height: 36px;"></select> 
                                        </div>                     
                                </div>     
-                               <div style="padding-left: 90px; padding-top: 6px;"> 
-                                   <label><a style="color: red; padding-right: 5px; write-space: nowrap;">*</a>상품이미지</label>
-                                        <input type="file" name="productImage" size=40 value="">
+                               <div style="padding-left: 70px; padding-top:10px;"> 
+                                   <label style="margin-right:35px;"><a style="color: red; padding-right: 5px; write-space: nowrap;">*</a>상품이미지</label>
+                                        <input type="file" name="productImage" size=40 value="" >
                                </div>
-                               <div style="padding-left: 90px;"> 
-                                   <label><a style="color: red; padding-right: 5px; write-space: nowrap;">*</a>상품제조사</label>
-                                        <input type="text" name="productManufacturer" value="">
+                               <div style="padding-left: 70px;"> 
+                                   <label style="margin-right:35px;"><a style="color: red; padding-right: 5px; write-space: nowrap;">*</a>상품제조사</label>
+                                        <input type="text" name="productManufacturer" value="" style="font-size: 14px; margin-top: 10px; border: 1px solid #dcdcdc; width: 326px; height: 36px;">
                                </div>
-                               <div style="padding-left: 90px;"> 
-                                   <label><a style="color: red; padding-right: 5px; write-space: nowrap;">*</a>상품원산지</label>
-                                        <input type="text" name="productOrigin" value="">
+                               <div style="padding-left: 70px;"> 
+                                   <label style="margin-right:35px;"><a style="color: red; padding-right: 5px; write-space: nowrap;">*</a>상품원산지</label>
+                                        <input type="text" name="productOrigin" value="" style="font-size: 14px; margin-top: 10px; border: 1px solid #dcdcdc; width: 326px; height: 36px;">
                                </div>
-                               <div style="padding-left: 58px;"> 
-                                   <label><a style="color: red; padding-right: 5px; write-space: nowrap;">*</a>상품상세이미지</label>
-                                        <input type="file" name="productContentImage" value="">
+                               <div style="padding-left: 70px; padding-top:10px;"> 
+                                   <label style="margin-right:7px;"><a style="color: red; padding-right: 5px; write-space: nowrap;">*</a>상품상세이미지</label>
+                                        <input type="file" name="productContentImage" value="" >
                                </div>
-                               <div style="padding-left: 109px;"> 
-                                   <label>상품옵션2</label>
-                                        <input type="text" name="option1" value="">
+                               <div style="padding-left: 77px;"> 
+                                   <label style="margin-right:45px; ">상품옵션2</label>
+                                        <input type="text" name="option1" value="" style="font-size: 14px; margin-top: 10px; border: 1px solid #dcdcdc; width: 326px; height: 36px;">
                                </div>
-                               <div style="padding-left: 109px;"> 
-                                   <label>상품옵션2</label>
-                                        <input type="text" name="option2" value="">
+                               <div style="padding-left: 77px;"> 
+                                   <label style="margin-right:45px;">상품옵션2</label>
+                                        <input type="text" name="option2" value="" style="font-size: 14px; margin-top: 10px; border: 1px solid #dcdcdc; width: 326px; height: 36px;">
                                </div>
 							</form>
 							
@@ -335,12 +393,12 @@ $('document').ready(function() {
 				<div class="container">
 					<section class="Easy-sgin-in-wrap4">
 						<ul class="sign-button-list4">
-							<li><button onclick="new_Product()"
-									style="background-color: #212529; color: white;">
+							<li style="margin-left:50px;"><button onclick="new_Product()"
+									style="background-color: #7e9c8c; font-size:14px; color: white; border: none; border-radius:2px; width:400px; float:left;">
 									<i class="sgin-up"></i><span>등록</span>
 								</button></li>
-							<li><button  onclick="location.href='${contextPath}/product/admin_listProduct.do'"
-									style="background-color: #212529; color: white;">
+							<li style="margin-left:50px;"> <button  onclick="location.href='${contextPath}/product/admin_listProduct.do'"
+									style="background-color: white; font-size:14px; color: gray; border: 1px solid #7e9c8c; border-radius:2px; width:400px; float:left;">
 									<i class="btn-Non Order Inquiry"></i><span>취소</span>
 								</button></li>
 							

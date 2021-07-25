@@ -153,7 +153,11 @@ public class MemberControllerImpl implements MemberController {
 		return mav;
 
 	}
-
+	
+	
+	
+			
+			
 	// 회원정보수정
 	@RequestMapping(value = "/modMember.do", method = RequestMethod.POST)
 	public ModelAndView modMember(@ModelAttribute("modmember") MemberVO modmember, HttpServletRequest request,
