@@ -266,30 +266,35 @@
 									</tr>
 								</c:when>
 								<c:otherwise>
-									<c:forEach var="member" items="${membersList}">
-										<tr
-											style="border-bottom: 1px solid #c6c8ca; background-color: white; color: black;">
-											<td scope="col"><input type="checkbox" name="chk"
-												value=""></td>
-											<td scope="col">${member.memId}</td>
-											<td scope="col">${member.memName }</td>
-											<td scope="col">${member.memEmail}</td>
-											<td scope="col">${member.memPhoneNum}</td>
-											<td scope="col">${member.memAdr }</td>
-											<td scope="col">${member.logintype }</td>
-											<td scope="col">${member.memRegdate}</td>
-											<td scope="col">
-												<button type="button"
-													onclick="location.href='${contextPath}/admin_removeMember.do?memId=${member.memId }'"
-													class="btn btn-dark"
-													style="border-radius: 2px; margin-bottom: 3px;  background-color: white; color: gray; border: 1px solid #7e9c8c; border-radius: 2px; width: 70px; height: 30px; font-size: 14px;">수정</button>
-												<button type="button"
-													onclick="location.href='${contextPath}/admin_removeMember.do?memId=${member.memId }'"
-													class="btn btn-dark"
-													style="border-radius: 2px; margin-bottom: 3px; margin-top: 5px; background-color: white; color: gray; border: 1px solid #7e9c8c; border-radius: 2px; width: 70px; height: 30px; font-size: 14px;">삭제</button>
-											</td>
-										</tr>
-									</c:forEach>
+									<form action="${contextPath}/admin/viewMember.do" method="post">
+										<c:forEach var="member" items="${membersList}">
+
+											<tr
+												style="border-bottom: 1px solid #c6c8ca; background-color: white; color: black;">
+												<td scope="col"><input type="checkbox" name="chk"
+													value=""></td>
+												<td scope="col">${member.memId}</td>
+												<td scope="col">${member.memName }</td>
+												<td scope="col">${member.memEmail}</td>
+												<td scope="col">${member.memPhoneNum}</td>
+												<td scope="col">${member.memAdr }</td>
+												<td scope="col">${member.logintype }</td>
+												<td scope="col">${member.memRegdate}</td>
+												<td scope="col">
+												<input type="hidden" value="${member.memId}" name="memId"/>
+													<button type="submit"
+														
+														class="btn btn-dark"
+														style="border-radius: 2px; margin-bottom: 3px; background-color: white; color: gray; border: 1px solid #7e9c8c; border-radius: 2px; width: 70px; height: 30px; font-size: 14px;">수정</button><br>
+													<button type="button"
+														onclick="location.href='${contextPath}/admin_removeMember.do?memId=${member.memId }'"
+														class="btn btn-dark"
+														style="border-radius: 2px; margin-bottom: 3px; margin-top: 5px; background-color: white; color: gray; border: 1px solid #7e9c8c; border-radius: 2px; width: 70px; height: 30px; font-size: 14px;">삭제</button>
+												</td>
+											</tr>
+
+										</c:forEach>
+									</form>
 								</c:otherwise>
 							</c:choose>
 						</c:when>

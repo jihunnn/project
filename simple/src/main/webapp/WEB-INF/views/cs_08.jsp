@@ -173,7 +173,7 @@ function InquiryList() {
 
 	<!-- 타이틀 -->
 	<section class="ftco-section"
-		style="padding-top: 100px; margin-bottom: 80px; padding-bottom: 0px; margin-top:30px;">
+		style="padding-top: 70px; margin-bottom: 80px; padding-bottom: 0px; margin-top:30px;">
 		<div class="container">
 			<ul class="snip1284" style="margin-bottom:30px; padding-left:0px;">
 				<li><a

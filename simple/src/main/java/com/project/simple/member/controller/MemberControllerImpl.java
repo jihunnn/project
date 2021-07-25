@@ -56,7 +56,7 @@ public class MemberControllerImpl implements MemberController {
 		String admin=memberVO.getlogintype();
 		if (memberVO != null) {
 			HttpSession session = request.getSession();
-			if (memberVO.getlogintype().equals(admin) ) {
+			if (admin.equals("°ü¸®ÀÚ") ) {
 				session.setAttribute("admin", memberVO);
 				session.setAttribute("AdminisLogOn", true);
 			} else {
@@ -84,6 +84,7 @@ public class MemberControllerImpl implements MemberController {
 		if (session.getAttribute("admin") != null) {
 			session.removeAttribute("admin");
 			session.removeAttribute("AdminisLogOn");
+			System.out.println("dkdkfjdkfdjkf");
 
 		}
 		session.removeAttribute("quickList");
@@ -333,11 +334,11 @@ public class MemberControllerImpl implements MemberController {
 		memberSearchMap.put("pageStart", pageStart);
 		memberSearchMap.put("perPageNum", perPageNum);
 		memberSearchMap.put("search", search);
-		System.out.println(search);
+	
 		memberSearchMap.put("searchType", searchType);
-		System.out.println(searchType);
+	
 		memberSearchMap = memberService.memberSearch(memberSearchMap);
-		System.out.println(memberSearchMap);
+	
 		int memberSearchCount = memberService.memberSearchCount(memberSearchMap);
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
@@ -359,7 +360,7 @@ public class MemberControllerImpl implements MemberController {
 		ModelAndView mav = new ModelAndView();
 		memberVO = memberService.admin_removeMember(memId);
 		mav.addObject("memId", memberVO);
-		System.out.println(memId);
+
 		mav.setViewName("redirect:/admin_listmember.do");
 		return mav;
 	}

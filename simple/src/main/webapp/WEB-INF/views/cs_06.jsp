@@ -181,7 +181,7 @@ request.setCharacterEncoding("UTF-8");
 									style="border-bottom: 0.5px solid grey; height: 300px; text-align: left; background-color: white;">
 									<td
 										style="padding-bottom: 20px; color: black; padding-left: 0px;"><a>${inquiry.inquiryContent}</a><br>
-									<br> <input type="hidden" name="OrignInquiryFile"
+										<br> <input type="hidden" name="OrignInquiryFile"
 										value="${inquiry.inquiryFile}" /> <img width="300"
 										height="300"
 										src="${contextPath}/download.do?inquiryNum=${inquiry.inquiryNum}&inquiryFile=${inquiry.inquiryFile}"
@@ -201,24 +201,35 @@ request.setCharacterEncoding("UTF-8");
 
 					</thead>
 				</table>
-
 				<c:choose>
-					<c:when test="${!empty search1}">
+					<c:when test="${AdminisLogOn == true && admin != null}">
+						<button type="submit" class="btn btn-dark" id="buttonmy"
+							style="float: left; margin-left: 1100px; margin-top: -30px; font-size: 14px; background-color: #212529; padding-top: 4px;">답글</button>
 						<button type="button" class="btn btn-dark" id="buttonmy"
-							style="float: left; margin-left: 600px; margin-top: 30px; font-size: 14px;  background-color: #212529; padding-top:4px;"
-							onclick="location.href='${contextPath}/board/inquirySearch.do?search1=${search1}&search2=${search2}&page=${pageNum}'">목록</button>
+							style="float: left; margin-left: 1190px; margin-top: -30px; font-size: 14px; background-color: #212529; padding-top: 4px;"
+							onclick="removeInquiry(this.form)">삭제</button>
 					</c:when>
 					<c:otherwise>
+						<c:choose>
+							<c:when test="${!empty search1}">
+								<button type="button" class="btn btn-dark" id="buttonmy"
+									style="float: left; margin-left: 600px; margin-top: 30px; font-size: 14px; background-color: #212529; padding-top: 4px;"
+									onclick="location.href='${contextPath}/board/inquirySearch.do?search1=${search1}&search2=${search2}&page=${pageNum}'">목록</button>
+							</c:when>
+							<c:otherwise>
+								<button type="button" class="btn btn-dark" id="buttonmy"
+									style="float: left; margin-left: 600px; margin-top: 30px; font-size: 14px; background-color: #212529; padding-top: 4px;"
+									onclick="location.href='${contextPath}/board/listInquiry.do'">목록</button>
+							</c:otherwise>
+						</c:choose>
+						<button type="submit" class="btn btn-dark" id="buttonmy"
+							style="float: left; margin-left: 1100px; margin-top: -30px; font-size: 14px; background-color: #212529; padding-top: 4px;">수정</button>
 						<button type="button" class="btn btn-dark" id="buttonmy"
-							style="float: left; margin-left: 600px; margin-top: 30px; font-size: 14px;  background-color: #212529; padding-top:4px;"
-							onclick="location.href='${contextPath}/board/listInquiry.do'">목록</button>
+							style="float: left; margin-left: 1190px; margin-top: -30px; font-size: 14px; background-color: #212529; padding-top: 4px;"
+							onclick="removeInquiry(this.form)">삭제</button>
 					</c:otherwise>
 				</c:choose>
-				<button type="submit" class="btn btn-dark" id="buttonmy"
-					style="float: left; margin-left: 1100px; margin-top: -30px; font-size: 14px;  background-color: #212529; padding-top:4px;">수정</button>
-				<button type="button" class="btn btn-dark" id="buttonmy"
-					style="float: left; margin-left: 1190px; margin-top: -30px; font-size: 14px;  background-color: #212529; padding-top:4px;"
-					onclick="removeInquiry(this.form)">삭제</button>
+
 			</form>
 		</div>
 	</section>

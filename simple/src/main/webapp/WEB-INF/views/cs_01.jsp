@@ -174,7 +174,7 @@ request.setCharacterEncoding("utf-8");
 				</thead>
 			</table>
 			<c:if test="${AdminisLogOn== true &&admin !=null}">
-				<a id="buttonmy" class="btn btn-dark" onClick="noticeForm()"
+				<a id="buttonmy" class="btn btn-dark" onClick="location.href='${contextPath}/admin/noticeForm.do'"
 					style="float: right; margin-top: 25px; border-radius: 2px; background-color: #7e9c8c; color: white; border: none; border-radius: 2px; width: 120px; height: 40px; padding-top: 10px; font-size: 14px;">글쓰기</a>
 			</c:if>
 		</div>
