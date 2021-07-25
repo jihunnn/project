@@ -53,10 +53,17 @@ public class MemberControllerImpl implements MemberController {
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		memberVO = memberService.login(member);
+		String admin=memberVO.getlogintype();
 		if (memberVO != null) {
 			HttpSession session = request.getSession();
-			session.setAttribute("member", memberVO);
-			session.setAttribute("isLogOn", true);
+			if (memberVO.getlogintype().equals(admin) ) {
+				session.setAttribute("admin", memberVO);
+				session.setAttribute("AdminisLogOn", true);
+			} else {
+				session.setAttribute("member", memberVO);
+				session.setAttribute("isLogOn", true);
+			}
+
 			mav.setViewName("redirect:/main.do");
 		} else {
 			rAttr.addAttribute("result", "loginFailed");
@@ -69,11 +76,19 @@ public class MemberControllerImpl implements MemberController {
 	@RequestMapping(value = "/logout.do", method = RequestMethod.GET)
 	public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession();
-		session.removeAttribute("member");
-		session.removeAttribute("isLogOn");
+
+		if (session.getAttribute("member") != null) {
+			session.removeAttribute("member");
+			session.removeAttribute("isLogOn");
+		}
+		if (session.getAttribute("admin") != null) {
+			session.removeAttribute("admin");
+			session.removeAttribute("AdminisLogOn");
+
+		}
 		session.removeAttribute("quickList");
 		session.removeAttribute("quickListNum");
-			
+
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("redirect:/main.do");
 		return mav;
@@ -118,8 +133,8 @@ public class MemberControllerImpl implements MemberController {
 
 	// 네이버로그인시 DB에 값이 있으면 추가정보 거치지 않고 바로 로그인
 	@RequestMapping(value = "/login_naver.do", method = RequestMethod.GET)
-	public ModelAndView naver_login(RedirectAttributes rAttr,
-			HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ModelAndView naver_login(RedirectAttributes rAttr, HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
 		ModelAndView mav = new ModelAndView();
 		request.setCharacterEncoding("utf-8");
 		HttpSession session = request.getSession();
@@ -267,7 +282,7 @@ public class MemberControllerImpl implements MemberController {
 		mav.setViewName(viewName);
 		return mav;
 	}
-	
+
 	@RequestMapping(value = "/login_03.do", method = RequestMethod.GET)
 	private ModelAndView login_03(HttpServletRequest request, HttpServletResponse response) {
 		String viewName = (String) request.getAttribute("viewName");
@@ -276,10 +291,18 @@ public class MemberControllerImpl implements MemberController {
 		return mav;
 	}
 
+	@RequestMapping(value = "/order_03.do", method = RequestMethod.GET)
+	private ModelAndView order_03(HttpServletRequest request, HttpServletResponse response) {
+		String viewName = (String) request.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName(viewName);
+		return mav;
+	}
 
 	@Override
 	@RequestMapping(value = "/admin_listmember.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView listMembers(Criteria cri, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ModelAndView listMembers(Criteria cri, HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
 		String viewName = (String) request.getAttribute("viewName");
 		List<MemberVO> membersList = memberService.listMembers(cri);
 		int memberCount = memberService.memberCount();
@@ -298,8 +321,9 @@ public class MemberControllerImpl implements MemberController {
 
 	@Override
 	@RequestMapping(value = "/admin_listmember/memberSearch.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView memberSearch(@RequestParam("search") String search, @RequestParam("searchType") String searchType,
-			Criteria cri, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ModelAndView memberSearch(@RequestParam("search") String search,
+			@RequestParam("searchType") String searchType, Criteria cri, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
 		String viewName = (String) request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
 
@@ -323,13 +347,14 @@ public class MemberControllerImpl implements MemberController {
 		mav.addObject("memberSearchMap", memberSearchMap);
 		mav.addObject("pageMaker", pageMaker);
 		mav.addObject("pageNum", pageNum);
-		
+
 		return mav;
 
 	}
-	
+
 	@RequestMapping(value = "/admin_removeMember.do", method = RequestMethod.GET)
-	private ModelAndView admin_removeMember(@RequestParam("memId") String memId, HttpServletRequest request, HttpServletResponse response)  throws Exception{
+	private ModelAndView admin_removeMember(@RequestParam("memId") String memId, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
 		String viewName = (String) request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView();
 		memberVO = memberService.admin_removeMember(memId);
@@ -338,7 +363,5 @@ public class MemberControllerImpl implements MemberController {
 		mav.setViewName("redirect:/admin_listmember.do");
 		return mav;
 	}
-	
-	
 
 }

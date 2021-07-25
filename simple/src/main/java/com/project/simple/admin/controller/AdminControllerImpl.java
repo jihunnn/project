@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -60,4 +61,18 @@ public class AdminControllerImpl implements AdminController{
 	
 		return "admin_login";
 	}
+	
+	/*//회원상세보기
+	@RequestMapping(value = "/admin/viewMember.do", method = RequestMethod.GET)
+	public ModelAndView viewNotice(@RequestParam("noticeNum") int noticeNum, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		String viewName = (String) request.getAttribute("viewName");
+		articleVO = boardService.viewNotice(noticeNum);
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName(viewName);
+		mav.addObject("notice", articleVO);
+		return mav;
+	}*/
+	
+	
 }

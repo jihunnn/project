@@ -39,7 +39,7 @@
 			$("input:checkbox[name='chk']").prop("checked", false) //체크해제
 		}
 	}
-	
+
 	//회원장바구니 선택삭제
 	function deleteValue01() {
 		var url = "delete.do"
@@ -73,7 +73,7 @@
 			});
 		}
 	}
-	
+
 	//비회원 장바구니 선택삭제
 	function deleteValue02() {
 		var url = "delete.do"
@@ -107,10 +107,7 @@
 			});
 		}
 	}
-	
-	
-	
-	
+
 	//회원구매
 	function memberbuy() {
 		var url = "order.do"
@@ -140,11 +137,11 @@
 						alert("오류 발생");
 					}
 				}
-				
+
 			});
 		}
 	}
-	
+
 	//비회원구매
 	function nonmemberbuy() {
 		var url = "order.do"
@@ -174,7 +171,7 @@
 						alert("오류 발생");
 					}
 				}
-				
+
 			});
 		}
 	}
@@ -191,24 +188,42 @@
 
 
 	<!-- 장바구니 타이틀 -->
-	<section class="ftco-section" style="padding-top: 60px;">
+	<section class="ftco-section" style="padding-top: 100px;">
 		<div class="container">
-			<div class="row justify-content-center mb-5 pb-3"
-				style="background-color: #f5f5f5; border: 1px solid #e7e7e7;">
-				<div class="col-md-20 heading-section ftco-animate"
-					style="height: 60px;">
-					<c:choose>
-						<c:when test="${isLogOn == true && member != null}">
-							<h2 class="mb-4" style="font-size: 35px; padding-top: 14px;">회원
-								장바구니</h2>
-						</c:when>
-						<c:otherwise>
-							<h2 class="mb-4" style="font-size: 35px; padding-top: 14px;">비회원
-								장바구니</h2>
-						</c:otherwise>
-					</c:choose>
-				</div>
-			</div>
+
+			<c:choose>
+				<c:when test="${isLogOn == true && member != null}">
+					<div
+						style="floa: left; font-size: 25px; font-weight: bold; margin-bottom: 20px;">
+						<a style="color: #7e9c8c;">장바구니</a>
+					</div>
+					<div class="container" style="padding-left: 0px;">
+						<button type="button" onclick="deleteValue02();"
+							style="float: right; border-radius: 2px; margin-bottom: 3px; margin-top: 15px; background-color: white; color: gray; border: 1px solid #eeeeee; border-radius: 2px; width: 70px; height: 30px; font-size: 14px;"
+							class="btn-secondary btn-xs">선택삭제</button>
+						<button type="button" onclick="checkAll()"
+							class="btn-secondary btn-xs"
+							style="float: right; border-radius: 2px; margin-bottom: 3px; margin-top: 15px; background-color: white; color: gray; border: 1px solid #eeeeee; border-radius: 2px; width: 70px; height: 30px; font-size: 14px;">전체선택</button>
+
+					</div>
+				</c:when>
+				<c:otherwise>
+					<div
+						style="floa: left; font-size: 25px; font-weight: bold; margin-bottom: 20px;">
+						<a style="color: #7e9c8c;">장바구니</a>
+						<button type="button" onclick="deleteValue02();"
+							style="float: right; border-radius: 2px; margin-bottom: 3px; margin-top: 15px; background-color: white; color: gray; border: 1px solid #eeeeee; border-radius: 2px; width: 70px; height: 30px; font-size: 14px;"
+							class="btn-secondary btn-xs">선택삭제</button>
+						<button type="button" onclick="checkAll()"
+							class="btn-secondary btn-xs"
+							style="float: right; border-radius: 2px; margin-bottom: 3px; margin-top: 15px; background-color: white; color: gray; border: 1px solid #eeeeee; border-radius: 2px; width: 70px; height: 30px; font-size: 14px;">전체선택</button>
+
+					</div>
+
+				</c:otherwise>
+			</c:choose>
+
+
 
 			<!-- 장바구니타이틀끝 -->
 
@@ -241,21 +256,15 @@
 
 
 			<!-- 내용 -->
-
 			<div class="order_list">
-				<div class="container" style="padding-left: 0px;">
-					<button type="button" onclick="checkAll()"
-						class="btn-secondary btn-xs">전체선택</button>
-				</div>
-				<br>
-
 
 
 				<c:choose>
 					<c:when test="${isLogOn == true && member != null}">
-						<table class="table">
+						<table class="table" style="margin-top: 0px;">
 							<thead class="table-dark" align=center>
-								<tr align="center">
+								<tr align="center"
+									style="background-color: #eeeeee; border-top: 1px solid #7e9c8c; border-bottom: 1px solid #c6c8ca; font-size: 15px; color: black;">
 									<td scope="col" width="100">선택</td>
 									<td scope="col" width="150"></td>
 									<td scope="col" width="500" align=left>상품명</td>
@@ -272,7 +281,7 @@
 											<input type="checkbox" name="chk"
 											value="${cartlist.memCartId}"></td>
 										<td scope="col"><img
-											src="${contextPath}/resources/images/sofa01.jpg" width=130
+											src="${contextPath}/resources/images/bed.jpg" width=130
 											height=130></td>
 										<td scope="col" align=left>${cartlist.productName}<br>${cartlist.option1name}
 											: ${cartlist.option1value} <br>${cartlist.option2name} :
@@ -329,7 +338,8 @@
 
 						<table class="table">
 							<thead class="table-dark" align=center>
-								<tr align="center">
+								<tr align="center"
+									style="background-color: #eeeeee; border-top: 1px solid #7e9c8c; color: black; border-bottom: 1px solid #c6c8ca; font-size: 15px;">
 									<td scope="col" width="100">선택</td>
 									<td scope="col" width="150"></td>
 									<td scope="col" width="500" align=left>상품명</td>
@@ -340,19 +350,18 @@
 							</thead>
 							<c:forEach items="${cartlist}" var="cartlist" varStatus="status">
 								<tbody>
-									<tr>
+									<tr style="font-size: 14px; border-bottom: 1px solid #c6c8ca;">
 										<td scope="col" height="100" align=center><br> <br>
-											<input type="checkbox" name="chk" value="${status.index}"
-											></td>
+											<input type="checkbox" name="chk" value="${status.index}"></td>
 										<td scope="col"><img
-											src="${contextPath}/resources/images/sofa01.jpg" width=130
+											src="${contextPath}/resources/images/bed.jpg" width=130
 											height=130></td>
-										<td scope="col" align=left>${cartlist.productName}<br>${cartlist.option1name}
+										<td scope="col" align=left style="padding-top: 25px;">${cartlist.productName}<br>${cartlist.option1name}
 											: ${cartlist.option1value} <br>${cartlist.option2name} :
 											${cartlist.option2value}
 										</td>
 										<td scope="col" align=center><br> <br> <select
-											name="number" style="height: 25px;">
+											name="number" style="height: 25px; border:1px solid #dcdcdc;">
 												<option value="1개">1개</option>
 												<option value="2개">2개</option>
 												<option value="3개">3개</option>
@@ -369,28 +378,28 @@
 									<td></td>
 									<td></td>
 									<td></td>
-									<td colspan="3" align=right style="padding-right: 20px;">총
+									<td colspan="3" align=right
+										style="font-size: 18px; color: #7e9c8c; font-weight: bold;">총
 										금액 : 원</td>
 								</tr>
 							</tfoot>
 						</table>
-						<div>
-							<div class="container"
-								style="padding-left: 1000px; paddig-right: 0px !important; float: left; width: 1180px; margin-left: 85px;">
-								<button type="button" onclick="deleteValue02();"
-									class="btn-secondary btn-xs">선택삭제</button>
 
-							</div>
-						</div>
+
+
+
+
 						<br>
 						<br>
 						<br>
 						<div class="container" style="padding-left: 450px;">
-							<button type="button"  onclick="nonmemberbuy()" class="btn btn-dark "
-								id="buttonmy" style="margin-left: 90px; width: 120px;">선택상품주문</button>
+							<button type="button" onclick="nonmemberbuy()"
+								class="btn btn-dark " id="buttonmy"
+								style="padding-left: 10px; background-color: #7e9c8c; color: white; border: none; border-radius: 2px; width: 130px; height: 45px; font-size: 14px; margin-left:40px;">선택상품주문</button>
 							&nbsp;&nbsp;&nbsp;
 							<button type="button" onclick="nextt()" id="buttonmy"
-								class="btn btn-dark" style="margin-left: 20px; width: 120px;">전체상품주문</button>
+								class="btn btn-dark"
+								style="width: 75px; background-color: white; color: gray; border: 1px solid #7e9c8c; border-radius: 2px; margin-left: 20px; width: 130px; height: 45px; font-size: 14px;">전체상품주문</button>
 						</div>
 					</c:otherwise>
 				</c:choose>

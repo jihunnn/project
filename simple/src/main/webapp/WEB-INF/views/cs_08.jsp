@@ -173,36 +173,36 @@ function InquiryList() {
 
 	<!-- 타이틀 -->
 	<section class="ftco-section"
-		style="padding-top: 50px; margin-bottom: 50px; padding-bottom: 0px; margin-top:30px;">
+		style="padding-top: 100px; margin-bottom: 80px; padding-bottom: 0px; margin-top:30px;">
 		<div class="container">
-			<ul class="snip1284">
+			<ul class="snip1284" style="margin-bottom:30px; padding-left:0px;">
 				<li><a
 					onclick="location.href='${contextPath}/board/listNotice.do'"
 					data-hover="공지사항"
-					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; margin-left: 20px; padding-bottom: 0px;">공지사항</a></li>
+					style="font-size: 19px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; margin-left: 20px; padding-bottom: 0px;">공지사항</a></li>
 
 
 				<li><a
 					onclick="location.href='${contextPath}/board/listQuestion.do'"
 					data-hover="자주 묻는 질문"
-					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">자주
+					style="font-size: 19px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">자주
 						묻는 질문</a></li>
 
 
 				<li><a onclick="InquiryList()" data-hover="1:1문의"
-					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">1:1문의</a></li>
+					style="font-size: 19px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">1:1문의</a></li>
 
 
 				<li class="current"><a
 					onclick="location.href='${contextPath}/board/listAsCenter.do'"
 					data-hover="A/S센터"
-					style="font-size: 20px; border: none; color: #5a5a5a; background-color: white; cursor: pointer; padding-bottom: 0px;">A/S센터</a></li>
+					style="font-size: 19px; border: none; color: #5a5a5a; background-color: white; cursor: pointer; padding-bottom: 0px;">A/S센터</a></li>
 			</ul>
 
 			<div>
-				<h2 style="font-size: 28px; margin-top: 15px; float: left;">A/S센터</h2>
+				<h2 style="font-size: 25px; margin-top: 15px; float: left;">A/S센터</h2>
 				<h5
-					style="color: #828282; float: left; font-size: 18px; margin-left: 20px; margin-top: 25px;">빠르게 접수 도와드리겠습니다.</h5>
+					style="color: #828282; float: left; font-size: 15px; margin-left: 20px; margin-top: 25px;">빠르게 접수 도와드리겠습니다.</h5>
 			</div>
 			<!-- 타이틀 끝 -->
 
@@ -238,11 +238,11 @@ function InquiryList() {
 				<div>
 
 					<button type="submit" id="buttonmy" class="btn btn-dark"
-						style="margin-top: 20px; float: right; padding-top: 4px; height: 33px; font-size: 14px; padding-top: 4px;">검색</button>
-					<input type="text" class="form-control" id="inputbox"
-						style="margin-top: 21px; float: right; border: 1px solid #bebebe; margin-right: 5px;"
+						style="margin-top: 21px; float: right; padding-top: 4px; height: 34px; font-size: 14px; padding-top: 4px; background-color:#7e9c8c; border:none;">검색</button>
+					<input type="text" 
+						style="margin-top: 21px; float: right; height:34px; border: 1px solid #dcdcdc; font-size:14px; margin-right: 5px;"
 						name="search"> <select name="searchType"
-						style="font-size: 14px; margin-right: 210px; float: right; width: 80px; height: 31px; border: 1px solid #bebebe; margin-top: 21px;">
+						style="font-size: 14px; margin-right: 5px; float: right; width: 80px; height: 34px; border: 1px solid #dcdcdc; margin-top: 21px;">
 						<option value="asCenterTitle">제목</option>
 						<option value="memName">작성자</option>
 						<option value="asCenterContent">내용</option>
@@ -253,7 +253,7 @@ function InquiryList() {
 				style="margin-top: 20px; text-align: center; font-size: 14px;">
 				<thead class="table-dark" align=center>
 					<tr
-						style="border-bottom: 1px solid #c6c8ca; height: 30px; background-color: #212529;">
+						style="background-color: #eeeeee; border-top:1px solid #7e9c8c;color:black; border-bottom: 1px solid #c6c8ca; font-size:15px;">
 						<td style="width: 100px;">번호</td>
 						<td style="width: 500px;">제목</td>
 						<td style="width: 200px;">작성자</td>
@@ -325,14 +325,14 @@ function InquiryList() {
 				</thead>
 			</table>
 			<a id="buttonmy" class="btn btn-dark" onClick="asCenterForm()"
-				style="float: right; margin-top: 25px; border-radius: 2px; color: white; font-size: 14px; padding-top: 4px;">글쓰기</a>
+				style="float: right; margin-top: 25px; border-radius: 2px;  background-color: #7e9c8c; color: white; border:none; border-radius: 2px; width: 120px; height: 40px; padding-top:10px; font-size:14px;">글쓰기</a>
 			<!-- 페이징 글번호 -->
 			<div class="page_wrap" style="margin-left: 80px; margin-top: 50px;">
 				<div class="page_nation">
 
 					<c:if test="${pageMaker.prev}">
 
-						<a class="arrow prev" style="border: none; color:black; margin-right:0px; margin-left:0px;"
+						<a class="arrow prev" style="border: 1px solid #7e9c8c; color:#7e9c8c; margin-right:0px; margin-left:2px;"
 							href='<c:url value="/board/listAsCenter.do?page=${pageMaker.startPage-1 }"/>'><i
 							class="fa fa-chevron-left"></i></a>
 
@@ -340,13 +340,13 @@ function InquiryList() {
 					<c:forEach begin="${pageMaker.startPage }"
 						end="${pageMaker.endPage }" var="pageNum">
 
-						<a style="border: none; color:black; margin-right:0px; margin-left:0px;" href='<c:url value="/board/listAsCenter.do?page=${pageNum}"/>'><i
+						<a style="border: 1px solid #7e9c8c; color:#7e9c8c; margin-right:0px; margin-left:2px;" href='<c:url value="/board/listAsCenter.do?page=${pageNum}"/>'><i
 							class="fa">${pageNum}</i></a>
 
 					</c:forEach>
 					<c:if test="${pageMaker.next && pageMaker.endPage >0 }">
 
-						<a class="arrow next" style="border: none; color:black; margin-right:0px; margin-left:0px;"
+						<a class="arrow next" style="border: 1px solid #7e9c8c; color:#7e9c8c; margin-right:0px; margin-left:2px;"
 							href='<c:url value="/board/listAsCenter.do?page=${pageMaker.endPage+1 }"/>'><i
 							class="fa fa-chevron-right"></i></a>
 

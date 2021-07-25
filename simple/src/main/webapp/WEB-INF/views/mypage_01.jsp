@@ -231,24 +231,24 @@
 				flush="false" />
 			<!-- left Menu 끝-->
 			<!-- 마이페이지 상단 공통 ui -->
-			<div style="font-size:20px; font-weight:bold; margin-left:18px;padding-bottom:7px;">마이페이지</div>
+			<div style="font-size:20px; font-weight:bold; margin-left:18px;padding-bottom:7px; ">마이페이지</div>
 			<div id="MyPage_top">
-				<table style="width: 1000px; height: 80px; margin-left: 80px;">
+				<table style="width: 1000px; height: 80px; margin-left: 80px; ">
 					<tbody id="MyPage_center1">
-						<tr height="45px;">
+						<tr height="45px;" style="border:1px solid #e3e3e3;">
 							<th
-								style="font-size: 14px; background-color: #212529; color: white;"
+								style="font-size: 14px; background-color: #eeeeee; color: black;"
 								colspan="3"><a style="font-size: 16px; padding-left: 10px;">${member.memName}</a>
 								<a>님 환영합니다.</a></th>
 						</tr>
 						<tr align="center"
-							style="padding-left: 10px; font-size: 14px; height: 60px;"
+							style="padding-left: 10px; font-size: 14px; height: 60px; border:1px solid #e3e3e3;"
 							height="45%">
-							<th width="220" style="text-align: center">주문/배송<a
+							<th width="220" style="text-align: center; color:gray;">주문/배송<a
 								href="/MyPage-04" style="color: red;">4</a><a>건</a></th>
-							<th width="220" style="text-align: center">취소/반품<a
+							<th width="220" style="text-align: center; center; color:gray;">취소/반품<a
 								href="/MyPage-06" style="color: red;">2</a><a>건</a></th>
-							<th width="220" style="text-align: center">장바구니<a
+							<th width="220" style="text-align: center; center; color:gray;">장바구니<a
 								href="/Cart" style="color: red;">1</a><a>건</a></th>
 						</tr>
 					</tbody>
@@ -269,7 +269,7 @@
 									href="/MyPage-04" style="color: gray;">더보기 ></a></th>
 							</tr>
 							<tr align="center"
-								style="padding-left: 10px; font-size: 14px; background-color: #dcdcdc;"
+								style="padding-left: 10px; font-size: 14px; background-color: #c6c6c6; color: white;"
 								height="35%">
 								<th width="132" style="text-align: center;">주문접수</th>
 								<th width="132" style="text-align: center;">결제완료</th>
@@ -278,18 +278,18 @@
 								<th width="132" style="text-align: center;">배송완료</th>
 							</tr>
 							<tr align="center"
-								style="padding-left: 10px; font-size: 16px; background-color: #dcdcdc; "
+								style="padding-left: 10px; font-size: 16px; background-color: #c6c6c6; "
 								height="35%">
 								<th width="132" style="text-align: center;"><a
-									style="color: red;">0</a><a style="font-size:14px;">건</a></th>
+									style="color: #7e9c8c;">0</a><a style="font-size:14px; color:gray;">건</a></th>
 								<th width="132" style="text-align: center;"><a
-									style="color: red;">0</a><a style="font-size:14px;">건</a></th>
+									style="color: #7e9c8c">0</a><a style="font-size:14px; color:gray;">건</a></th>
 								<th width="132" style="text-align: center;"><a
-									style="color: red;">0</a><a style="font-size:14px;">건</a></th>
+									style="color: #7e9c8c;">0</a><a style="font-size:14px; color:gray;">건</a></th>
 								<th width="132" style="text-align: center;"><a
-									style="color: red;">0</a><a style="font-size:14px;">건</a></th>
+									style="color: #7e9c8c;">0</a><a style="font-size:14px; color:gray;">건</a></th>
 								<th width="132" style="text-align: center;"><a
-									style="color: red;">1</a><a style="font-size:14px;">건</a></th>
+									style="color: #7e9c8c;">1</a><a style="font-size:14px; color:gray;">건</a></th>
 							</tr>
 						</tbody>
 					</table>
@@ -301,20 +301,20 @@
 									colspan="4"><a
 								style="padding-bottom: 10px;">1:1문의내역</a></th>
 							<th width="80"
-								style="text-align: right; font-size: 11px; padding-top: 30px;"><a
+								style="text-align: right; font-size: 11px; padding-top: 40px;"><a
 								href="/CS-04" style="color: gray;">더보기 ></a></th>
 						</tr>
-						<tr align="center"
-							style="padding-left: 10px; font-size: 14px; border: 1px solid rgb(140, 140, 140);"
-							height="45%">
-							<th width="660">2021/06/04<a href="/CS-07"
-								style="padding-left: 10px; color: gray;">배송 언제 되나요?</a></th>
+						<tr align="left"
+							style="font-size: 14px; border: 1px solid #e3e3e3;"
+							height="50%">
+							<th width="660"  height="40" style=" padding-left:10px;">2021/06/04<a href="/CS-07"
+								style="color: gray; padding-left:10px; ">배송 언제 되나요?</a></th>
 						</tr>
 					</table>
 				</div>
 				<div id="MyPage_top1" style="padding-bottom: 50px;">
 					<table style="width: 1000px; height: 80px; align: center;">
-						<tr height="55%">
+						<tr height="60%">
 							<th style="font-size:20px !importent; font-weight:bold; margin-left:18px; padding-top:20px;"
 									colspan="4">
 								<a>A/S 접수</a>
@@ -323,16 +323,16 @@
 								style="text-align: right; font-size: 11px; padding-top: 30px;"><a
 								href="/CS-08" style="color: gray;">더보기 ></a></th>
 						</tr>
-						<tr align="center"
-							style="padding-left: 10px; font-size: 14px; border: 1px solid rgb(140, 140, 140);"
-							height="45%">
-							<th width="660"><a href="/CS-07"
+						<tr align="left"
+							style="padding-left: 10px; font-size: 14px; border: 1px solid #e3e3e3;"
+							height="60%">
+							<th width="660" height="40px;"><a href="/CS-07"
 								style="padding-left: 10px; color: gray;">등록된 글이 없습니다.</a></th>
 						</tr>
 					</table>
 				</div>
 				<button type="button" onclick="drop_out()" id="btn-remove-mypage"
-					style="float: right; color: black; font-size: 11px; padding-right: 5px; border: none; background-color: white; cursor: pointer;">회원탈퇴</button>
+					style="float: right; color: gary; font-size: 11px; padding-right: 5px; border: none; background-color: white; cursor: pointer;">회원탈퇴</button>
 			</div>
 		</div>
 	</section>

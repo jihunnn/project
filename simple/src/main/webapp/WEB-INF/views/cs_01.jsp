@@ -86,13 +86,16 @@ request.setCharacterEncoding("utf-8");
 </head>
 <body>
 	<!-- 타이틀 -->
-	<section class="ftco-section" style="padding-top: 50px; margin-top:30px;">
+	<section class="ftco-section"
+		style="padding-top: 50px; margin-top: 30px;">
 		<div class="container">
 			<jsp:include page="/WEB-INF/views/common/csMenu.jsp" flush="false" />
 
 			<div>
-				<h2 style="font-size: 25px; margin-top: 15px; float:left;">공지사항</h2>
-				<h5 style="color:#828282; float:left; font-size:15px; margin-left:20px; margin-top:25px;">SIMPLE의 새로운 소식을 확인해보세요.</h5>
+				<h2 style="font-size: 25px; margin-top: 15px; float: left;">공지사항</h2>
+				<h5
+					style="color: #828282; float: left; font-size: 15px; margin-left: 20px; margin-top: 25px;">SIMPLE의
+					새로운 소식을 확인해보세요.</h5>
 			</div>
 
 			<!-- 타이틀 끝 -->
@@ -125,14 +128,20 @@ request.setCharacterEncoding("utf-8");
 
 			<!-- 내용 -->
 
-			<table class="table" style="height: 25px; font-size: 13px;">
+			<table class="table" style="height: 25px; font-size: 14px;">
 				<thead class="table-dark" align=center>
-					<tr align="center" style="background-color: #eeeeee; border-top:1px solid #7e9c8c; border-bottom: 1px solid #c6c8ca;">
-						<td scope="col" width="100"><p style="color:black; margin-bottom:0px;">번호</p></td>
-						<td scope="col" width="500" ><p style="color:black; margin-bottom:0px;">내용</p></td>
-						<td scope="col" width="150"><p style="color:black; margin-bottom:0px;">작성자</p></td>
-						<td scope="col" width="150"><p style="color:black; margin-bottom:0px;">작성일</p></td>
-						<td scope="col" width="80" ><p style="color:black; margin-bottom:0px;">조회수</p></td>
+					<tr align="center"
+						style="background-color: #eeeeee; border-top: 1px solid #7e9c8c; border-bottom: 1px solid #c6c8ca; font-size: 15px;">
+						<td scope="col" width="100"><p
+								style="color: black; margin-bottom: 0px;">번호</p></td>
+						<td scope="col" width="500"><p
+								style="color: black; margin-bottom: 0px;">내용</p></td>
+						<td scope="col" width="150"><p
+								style="color: black; margin-bottom: 0px;">작성자</p></td>
+						<td scope="col" width="150"><p
+								style="color: black; margin-bottom: 0px;">작성일</p></td>
+						<td scope="col" width="80"><p
+								style="color: black; margin-bottom: 0px;">조회수</p></td>
 					</tr>
 					<c:choose>
 						<c:when test="${empty noticeList}">
@@ -164,7 +173,12 @@ request.setCharacterEncoding("utf-8");
 
 				</thead>
 			</table>
+			<c:if test="${AdminisLogOn== true &&admin !=null}">
+				<a id="buttonmy" class="btn btn-dark" onClick="noticeForm()"
+					style="float: right; margin-top: 25px; border-radius: 2px; background-color: #7e9c8c; color: white; border: none; border-radius: 2px; width: 120px; height: 40px; padding-top: 10px; font-size: 14px;">글쓰기</a>
+			</c:if>
 		</div>
+
 		<!-- 내용 끝 -->
 
 		<!-- 페이징 글번호 -->
@@ -173,7 +187,8 @@ request.setCharacterEncoding("utf-8");
 
 				<c:if test="${pageMaker.prev}">
 
-					<a class="arrow prev" style="border: 1px solid #7e9c8c; color:#7e9c8c; margin-right:0px; margin-left:2px; colo"
+					<a class="arrow prev"
+						style="border: 1px solid #7e9c8c; color: #7e9c8c; margin-right: 0px; margin-left: 2px;"
 						href='<c:url value="/board/listNotice.do?page=${pageMaker.startPage-1 }"/>'><i
 						class="fa fa-chevron-left"></i></a>
 
@@ -181,13 +196,16 @@ request.setCharacterEncoding("utf-8");
 				<c:forEach begin="${pageMaker.startPage }"
 					end="${pageMaker.endPage }" var="pageNum">
 
-					<a style="border: 1px solid #7e9c8c; color:#7e9c8c;margin-right:0px; margin-left:2px;" href='<c:url value="/board/listNotice.do?page=${pageNum }"/>'><i
+					<a
+						style="border: 1px solid #7e9c8c; color: #7e9c8c; margin-right: 0px; margin-left: 2px;"
+						href='<c:url value="/board/listNotice.do?page=${pageNum }"/>'><i
 						class="fa">${pageNum }</i></a>
 
 				</c:forEach>
 				<c:if test="${pageMaker.next && pageMaker.endPage >0 }">
 
-					<a class="arrow next" style="border: 1px solid #7e9c8c; color:#7e9c8c; margin-right:0px; margin-left:2px;"
+					<a class="arrow next"
+						style="border: 1px solid #7e9c8c; color: #7e9c8c; margin-right: 0px; margin-left: 2px;"
 						href='<c:url value="/board/listNotice.do?page=${pageMaker.endPage+1 }"/>'><i
 						class="fa fa-chevron-right"></i></a>
 

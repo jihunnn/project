@@ -150,57 +150,10 @@
 				<img src="${contextPath}/resources/images/product/selina.jpg" width=100%
 		height=350px style="margin-bottom:30px;">
 			<!-- 최근 본 상품 -->
-			<div id="recentlyProduct"
-				style="position: absolute; left: 80px; width: 120px; height: 310px; margin-left: 1650px; border: 1px solid #d2d2d2; margin-top: -130px;">
-
-
-				<ul
-					style="list-style: none; margin-top: 10px; padding-left: 20px; margin-bottom: 10px;">
-					<li><a href="#"
-						style="padding-left: -10px; padding-bottom: 1px; color: black;">최근본상품</a></li>
-				</ul>
-				<hr style="margin-top: 0px; margin-bottom: 0px; color: #d2d2d2;">
-				<ul style="list-style: none; padding-top: 5px;">
-					<c:choose>
-						<c:when test="${empty quickList }">
-							<ul
-								style="list-style: none; padding-top: 80px; padding-right: 0px; padding-left: 0px;">
-								<li><a
-									style="color: black; text-align: center; margin-top: 8px; padding-top: 30px;">상품</a></li>
-								<li><a
-									style="color: black; text-align: center; margin-top: 8px; padding-top: 30px;">없음</a></li>
-							</ul>
-						</c:when>
-						<c:otherwise>
-							<c:forEach var="item" items="${quickList}" varStatus="itemNum">
-								<li><a
-									href="${contextPath}/product/viewProduct.do?productNum=${item.productNum}">
-										<img
-										src="${contextPath}/download_product.do?productNum=${item.productNum}&productImage=${item.productImage}"
-										style="width: 100px; height: 100px; padding-top: 10px; margin-left: -30px;">
-								</a></li>
-
-
-							</c:forEach>
-						</c:otherwise>
-					</c:choose>
-				</ul>
-				<c:choose>
-					<c:when test="${!empty quickList }">
-						<hr style="margin-top: 0px; margin-bottom: 0px; color: #d2d2d2;">
-						<ul
-							style="list-style: none; padding-left: 30px; margin-bottom: 10px; margin-top: 8px;">
-							<li><a href="${contextPath}/mypage_09.do"
-								style="color: black; text-align: center; margin-top: 8px; padding-top: 30px;">더보기▼</a></li>
-						</ul>
-					</c:when>
-				</c:choose>
-
-			</div>
 
 			<!-- 최근 본 상품 끝 -->
 
-			<ul class="snip1284" style="margin-bottom: 30px;">
+			<ul class="snip1284" style="margin-bottom: 30px; font-weight:bold;">
 				<li class="current"><a
 					onclick="location.href ='${contextPath}/product/listProduct.do?sort=침대&subsort=싱글'"
 					data-hover="싱글"
@@ -232,13 +185,13 @@
 			<div class="btn-group" role="group" aria-label="..."
 				style="margin-bottom: 25px; margin-top: 10px;">
 				<button type="button" class="btn btn-default"
-					style="border: 0; outline: 0; border-radius: 1px; background-color: white; font-size: 12px;">인기순</button>
+					style="border: 0; outline: 0; border-radius: 1px; background-color: white; font-size: 13px;">인기순</button>
 				<button type="button" class="btn btn-default"
-					style="border: 0; outline: 0; background-color: white; font-size: 12px;">낮은가격순</button>
+					style="border: 0; outline: 0; background-color: white; font-size: 13px;">낮은가격순</button>
 				<button type="button" class="btn btn-default"
-					style="border: 0; outline: 0; background-color: white; font-size: 12px;">높은가격순</button>
+					style="border: 0; outline: 0; background-color: white; font-size: 13px;">높은가격순</button>
 				<button type="button" class="btn btn-default"
-					style="border: 0; outline: 0; border-radius: 1px; background-color: white; font-size: 12px;">상품평순</button>
+					style="border: 0; outline: 0; border-radius: 1px; background-color: white; font-size: 13px;">상품평순</button>
 			</div>
 			<hr style="margin-top: -15px; margin-bottom: 30px;">
 
@@ -278,7 +231,7 @@
 											<hr style="margin-top: 15px; margin-bottom:10px;">
 												<h3 class="heading"
 													style="float: right; white-space: nowrap; margin-bottom: 10px;">
-													<a href="#" style="font-size: 17px;"><fmt:formatNumber
+													<a href="#" style="font-size: 16px;"><fmt:formatNumber
 															pattern="###,###,###" value="${product.productPrice}" />원</a>
 												</h3>
 										</div>

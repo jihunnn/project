@@ -220,36 +220,36 @@ request.setCharacterEncoding("UTF-8");
 <body>
 	<!-- 타이틀 -->
 	<section class="ftco-section"
-		style="padding-top: 50px; margin-bottom: 50px; padding-bottom: 0px; margin-bottom: 150px; margin-top: 30px;">
+		style="padding-top: 100px; margin-bottom: 50px; padding-bottom: 0px; margin-bottom: 150px; margin-top: 30px;">
 		<div class="container">
-			<ul class="snip1284">
+			<ul class="snip1284" style="margin-bottom:30px;  padding-left:0px;">
 				<li><a
 					onclick="location.href='${contextPath}/board/listNotice.do'"
 					data-hover="공지사항"
-					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; margin-left: 20px; padding-bottom: 0px;">공지사항</a></li>
+					style="font-size: 19px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; margin-left: 20px; padding-bottom: 0px;">공지사항</a></li>
 
 
 				<li><a
 					onclick="location.href='${contextPath}/board/listQuestion.do'"
 					data-hover="자주 묻는 질문"
-					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">자주
+					style="font-size: 19px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">자주
 						묻는 질문</a></li>
 
 
 				<li><a onclick="InquiryList()" data-hover="1:1문의"
-					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">1:1문의</a></li>
+					style="font-size: 19px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">1:1문의</a></li>
 
 
 				<li class="current"><a
 					onclick="location.href='${contextPath}/board/listAsCenter.do'"
 					data-hover="A/S센터"
-					style="font-size: 20px; border: none; color: #5a5a5a; background-color: white; cursor: pointer; padding-bottom: 0px;">A/S센터</a></li>
+					style="font-size: 19px; border: none; color: #5a5a5a; background-color: white; cursor: pointer; padding-bottom: 0px;">A/S센터</a></li>
 			</ul>
 
 			<div>
-				<h2 style="font-size: 28px; margin-top: 15px; float: left;">A/S센터</h2>
+				<h2 style="font-size: 25px; margin-top: 15px; float: left;">A/S센터</h2>
 				<h5
-					style="color: #828282; float: left; font-size: 18px; margin-left: 20px; margin-top: 25px;">빠르게
+					style="color: #828282; float: left; font-size: 15px; margin-left: 20px; margin-top: 25px;">빠르게
 					접수 도와드리겠습니다.</h5>
 			</div>
 			<!-- 타이틀 끝 -->
@@ -288,9 +288,9 @@ request.setCharacterEncoding("UTF-8");
 					style="padding-top: 50px; border-top: #212529; font-size: 14px;">
 					<c:choose>
 						<c:when test="${!empty asCenterNum}">
-							<tr style="background-color: #212529; margin-top: 20px;"
+							<tr style="background-color: #eeeeee; border-top:1px solid #7e9c8c;color:black; border-bottom: 1px solid #c6c8ca; font-size:15px;"
 								align="center">
-								<td colspan="6" style="color: white;">글수정하기</td>
+								<td colspan="6" style="color: black;">글수정하기</td>
 							</tr>
 							<tr style="border-bottom: 1px solid #dcdcdc;">
 								<td
@@ -342,9 +342,9 @@ request.setCharacterEncoding("UTF-8");
 							</tr>
 						</c:when>
 						<c:when test="${empty asCenterNum}">
-							<tr style="background-color: #212529; margin-top: 20px;"
+							<tr style="background-color: #eeeeee; border-top:1px solid #7e9c8c;color:black; border-bottom: 1px solid #c6c8ca; font-size:15px;"
 								align="center">
-								<td colspan="6" style="color: white;">글쓰기</td>
+								<td colspan="6" style="color: black;">글쓰기</td>
 							</tr>
 							<tr style="border-bottom: 1px solid #dcdcdc;">
 								<td
@@ -397,20 +397,20 @@ request.setCharacterEncoding("UTF-8");
 						<div>
 							<button type="button" onClick="modAsCenter(this.form)"
 								class="btn btn-dark " id="buttonmy"
-								style="margin-left: 630px; margin-top: 30px; background-color: #212529; font-size: 14px; padding-top: 4px;">수정</button>
+								style="margin-left: 540px; margin-top: 30px; border-radius: 2px;  background-color: #7e9c8c; color: white; border:none; border-radius: 2px; width: 120px; height: 40px; padding-top:10px; padding-top: 4px; float:left;">수정</button>
 							<button type="button" class="btn btn-dark " id="buttonmy"
 								onClick="location.href='${contextPath}/board/listAsCenter.do'"
-								style="margin-left: 730px; margin-top: -30px; background-color: #212529; font-size: 14px; padding-top: 4px;">목록</button>
+								style="margin-left: 20px;  margin-top:30px; border-radius: 2px;  background-color: white; color: gray;  border:1px solid #eeeeee; border-radius: 2px; width: 120px; height: 40px; padding-top:10px; padding-top: 4px;  float:left;">목록</button>
 						</div>
 					</c:when>
 					<c:when test="${empty asCenterNum}">
 						<div>
 							<button type="button" onclick="CS_write()" class="btn btn-dark "
 								id="buttonmy"
-								style="margin-left: 630px; margin-top: 30px; background-color: #212529; font-size: 14px; padding-top: 4px;">등록</button>
+								style="margin-left: 540px; margin-top: 30px; border-radius: 2px;  background-color: #7e9c8c; color: white; border:none; border-radius: 2px; width: 120px; height: 40px; padding-top:10px; padding-top: 4px; float:left;">등록</button>
 							<button type="button" class="btn btn-dark " id="buttonmy"
 								onClick="location.href='${contextPath}/board/listAsCenter.do'"
-								style="margin-left: 730px; margin-top: -30px; background-color: #212529; font-size: 14px; padding-top: 4px;">목록</button>
+								style="margin-left: 20px;  margin-top:30px; border-radius: 2px;  background-color: white; color: gray;  border:1px solid #eeeeee; border-radius: 2px; width: 120px; height: 40px; padding-top:10px; padding-top: 4px;  float:left;">목록</button>
 						</div>
 					</c:when>
 				</c:choose>

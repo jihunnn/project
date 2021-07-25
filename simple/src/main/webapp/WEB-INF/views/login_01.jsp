@@ -29,7 +29,7 @@
 	width: 430px;
 	height: 450px;
 	float: center;
-	border: 1px solid #a9aaac;
+	border: 1px solid #eeeeee;
 	margin: 10 10 10 10;
 }
 
@@ -52,8 +52,9 @@
 
 #chk_save_id {
 	padding-bottom: 10px;
-	width: 20px;
-	height: 20px;
+	width: 17px;
+	height: 17px;
+	margin-left: 3px;
 }
 
 #id_pwd_save {
@@ -121,7 +122,7 @@
 #RightBox {
 	width: 430px;
 	height: 450px;
-	border: 1px solid #a9aaac;
+	border: 1px solid #eeeeee;
 	margin: 10 10 10 10;
 }
 
@@ -258,9 +259,7 @@
 
 	//비회원 주문조회
 	function Non_order_Inquiry() {
-		
-	
-		
+
 		var form = document.Non_order;
 		//주문번호 숫자만 입력
 		for (var i = 0; i < form.nonMemOrderNum.value.length; i++) {
@@ -294,7 +293,7 @@
 			alert("주문 비밀번호를 입력해주세요!");
 			form.nonMemPwd.focus();
 		} else {
-			
+
 			form.submit();
 
 		}
@@ -310,97 +309,78 @@
 
 
 	<div class="container">
-		<div class="row justify-content-center mb-5 pb-3"
-			style="background-color: #f5f5f5; border: 1px solid #e7e7e7; margin-top: 50px;">
-			<div class="col-md-20 heading-section ftco-animate"
-				style="height: 60px;">
-				<h2 class="mb-4" style="font-size: 35px; margin-top: 15px;">로그인</h2>
-			</div>
-		</div>
+
 		<!-- 최근 본 상품 -->
-		<div id="recentlyProduct"
-			style="position: absolute; width: 120px; height: 310px; margin-left: 1370px; border: 1px solid #d2d2d2; margin-top: -100px;">
-			<ul
-				style="list-style: none; margin-top: 10px; padding-left: 20px; margin-bottom: 10px;">
-				<li><a href="#"
-					style="padding-left: -10px; padding-bottom: 1px; color: black;">최근본상품</a></li>
-			</ul>
-			<hr style="margin-top: 0px; margin-bottom: 0px; color: #d2d2d2;">
-			<ul style="list-style: none; padding-top: 5px;">
-				<li><a href="#"><img
-						src="${contextPath}/resources/images/image_1.jpg"
-						style="width: 100px; height: 100px; padding-top: 10px; margin-left: -30px;"></a></li>
-				<li><a href="#"><img
-						src="${contextPath}/resources/images/image_2.jpg"
-						style="width: 100px; height: 100px; padding-top: 10px; padding-top: 10px; margin-left: -30px;"></a></li>
-			</ul>
-			<hr style="margin-top: 0px; margin-bottom: 0px; color: #d2d2d2;">
-			<ul
-				style="list-style: none; padding-left: 30px; margin-bottom: 10px; margin-top: 8px;">
-				<li><a href="#"
-					style="color: black; text-align: center; margin-top: 8px; padding-top: 30px;">더보기▼</a></li>
-			</ul>
-		</div>
+
 		<section class="ftco-section testimony-section" id="sect"
-			style="padding-top: 30px;">
+			style="padding-top: 30px; margin-top: 70px;">
 			<div class="container" style="padding-right: 100px;">
 				<section class="Easy-sgin-in-wrap">
 					<div id="LeftBox">
 						<h3 id="login_text">회원 로그인</h3>
-						
-						
-						
+
+
+
 						<form name="checkLogin" action="${contextPath}/login.do"
 							method="post">
 							<div class="id_pwd_text"
-								style="padding-top: 30px; margin-bottom: 5px;">
+								style="padding-top: 30px; margin-bottom: 5px; padding-left: 35px;">
 								<div>
 									<img src="${contextPath}/resources/images/login/login-id.jpg"
-										width="30"><input type="text" name="memId" size="30"
-										placeholder="아이디를 입력하세요">
+										width="23"><input
+										style="font-size: 14px; border: 1px solid #dcdcdc; width: 326px; height: 36px;"
+										type="text" name="memId" s placeholder="아이디를 입력하세요">
 								</div>
 								<div>
 									<img src="${contextPath}/resources/images/login/login-pwd.jpg"
-										width="30"><input type="password" name="memPwd" size="30"
-										placeholder="비밀번호를 입력하세요">
+										width="23"><input
+										style="font-size: 14px; margin-top: 10px; border: 1px solid #dcdcdc; width: 326px; height: 36px;"
+										type="password" name="memPwd" placeholder="비밀번호를 입력하세요">
 								</div>
 							</div>
 						</form>
 
-							<div class="id_save_find">
-								<input type="checkbox" name="save_id" id="chk_save_id"
-									value="on"> <label id="id_pwd_save" for="saveIdPwd"
-									class="on">아이디/비밀번호 저장</label> <span id="find_id_pwd">
-									<button onclick="location.href='${contextPath}/login_03.do'"
-										style="border: 1px solid grey; color: black; margin-right: 1px;"
-										class="btn_member_id_pwd">아이디/비밀번호 찾기</button>
-								</span>
-							</div>
-							<span id="btn_submit_login"> <input type="button"
-								id="submit_login" value="로그인" onclick="Login()"
-								style="background-color: #212529; color: white; margin-left: -2px;">
-
+						<div class="id_save_find" style="float: left;">
+							<input type="checkbox" name="save_id" id="chk_save_id"
+								style="vertical-align: middle;" value="on"> <label
+								id="id_pwd_save" for="saveIdPwd" class="on"
+								style="font-size: 12px;">아이디/비밀번호 저장</label> <span
+								id="find_id_pwd">
+								<button onclick="location.href='${contextPath}/login_03.do'"
+									style="border: none; font-size: 13px; margin-left: 50px; color: black; margin-right: 1px; height: 30px;"
+									class="btn_member_id_pwd">아이디/비밀번호 찾기</button>
 							</span>
-							
-							<section class="Easy-sgin-in-wrap3">
-								<ul class="sign-button-list3">
-									<li><button onclick="location.href='${url}'"
-											style="background-color: #212529; color: white;">
-											<img
-												src="${contextPath}/resources/images/login/logo-naver.jpg"
-												width="25" style="margin-right: 5px; margin-bottom: 10px;"><i
-												class="fas fa-qrcode"></i><span>네이버로 로그인</span>
-										</button></li>
-									<li><button onclick="location.href='#'"
-											style="background-color: #212529; color: white;">
-											<img
-												src="${contextPath}/resources/images/login/logo-cacao.jpg"
-												width="25" style="margin-right: 5px; margin-bottom: 10px;"><i
-												class="fab fa-facebook-square"></i><span>카카오로 로그인</span>
-										</button></li>
-								</ul>
-							</section>
-						
+						</div>
+						<span id="btn_submit_login"> <input type="button"
+							id="submit_login" value="로그인" onclick="Login()"
+							style="background-color: #7e9c8c; font-size:14px; color: white; border: none; border-radius:2px; margin-left: -2px;">
+
+						</span>
+
+						<section class="Easy-sgin-in-wrap3">
+							<ul class="sign-button-list3">
+								<li><button onclick="location.href='${url}'"
+										style="background-color: #eeeeee; color: black; border: none;">
+										<img
+											src="${contextPath}/resources/images/login/logo-naver.jpg"
+											width="22"
+											style="margin-right: 5px; margin-bottom: 3px; vertical-align: middle;"><span
+											style="font-size: 14px;" class="fas fa-qrcode">네이버로 로그인</span>
+									</button></li>
+								<li><button onclick="location.href='#'"
+										style="background-color: #eeeeee; color: black; border: none;">
+
+										<img
+											src="${contextPath}/resources/images/login/logo-cacao.jpg"
+											width="22"
+											style="vertical-align: middle; margin-right: 5px; margin-bottom: 3px;">
+										<span class="fab fa-facebook-square"
+											style="font-size: 14px; margin-bottom: 3px;"> 카카오로 로그인</span>
+
+									</button></li>
+							</ul>
+						</section>
+
 					</div>
 				</section>
 
@@ -408,27 +388,34 @@
 			<div class="container" style="padding-left: 100px;">
 				<div id="RightBox">
 					<h3 id="Non_login_text">비회원 주문조회</h3>
-					<form name="Non_order" action="${contextPath}/nonmember/order_lookup.do" method="post">
+					<form name="Non_order"
+						action="${contextPath}/nonmember/order_lookup.do" method="post">
 						<div class="order_input">
-							<div style="padding-right: 10px">
-								<p>
-									주문자명<input type="text" name="nonMemName" class="order_name"
-										size="18" style="margin-left: 13px;">
+							<div >
+								<p style="margin-bottom:10px;">
+									<input type="text" name="nonMemName" class="order_name"
+										size="18"
+										style="border: 1px solid #dcdcdc; font-size: 14px;  margin-top:1px;  height:36px; width:220px; "
+										placeholder="주문자명">
+								</p>
+								<p style="margin-bottom:10px;">
+									<input type="text" name="nonMemOrderNum" class="order_pwd"
+										size="18"
+										style="border: 1px solid #dcdcdc; margin-left:5px; font-size: 14px;  height:36px; width:220px; "
+										placeholder="주문번호">
 								</p>
 								<p>
-									주문 번호<input type="text" name="nonMemOrderNum" class="order_pwd"
-										size="18" style="margin-left: 13px;">
-								</p>
-								<p>
-									주문비밀번호<input  type="text"name="nonMemPwd" size="18">
+									<input type="text" name="nonMemPwd" size="18"
+										style="border: 1px solid #dcdcdc; margin-left:20px; font-size: 14px; height:36px; width:220px; "
+										placeholder="주문비밀번호">
 								</p>
 							</div>
 						</div>
 					</form>
 					<input type="submit" id="submit_NonOrderInquiry" value="주문조회"
 						onclick="Non_order_Inquiry()"
-						style="background-color: #212529; color: white; height: 135px; border-radius: 2px;">
-					<div id="Non_order_content">
+						style="background-color: #7e9c8c; margin-left:10px; color: white; height: 129px; border-radius: 2px; border:none;">
+					<div id="Non_order_content" style="font-size:12px;">
 						<ul>
 							<li>주문자명, 주문 번호, 주문 비밀번호가 일치 하지 않을 경우,조회가 불가능합니다.</li>
 							<li>비회원으로 로그인 하시는 분께서 주문 번호를 잊으신 경우, 고객센터로 연락주시면 신속하게
@@ -446,11 +433,11 @@
 		<section class="Easy-sgin-in-wrap1" style="margin-bottom: 50px;">
 			<ul class="sign-button-list1">
 				<li><button onclick="location.href='Join.jsp'"
-						style="background-color: #212529; color: white; margin-top: 50px;">
+						style="background-color: #757575; color: white; margin-top: 50px; font-size:14px; border:none;">
 						<i class="sgin-up"></i><span>회원가입</span>
 					</button></li>
 				<li><button onclick="location.href='main.jsp'"
-						style="background-color: #212529; color: white;">
+						style="background-color: white; color: gray;  font-size:14px; border:1px solid #7e9c8c;">
 						<i class="return-main"></i><span>돌아가기</span>
 					</button></li>
 			</ul>
