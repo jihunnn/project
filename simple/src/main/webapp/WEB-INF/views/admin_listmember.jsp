@@ -159,25 +159,30 @@
 				<li><a
 					onclick="location.href='${contextPath}/product/admin_listProduct.do'"
 					data-hover="상품관리"
-					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; margin-left: 20px; padding-bottom: 0px;">상품관리</a></li>
+					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 100px; cursor: pointer; background-color: white;  padding-bottom: 0px;">상품관리</a></li>
 
 
 				<li><a
 					onclick="location.href='${contextPath}/product/add_product.do'"
 					data-hover="상품등록"
-					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">상품등록</a></li>
+					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 100px; cursor: pointer; background-color: white; padding-bottom: 0px;">상품등록</a></li>
 
 
 				<li class="current"><a
 					onclick="location.href='${contextPath}/admin_listmember.do'"
 					data-hover="회원관리"
-					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">회원관리</a></li>
+					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 100px; cursor: pointer; background-color: white; padding-bottom: 0px;">회원관리</a></li>
 
 
 				<li><a
-					onclick="location.href='location.href='${contextPath}/board/listNotice.do'"
+					onclick="location.href='${contextPath}/board/listNotice.do'"
 					data-hover="게시판관리"
-					style="font-size: 20px; border: none; color: #5a5a5a; background-color: white; cursor: pointer; padding-bottom: 0px;">게시판관리</a></li>
+					style="font-size: 20px; margin-right:100px; border: none; color: #5a5a5a; background-color: white; cursor: pointer; padding-bottom: 0px;">게시판관리</a></li>
+
+				<li><a
+					onclick="location.href='${contextPath}/admin_listorder.do'"
+					data-hover="주문관리"
+					style="font-size: 20px; border: none; color: #5a5a5a; background-color: white; cursor: pointer; padding-bottom: 0px;">주문관리</a></li>
 			</ul>
 
 
@@ -271,26 +276,25 @@
 
 											<tr
 												style="border-bottom: 1px solid #c6c8ca; background-color: white; color: black;">
-												<td scope="col"><input type="checkbox" name="chk"
-													value=""></td>
-												<td scope="col">${member.memId}</td>
-												<td scope="col">${member.memName }</td>
-												<td scope="col">${member.memEmail}</td>
-												<td scope="col">${member.memPhoneNum}</td>
-												<td scope="col">${member.memAdr }</td>
-												<td scope="col">${member.logintype }</td>
-												<td scope="col">${member.memRegdate}</td>
-												<td scope="col">
-												<input type="hidden" value="${member.memId}" name="memId"/>
-													<button type="submit"
-														
-														class="btn btn-dark"
-														style="border-radius: 2px; margin-bottom: 3px; background-color: white; color: gray; border: 1px solid #7e9c8c; border-radius: 2px; width: 70px; height: 30px; font-size: 14px;">수정</button><br>
+												<th scope="col" style="vertical-align:middle;"><input type="checkbox" name="chk"
+													value=""></th>
+												<th scope="col" style="vertical-align:middle;">${member.memId}</th>
+												<th scope="col" style="vertical-align:middle;">${member.memName }</th>
+												<th scope="col" style="vertical-align:middle;">${member.memEmail}</th>
+												<th scope="col" style="vertical-align:middle;">${member.memPhoneNum}</th>
+												<th scope="col" style="vertical-align:middle;">${member.memAdr }</th>
+												<th scope="col" style="vertical-align:middle;">${member.logintype }</th>
+												<th scope="col" style="vertical-align:middle;">${member.memRegdate}</th>
+												<th scope="col" ><input type="hidden"
+													value="${member.memId}" name="memId" />
+													<button type="submit" class="btn btn-dark"
+														style="border-radius: 2px; margin-bottom: 3px; background-color: white; color: gray; border: 1px solid #7e9c8c; border-radius: 2px; width: 70px; height: 30px; font-size: 14px;">수정</button>
+													<br>
 													<button type="button"
 														onclick="location.href='${contextPath}/admin_removeMember.do?memId=${member.memId }'"
 														class="btn btn-dark"
 														style="border-radius: 2px; margin-bottom: 3px; margin-top: 5px; background-color: white; color: gray; border: 1px solid #7e9c8c; border-radius: 2px; width: 70px; height: 30px; font-size: 14px;">삭제</button>
-												</td>
+												</th>
 											</tr>
 
 										</c:forEach>

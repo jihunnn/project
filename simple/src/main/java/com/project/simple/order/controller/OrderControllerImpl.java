@@ -25,6 +25,8 @@ import com.project.simple.cart.vo.CartVO;
 import com.project.simple.member.vo.MemberVO;
 import com.project.simple.order.service.OrderService;
 import com.project.simple.order.vo.OrderVO;
+import com.project.simple.page.Criteria;
+import com.project.simple.page.PageMaker;
 
 @Controller("orderController")
 public class OrderControllerImpl implements OrderController {
@@ -107,18 +109,28 @@ public class OrderControllerImpl implements OrderController {
 		return "order_02";
 	}
 	
-	// 관리자 주문리스트 조회
-	@RequestMapping(value = "/admin_listorder.do", method = RequestMethod.GET)
-	private ModelAndView admin_listorder(@ModelAttribute("orderVO") OrderVO orderVO, HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-		
-		ModelAndView mav = new ModelAndView();
-		return mav;
-		
-		}
 
-	
-	
+	//관리자 주문조회 
+	@Override
+	@RequestMapping(value = "/admin_listorder.do", method = { RequestMethod.GET, RequestMethod.POST })
+
+	public ModelAndView listorder(Criteria cri, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String viewName = (String) request.getAttribute("viewName");
+		List<OrderVO> ordersList = orderService.listOrders(cri);
+		int orderCount = orderService.orderCount();
+		ModelAndView mav = new ModelAndView(viewName);
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(orderCount);
+		int pageNum = pageMaker.getCri().getPage();
+
+		mav.addObject("pageNum", pageNum);
+		mav.addObject("ordersList", ordersList);
+		mav.addObject("pageMaker", pageMaker);
+
+
+		return mav;
+	}
 	
 	@RequestMapping(value = "/orderEachGoods.do", method = RequestMethod.POST)
 	public ModelAndView orderEachGoods(@ModelAttribute("orderVO") OrderVO _orderVO, HttpServletRequest request,

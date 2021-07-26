@@ -24,6 +24,8 @@
 		limit #{pageStart}, #{perPageNum};
 	]]>
 	</select>
+	
+	
 		<select id="selectMemberCount" resultType="int"
 		parameterType="int">
 	<![CDATA[

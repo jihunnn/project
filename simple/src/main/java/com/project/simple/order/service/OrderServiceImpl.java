@@ -5,14 +5,17 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.annotation.Propagation;
 
 
 import com.project.simple.cart.vo.CartVO;
+import com.project.simple.member.vo.MemberVO;
 import com.project.simple.order.dao.OrderDAO;
 import com.project.simple.order.vo.OrderVO;
+import com.project.simple.page.Criteria;
 
 
 @Service("orderService")
@@ -20,6 +23,18 @@ import com.project.simple.order.vo.OrderVO;
 public class OrderServiceImpl implements OrderService {
 	@Autowired
 	private OrderDAO orderDAO;
+	
+	@Override
+	public List<OrderVO> listOrders(Criteria cri) throws Exception{
+		List<OrderVO> ordersList = orderDAO.selectAllOrderList(cri);
+		return ordersList;
+	}
+	
+	@Override
+	public int orderCount() throws Exception {
+		int orderCount = orderDAO.selectOrderCount();
+		return orderCount;
+	}
 	
 	public List<OrderVO> listMyOrderGoods(OrderVO orderVO) throws Exception{
 		List<OrderVO> orderGoodsList;

@@ -11,11 +11,26 @@ import org.springframework.stereotype.Repository;
 
 import com.project.simple.member.vo.MemberVO;
 import com.project.simple.order.vo.OrderVO;
+import com.project.simple.page.Criteria;
 
 @Repository("orderDAO")
 public class OrderDAOImpl implements OrderDAO {
 	@Autowired
 	private SqlSession sqlSession;
+	
+	
+	@Override
+	public List<OrderVO> selectAllOrderList(Criteria cri) throws DataAccessException{
+		List<OrderVO> ordersList = sqlSession.selectList("mapper.order.selectAllOrderList", cri);
+		return ordersList;
+	}
+	
+	@Override
+	public int selectOrderCount() throws DataAccessException {
+		int orderCount = sqlSession.selectOne("mapper.order.selectOrderCount");
+
+		return orderCount;
+	}
 	
 	public List<OrderVO> listMyOrderGoods(OrderVO orderVO) throws DataAccessException{
 		List<OrderVO> orderGoodsList=new ArrayList<OrderVO>();

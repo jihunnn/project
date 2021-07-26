@@ -16,6 +16,8 @@ public class OrderVO {
 	private String memId;
 	private String productNum;
 	private String productName;
+	private int productCnt;
+	private int productPrice;
 	private String memName;
 	private String memAdr;
 	private String memPhoneNum;
@@ -25,15 +27,17 @@ public class OrderVO {
 
 
 	private String memOrderMsg;
+	private int memOrderNum;
 	private String memDepositorName;
 	private String memPaymentMethod;
 	private String option1value;
 	private String option2value;
+	private String memOrderDate;
 	
 	private String option1name;
 	private String option2name;
 	private int totalPrice;
-	private int productCnt;
+
 	private String productimage;
 	private String purchaseConfirm;
 	private String returnConfirm;
@@ -85,6 +89,21 @@ public class OrderVO {
 	public void setMemSpPhoneNum2_1(int memSpPhoneNum2_1) {
 		this.memSpPhoneNum2_1 = memSpPhoneNum2_1;
 	}
+	
+	
+	public int getProductPrice() {
+		return productPrice;
+	}
+	public void setProductPrice(int productPrice) {
+		this.productPrice = productPrice;
+	}
+	
+	public int getMemOrderNum() {
+		return memOrderNum;
+	}
+	public void setMemOrderNum(int memOrderNum) {
+		this.memOrderNum = memOrderNum;
+	}
 	public int getMemSpPhoneNum2_2() {
 		return memSpPhoneNum2_2;
 	}
@@ -105,6 +124,13 @@ public class OrderVO {
 	}
 	public String getMemId() {
 		return memId;
+	}
+	
+	public String getMemOrderDate() {
+		return memOrderDate;
+	}
+	public void setMemOrderDate(String memOrderDate) {
+		this.memOrderDate = memOrderDate;
 	}
 	public void setMemId(String memId) {
 		this.memId = memId;

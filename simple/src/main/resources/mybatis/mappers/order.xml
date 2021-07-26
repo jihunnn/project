@@ -7,7 +7,16 @@
 	<!-- notice 게시판 -->
 	<resultMap id="orderResult" type="orderVO">
 		<result property="memId" column="memId" />
+		<result property="memName" column="memName" />
+		<result property="memId" column="memId" />
+		<result property="memSpName" column="memSpName" />
+		<result property="memOrderMsg" column="memOrderMsg" />
+		<result property="memSpAdr" column="memSpAdr" />
+		<result property="memSpPhoneNum1" column="memSpPhoneNum1" />
+		<result property="memSpPhoneNum2" column="memSpPhoneNum2" />
+		<result property="memDepositorName" column="memDepositorName" />
 		<result property="productNum" column="productNum" />
+		<result property="productPrice" column="productPrice" />
 		<result property="productCnt" column="productCnt" />
 		<result property="productName" column="productName" />
 		<result property="option1name" column="option1name" />
@@ -18,17 +27,35 @@
 		<result property="productimage" column="productimage" />
 		<result property="deliverycharge" column="deliverycharge" />
 		<result property="memCartId" column="memCartId" />
+		<result property="memOrderNum" column="memOrderNum" />
 	</resultMap>
 
 
 
 	<!-- 장바구니리스트불러오기 -->
-	<select id="selectcartlist"  parameterType="String" resultMap="orderResult">
+	<select id="selectcartlist" parameterType="String"
+		resultMap="orderResult">
 		<![CDATA[ 
 			select * from simple.membercart
-			where memCartId = #{memCartId};
-		
-		]]>	
+			where memCartId = #{memCartId};		
+		]]>
 	</select>
-	
+
+
+	<select id="selectAllOrderList" resultMap="orderResult">
+	<![CDATA[
+		select * from simple.memberorder order by memOrderDate desc
+		limit #{pageStart}, #{perPageNum};
+	]]>
+	</select>
+
+	<select id="selectOrderCount" resultType="int"
+		parameterType="int">
+	<![CDATA[
+			
+			select count(*) as orderCount from simple.memberorder;
+	]]>
+	</select>
+
+
 </mapper>
