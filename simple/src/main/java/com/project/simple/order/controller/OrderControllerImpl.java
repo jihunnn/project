@@ -1,7 +1,10 @@
 package com.project.simple.order.controller;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -9,12 +12,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -28,11 +38,12 @@ import com.project.simple.order.vo.OrderVO;
 
 @Controller("orderController")
 public class OrderControllerImpl implements OrderController {
+	private static final String ARTICLE_IMAGE_REPO_order = "C:\\spring\\order_image";
 	@Autowired
 	private OrderService orderService;
 	@Autowired
 	private OrderVO orderVO;
-	
+
 	// 장바구니에서 주문페이지 이동(회원/비회원)
 	@RequestMapping(value = "/order.do", method = RequestMethod.POST)
 	private ModelAndView order(@ModelAttribute("orderVO") OrderVO orderVO, HttpServletRequest request,
@@ -42,84 +53,76 @@ public class OrderControllerImpl implements OrderController {
 
 		List<CartVO> cartlist = (ArrayList) session.getAttribute("cartlist");
 		Boolean isLogOn = (Boolean) session.getAttribute("isLogOn");
-		
-		
+
 		if (isLogOn == null) {
 			List<CartVO> list = (ArrayList) session.getAttribute("orderlist");
 			if (list == null) {
 				list = new ArrayList<CartVO>();
 				session.setAttribute("orderlist", list);
 			}
-			
+
 			String[] ajaxMsg01 = request.getParameterValues("valueArr");
 			int[] ajaxMsg = null;
-			if(ajaxMsg01 != null){
-				ajaxMsg = new int[ajaxMsg01.length];		
-				for( int i=0; i<ajaxMsg01.length; i++ ) {
-				ajaxMsg[i] = Integer.parseInt( ajaxMsg01[i] );
-				}		
+			if (ajaxMsg01 != null) {
+				ajaxMsg = new int[ajaxMsg01.length];
+				for (int i = 0; i < ajaxMsg01.length; i++) {
+					ajaxMsg[i] = Integer.parseInt(ajaxMsg01[i]);
+				}
 			}
 			int size = ajaxMsg01.length;
 			for (int i = 0; i < size; i++) {
-			int no = ajaxMsg[i];
-			CartVO vo = cartlist.get(no);
-			list.add(vo);
+				int no = ajaxMsg[i];
+				CartVO vo = cartlist.get(no);
+				list.add(vo);
 			}
-			
-			session.setAttribute("orderlist", list); 
+
+			session.setAttribute("orderlist", list);
 			mav.setViewName("order_02");
 		}
 
 		if (isLogOn == true) {
 			List<OrderVO> orderlist = new ArrayList();
-			String [] ajaxMsg = request.getParameterValues("valueArr");
+			String[] ajaxMsg = request.getParameterValues("valueArr");
 			int size = ajaxMsg.length;
-		
+
 			for (int i = 0; i < size; i++) {
-			orderlist.add(orderService.selectcartlist(ajaxMsg[i]));	
+				orderlist.add(orderService.selectcartlist(ajaxMsg[i]));
 			}
-			
-			session.setAttribute("orderlist", orderlist); 
+
+			session.setAttribute("orderlist", orderlist);
 			mav.setViewName("order_01");
 		}
 		return mav;
 	}
 
-	
 	// 주문페이지 이동(회원)
 	@RequestMapping(value = "/order_01.do", method = RequestMethod.GET)
 	private ModelAndView order_01(@ModelAttribute("orderVO") OrderVO orderVO, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		
+
 		ModelAndView mav = new ModelAndView();
 		return mav;
-		
-		}
 
-	
-		
+	}
+
 	// 주문페이지 이동(비회원)
 	@RequestMapping(value = "/order_02.do", method = RequestMethod.GET)
-	private String order_02(HttpServletRequest request,
-			HttpServletResponse response) {
+	private String order_02(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
 
 		return "order_02";
 	}
-	
+
 	// 관리자 주문리스트 조회
 	@RequestMapping(value = "/admin_listorder.do", method = RequestMethod.GET)
 	private ModelAndView admin_listorder(@ModelAttribute("orderVO") OrderVO orderVO, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		
+
 		ModelAndView mav = new ModelAndView();
 		return mav;
-		
-		}
 
-	
-	
-	
+	}
+
 	@RequestMapping(value = "/orderEachGoods.do", method = RequestMethod.POST)
 	public ModelAndView orderEachGoods(@ModelAttribute("orderVO") OrderVO _orderVO, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
@@ -157,9 +160,6 @@ public class OrderControllerImpl implements OrderController {
 		session.setAttribute("orderer", memberInfo);
 		return mav;
 	}
-	
-	
-
 
 	/*
 	 * @RequestMapping(value="/orderAllCartGoods.do" ,method = RequestMethod.POST)
@@ -228,5 +228,87 @@ public class OrderControllerImpl implements OrderController {
 	 * mav.addObject("myOrderInfo",receiverMap);//OrderVO로 주문결과 페이지에 주문자 정보를 표시한다.
 	 * mav.addObject("myOrderList", myOrderList); return mav; }
 	 */
+
+	// 1:1문의 글쓰기
+	/*@Override
+	@RequestMapping(value = "/order/addNewOrder.do", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity addNewOrder(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)
+			throws Exception {
+		multipartRequest.setCharacterEncoding("utf-8");
+		Map<String, Object> orderMap = new HashMap<String, Object>();
+		Enumeration enu = multipartRequest.getParameterNames();
+		while (enu.hasMoreElements()) {
+			String name = (String) enu.nextElement();
+			String value = multipartRequest.getParameter(name);
+			orderMap.put(name, value);
+
+		}
+
+		String productImage = upload(multipartRequest);
+		HttpSession session = multipartRequest.getSession();
+		MemberVO memberVO = (MemberVO) session.getAttribute("member");
+		String memId = memberVO.getmemId();
+		orderMap.put("memOrderSeqNum", 0);
+		orderMap.put("memId", memId);
+		orderMap.put("productImage", productImage);
+
+		String message;
+		ResponseEntity resEnt = null;
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
+		try {
+			int memOrderSeqNum = orderService.addNewOrder(productMap);
+			if (productimage != null && productImage.length() != 0) {
+				File srcFile = new File(ARTICLE_IMAGE_REPO_order + "\\" + "temp" + "\\" + productimage);
+				File destDir = new File(ARTICLE_IMAGE_REPO_order + "\\" + memOrderSeqNum);
+				FileUtils.moveFileToDirectory(srcFile, destDir, true);
+			}
+
+			message = "<script>";
+			message += " alert('새글을 추가했습니다.');";
+			message += "  location.href='" + multipartRequest.getContextPath() + "/order/listInquiry.do';";
+			message += " </script>";
+			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
+
+		} catch (Exception e) {
+			File srcFile = new File(ARTICLE_IMAGE_REPO_inquiry + "\\" + "temp" + "\\" + inquiryFile);
+			srcFile.delete();
+
+			message = "<script>";
+			message += " alert('오류가 발생했습니다. 다시 시도해주세요');";
+			message += "  location.href='" + multipartRequest.getContextPath() + "/order/inquiryForm.do';";
+			message += " </script>";
+			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
+			e.printStackTrace();
+		}
+		return resEnt;
+	}
+
+	private String upload(MultipartHttpServletRequest multipartRequest) throws Exception {
+		String inquiryFile = null;
+		Iterator<String> fileNames = multipartRequest.getFileNames();
+		while (fileNames.hasNext()) {
+			String fileName = fileNames.next();
+
+			MultipartFile mFile = multipartRequest.getFile(fileName);
+			inquiryFile = mFile.getOriginalFilename();
+			File file = new File(ARTICLE_IMAGE_REPO_order + "\\" + "temp" + "\\" + fileName);
+			if (mFile.getSize() != 0) {
+				if (!file.exists()) {
+					file.getParentFile().mkdirs();
+					mFile.transferTo(new File(ARTICLE_IMAGE_REPO_order + "\\" + "temp" + "\\" + productImage));// 임시로
+																												// 저장되
+																												// multipartFile을
+																												// 실제
+																												// 파일로
+																												// 전송
+
+				}
+			}
+		}
+		return inquiryFile;
+
+	}*/
 
 }

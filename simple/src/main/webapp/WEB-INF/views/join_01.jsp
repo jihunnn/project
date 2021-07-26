@@ -351,8 +351,8 @@ h3 {
 											</div>
 										</td>
 										<td colspan="3" class="user_name" style="padding-left: 50px;">
-											<input type="text" name="memName" size="20" value="두글자이상"
-											style="margin-bottom: 10px; border: 1px solid #dcdcdc; width: 326px; color: #b3b3b3; height: 36px; font-size: 14px;">
+											<input type="text" name="memName" size="20" placeholder="두글자이상"
+											style="margin-bottom: 10px; border: 1px solid #dcdcdc; width: 326px; color: #b3b3b3; height: 36px; font-size: 12px;">
 										</td>
 									</tr>
 									<tr>
@@ -364,8 +364,8 @@ h3 {
 										</td>
 										<td colspan="3" class="user_id" style="padding-left: 50px;">
 											<input type="text" name="memId" size="30"
-											value="4~12자/영문,대소문자,숫자만 입력가능"
-											style="margin-bottom: 10px; border: 1px solid #dcdcdc; width: 250px; color: #b3b3b3; height: 36px; font-size: 14px;">
+											placeholder="4~12자/영문,대소문자,숫자만 입력가능"
+											style="margin-bottom: 10px; border: 1px solid #dcdcdc; width: 250px; color: #b3b3b3; height: 36px; font-size: 12px;">
 											<input type="button" name="check_id_overlap" value="중복확인"
 											onclick="id_check()"
 											style="background-color: #c6c6c6; border: none; color: white; height: 36px; margin-left: 4px;">
@@ -409,9 +409,9 @@ h3 {
 											</div>
 										</td>
 										<td colspan="3" class="email" style="padding-left: 50px;">
-											<input type="text" name="memEmail" value="영문,대소문자,숫자만 입력가능"
+											<input type="text" name="memEmail" placeholder="영문,대소문자,숫자만 입력가능"
 											size="13"
-											style="margin-bottom: 10px; border: 1px solid #dcdcdc; width: 170px; height: 36px; color: #b3b3b3; font-size: 14px;">
+											style="margin-bottom: 10px; border: 1px solid #dcdcdc; width: 170px; height: 36px; color: #b3b3b3; font-size: 12px;">
 											@ <select name="memEmail1" id="selcet1"
 											style="border: 1px solid #dcdcdc; width: 134px; height: 36px;">
 												<option value="naver.com">naver.com</option>
