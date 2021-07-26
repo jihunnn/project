@@ -2,6 +2,8 @@
 	pageEncoding="utf-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<%@ page import="com.project.simple.member.vo.MemberVO"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,6 +15,10 @@
 
 
 <style type="text/css">
+
+
+			
+			
 .table-light {
 	background: #F7F7F7;
 }
@@ -126,6 +132,18 @@ h4 {
 		form.submit();
 
 	}
+
+	
+	function sameInfo(f){
+		f.memSpName.value = f.memName.value;
+		f.memSpAdr.value = f.memAdr.value;
+		f.memSpAdr1.value = f.memAdr1.value;
+		f.memSpAdr2.value = f.memAdr2.value;
+		f.memSpPhoneNum1_0.value = f.memPhoneNum.value;
+		f.memSpPhoneNum1_1.value = f.memPhoneNum1.value;
+		f.memSpPhoneNum1_2.value = f.memPhoneNum2.value;
+	}
+
 </script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
@@ -224,8 +242,34 @@ h4 {
 <title>주문결제창</title>
 <body>
 
+<%
+	MemberVO member = (MemberVO) session.getAttribute("member");
+	String FullmemPhoneNum = member.getmemPhoneNum();
+	String FullmemEmail = member.getmemEmail();
+	String FullmemAdr = member.getmemAdr();
+
+	String a1 = "-";
+	String e1 = "@";
+	String p1 = "-";
+
+	String[] memAdr = FullmemAdr.split(a1);
+	String[] memEmail = FullmemEmail.split(e1);
+	String[] memPhoneNum= FullmemPhoneNum.split(p1);
+
+	for (int i = 0; i < memAdr.length; i++) {
+	}
+	for (int i = 0; i < memEmail.length; i++) {
+	}
+	for (int i = 0; i < memPhoneNum.length; i++) {
+	}
+%>
+	
+	
+
 	<!-- 타이틀 -->
-	<section class="ftco-section" style="padding-top: 100px;">
+
+	<section class="ftco-section" style="padding-top: 100px; ">
+
 		<div class="container">
 
 			<!-- 타이틀 끝 -->
@@ -266,40 +310,52 @@ h4 {
 
 
 			<form name="CheckOrder" action="order_03.jsp" method="post">
+
+			<input type="hidden" value="${member.memId}"/>
+			
+			
 				<div class="order_list text-center">
-					<table class="table" style="font-size: 14px;">
+					<table class="table" style="font-size: 13px;">
+
 
 						<thead class="table-dark">
 							<tr
 								style="background-color: #eeeeee; border-top: 1px solid #7e9c8c; color: black; border-bottom: 1px solid #c6c8ca; font-size: 15px;">
-								<th scope="col">제품</th>
-								<th scope="col">수량</th>
-								<th scope="col">가격</th>
+
+								<th scope="col" width="150"></th>
+								<th scope="col">상품명</th>
+								<th scope="col" width="250">옵션</th>
+								<th scope="col" width="100">수량</th>	
+								<th scope="col" width="80">배송비</th>
+								<th scope="col" width="150">가격</th>
 							</tr>
 						</thead>
-						<tbody>
-							<tr style="border-bottom: 1px solid rgba(0, 0, 0, 0.1);">
-								<th scope="col">커스틴 천연면피 통가죽 4인 카우치형 소파</th>
-								<th scope="col">1개</th>
-								<th scope="col">3,740,000</th>
-							</tr>
-							<tr style="border-bottom: 1px solid rgba(0, 0, 0, 0.1);">
-								<th scope="col">커스틴 천연면피 통가죽 4인 카우치형 소파</th>
-								<th scope="col">1개</th>
-								<th scope="col">3,740,000</th>
-							</tr>
-						</tbody>
+						<c:forEach items="${orderlist}" var="orderlist" varStatus="status">
+							<tbody>
+								<tr class="tr1" style="border-bottom: 1px solid rgba(0, 0, 0, 0.1);">
+									<th scope="col" style="vertical-align:middle;"><img
+										src="${contextPath}/resources/images/sofa01.jpg" width=80 height=80
+										></th>
+									<th scope="col" style="vertical-align:middle;">${orderlist.productName}</th>
+									<th scope="col" style="text-align: left; vertical-align:middle;">${orderlist.option1name} : ${orderlist.option1value}<br>${orderlist.option2name} : ${orderlist.option2value}</th>
+									<th scope="col" style="vertical-align:middle;">${orderlist.productCnt}개</th>
+									<th scope="col" style="vertical-align:middle;">${orderlist.deliverycharge}</th>
+									<th scope="col" style="vertical-align:middle;">${orderlist.totalPrice}원</th>
+								</tr>
+							</tbody>
+							</c:forEach>		
 					</table>
 
 					<div style="font-size: 18px; float: right;">
-						<span>총금액ㅤ</span><a style="color: #7e9c8c; font-weight: bold;">3,650,000원</a>
+						<span>총금액ㅤ</span><a style="color: #7e9c8c; font-weight: bold;">2,400,000원</a>
 					</div>
 
 				</div>
 
 
-				<div style="font-size: 25px; font-weight: bold; margin-top:70px;">
-					<a style="color: #7e9c8c; margin-top:40px;">주문자정보</a>
+
+				<div style="font-size: 25px; font-weight: bold; margin-top: 70px;">
+					<a style="color: #7e9c8c; margin-top: 40px;">주문자정보</a>
 				</div>
 				<div class="order_list">
 					<table class="table">
@@ -311,44 +367,44 @@ h4 {
 								style="border-bottom: 1px solid #eeeeee; border-top: 1px solid rgba(0, 0, 0, 0.1);">
 								<th scope="col"><a
 									style="color: red; padding-right: 5px; write-space: nowrap;">*</a>이름</th>
-								<th scope="col"><input type="text" name="user_name"
+								<th scope="col"><input type="text" name="memName" value="${member.memName}" readonly disabled
 									style="font-size: 14px; border: 1px solid #dcdcdc; width: 326px; height: 36px;"></th>
 							</tr>
 							<tr style="border-bottom: 1px solid #eeeeee;">
 								<th scope="col"><a
 									style="color: red; padding-right: 5px; write-space: nowrap;">*</a>주소</th>
-								<th scope="col"><input type="text" name="zipcode"
+								<th scope="col"><input type="text" name="memAdr" value="<%=memAdr[0]%>" disabled
 									id="sample6_postcode" readonly
-									style="font-size: 14px; border: 1px solid #dcdcdc; width: 211px; height: 36px;">&nbsp;&nbsp;&nbsp;
-									<input type="button" onclick="sample6_execDaumPostcode()"
-									value="우편번호 찾기"
-									style="font-size: 14px; border: none; background-color: #c6c6c6; color: white; width: 100px; height: 37px;">
+									style="font-size: 14px; border: 1px solid #dcdcdc; width: 211px; height: 36px;">
+									&nbsp;&nbsp;&nbsp;
+									
 									<p>
-										<br> <input type="text" name="address1"
+										<br> <input type="text" name="memAdr1" value="<%=memAdr[1]%>" disabled
 											id="sample6_address" readonly
 											style="font-size: 14px; border: 1px solid #dcdcdc; width: 326px; height: 36px;">
-
+	
 									</p>
 									<p>
-										<input type="text" name="address2" id="sample6_address2"
+										<input type="text" name="memAdr2" id="sample6_address2" value="<%=memAdr[2]%>" readonly disabled
 											style="font-size: 14px; border: 1px solid #dcdcdc; width: 326px; height: 36px;">
+
 
 									</p></th>
 							</tr>
 							<tr style="border-bottom: 1px solid rgba(0, 0, 0, 0.1);">
 								<th scope="col"><a
 									style="color: red; padding-right: 5px; write-space: nowrap;">*</a>연락처</th>
-								<th scope="col"><select name="phone1" id="txtMobile1"
+								<th scope="col"><select name="memPhoneNum"  disabled
 									style="width: 80px; font-size: 14px; border: 1px solid #dcdcdc; height: 36px;">
-										<option value="">선택</option>
+										<option value="<%=memPhoneNum[0]%>"><%=memPhoneNum[0]%></option>
 										<option value="011">011</option>
 										<option value="016">016</option>
 										<option value="017">017</option>
 										<option value="019">019</option>
 										<option value="010">010</option>
-								</select> - <input type="text" name="phone2"
+								</select> - <input type="text" name="memPhoneNum1" value="<%=memPhoneNum[1]%>" readonly disabled
 									style="width: 109px; font-size: 14px; border: 1px solid #dcdcdc; height: 36px;">
-									- <input type="text" name="phone3"
+									- <input type="text" name="memPhoneNum2" value="<%=memPhoneNum[2]%>" readonly disabled
 									style="width: 109px; font-size: 14px; border: 1px solid #dcdcdc; height: 36px;"></th>
 							</tr>
 						</tbody>
@@ -356,11 +412,15 @@ h4 {
 				</div>
 
 
+
+
+
+
 				<div style="font-size: 25px; margin-top: 40px; font-weight: bold;">
 					<a style="color: #7e9c8c;">배송정보</a>
 				</div>
-				<a style="font-size: 14px;">주문자 정보와 동일</a><input type="checkbox"
-					value="on">
+				<a style="font-size: 14px;">주문자 정보와 동일</a><input type="checkbox" name="same" onclick="sameInfo(document.CheckOrder)"
+					>
 				<div class="order_list">
 					<table class="table">
 						<colgroup>
@@ -371,26 +431,26 @@ h4 {
 								style="border-bottom: 1px solid #eeeeee; border-top: 1px solid rgba(0, 0, 0, 0.1);">
 								<th scope="col"><a
 									style="color: red; padding-right: 5px; write-space: nowrap;">*</a>이름</th>
-								<th scope="col"><input type="text" name="user_SpName"
+								<th scope="col"><input type="text" name="memSpName" value=""
 									style="font-size: 14px; width: 326px; border: 1px solid #dcdcdc; height: 36px;"></th>
 							</tr>
 							<tr style="border-bottom: 1px solid #eeeeee;">
 								<th scope="col"><a
 									style="color: red; padding-right: 5px; write-space: nowrap;">*</a>주소</th>
-								<th scope="col"><input type="text" name="zipcode1"
+								<th scope="col"><input type="text" name="memSpAdr" value=""
 									id="sample6_postcode1" readonly
 									style="font-size: 14px; width: 211px; border: 1px solid #dcdcdc; height: 36px;">&nbsp;&nbsp;&nbsp;
 									<input type="button" onclick="sample6_execDaumPostcode1()"
 									value="우편번호 찾기"
 									style="font-size: 14px; border: none; background-color: #c6c6c6; color: white; width: 100px; height: 37px;">
 									<p>
-										<br> <input type="text" name="address1_1"
+										<br> <input type="text" name="memSpAdr1" value=""
 											id="sample6_address_1" readonly
 											style="width: 325px; font-size: 14px; border: 1px solid #dcdcdc; height: 36px;">
 
 									</p>
 									<p>
-										<input type="text" name="address2_1" id="sample6_address2_1"
+										<input type="text" name="memSpAdr2" id="sample6_address2_1" value=""
 											style="width: 325px; font-size: 14px; border: 1px solid #dcdcdc; height: 36px;">
 
 									</p></th>
@@ -398,22 +458,22 @@ h4 {
 							<tr style="border-bottom: 1px solid #eeeeee;">
 								<th scope="col"><a
 									style="color: red; padding-right: 5px; write-space: nowrap;">*</a>연락처1</th>
-								<th scope="col"><select name="phone1_Sp" id="txtMobile1"
+								<th scope="col"><select name="memSpPhoneNum1_0" 
 									style="width: 80px; font-size: 14px; border: 1px solid #dcdcdc; height: 36px;">
-										<option value="">선택</option>
+										<option value=""></option>
 										<option value="011">011</option>
 										<option value="016">016</option>
 										<option value="017">017</option>
 										<option value="019">019</option>
 										<option value="010">010</option>
-								</select> - <input type="text" name="phone2_Sp"
+								</select> - <input type="text" name="memSpPhoneNum1_1" value=""
 									style="width: 109px; font-size: 14px; border: 1px solid #dcdcdc; height: 36px;">
-									- <input type="text" name="phone3_Sp"
+									- <input type="text" name="memSpPhoneNum1_2" value=""
 									style="width: 109px; font-size: 14px; border: 1px solid #dcdcdc; height: 36px;"></th>
 							</tr>
 							<tr style="border-bottom: 1px solid #eeeeee;">
 								<th scope="col" style="padding-left: 23px;">연락처2</th>
-								<th scope="col"><select id="txtMobile1" name="phone1_Sp1"
+								<th scope="col"><select  name="memSpPhoneNum2_0"
 									style="width: 80px; font-size: 14px; border: 1px solid #dcdcdc; height: 36px;">
 										<option value="">선택</option>
 										<option value="011">011</option>
@@ -421,21 +481,19 @@ h4 {
 										<option value="017">017</option>
 										<option value="019">019</option>
 										<option value="010">010</option>
-								</select> - <input type="text" name="phone2_Sp1"
+								</select> - <input type="text" name="memSpPhoneNum2_1"
 									style="width: 109px; font-size: 14px; border: 1px solid #dcdcdc; height: 36px;">
-									- <input type="text" name="phone3_Sp1"
+									- <input type="text" name="memSpPhoneNum2_2"
 									style="width: 109px; font-size: 14px; border: 1px solid #dcdcdc; height: 36px;"></th>
 							</tr>
 							<tr style="border-bottom: 1px solid #eeeeee;">
 								<th scope="col"
 									style="padding-bottom: 50px; padding-left: 23px;"><br>주문메세지<br>(100자내외)</th>
-								<th scope="col"><textarea name="textarea" rows="4"
-										cols="40"
-										style="font-size: 14px; border: 1px solid #dcdcdc; height: 112px; width: 326px;"></textarea></th>
+								<th scope="col"><input type="text" name="memOrderMsg"  style=" width:327px; height:175px; border: 1px solid #dcdcdc;"></th>
 							</tr>
 							<tr style="border-bottom: 1px solid rgba(0, 0, 0, 0.1);">
 								<th scope="col" style="padding-left: 23px;">무통장 입금자명</th>
-								<th scope="col"><input type="text"
+								<th scope="col"><input name="memDepositorName" type="text" value="${member.memName}"
 									style="font-size: 14px; border: 1px solid #dcdcdc; height: 36px; width: 326px;"><a
 									style="font-size: 14px; color: color:#b3b3b3;">ㅤ(주문자와 같을 경우
 										생략 가능)</a></th>

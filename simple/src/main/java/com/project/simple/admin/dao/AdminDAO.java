@@ -1,5 +1,6 @@
 package com.project.simple.admin.dao;
 
+
 import java.util.List;
 
 import org.springframework.dao.DataAccessException;
@@ -20,5 +21,6 @@ public interface AdminDAO {
 	public int selectInquiryCount() throws DataAccessException;
 	
 	public ArticleVO selectNotice(int noticeNum) throws DataAccessException ;
+
 
 }

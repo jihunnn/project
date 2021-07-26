@@ -22,13 +22,14 @@ public class OrderVO {
 	private String memSpName;
 	private String memSpPhoneNum1;
 	private String memSpPhoneNum2;
-	private String memSpAdr;
+
+
 	private String memOrderMsg;
 	private String memDepositorName;
 	private String memPaymentMethod;
 	private String option1value;
 	private String option2value;
-
+	
 	private String option1name;
 	private String option2name;
 	private int totalPrice;
@@ -38,9 +39,70 @@ public class OrderVO {
 	private String returnConfirm;
 	private String reviewConfirm;
 	private String deliverycharge;
+	
+	private int memSpPhoneNum1_0;
+	private int memSpPhoneNum1_1;
+	private int memSpPhoneNum1_2;
+	
+	private int memSpPhoneNum2_0;
+	private int memSpPhoneNum2_1;
+	private int memSpPhoneNum2_2;
+	
+	private String memSpAdr;
+	private String memSpAdr1;
+	private String memSpAdr2;
+	
 	private int memCartId;
+
 	
-	
+	public int getMemSpPhoneNum1_0() {
+		return memSpPhoneNum1_0;
+	}
+	public void setMemSpPhoneNum1_0(int memSpPhoneNum1_0) {
+		this.memSpPhoneNum1_0 = memSpPhoneNum1_0;
+	}
+	public int getMemSpPhoneNum1_1() {
+		return memSpPhoneNum1_1;
+	}
+	public void setMemSpPhoneNum1_1(int memSpPhoneNum1_1) {
+		this.memSpPhoneNum1_1 = memSpPhoneNum1_1;
+	}
+	public int getMemSpPhoneNum1_2() {
+		return memSpPhoneNum1_2;
+	}
+	public void setMemSpPhoneNum1_2(int memSpPhoneNum1_2) {
+		this.memSpPhoneNum1_2 = memSpPhoneNum1_2;
+	}
+	public int getMemSpPhoneNum2_0() {
+		return memSpPhoneNum2_0;
+	}
+	public void setMemSpPhoneNum2_0(int memSpPhoneNum2_0) {
+		this.memSpPhoneNum2_0 = memSpPhoneNum2_0;
+	}
+	public int getMemSpPhoneNum2_1() {
+		return memSpPhoneNum2_1;
+	}
+	public void setMemSpPhoneNum2_1(int memSpPhoneNum2_1) {
+		this.memSpPhoneNum2_1 = memSpPhoneNum2_1;
+	}
+	public int getMemSpPhoneNum2_2() {
+		return memSpPhoneNum2_2;
+	}
+	public void setMemSpPhoneNum2_2(int memSpPhoneNum2_2) {
+		this.memSpPhoneNum2_2 = memSpPhoneNum2_2;
+	}
+	public String getMemSpAdr1() {
+		return memSpAdr1;
+	}
+	public void setMemSpAdr1(String memSpAdr1) {
+		this.memSpAdr1 = memSpAdr1;
+	}
+	public String getMemSpAdr2() {
+		return memSpAdr2;
+	}
+	public void setMemSpAdr2(String memSpAdr2) {
+		this.memSpAdr2 = memSpAdr2;
+	}
 	public String getMemId() {
 		return memId;
 	}
@@ -199,6 +261,8 @@ public class OrderVO {
 	public void setMemCartId(int memCartId) {
 		this.memCartId = memCartId;
 	}
+	
+
 	
 	
 }

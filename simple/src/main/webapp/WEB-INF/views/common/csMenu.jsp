@@ -83,28 +83,28 @@
 </head>
 <body>
 
-	<ul class="snip1284">
+	<ul class="snip1284" style="margin-bottom:30px; padding-left:0px;">
 		<li class="current"><a
 			onclick="location.href='${contextPath}/board/listNotice.do'"
 			data-hover="공지사항"
-			style="font-size: 17px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; margin-left: 20px; padding-bottom: 0px;">공지사항</a></li>
+			style="font-size: 19px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; margin-left: 20px; padding-bottom: 0px;">공지사항</a></li>
 
 
 		<li><a
 			onclick="location.href='${contextPath}/board/listQuestion.do'"
 			data-hover="자주 묻는 질문"
-			style="font-size: 17px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">자주
+			style="font-size: 19px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">자주
 				묻는 질문</a></li>
 
 
 		<li><a onclick="InquiryList()" data-hover="1:1문의"
-			style="font-size: 17px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">1:1문의</a></li>
+			style="font-size: 19px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">1:1문의</a></li>
 
 
 		<li><a
 			onclick="location.href='${contextPath}/board/listAsCenter.do'"
 			data-hover="A/S센터"
-			style="font-size: 17px; border: none; color: #5a5a5a; background-color: white; cursor: pointer; padding-bottom: 0px;">A/S센터</a></li>
+			style="font-size: 19px; border: none; color: #5a5a5a; background-color: white; cursor: pointer; padding-bottom: 0px;">A/S센터</a></li>
 	</ul>
 
 

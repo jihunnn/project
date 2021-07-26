@@ -93,6 +93,7 @@
 
 			
 
+<<<<<<< HEAD
 			<div class="btn-group btn-group-justified" role="group"
 				aria-label="..." style="margin-bottom: 30px; margin-top: 10px;">
 				<div class="btn-group" role="group">
@@ -113,6 +114,11 @@
 				</div>
 			
 			</div>
+=======
+			<!-- Top Menu -->
+			<jsp:include page="/WEB-INF/views/common/admin_topmenu.jsp"
+				flush="false" />
+>>>>>>> branch 'master' of https://github.com/jihunnn/project.git
 
 		
 			<hr style="margin-top: -10px;">

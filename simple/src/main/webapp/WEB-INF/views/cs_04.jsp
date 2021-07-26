@@ -73,10 +73,14 @@
 	
     function InquiryList() {
         if (${isLogOn != true && member == null}) {
+        	if(${AdminisLogOn == true && admin != null}) {
+            	
+            	location.href='${contextPath}/admin/listAllInquiry.do';
+            } else{
             alert("로그인이 필요합니다.");
-            location.href = '${contextPath}/login_01.do';
-        } else {
-        	location.href='${contextPath}/board/listInquiry.do'
+            location.href = '${contextPath}/login_01.do';}
+        }   else {
+        	location.href='${contextPath}/board/listInquiry.do';
         }
     }
 </script>
@@ -232,34 +236,34 @@
 	<!-- 타이틀 -->
 	<section class="ftco-section" style="padding-top: 50px; margin-top:50px;">
 		<div class="container">
-			<ul class="snip1284" style="margin-bottom:30px;">
+			<ul class="snip1284" style="margin-bottom:30px; padding-left:0px;">
 				<li><a
 					onclick="location.href='${contextPath}/board/listNotice.do'"
 					data-hover="공지사항"
-					style="font-size: 17px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; margin-left: 20px; padding-bottom: 0px;">공지사항</a></li>
+					style="font-size: 19px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; margin-left: 20px; padding-bottom: 0px;">공지사항</a></li>
 
 
 				<li ><a
 					onclick="location.href='${contextPath}/board/listQuestion.do'"
 					data-hover="자주 묻는 질문"
-					style="font-size: 17px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">자주
+					style="font-size: 19px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">자주
 						묻는 질문</a></li>
 
 
 				<li  class="current"><a onclick="InquiryList()" data-hover="1:1문의"
-					style="font-size: 17px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">1:1문의</a></li>
+					style="font-size: 19px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">1:1문의</a></li>
 
 
 				<li><a
 					onclick="location.href='${contextPath}/board/listAsCenter.do'"
 					data-hover="A/S센터"
-					style="font-size: 17px; border: none; color: #5a5a5a; background-color: white; cursor: pointer; padding-bottom: 0px;">A/S센터</a></li>
+					style="font-size: 19px; border: none; color: #5a5a5a; background-color: white; cursor: pointer; padding-bottom: 0px;">A/S센터</a></li>
 			</ul>
 
 			<div>
-				<h2 style="font-size: 28px; margin-top: 15px; float: left;">1:1문의</h2>
+				<h2 style="font-size: 25px; margin-top: 15px; float: left;">1:1문의</h2>
 				<h5
-					style="color: #828282; float: left; font-size: 18px; margin-left: 20px; margin-top: 25px;">빠르게 답변해 드리겠습니다.</h5>
+					style="color: #828282; float: left; font-size: 15px; margin-left: 20px; margin-top: 25px;">빠르게 답변해 드리겠습니다.</h5>
 			</div>
 			<!-- 타이틀 끝 -->
 
@@ -292,21 +296,21 @@
 			<form name="inquirySearch"
 				action="${contextPath}/board/inquirySearch.do" method="post">
 				<div style="display: inline !important;">
-					<p style="float: left; width: 80px; margin-top: 25px; margin-left:471px; font-size:14px;">작성기간</p>
+					<p style="float: left; width: 70px; margin-top: 25px; margin-left:529px; font-size:14px; , margin-bottom:10px;">작성기간</p>
 
 					<input type="text" id="datepicker1" name="search1" autocomplete='off'
-						style="width: 120px; margin-right: 50px; margin-top: 25px; height: 30px; flaot: left; border: 1px solid #bebebe; border-radius: 2px; display: inline !important;">
+						style="width: 120px; margin-right: 50px; margin-top: 25px;height:30px; border: 1px solid #dcdcdc; flaot: left; border: 1px solid #bebebe; border-radius: 2px; display: inline !important;">
 
 					<span class="glyphicon glyphicon-calendar" aria-hidden="true"
 						style="margin-left: -35px;"></span>~ㅤ<input type="text" autocomplete='off'
 						name="search2" id="datepicker2"
-						style="width: 120px; margin-right: 40px; height: 30px; flaot: left; border: 1px solid #bebebe; border-radius: 2px; display: inline !important;">
+						style="width: 120px; margin-right: 40px; height:30px; border: 1px solid #dcdcdc; flaot: left; border: 1px solid #bebebe; border-radius: 2px; display: inline !important;">
 
 					<span class="glyphicon glyphicon-calendar" aria-hidden="true"
 						style="margin-left: -35px;"> </span>
 
 					<button type="submit" class="btn btn-default"
-						style="background-color: #dcdcdc; font-size:14px; fmargin-left: 380px; margin-top: 0px; margin-bottom:3px; width: 80px; height: 28px; display: inline !important; background-color: #212529; color: white; border-radius: 2px; height: 30px;  padding-top: 3px;">조회</button>
+						style="background-color: #dcdcdc; font-size:14px; fmargin-left: 380px; margin-top: 0px; margin-bottom:3px; width: 80px; height: 34px; font-size: 14px; display: inline !important;  background-color:#7e9c8c; border:none; color: white; border-radius: 2px; height: 30px;  padding-top: 3px;">조회</button>
 				</div>
 			</form>
 			<table class="table" style="height: 30px; height: 25px; font-size: 14px;">
@@ -381,7 +385,7 @@
 			</table>
 			<a id="buttonmy" class="btn btn-dark"
 				href="${contextPath}/board/inquiryForm.do"
-				style="float: right; margin-top: 25px; border-radius: 2px; background-color: #212529; font-size:14px;">글쓰기</a>
+				style="float: right; margin-top: 25px; border-radius: 2px;  background-color: #7e9c8c; color: white; border:none; border-radius: 2px; width: 120px; height: 40px; padding-top:10px; font-size:14px;">글쓰기</a>
 		
 		<!-- 내용 끝 -->
 		<!-- 페이징 글번호 -->
@@ -394,7 +398,7 @@
 
 						<c:if test="${pageMaker.prev}">
 
-							<a class="arrow prev" style="border: none; color:black; margin-right:0px; margin-left:0px;"
+							<a class="arrow prev"  style="border: 1px solid #7e9c8c; color:#7e9c8c; margin-right:0px; margin-left:2px;"
 								href='<c:url value="/board/inquirySearch.do?search1=${inquirySearchMap.search1}&search2=${inquirySearchMap.search2}&page=${pageMaker.startPage-1 }"/>'><i
 								class="fa fa-chevron-left"></i></a>
 
@@ -402,14 +406,14 @@
 						<c:forEach begin="${pageMaker.startPage }"
 							end="${pageMaker.endPage }" var="pageNum">
 
-							<a style="border: none; color:black; margin-right:0px; margin-left:0px;"
+							<a  style="border: 1px solid #7e9c8c; color:#7e9c8c; margin-right:0px; margin-left:2px;"
 								href='<c:url value="/board/inquirySearch.do?search1=${inquirySearchMap.search1}&search2=${inquirySearchMap.search2}&page=${pageNum }"/>'><i
 								class="fa">${pageNum }</i></a>
 
 						</c:forEach>
 						<c:if test="${pageMaker.next && pageMaker.endPage >0 }">
 
-							<a class="arrow next" style="border: none; color:black; margin-right:0px; margin-left:0px;"
+							<a class="arrow next"  style="border: 1px solid #7e9c8c; color:#7e9c8c; margin-right:0px; margin-left:2px;"
 								href='<c:url value="/board/inquirySearch.do?search1=${inquirySearchMap.search1}&search2=${inquirySearchMap.search2}&page=${pageMaker.endPage+1 }"/>'><i
 								class="fa fa-chevron-right"></i></a>
 
@@ -425,7 +429,7 @@
 
 						<c:if test="${pageMaker.prev}">
 
-							<a class="arrow prev" style="border: none; color:black; margin-right:0px; margin-left:0px;"
+							<a class="arrow prev"  style="border: 1px solid #7e9c8c; color:#7e9c8c; margin-right:0px; margin-left:2px;"
 								href='<c:url value="/board/listInquiry.do?page=${pageMaker.startPage-1 }"/>'><i
 								class="fa fa-chevron-left"></i></a>
 
@@ -433,13 +437,13 @@
 						<c:forEach begin="${pageMaker.startPage }"
 							end="${pageMaker.endPage }" var="pageNum">
 
-							<a style="border: none; color:black; margin-right:0px; margin-left:0px;" href='<c:url value="/board/listInquiry.do?page=${pageNum }"/>'><i
+							<a  style="border: 1px solid #7e9c8c; color:#7e9c8c; margin-right:0px; margin-left:2px;" href='<c:url value="/board/listInquiry.do?page=${pageNum }"/>'><i
 								class="fa" >${pageNum }</i></a>
 
 						</c:forEach>
 						<c:if test="${pageMaker.next && pageMaker.endPage >0 }">
 
-							<a class="arrow next" style="border: none; color:black; margin-right:0px; margin-left:0px;"
+							<a class="arrow next"  style="border: 1px solid #7e9c8c; color:#7e9c8c; margin-right:0px; margin-left:2px;"
 								href='<c:url value="/board/listInquiry.do?page=${pageMaker.endPage+1 }"/>'><i
 								class="fa fa-chevron-right"></i></a>
 

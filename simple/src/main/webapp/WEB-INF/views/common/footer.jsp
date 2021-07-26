@@ -7,7 +7,7 @@
 
 <!-------------footer------------------------------------------------------------------------------------------------------------------------>
 <footer class="ftco-footer ftco-bg-dark ftco-section"
-	style="padding-top: 20px; padding-bottom: 1px;">
+	style="padding-top: 20px; padding-bottom: 1px; background-color:#222222;">
 	<div class="container">
 		<div class="row mb-1">
 			<div class="col-md">
@@ -24,7 +24,7 @@
 						style="border-bottom: 4px solid #7e9c8c; width: 40px; margin-top: 10px;"></div>
 					<div class="block-23 mb-3">
 						<p class="atag" style="font-size: 12px; margin-top: 25px; color:#7e9c8c; font-weight:bold;">042-527-3057</p>
-						<p style="font-size: 12px; margin-bottom: 0px;">MON-FRI
+						<p style="font-size: 12px; margin-bottom: 0px; color:white;">MON-FRI
 							9:00~18:00</p>
 
 					</div>
@@ -43,9 +43,9 @@
 					<div class="block-23 mb-3">
 						<div
 							style="border-bottom: 4px solid #7e9c8c; width: 40px; margin-top: 10px;"></div>
-						<p class="atag" style="font-size: 12px; margin-top: 25px;">빠르고
+						<p class="atag" style="font-size: 12px; margin-top: 25px; color:white;">빠르고
 							정확하게</p>
-						<p style="font-size: 12px; margin-bottom: 0px;">답변해드리겠습니다.</p>
+						<p style="font-size: 12px; margin-bottom: 0px; color:white;">답변해드리겠습니다.</p>
 					</div>
 				</div>
 			</div>
@@ -62,7 +62,7 @@
 					<div class="block-23 mb-3">
 						<div
 							style="border-bottom: 4px solid #7e9c8c; width: 40px; margin-top: 10px;"></div>
-						<p class="atag" style="font-size: 12px; margin-top: 25px;">tkawhchlrh@naver.com</p>
+						<p class="atag" style="font-size: 12px; margin-top: 25px; color:white;">tkawhchlrh@naver.com</p>
 						<p style="font-size: 12px; margin-bottom: 0px;">ㅤ</p>
 
 					</div>

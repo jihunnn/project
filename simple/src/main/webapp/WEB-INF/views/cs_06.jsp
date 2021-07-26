@@ -103,29 +103,29 @@ request.setCharacterEncoding("UTF-8");
 	<section class="ftco-section"
 		style="padding-top: 50px; margin-bottom: 50px; margin-top: 30px;">
 		<div class="container">
-			<ul class="snip1284">
+			<ul class="snip1284" style="margin-bottom:30px;  padding-left:0px;">
 				<li><a
 					onclick="location.href='${contextPath}/board/listNotice.do'"
 					data-hover="공지사항"
-					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; margin-left: 20px; padding-bottom: 0px;">공지사항</a></li>
+					style="font-size: 19px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; margin-left: 20px; padding-bottom: 0px;">공지사항</a></li>
 
 
 				<li><a
 					onclick="location.href='${contextPath}/board/listQuestion.do'"
 					data-hover="자주 묻는 질문"
-					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">자주
+					style="font-size: 19px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">자주
 						묻는 질문</a></li>
 
 
 				<li class="current"><a onclick="InquiryList()"
 					data-hover="1:1문의"
-					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">1:1문의</a></li>
+					style="font-size: 19px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">1:1문의</a></li>
 
 
 				<li><a
 					onclick="location.href='${contextPath}/board/listAsCenter.do'"
 					data-hover="A/S센터"
-					style="font-size: 20px; border: none; color: #5a5a5a; background-color: white; cursor: pointer; padding-bottom: 0px;">A/S센터</a></li>
+					style="font-size: 19px; border: none; color: #5a5a5a; background-color: white; cursor: pointer; padding-bottom: 0px;">A/S센터</a></li>
 			</ul>
 
 			<div>
@@ -169,7 +169,7 @@ request.setCharacterEncoding("UTF-8");
 					style="margin-top: 20px; text-align: center; font-size: 14px;">
 					<thead class="table-dark" align=center>
 						<tr
-							style="border-bottom: 1px solid grey; height: 30px; background-color: #212529;">
+							style="background-color: #eeeeee; border-top:1px solid #7e9c8c;color:black; border-bottom: 1px solid #c6c8ca; font-size:15px;">
 							<td><a>${inquiry.inquiryTitle}</a></td>
 						</tr>
 
@@ -213,19 +213,19 @@ request.setCharacterEncoding("UTF-8");
 						<c:choose>
 							<c:when test="${!empty search1}">
 								<button type="button" class="btn btn-dark" id="buttonmy"
-									style="float: left; margin-left: 600px; margin-top: 30px; font-size: 14px; background-color: #212529; padding-top: 4px;"
+									style="float: left; margin-left:600px; margin-top: 25px; border-radius: 2px;  background-color: #7e9c8c; color: white; border:none; border-radius: 2px; width: 120px; height: 45px; padding-top:10px; font-size:14px;"
 									onclick="location.href='${contextPath}/board/inquirySearch.do?search1=${search1}&search2=${search2}&page=${pageNum}'">목록</button>
 							</c:when>
 							<c:otherwise>
 								<button type="button" class="btn btn-dark" id="buttonmy"
-									style="float: left; margin-left: 600px; margin-top: 30px; font-size: 14px; background-color: #212529; padding-top: 4px;"
+									style="float: left; margin-left:600px; margin-top: 25px; border-radius: 2px;  background-color: #7e9c8c; color: white; border:none; border-radius: 2px; width: 120px; height: 45px; padding-top:10px; font-size:14px;"
 									onclick="location.href='${contextPath}/board/listInquiry.do'">목록</button>
 							</c:otherwise>
 						</c:choose>
 						<button type="submit" class="btn btn-dark" id="buttonmy"
-							style="float: left; margin-left: 1100px; margin-top: -30px; font-size: 14px; background-color: #212529; padding-top: 4px;">수정</button>
+							style="float: left; margin-top: 25px; width: 75px; background-color: #5f5f5f; color: white; border:1px solid white; border-radius: 2px; margin-left: 270px; width: 130px; height: 45px; font-size:14px;">수정</button>
 						<button type="button" class="btn btn-dark" id="buttonmy"
-							style="float: left; margin-left: 1190px; margin-top: -30px; font-size: 14px; background-color: #212529; padding-top: 4px;"
+							style="float: left;  margin-top: 25px; width: 75px; background-color: white; color: gray; border:1px solid #7e9c8c; border-radius: 2px; margin-left: 20px; width: 130px; height: 45px; font-size:14px;"
 							onclick="removeInquiry(this.form)">삭제</button>
 					</c:otherwise>
 				</c:choose>

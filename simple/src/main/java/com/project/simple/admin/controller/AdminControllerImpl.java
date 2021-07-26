@@ -1,5 +1,6 @@
 package com.project.simple.admin.controller;
 
+
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -124,5 +125,6 @@ public class AdminControllerImpl implements AdminController {
 
 		return mav;
 	}
+
 
 }

@@ -24,10 +24,14 @@
 	
     function InquiryList() {
         if (${isLogOn != true && member == null}) {
+        	if(${AdminisLogOn == true && admin != null}) {
+            	
+            	location.href='${contextPath}/admin/listAllInquiry.do';
+            } else{
             alert("로그인이 필요합니다.");
-            location.href = '${contextPath}/login_01.do';
-        } else {
-        	location.href='${contextPath}/board/listInquiry.do'
+            location.href = '${contextPath}/login_01.do';}
+        }   else {
+        	location.href='${contextPath}/board/listInquiry.do';
         }
     }
 
@@ -237,38 +241,38 @@ style
 	<!-- 타이틀 -->
 	<!--  -->
 	<section class="ftco-section"
-		style="padding-top: 50px; margin-top: 30px;">
+		style="padding-top: 70px; margin-top: 30px;">
 		<div class="container">
 
 
-			<ul class="snip1284">
+			<ul class="snip1284" style="margin-bottom: 30px; padding-left: 0px;">
 				<li><a
 					onclick="location.href='${contextPath}/board/listNotice.do'"
 					data-hover="공지사항"
-					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; margin-left: 20px; padding-bottom: 0px;">공지사항</a></li>
+					style="font-size: 19px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; margin-left: 20px; padding-bottom: 0px;">공지사항</a></li>
 
 
-				<li  class="current"><a
+				<li class="current"><a
 					onclick="location.href='${contextPath}/board/listQuestion.do'"
 					data-hover="자주 묻는 질문"
-					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">자주
+					style="font-size: 19px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">자주
 						묻는 질문</a></li>
 
 
 				<li><a onclick="InquiryList()" data-hover="1:1문의"
-					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">1:1문의</a></li>
+					style="font-size: 19px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">1:1문의</a></li>
 
 
 				<li><a
 					onclick="location.href='${contextPath}/board/listAsCenter.do'"
 					data-hover="A/S센터"
-					style="font-size: 20px; border: none; color: #5a5a5a; background-color: white; cursor: pointer; padding-bottom: 0px;">A/S센터</a></li>
+					style="font-size: 19px; border: none; color: #5a5a5a; background-color: white; cursor: pointer; padding-bottom: 0px;">A/S센터</a></li>
 			</ul>
 
 			<div>
-				<h2 style="font-size: 28px; margin-top: 15px; float: left;">자주묻는질문</h2>
+				<h2 style="font-size: 25px; margin-top: 15px; float: left;">자주묻는질문</h2>
 				<h5
-					style="color: #828282; float: left; font-size: 18px; margin-left: 20px; margin-top: 25px;">고객님들께서
+					style="color: #828282; float: left; font-size: 15px; margin-left: 20px; margin-top: 25px;">고객님들께서
 					자주 묻는 질문을 모았습니다.</h5>
 			</div>
 
@@ -301,9 +305,9 @@ style
 
 			<!-- 내용 -->
 			<button type="button" class="btn btn-dark" id="btnSearch" 
-				style="margin-top: 25px;  background-color: #212529; font-size: 14px; float: right; padding-top: 4px; border-radius: 2px; height: 32px;">검색</button>
+				style="margin-top: 21px; float: right; padding-top: 4px; height: 34px; font-size: 14px; padding-top: 4px; background-color:#7e9c8c; border:none; border-radius:2px;">검색</button>
 			<input type="text" class="form-control" class="btn btn-dark"
-				style="margin-top: 25px; float: right; width: 150px; height: 32px; margin-right: 10px;  border-radius: 2px; font-size:14px;"
+				style="margin-top: 21px; float: right; height:34px; border: 1px solid #dcdcdc; font-size:14px; margin-right: 5px; width:159px;"
 				name="search" id="search">
 
 		
@@ -315,7 +319,7 @@ style
 			<table class="table"
 				style="margin-bottom: 50px; width: 1275px; height: 25px; font-size: 14px;">
 				<thead class="table-dark" align=center>
-					<tr align="center" style="background-color: #212529;">
+					<tr align="center" style="background-color: #eeeeee; border-top:1px solid #7e9c8c;color:black; border-bottom: 1px solid #c6c8ca; font-size:15px;">
 						<td scope="col" width="100">번호</td>
 						<td scope="col" width="500">내용</td>
 
@@ -324,8 +328,8 @@ style
 						value="${pageMaker.totalCount - ((pageNum-1) * 10) }" />
 					<c:forEach var="question" items="${questionList}"
 						varStatus="questionNum">
-						<tr
-							style="border-bottom: 1px solid #c6c8ca; background-color: white; color: black;">
+						<tr 
+							style="border-bottom: 1px solid #c6c8ca !important; background-color: white; color: black;">
 
 							<td scope="col" width="50" style="padding-top: 12px;">${num}</td>
 							<td align="left" scope="col" width="500"

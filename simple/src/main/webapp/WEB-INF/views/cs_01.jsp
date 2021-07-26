@@ -87,7 +87,7 @@ request.setCharacterEncoding("utf-8");
 <body>
 	<!-- 타이틀 -->
 	<section class="ftco-section"
-		style="padding-top: 50px; margin-top: 30px;">
+		style="padding-top: 70px; margin-top: 30px;">
 		<div class="container">
 			<jsp:include page="/WEB-INF/views/common/csMenu.jsp" flush="false" />
 

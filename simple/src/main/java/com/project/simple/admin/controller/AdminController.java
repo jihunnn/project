@@ -1,5 +1,6 @@
 package com.project.simple.admin.controller;
 
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -11,5 +12,6 @@ public interface AdminController {
 	
 	public ModelAndView listAllInquiry(Criteria cri, HttpServletRequest request, HttpServletResponse response)
 			throws Exception;
+
 
 }

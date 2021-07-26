@@ -17,4 +17,5 @@ public interface AdminService {
 	
 	public ArticleVO noticeForm(int noticeNum) throws Exception;
 
+
 }

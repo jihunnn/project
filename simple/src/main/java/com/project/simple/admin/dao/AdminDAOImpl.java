@@ -1,5 +1,6 @@
 package com.project.simple.admin.dao;
 
+
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -49,4 +50,5 @@ public class AdminDAOImpl implements AdminDAO {
 	public ArticleVO selectNotice(int noticeNum) throws DataAccessException {
 		return sqlSession.selectOne("mapper.admin.selectNotice", noticeNum);
 	}
+
 }

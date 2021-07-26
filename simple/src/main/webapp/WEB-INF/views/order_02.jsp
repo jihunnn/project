@@ -32,7 +32,7 @@ h4 {
 				style="background-color: #f5f5f5; border: 1px solid #e7e7e7; margin-top: 50px;">
 				<div class="col-md-20 heading-section ftco-animate"
 					style="height: 60px;">
-					<h2 class="mb-4" style="font-size: 35px; margin-top: 15px;">주문결제</h2>
+					<h2 class="mb-4" style="font-size: 35px; margin-top: 15px;">비회원 주문결제</h2>
 				</div>
 			</div>
 			<!-- 타이틀 끝 -->
@@ -69,27 +69,49 @@ h4 {
 
 			<div class="order_list text-center">
 				<table class="table">
-
-					<thead class="table-dark">
-						<tr>
-							<th scope="col">제품</th>
-							<th scope="col">수량</th>
-							<th scope="col">가격</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<th scope="col">커스틴 천연면피 통가죽 4인 카우치형 소파</th>
-							<th scope="col">1개</th>
-							<th scope="col">3,740,000</th>
-						</tr>
-						<tr>
-							<th scope="col">커스틴 천연면피 통가죽 4인 카우치형 소파</th>
-							<th scope="col">1개</th>
-							<th scope="col">3,740,000</th>
-						</tr>
-					</tbody>
-				</table>
+							<thead class="table-dark" align=center>
+								<tr align="center">
+									
+									<td scope="col" width="150"></td>
+									<td scope="col" width="500" align=left>상품명</td>
+									<td scope="col" width="80">수량</td>
+									<td scope="col" width="80">배송비</td>
+									<td scope="col" width="80">가격</td>
+								</tr>
+							</thead>
+							<c:forEach items="${cartlist}" var="cartlist" varStatus="status">
+								<tbody>
+									<tr>
+										<td scope="col"><img
+											src="${contextPath}/resources/images/sofa01.jpg" width=130
+											height=130></td>
+										<td scope="col" align=left>${cartlist.productName}<br>${cartlist.option1name}
+											: ${cartlist.option1value} <br>${cartlist.option2name} :
+											${cartlist.option2value}
+										</td>
+										<td scope="col" align=center><br> <br> <select
+											name="number" style="height: 25px;">
+												<option value="1개">1개</option>
+												<option value="2개">2개</option>
+												<option value="3개">3개</option>
+												<option value="4개">4개</option>
+												<option value="5개">5개</option>
+										</select></td>
+										<td scope="col" align=center><br> <br>${cartlist.deliverycharge}</td>
+										<td scope="col" align=center><br> <br>${cartlist.totalPrice}</td>
+									</tr>
+								</tbody>
+							</c:forEach>
+							<tfoot>
+								<tr>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td colspan="3" align=right style="padding-right: 20px;">총
+										금액 : 원</td>
+								</tr>
+							</tfoot>
+						</table>
 			</div>
 
 
@@ -115,7 +137,7 @@ h4 {
 								id="email" style="width: 100px">
 									<option value="naver.com">naver.com</option>
 									<option value="daum.net">daum.net</option>
-									<option value="google.com">google.com</option>
+									<option value="google.com">google.com</option></select>
 									<th scope="col" style="padding-left: 150px">주문비밀번호 확인</th>
 									<th scope="col"><input type="text"></th>
 						</tr>

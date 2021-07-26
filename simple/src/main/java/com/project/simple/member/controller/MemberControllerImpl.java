@@ -90,6 +90,7 @@ public class MemberControllerImpl implements MemberController {
 		session.removeAttribute("quickList");
 		session.removeAttribute("quickListNum");
 
+
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("redirect:/main.do");
 		return mav;
@@ -169,7 +170,11 @@ public class MemberControllerImpl implements MemberController {
 		return mav;
 
 	}
-
+	
+	
+	
+			
+			
 	// 회원정보수정
 	@RequestMapping(value = "/modMember.do", method = RequestMethod.POST)
 	public ModelAndView modMember(@ModelAttribute("modmember") MemberVO modmember, HttpServletRequest request,
@@ -283,7 +288,7 @@ public class MemberControllerImpl implements MemberController {
 		mav.setViewName(viewName);
 		return mav;
 	}
-
+	
 	@RequestMapping(value = "/login_03.do", method = RequestMethod.GET)
 	private ModelAndView login_03(HttpServletRequest request, HttpServletResponse response) {
 		String viewName = (String) request.getAttribute("viewName");
@@ -291,6 +296,8 @@ public class MemberControllerImpl implements MemberController {
 		mav.setViewName(viewName);
 		return mav;
 	}
+
+
 
 	@RequestMapping(value = "/order_03.do", method = RequestMethod.GET)
 	private ModelAndView order_03(HttpServletRequest request, HttpServletResponse response) {
@@ -302,8 +309,8 @@ public class MemberControllerImpl implements MemberController {
 
 	@Override
 	@RequestMapping(value = "/admin_listmember.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView listMembers(Criteria cri, HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
+
+	public ModelAndView listMembers(Criteria cri, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewName = (String) request.getAttribute("viewName");
 		List<MemberVO> membersList = memberService.listMembers(cri);
 		int memberCount = memberService.memberCount();
@@ -317,14 +324,14 @@ public class MemberControllerImpl implements MemberController {
 		mav.addObject("membersList", membersList);
 		mav.addObject("pageMaker", pageMaker);
 
+
 		return mav;
 	}
 
 	@Override
 	@RequestMapping(value = "/admin_listmember/memberSearch.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView memberSearch(@RequestParam("search") String search,
-			@RequestParam("searchType") String searchType, Criteria cri, HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	public ModelAndView memberSearch(@RequestParam("search") String search, @RequestParam("searchType") String searchType,
+			Criteria cri, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewName = (String) request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
 
@@ -334,11 +341,11 @@ public class MemberControllerImpl implements MemberController {
 		memberSearchMap.put("pageStart", pageStart);
 		memberSearchMap.put("perPageNum", perPageNum);
 		memberSearchMap.put("search", search);
-	
+		System.out.println(search);
 		memberSearchMap.put("searchType", searchType);
-	
+		System.out.println(searchType);
 		memberSearchMap = memberService.memberSearch(memberSearchMap);
-	
+		System.out.println(memberSearchMap);
 		int memberSearchCount = memberService.memberSearchCount(memberSearchMap);
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
@@ -348,21 +355,22 @@ public class MemberControllerImpl implements MemberController {
 		mav.addObject("memberSearchMap", memberSearchMap);
 		mav.addObject("pageMaker", pageMaker);
 		mav.addObject("pageNum", pageNum);
-
+		
 		return mav;
 
 	}
-
+	
 	@RequestMapping(value = "/admin_removeMember.do", method = RequestMethod.GET)
-	private ModelAndView admin_removeMember(@RequestParam("memId") String memId, HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	private ModelAndView admin_removeMember(@RequestParam("memId") String memId, HttpServletRequest request, HttpServletResponse response)  throws Exception{
 		String viewName = (String) request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView();
 		memberVO = memberService.admin_removeMember(memId);
 		mav.addObject("memId", memberVO);
-
+		System.out.println(memId);
 		mav.setViewName("redirect:/admin_listmember.do");
 		return mav;
 	}
+	
+	
 
 }

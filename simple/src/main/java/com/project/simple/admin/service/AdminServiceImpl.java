@@ -1,5 +1,6 @@
 package com.project.simple.admin.service;
 
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,5 +52,6 @@ public class AdminServiceImpl implements AdminService {
 		ArticleVO articleVO = adminDAO.selectNotice(noticeNum);
 		return articleVO;
 	}
+
 
 }

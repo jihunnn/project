@@ -127,42 +127,50 @@
 
 			<!-- 내용 -->
 			<form name="frmNotice" method="post"
-				action="${contextPath}/admin/modNotice.do?noticeNum=${notice.noticeNum}" enctype="multipart/form-data">
+				action="${contextPath}/admin/modNotice.do?noticeNum=${notice.noticeNum}"
+				enctype="multipart/form-data">
 				<table class="table" style="height: 25px; font-size: 13px;">
-				<thead class="table-dark" align=center>
-					<tr align="center"
-						style="background-color: #eeeeee; border-top: 1px solid #7e9c8c; border-bottom: 1px solid #c6c8ca !important;">
-						<td scope="col" colspan="6"><a style="color: black;">${notice.noticeTitle}</a></td>
-					</tr>
-					<tr
-						style="background-color: #eeeeee; color: black; border-bottom: 1px solid #c6c8ca !important;">
-						<td scope="col" width="150">작성자</td>
-						<td scope="col" width="150"
-							style="background-color: white; color: black;"><a>${notice.noticeWriter }</a></td>
-						<td scope="col" width="100">작성일</td>
-						<td scope="col" width="100"
-							style="background-color: white; color: black;"><fmt:formatDate
-								value="${notice.noticeDate}" /></td>
-						<td scope="col" width="80">조회수</td>
-						<td scope="col" width="80"
-							style="background-color: white; color: black;">${notice.noticeHit}</td>
-					</tr>
+					<thead class="table-dark" align=center>
+						<tr align="center"
+							style="background-color: #eeeeee; border-top: 1px solid #7e9c8c; border-bottom: 1px solid #c6c8ca !important;">
+							<td scope="col" colspan="6"><a style="color: black;">${notice.noticeTitle}</a></td>
+						</tr>
+						<tr
+							style="background-color: #eeeeee; color: black; border-bottom: 1px solid #c6c8ca !important;">
+							<td scope="col" width="150">작성자</td>
+							<td scope="col" width="150"
+								style="background-color: white; color: black;"><a>${notice.noticeWriter }</a></td>
+							<td scope="col" width="100">작성일</td>
+							<td scope="col" width="100"
+								style="background-color: white; color: black;"><fmt:formatDate
+									value="${notice.noticeDate}" /></td>
+							<td scope="col" width="80">조회수</td>
+							<td scope="col" width="80"
+								style="background-color: white; color: black;">${notice.noticeHit}</td>
+						</tr>
 
-					<tr
-						style="border-bottom: 1px solid #c6c8ca !important; background-color: white; color: black;">
+						<tr
+							style="border-bottom: 1px solid #c6c8ca !important; background-color: white; color: black;">
 
-						<td colspan="6" align="left" scope="col" width="500" height="500"><a
-							href="#" style="color: black; padding-left: 30px;">${notice.noticeContent }</a></td>
-					</tr>
-				</thead>
-			</table>
-				<button type="submit" 
-				class="btn btn-dark " id="buttonmy"
-				style="margin-left: 540px; margin-top: 30px; border-radius: 2px; background-color: #7e9c8c; color: white; border: none; border-radius: 2px; width: 120px; height: 40px; padding-top: 10px; padding-top: 4px; float: left;">수정</button>
+							<td colspan="6" align="left" scope="col" width="500" height="500"><a
+								href="#" style="color: black; padding-left: 30px;">${notice.noticeContent }</a></td>
+						</tr>
+					</thead>
+				</table>
+				<c:if test="${AdminisLogOn == true && admin != null}">
+					<button type="submit" class="btn btn-dark " id="buttonmy"
+						style="margin-left: 540px; margin-top: 30px; border-radius: 2px; background-color: #7e9c8c; color: white; border: none; border-radius: 2px; width: 120px; height: 40px; padding-top: 10px; padding-top: 4px; float: left;">수정</button>
+					<button type="button"
+						onclick="location.href='${contextPath}/board/listNotice.do'"
+						id="buttonmy" class="btn btn-dark"
+						style="margin-left: 20px; margin-top: 30px; border-radius: 2px; background-color: white; color: gray; border: 1px solid #7e9c8c; border-radius: 2px; width: 120px; height: 40px; padding-top: 10px; padding-top: 4px; float: left;">삭제</button>
+				</c:if>
 				<button type="button"
-				onclick="location.href='${contextPath}/board/listNotice.do'"
-				id="buttonmy" class="btn btn-dark"
-				style="margin-left: 20px; margin-top: 30px; border-radius: 2px; background-color: white; color: gray; border: 1px solid #7e9c8c; border-radius: 2px; width: 120px; height: 40px; padding-top: 10px; padding-top: 4px; float: left;">삭제</button></form>
+					onclick="location.href='${contextPath}/board/listNotice.do'"
+					id="buttonmy" class="btn btn-dark"
+					style="margin-left: 600px; margin-top: 30px; border-radius: 2px; background-color: #7e9c8c; color: white; border: none; border-radius: 2px; width: 120px; height: 40px; padding-top: 10px; padding-top: 4px; float: left;">목록</button>
+			</form>
+
 		</div>
 		<!-- 내용 끝 -->
 	</section>
