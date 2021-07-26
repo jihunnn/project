@@ -230,8 +230,12 @@
 <body>
 
 	<!-- 타이틀 -->
-	<section class="ftco-section" style="padding-top: 50px; margin-top:30px;">
+
+	<section class="ftco-section" style="padding-top: 50px; margin-top:50px;">
+
+
 		<div class="container">
+
 			<ul class="snip1284">
 				<li><a
 					onclick="location.href='${contextPath}/board/listNotice.do'"
@@ -254,6 +258,7 @@
 					onclick="location.href='${contextPath}/board/listAsCenter.do'"
 					data-hover="A/S센터"
 					style="font-size: 20px; border: none; color: #5a5a5a; background-color: white; cursor: pointer; padding-bottom: 0px;">A/S센터</a></li>
+
 			</ul>
 
 			<div>
@@ -311,7 +316,9 @@
 			</form>
 			<table class="table" style="height: 30px; height: 25px; font-size: 14px;">
 				<thead class="table-dark" align=center>
-					<tr align="center" style="background-color: #212529;">
+
+					<tr align="center" style="background-color: #eeeeee; border-top:1px solid #7e9c8c;color:black; border-bottom: 1px solid #c6c8ca; font-size:15px;">
+
 						<td scope="col" width="100">번호</td>
 						<td scope="col" width="150">문의유형</td>
 						<td scope="col" width="500"><p style="margin-bottom: 0px;">제목</p></td>

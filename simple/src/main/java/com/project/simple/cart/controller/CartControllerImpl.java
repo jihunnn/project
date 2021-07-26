@@ -96,6 +96,7 @@ public class CartControllerImpl implements CartController {
 	// 장바구니 리스트 삭제(회원/비회원)
 	@RequestMapping(value = "/delete.do", method = RequestMethod.POST)
 	public String delete(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
 		HttpSession session = request.getSession();
 		Boolean isLogOn = (Boolean) session.getAttribute("isLogOn");
 
@@ -113,6 +114,7 @@ public class CartControllerImpl implements CartController {
 			for (int i=0; i< size; i++) {
 				list.remove(ajaxMsg[i]-i);
 			}	
+
 			return "redirect:/nonmemcart.do";
 		}
 		

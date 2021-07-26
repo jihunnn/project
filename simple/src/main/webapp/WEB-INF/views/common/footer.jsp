@@ -14,7 +14,7 @@
 				<div class="ftco-footer-widget mb-4" style="text-align: left">
 
 					<h2 class="ftco-heading-2"
-						style="font-size: 14px; margin-bottom: 0px; width: 90px; font-weight: bold; float: left; padding-top: 2px;">A/S
+						style="font-size: 14px; margin-bottom: 0px; width: 90px; font-weight: bold; float: left; padding-top: 1px;">A/S
 						접수 센터</h2>
 					<button class="butten" onClick="location.href =''" type="button"
 						class="btn"
@@ -35,11 +35,11 @@
 			<div class="col-md">
 				<div class="ftco-footer-widget mb-4" style="text-align: left">
 					<h2 class="ftco-heading-2"
-						style="font-size: 14px; margin-bottom: 0px; width: 83px; font-weight: bold; float: left; padding-top: 2px;"">1:1
+						style="font-size: 14px; margin-bottom: 0px; width: 83px; font-weight: bold; float: left; padding-top: 2px;">1:1
 						문의하기</h2>
 					<button class="butten" onClick="location.href =''" type="button"
 						class="btn"
-						style="margin-bottom: 0px; cursor: pointer; padding-top: 3px; border-radius: 1px; font-size: 10px; background-color: #7e9c8c; width: 54px; height: 24px;">바로가기</button>
+						style="margin-bottom: 0px; cursor: pointer; padding-top: 2px; border-radius: 1px; font-size: 10px; background-color: #7e9c8c; width: 54px; height: 24px;">바로가기</button>
 					<div class="block-23 mb-3">
 						<div
 							style="border-bottom: 4px solid #7e9c8c; width: 40px; margin-top: 10px;"></div>
@@ -58,7 +58,7 @@
 						문의</h2>
 					<button class="butten" onClick="location.href =''" type="button"
 						class="btn"
-						style="margin-bottom: 0px; cursor: pointer; padding-top: 3px; border-radius: 1px; font-size: 10px; background-color: #7e9c8c; width: 54px; height: 24px;">바로가기</button>
+						style="margin-bottom: 0px; cursor: pointer; padding-top: 2px; border-radius: 1px; font-size: 10px; background-color: #7e9c8c; width: 54px; height: 24px;">바로가기</button>
 					<div class="block-23 mb-3">
 						<div
 							style="border-bottom: 4px solid #7e9c8c; width: 40px; margin-top: 10px;"></div>

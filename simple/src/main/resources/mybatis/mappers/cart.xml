@@ -30,6 +30,7 @@
 		
 		]]>	
 	</insert>
+
 	<!-- 장바구니리스트불러오기 -->
 	<select id="selectCartList"  parameterType="String" resultMap="cartResult">
 		<![CDATA[ 

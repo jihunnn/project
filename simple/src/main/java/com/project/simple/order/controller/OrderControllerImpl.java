@@ -39,6 +39,7 @@ public class OrderControllerImpl implements OrderController {
 			HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		HttpSession session = request.getSession();
+
 		List<CartVO> cartlist = (ArrayList) session.getAttribute("cartlist");
 		Boolean isLogOn = (Boolean) session.getAttribute("isLogOn");
 		
@@ -158,6 +159,7 @@ public class OrderControllerImpl implements OrderController {
 	}
 	
 	
+
 
 	/*
 	 * @RequestMapping(value="/orderAllCartGoods.do" ,method = RequestMethod.POST)

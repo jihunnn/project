@@ -167,30 +167,30 @@ function InquiryList() {
 <body>
 	<!-- 타이틀 -->
 	<section class="ftco-section"
-		style="padding-top: 50px; margin-bottom: 50px; padding-bottom: 0px; margin-bottom: 400px; margin-top:30px;">
+		style="padding-top: 100px; margin-bottom: 50px; padding-bottom: 0px; margin-bottom: 400px; margin-top:30px;">
 		<div class="container">
-			<ul class="snip1284">
+			<ul class="snip1284" style="margin-bottom:30px; padding-left:0px;">
 				<li><a
 					onclick="location.href='${contextPath}/board/listNotice.do'"
 					data-hover="공지사항"
-					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; margin-left: 20px; padding-bottom: 0px;">공지사항</a></li>
+					style="font-size: 19px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; margin-left: 20px; padding-bottom: 0px;">공지사항</a></li>
 
 
 				<li><a
 					onclick="location.href='${contextPath}/board/listQuestion.do'"
 					data-hover="자주 묻는 질문"
-					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">자주
+					style="font-size: 19px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">자주
 						묻는 질문</a></li>
 
 
 				<li><a onclick="InquiryList()" data-hover="1:1문의"
-					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">1:1문의</a></li>
+					style="font-size: 19px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">1:1문의</a></li>
 
 
 				<li class="current"><a
 					onclick="location.href='${contextPath}/board/listAsCenter.do'"
 					data-hover="A/S센터"
-					style="font-size: 20px; border: none; color: #5a5a5a; background-color: white; cursor: pointer; padding-bottom: 0px;">A/S센터</a></li>
+					style="font-size: 19px; border: none; color: #5a5a5a; background-color: white; cursor: pointer; padding-bottom: 0px;">A/S센터</a></li>
 			</ul>
 			<div>
 				<h2 style="font-size: 28px; margin-top: 15px; float: left;">A/S센터</h2>
@@ -233,15 +233,15 @@ function InquiryList() {
 					<thead class="table-dark" align=center>
 						<tr align="center" style="background-color: #212529;">
 							<td scope="col" colspan="6"
-								style="border-bottom: 1px solid white;">${asCenter.asCenterTitle}</td>
+								style="background-color: #eeeeee; border-top:1px solid #7e9c8c;color:black; border-bottom: 1px solid #c6c8ca; font-size:15px;">${asCenter.asCenterTitle}</td>
 						</tr>
 						<tr>
-							<td scope="col" width="150" style="background-color: #212529;">작성자</td>
+							<td scope="col" width="150" style="background-color: #eeeeee; border-top:1px solid #7e9c8c; color:black; border-bottom: 1px solid #c6c8ca; font-size:15px;">작성자</td>
 							<td scope="col" width="150"
-								style="background-color: white; border-bottom: 1px solid #212529; color: black;"><a>${asCenter.memName}</a></td>
-							<td scope="col" width="100" style="background-color: #212529;">작성일</td>
+								style="background-color: white; border-bottom: 1px solid #c6c8ca;  color: black;"><a>${asCenter.memName}</a></td>
+							<td scope="col" width="100" style="background-color: #eeeeee; border-top:1px solid #7e9c8c;color:black; border-bottom: 1px solid #c6c8ca; font-size:15px;">작성일</td>
 							<td scope="col" width="100"
-								style="background-color: white; color: black; border-bottom: 1px solid #212529;"><fmt:formatDate
+								style="background-color: white; color: black; border-bottom: 1px solid #c6c8ca; "><fmt:formatDate
 									value="${asCenter.asCenterDate}" /></td>
 						</tr>
 						<c:choose>
@@ -274,12 +274,12 @@ function InquiryList() {
 				<button type="button"
 					onClick="location.href='${contextPath}/board/listAsCenter.do?page=${pageNum}'"
 					id="bottonmy" class="btn btn-dark"
-					style="float: left; margin-left: 580px; margin-top: 27px; border-radius: 2px; width: 80px; height: 30px; padding-top: 1.8px; font-size: 14px; padding-top: 4px;">목록</button>
+					style="float: left; margin-left:600px; margin-top: 25px; border-radius: 2px;  background-color: #7e9c8c; color: white; border:none; border-radius: 2px; width: 120px; height: 45px; padding-top:10px; font-size:14px;">목록</button>
 				<button type="submit" id="bottonmy" class="btn btn-dark"
-					style="float: left; margin-left: 1100px; margin-top: -35px; border-radius: 2px; width: 80px; height: 30px; padding-top: 1.8px; font-size: 14px; padding-top: 4px;">수정</button>
+					style="float: left; margin-top: 25px; width: 75px; background-color: #5f5f5f; color: white; border:1px solid white; border-radius: 2px; margin-left: 270px; width: 130px; height: 45px; font-size:14px;">수정</button>
 				<button type="button" id="bottonmy" class="btn btn-dark"
 					onclick="removeAsCenter(this.form)"
-					style="float: left; margin-left: 1190px; margin-top: -35px; border-radius: 2px; width: 80px; height: 30px; padding-top: 1.8px; font-size: 14px; padding-top: 4px;">삭제</button>
+					style="float: left;  margin-top: 25px; width: 75px; background-color: white; color: gray; border:1px solid #7e9c8c; border-radius: 2px; margin-left: 20px; width: 130px; height: 45px; font-size:14px;">삭제</button>
 			</form>
 		</div>
 	</section>

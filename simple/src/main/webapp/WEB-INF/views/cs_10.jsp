@@ -153,31 +153,33 @@ function InquiryList() {
 <body>
 	<!-- 타이틀 -->
 	<section class="ftco-section"
-		style="padding-top: 50px; margin-bottom: 50px; padding-bottom: 0px; margin-bottom: 400px; margin-top: 30px;">
+		style="padding-top: 100px; margin-bottom: 50px; padding-bottom: 0px; margin-bottom: 200px; margin-top: 30px;">
 		<div class="container">
-			<ul class="snip1284">
+			<ul class="snip1284" style="margin-bottom:30px; padding-left:0px;">
 				<li><a
 					onclick="location.href='${contextPath}/board/listNotice.do'"
 					data-hover="공지사항"
-					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; margin-left: 20px; padding-bottom: 0px;">공지사항</a></li>
+					style="font-size: 19px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; margin-left: 20px; padding-bottom: 0px;">공지사항</a></li>
 
 
 				<li><a
 					onclick="location.href='${contextPath}/board/listQuestion.do'"
 					data-hover="자주 묻는 질문"
-					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">자주
+					style="font-size: 19px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">자주
 						묻는 질문</a></li>
 
 
 				<li><a onclick="InquiryList()" data-hover="1:1문의"
-					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">1:1문의</a></li>
+					style="font-size: 19px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">1:1문의</a></li>
 
 
 				<li class="current"><a
 					onclick="location.href='${contextPath}/board/listAsCenter.do'"
 					data-hover="A/S센터"
-					style="font-size: 20px; border: none; color: #5a5a5a; background-color: white; cursor: pointer; padding-bottom: 0px;">A/S센터</a></li>
+					style="font-size: 19px; border: none; color: #5a5a5a; background-color: white; cursor: pointer; padding-bottom: 0px;">A/S센터</a></li>
 			</ul>
+
+
 
 
 			<!-- 타이틀 끝 -->
@@ -208,23 +210,23 @@ function InquiryList() {
 			<!-- 최근 본 상품 끝 -->
 
 			<!-- 내용 -->
-			<form
+			<form 
 				action="${contextPath}/board/viewAsCenter.do?asCenterNum=${asCenterNum}&page=${pageNum}"
 				method="post">
 				<div>
-					<p style="padding-left: 530px; padding-top: 70px;">비밀번호를
+					<p style="padding-left: 530px; padding-top: 70px; ">비밀번호를
 						입력해주세요^^</p>
-					<p style="padding-left: 400px; padding-top: 50px; float: left;">PASSWORD</p>
+					<p style="padding-left: 400px; padding-top: 50px; float: left; margin-top:3px;">PASSWORD</p>
 				</div>
-				<div>
+				<div style="margin-bottom:100px;">
 					<input type=password name="asCenterPwdConfirm"
-						style="float: left; height: 28px; margin-left: 10px; border: 1px solid #aaaaaa; border-radius: 3px; margin-top: 50px;">
+						style="float: left;  margin-left: 10px; border-radius: 3px; margin-top: 50px;  border: 1px solid #dcdcdc; width: 200px; color:#b3b3b3; height: 36px; font-size:14px;">
 					<button type="submit" id="buttonmy" class="btn btn-dark"
-						style="float: left; margin-left: 10px; margin-top: 49px; border-radius: 2px; font-size: 14px; padding-top: 4px; background-color: #212529;">확인</button>
+						style="float: left; margin-left: 10px; margin-top: 49px; border-radius: 2px; font-size: 14px; padding-top: 4px; background-color: #7e9c8c; height:36px; border:none;">확인</button>
 					<button type="button"
 						onClick="location.href='${contextPath}/board/listAsCenter.do?page=${pageNum}'"
 						id="buttonmy" class="btn btn-dark"
-						style="float: left; margin-left: 10px; margin-top: 49px; border-radius: 2px; font-size: 14px; padding-top: 4px; background-color: #212529;">목록</button>
+						style="float: left; margin-left: 10px; margin-top: 49px; border-radius: 2px; font-size: 14px; padding-top: 4px; color:black; background-color: white; height:36px; border:1px solid #7e9c8c; ">목록</button>
 				</div>
 			</form>
 		</div>

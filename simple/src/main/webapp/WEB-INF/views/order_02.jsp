@@ -137,7 +137,7 @@ h4 {
 								id="email" style="width: 100px">
 									<option value="naver.com">naver.com</option>
 									<option value="daum.net">daum.net</option>
-									<option value="google.com">google.com</option>
+									<option value="google.com">google.com</option></select>
 									<th scope="col" style="padding-left: 150px">주문비밀번호 확인</th>
 									<th scope="col"><input type="text"></th>
 						</tr>

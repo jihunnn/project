@@ -2,14 +2,49 @@
 <!DOCTYPE mapper 
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-	
+
 <mapper namespace="mapper.admin">
 
-     <resultMap id="adminResult" type="adminVO">
+	<resultMap id="adminResult" type="adminVO">
 		<result property="adminId" column="adminId" />
 		<result property="adminPwd" column="adminPwd" />
 	</resultMap>
-	
+
+	<resultMap id="memResult" type="memberVO">
+		<result property="memId" column="memId" />
+		<result property="memName" column="memName" />
+		<result property="memPwd" column="memPwd" />
+		<result property="memEmail" column="memEmail" />
+		<result property="memPhoneNum" column="memPhoneNum" />
+		<result property="memAdr" column="memAdr" />
+		<result property="logintype" column="logintype" />
+		<result property="memRegdate" column="memRegdate" />
+	</resultMap>
+
+	<!-- inquiry 게시판 -->
+	<resultMap id="inquiryResult" type="articleVO">
+		<result property="memId" column="memId" />
+		<result property="inquiryNum" column="inquiryNum" />
+		<result property="inquiryType" column="inquiryType" />
+		<result property="inquiryDate" column="inquiryDate" />
+		<result property="inquiryTitle" column="inquiryTitle" />
+		<result property="inquiryContent" column="inquiryContent" />
+		<result property="inquiryFile" column="inquiryFile" />
+		<result property="inquiryAnswer" column="inquiryAnswer" />
+		<result property="inquiryReq" column="inquiryReq" />
+	</resultMap>
+
+	<!-- 공지사항 게시판 -->
+	<resultMap id="noticeResult" type="articleVO">
+		<result property="noticeNum" column="noticeNum" />
+		<result property="noticeDate" column="noticeDate" />
+		<result property="noticeTitle" column="noticeTitle" />
+		<result property="noticeWriter" column="noticeWriter" />
+		<result property="noticeContent" column="noticeContent" />
+		<result property="noticeImg" column="noticeImg" />
+		<result property="noticeHit" column="noticeHit" />
+	</resultMap>
+
 	<!--로그인창에서 입력한 id와 비밀번호로 회원정보를 조회하는 sql문 -->
 	<select id="adminloginById" resultType="adminVO"
 		parameterType="adminVO">
@@ -18,4 +53,51 @@
 		where adminId = #{adminId} and adminPwd = #{adminPwd}
 	]]>
 	</select>
+
+	<!-- 회원정보 상세조회 -->
+	<select id="selectMember" resultType="memberVO"
+		parameterType="String"> 
+	<![CDATA[
+			
+			select * from member
+			where memId = #{memId}
+			
+
+	]]>
+	</select>
+
+	<!-- 1:1문의 -->
+	<select id="selectAllInquiryList"
+		parameterType="java.util.HashMap" resultMap="inquiryResult">
+	<![CDATA[
+			
+			select * from inquiry  order by inquiryNum desc
+			limit #{pageStart}, #{perPageNum};
+			
+
+	]]>
+	</select>
+
+	<select id="selectInquiryCount" resultType="int">
+	<![CDATA[
+			
+			select count(*) as inquiryCount from inquiry;
+			
+
+	]]>
+	</select>
+
+	<!-- 공지사항게시판 -->
+	<select id="selectNotice" resultType="articleVO"
+		parameterType="int"> 
+	<![CDATA[
+			
+			select * from notice
+			where noticeNum = #{noticeNum};
+			
+
+	]]>
+	</select>
+
+
 </mapper>

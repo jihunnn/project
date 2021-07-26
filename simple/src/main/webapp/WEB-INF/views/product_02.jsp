@@ -213,57 +213,23 @@ function addCartBtn() {
 </head>
 <body>
 	<!-- 최근 본 상품 -->
-			<div id="recentlyProduct"
-				style="position: absolute; left: 180px; width: 120px; height: 310px; margin-left: 1570px; border: 1px solid #d2d2d2; margin-top: 0px;">
-				<ul
-					style="list-style: none; margin-top: 10px; padding-left: 20px; margin-bottom: 10px;">
-					<li><a href="#"
-						style="padding-left: -10px; padding-bottom: 1px; color: black;">최근본상품</a></li>
-				</ul>
-				<hr style="margin-top: 0px; margin-bottom: 0px; color: #d2d2d2;">
-				<ul style="list-style: none; padding-top: 5px;">
-					<li><a href="#"><img
-							src="${contextPath}/resources/images/image_1.jpg"
-							style="width: 100px; height: 100px; padding-top: 10px; margin-left: -30px;"></a></li>
-					<li><a href="#"><img
-							src="${contextPath}/resources/images/image_2.jpg"
-							style="width: 100px; height: 100px; padding-top: 10px; padding-top: 10px; margin-left: -30px;"></a></li>
-				</ul>
-				<hr style="margin-top: 0px; margin-bottom: 0px; color: #d2d2d2;">
-				<ul
-					style="list-style: none; padding-left: 30px; margin-bottom: 10px; margin-top: 8px;">
-					<li><a href="#"
-						style="color: black; text-align: center; margin-top: 8px; padding-top: 30px;">더보기▼</a></li>
-				</ul>
-			</div>
 
-			<!-- 최근 본 상품 끝 -->
+	<!-- 최근 본 상품 끝 -->
 
 
 	<section class="ftco-section"
-		style="padding-top: 20px; margin-bottom: 200px;">
+		style="padding-top: 20px; margin-bottom: 200px; margin-top: 80px;">
 		<div class="container">
 			<form name="form1" method="GET" id="addCartForm">
 				<input type="hidden" name="productNum" value="${product.productNum}" />
 				<input type="hidden" name="productName"
-					value="${product.productName}" /> 
-					<input type="hidden"
-					name="option1name" value="${option1[1].option1name}" /> 
-					<input
+					value="${product.productName}" /> <input type="hidden"
+					name="option1name" value="${option1[1].option1name}" /> <input
 					type="hidden" name="option2name" value="${option2[1].option2name}" />
-					<input
-					type="hidden" name="deliverycharge" value="무료배송" />
-					
+				<input type="hidden" name="deliverycharge" value="무료배송" />
 
 
-				<div class="row justify-content-center mb-5 pb-3"
-					style="background-color: #f5f5f5; border: 1px solid #e7e7e7;">
-					<div class="col-md-20 heading-section ftco-animate"
-						style="height: 60px;">
-						<h2 class="mb-4" style="font-size: 35px; margin-top: 18px;">${product.productName}</h2>
 
-					</div>
-				</div>
 
 				<!-- 내용 -->
 				<div class="row">
@@ -279,30 +245,32 @@ function addCartBtn() {
 
 
 					<div style="width: 685px; height: 480px;">
-
+						<h3
+							style="font-size: 20px; color: #7e9c8c; margin-left: 50px; margin-top: 5px;">${product.productName}</h3>
+						<hr style="width: 600px;">
 						<h3 class="heading">
 							<a
-								style="position: absolute; white-space: nowrap; margin-top: 5px; margin-left: 50px; float: left; font-size: 18px;">판매가ㅤㅤ
+								style="position: absolute; white-space: nowrap; margin-top: 5px; margin-left: 50px; float: left; font-size: 14px; color: #5f5f5f;">판매가ㅤㅤ
 								ㅤ</a><a
-								style="position: absolute; white-space: nowrap; margin-top: 5px; margin-left: 180px; font-size: 18px;">${product.productPrice}원</a><input
+								style="position: absolute; white-space: nowrap; margin-top: 5px; margin-left: 180px; font-size: 14px; color: #5f5f5f;">${product.productPrice}원</a><input
 								type="hidden" name="price" value="${product.productPrice}">
 						</h3>
 
 						<h3 class="heading">
 							<a
-								style="position: absolute; white-space: nowrap; margin-top: 50px; margin-left: 51px; float: left; font-size: 18px;">제조사ㅤㅤ
+								style="position: absolute; white-space: nowrap; margin-top: 50px; margin-left: 51px; float: left; font-size: 14px; color: #5f5f5f;">제조사ㅤㅤ
 								ㅤ</a><a
-								style="position: absolute; white-space: nowrap; margin-top: 50px; margin-left: 180px; font-size: 18px;">${product.productManufacturer}</a>
+								style="position: absolute; white-space: nowrap; margin-top: 50px; margin-left: 180px; font-size: 14px; color: #5f5f5f;">${product.productManufacturer}</a>
 						</h3>
 						<br> <br>
 						<h3 class="heading">
 							<a
-								style="position: absolute; white-space: nowrap; margin-top: 50px; margin-left: 51px; float: left; font-size: 18px;">원산지ㅤㅤ
+								style="position: absolute; white-space: nowrap; margin-top: 50px; margin-left: 51px; float: left; font-size: 14px; color: #5f5f5f;">원산지ㅤㅤ
 								ㅤ</a>
 						</h3>
 						<h3 class="heading">
 							<a
-								style="position: absolute; white-space: nowrap; margin-top: 40px; margin-left: 180px; font-size: 18px;">${product.productOrigin}</a>
+								style="position: absolute; white-space: nowrap; margin-top: 40px; margin-left: 180px; font-size: 14px; color: #5f5f5f;">${product.productOrigin}</a>
 						</h3>
 						<br>
 
@@ -311,29 +279,30 @@ function addCartBtn() {
 						<h3 class="heading">
 							<c:forEach items="${option1}" var="name1">
 								<a
-									style="position: absolute; white-space: nowrap; margin-top: 80px; margin-left: 51px; float: left; font-size: 18px;">${name1.option1name}ㅤㅤ
+									style="position: absolute; white-space: nowrap; margin-top: 82px; margin-left: 51px; float: left; font-size: 14px; color: #5f5f5f; font-weight: normal;">${name1.option1name}ㅤㅤ
 									ㅤ</a>
 							</c:forEach>
 						</h3>
-						<select id="option1" name="option1" onchange="checkPrice();getSelectValue1(this.form);"
-							
-							style="margin-left: 180px; margin-top: 70px; float: left !important; width: 300px; height: 30px;">
+						<select id="option1" name="option1"
+							onchange="checkPrice();getSelectValue1(this.form);"
+							style="margin-left: 180px; margin-top: 70px; float: left !important; left: 675px; font-size: 14px; border: 1px solid #dcdcdc; width: 326px; height: 32px;">
 							<option value="">옵션 선택</option>
 							<c:forEach items="${option1}" var="option1">
 								<option value="${option1.option1price}">${option1.option1value}
 									+ (${option1.option1price}원)</option>
 							</c:forEach>
-						</select> <br> <br> <input type="hidden" name="option1value">
+						</select> <input type="hidden" name="option1value"> <br>
 						<h3 class="heading">
 							<c:forEach items="${option2}" var="name2">
 								<a
-									style="position: absolute; white-space: nowrap; margin-top: 80px; margin-left: 51px; float: left; font-size: 18px;">${name2.option2name}
+									style="position: absolute; float: left !important; left: 809px; white-space: nowrap; margin-top: 100px; margin-left: 155px; float: left; font-size: 14px; color: #5f5f5f; font-weight: normal;">${name2.option2name}
 									ㅤ</a>
 							</c:forEach>
 
 						</h3>
-						<select name="option2" id="option2" onchange="checkPrice();getSelectValue2(this.form);"
-							style="margin-left: 180px; margin-top: 70px; float: left !important; width: 300px; height: 30px;">
+						<select name="option2" id="option2"
+							onchange="checkPrice();getSelectValue2(this.form);"
+							style="margin-left: 180px; margin-top: 20px; float: left !important; font-size: 14px; border: 1px solid #dcdcdc; width: 326px; height: 32px;">
 							<option value="">옵션 선택</option>
 							<c:forEach items="${option2}" var="option2">
 								<option value="${option2.option2price}">${option2.option2value}
@@ -342,25 +311,28 @@ function addCartBtn() {
 						</select> <br> <input type="hidden" name="option2value">
 
 						<button type="button" class="btn btn-default" onclick="checkbuy()"
-							style="background-color: #dcdcdc; float: left; margin-left: 50px; margin-top: 30px; width: 280px; height: 50px; border-radius: 2px;">바로구매</button>
+							style="background-color: #7e9c8c; float: left; margin-left: 50px; margin-top: 37px; width: 280px; height: 50px; border-radius: 2px; font-size: 14px; color: white;">바로구매</button>
 						<button type="button" class="btn btn-default"
 							onclick="addCartBtn()"
-							style="background-color: #dcdcdc; float: left; margin-left: 350px; margin-top: -50px; width: 280px; height: 50px; border-radius: 2px;">장바구니</button>
+							style="background-color: #eeeeee; float: left; margin-left: 350px; margin-top: -50px; width: 280px; height: 50px; border-radius: 2px; font-size: 14px;">장바구니</button>
 
-						<h2 style="margin-top: 250px; margin-left: 50px;">총 상품 금액</h2>
-						<input type="text" name="totalPrice" value="0"
-							style="border: none; text-align: right; font-size: 40px;"
-							readonly />원 <input type="button" name="up" onclick="up()"
-							value=" + " size="3"
-							style="width: 25px; white-space: nowrap; float: left; font-size: 18px; font-size: 14px; border: 1px solid grey;">
+						<input type="button" name="up" onclick="up()" value=" + " size="3"
+							style="width: 27px; height: 28px; white-space: nowrap; float: left; color: #5f5f5f; margin-left: 50px; font-size: 18px; border: none; margin-top: 30px;">
 
 						<input type="text" name="productCnt" id="quantity" value="1"
 							readonly="readonly"
-							style="white-space: nowrap; float: left; font-size: 18px; font-size: 14px; width: 50px; text-align: center;" />
+							style="white-space: nowrap; float: left; font-size: 14px; width: 50px; height: 28px; text-align: center; margin-top: 30px; border: 1px solid #eeeeee;" />
 
 						<input type="button" name="down" onclick="down()" value=" - "
 							size="3"
-							style="width: 25px; white-space: nowrap; float: left; font-size: 18px; font-size: 14px; border: 1px solid grey;">
+							style="width: 27px; height: 28px; white-space: nowrap; color: #5f5f5f; float: left; font-size: 18px; border: none; margin-top: 30px;">
+						<h2
+							style="margin-top: 200px; font-size: 18px; test-align: right; width: 400px; margin-left: 380px;">
+							총 상품 금액ㅤ<input type="text" name="totalPrice" value="0"
+								style="border: none; text-align: right; font-size: 20px; width: 98px; margin-left: 18px;"
+								readonly />원
+						</h2>
+
 					</div>
 
 				</div>
@@ -422,41 +394,40 @@ function addCartBtn() {
 
 			<ul class="nav  tabs" style="margin-top: 100px;">
 				<li role="presentation" class="active"
-					style="width: 290px; text-align: center;"><a href="#tab1"
-					style="font-size: 23px; color: black;">상품상세정보</a></li>
+					style="width: 290px; margin-left: 30px; text-align: center;"><a
+					href="#tab1" style="font-size: 17px; color: black;">상품상세정보</a></li>
 				<li role="presentation" style="width: 290px; text-align: center;"><a
-					href="#tab2" style="font-size: 23px; color: black;" id="tab2Review">고객후기</a></li>
+					href="#tab2" style="font-size: 17px; color: black;" id="tab2Review">고객후기<span
+						style="color: #7e9c8c; font-weight: bold;">
+							(${pageMaker.totalCount})</span></a></li>
 				<li role="presentation" style="width: 290px; text-align: center;"><a
-					href="#tab3" style="font-size: 23px; color: black;">AS/배송/반품안내</a></li>
+					href="#tab3" style="font-size: 17px; color: black;">AS/배송/반품안내</a></li>
 				<li role="presentation" style="width: 290px; text-align: center;"><a
-					href="#tab4" style="font-size: 23px; color: black;">상품문의</a></li>
+					href="#tab4"
+					style="font-size: 17px; margin-left: 50px; color: black;">상품문의</a></li>
 
 			</ul>
-			<hr>
+			<hr style="margin-right: 30px;">
 			<div id="wrapper">
-				<div class="tab_container" style="margin-left: 50px;">
+				<div class="tab_container" >
 
 					<div id="tab1" class="tab_content"
-						style="margin-left: 170px; margin-right: 170px;">
+						style="margin-left: 190px; margin-right: 170px;">
 						<!--Content-->
 						<img style="width: 1200px; margin-left: -180px;"
 							src="${contextPath}/download_product1.do?productNum=${product.productNum}&productContentImage=${product.productContentImage}">
 					</div>
-					<div id="tab2" class="tab_content"
-						style="margin-left: 150px; width: 1000px;">
+					<div id="tab2" class="tab_content">
 						<!--Content-->
 						<table class="table"
-							style="margin-top: 60px; text-align: center; width: 1200px; margin-left: -80px;">
+							style="margin-top: 60px; text-align: center; width: 1200px; margin-left: -70px; font-size: 14px;">
 
-							<tr style="bakground-color: grey; border-bottom: 1px solid grey;">
-								<td
-									style="width: 100px; background-color: #212529; color: white;">번호</td>
-								<td
-									style="width: 200px; background-color: #212529; color: white;">작성자</td>
-								<td
-									style="width: 600px; background-color: #212529; color: white;">내용</td>
-								<td
-									style="width: 200px; background-color: #212529; color: white;">작성일자</td>
+							<tr
+								style="background-color: #eeeeee; border-top: 1px solid #7e9c8c; border-bottom: 1px solid #c6c8ca;">
+								<td>번호</td>
+								<td>작성자</td>
+								<td>내용</td>
+								<td>작성일자</td>
 							</tr>
 							<c:set var="num"
 								value="${pageMaker.totalCount - ((pageNum-1) * 10) }" />
@@ -477,13 +448,15 @@ function addCartBtn() {
 											<div class="modal-dialog">
 												<div class="modal-content"
 													style="width: 600px; height: 500px;">
-													<div class="modal-header">
-														<h4 class="modal-title" style="float: left;">${productReview.productReviewTitle}</h4>
+													<div class="modal-header" style=" text-align:center;">
+														<h4 class="modal-title" style="font-size:17px;">${productReview.productReviewTitle}</h4>
 														<button type="button" class="close" data-dismiss="modal"
 															aria-hidden="true">&times;</button>
 													</div>
-													<div class="modal-body"></div>
-													<p>${productReview.productContent}</p>
+													<div class="modal-body">
+														<p>${productReview.productContent}</p>
+													</div>
+
 													<img src="" />
 													<div class="modal-footer">
 														<button type="button" class="btn btn-primary"
@@ -498,10 +471,10 @@ function addCartBtn() {
 
 
 										<!-- /.modal -->
-										<tr style="border-bottom: 1px solid grey;">
+										<tr style="border-bottom: 1px solid #c6c8ca;">
 											<td style="width: 100px;">${num}</td>
 											<td style="width: 200px;">${productReview.memName }</td>
-											<td style="width: 500px;"><a
+											<td style="width: 500px; text-align: left;"><a
 												style="color: black; cursor: pointer;" data-toggle="modal"
 												href="#tallModal"> ${productReview.productReviewTitle}</a> <!-- 팝업시킬 태그 -->
 											</td>
@@ -514,11 +487,12 @@ function addCartBtn() {
 						</table>
 
 						<div class="page_wrap"
-							style="margin-left: 80px; margin-top: 60px;">
+							style="margin-top: 50px; margin-left: -80px;" align="center">
 							<div class="page_nation">
 								<c:if test="${pageMaker.prev}">
 
 									<a class="arrow prev"
+										style="border: 1px solid #7e9c8c; color: #7e9c8c; margin-right: 0px; margin-left: 2px; padding-left: 6px; padding-right: 7px;"
 										href='<c:url value="/product/viewProduct.do?productNum=${product.productNum}&page=${pageMaker.startPage-1 }"/>'><i
 										class="fa fa-chevron-left"></i></a>
 
@@ -527,6 +501,7 @@ function addCartBtn() {
 									end="${pageMaker.endPage }" var="pageNum">
 
 									<a
+										style="border: 1px solid #7e9c8c; color: #7e9c8c; margin-right: 0px; margin-left: 2px; padding-left: 6px; padding-right: 7px;"
 										href='<c:url value="/product/viewProduct.do?productNum=${product.productNum}&page=${pageNum }"/>'><i
 										class="fa">${pageNum }</i></a>
 
@@ -534,12 +509,14 @@ function addCartBtn() {
 								<c:if test="${pageMaker.next && pageMaker.endPage >0 }">
 
 									<a class="arrow next"
+										style="border: 1px solid #7e9c8c; color: #7e9c8c; margin-right: 0px; margin-left: 2px; padding-left: 6px; padding-right: 7px;"
 										href='<c:url value="/product/viewProduct.do?productNum=${product.productNum}&page=${pageMaker.endPage+1 }"/>'><i
 										class="fa fa-chevron-right"></i></a>
 
 								</c:if>
 							</div>
 						</div>
+
 
 
 					</div>

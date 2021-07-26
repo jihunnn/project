@@ -81,42 +81,35 @@ th:nth-child(2n+1), td:nth-child(2n+1) {
 
 	<!-- 내용 -->
 	<section class="ftco-section"
-		style="padding-top: 60px; padding-bottom: 0px;">
+		style="padding-top: 100px; padding-bottom: 0px;">
 		<div class="container">
-			<div class="row justify-content-center mb-5 pb-3"
-				style="background-color: #f5f5f5; border: 1px solid #e7e7e7;">
-				<div class="col-md-20 heading-section ftco-animate"
-					style="height: 60px;">
-					<h2 class="mb-4" style="font-size: 35px; padding-top: 14px;">주문완료</h2>
-				</div>
-			</div>
 		</div>
 	</section>
 	<section class="ftco-section testimony-section"
 		style="padding-top: 0px;">
 		<div class="container">
 			<div>
-				<h4 class="order_text">주문 결제가 정상적으로 완료되었습니다.</h4>
+				<h4 class="order_text"style="margin-bottom:50px; font-size:20px;">주문 결제가 정상적으로 완료되었습니다.</h4>
 			</div>
 		</div>
 		<div class="container" style="padding-bottom: 50px">
-			<table border="1" width="1000" align="center">
-				<tr height="60">
-					<th width="250" style="background-color: #212529; color: white;">주문번호</th>
-					<th width="300" style="background-color: #212529; color: white;">20210604-012345</th>
-					<th width="250" style="background-color: #212529; color: white;">결제방법</th>
-					<th width="300" style="background-color: #212529; color: white;">카드</th>
+			<table border="1" width="1000" align="center" style="font-size:14px; border:1px solid #eeeeee;">
+				<tr height="60" >
+					<th width="250" style="background-color: #eeeeee; border-top:1px solid #7e9c8c;color:black; border-bottom: 1px solid #c6c8ca; font-size:15px;">주문번호</th>
+					<th width="300" style="border-bottom: 1px solid #c6c8ca; border-top:1px solid #7e9c8c;">20210604-012345</th>
+					<th width="250" style="background-color: #eeeeee; border-top:1px solid #7e9c8c;border-top:1px solid #7e9c8c;color:black; border-bottom: 1px solid #c6c8ca; font-size:15px;">결제방법</th>
+					<th width="300" style="border-bottom: 1px solid #c6c8ca; border-top:1px solid #7e9c8c;">카드</th>
 				</tr>
 				<tr height="60">
-					<th width="250" style="background-color: #212529; color: white;">결제금액</th>
-					<th colspan="3" width="300"><a>230,000</a> <a>원</a></th>
+					<th width="250" style="background-color: #eeeeee; border-top:1px solid #7e9c8c; color:black; border-bottom: 1px solid #c6c8ca; font-size:15px;">결제금액</th>
+					<th colspan="3" width="300" style="border-bottom: 1px solid #c6c8ca;"><a>230,000</a> <a>원</a></th>
 				</tr>
 			</table>
 		</div>
 		<div class="container">
 			<div id="main-back">
 				<button onclick="location=''"
-					style="height: 50px; width: 150px; font-size: 17px; background-color: #212529; color: white;"">확인</button>
+					style="padding-left: 10px; background-color: #7e9c8c; color: white; border:none; border-radius: 2px; width: 130px; height: 45px;">확인</button>
 			</div>
 		</div>
 	</section>

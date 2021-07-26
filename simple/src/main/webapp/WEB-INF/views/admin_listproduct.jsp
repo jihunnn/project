@@ -12,7 +12,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <style>
 .page_wrap {
 	text-align: center;
@@ -92,10 +91,27 @@
 			</div>
 
 			
+			<div class="btn-group btn-group-justified" role="group"
+				aria-label="..." style="margin-bottom: 30px; margin-top: 10px;">
+				<div class="btn-group" role="group">
+					<button type="button" class="btn btn-default" onclick="location.href='${contextPath}/product/admin_listProduct.do'"
+						style="font-size: 25px; border: none; color: #5a5a5a; padding-right: 210px; background-color: white; margin-left: 10px; font-weight: bold;">*상품조회</button>
+				</div>
+				<div class="btn-group" role="group">
+					<button type="button" class="btn btn-default" onclick="location.href='${contextPath}/product/add_product.do'"
+						style="font-size: 25px; border: none; color: #5a5a5a; padding-right: 210px; background-color: white;">상품등록</button>
+				</div>
+				<div class="btn-group" role="group">
+					<button type="button" class="btn btn-default" onclick="location.href='${contextPath}/admin_listmember.do'"
+						style="font-size: 25px; border: none; color: #5a5a5a; padding-right: 210px; background-color: white;">회원조회</button>
+				</div>
+				<div class="btn-group" role="group">
+					<button type="button" class="btn btn-default" onclick="location.href='${contextPath}/board/listNotice.do'"
+						style="font-size: 25px; border: none; color: #5a5a5a; background-color: white;">게시판조회</button>
+				</div>
+			
+			</div>
 
-			<!-- Top Menu -->
-			<jsp:include page="/WEB-INF/views/common/admin_topmenu.jsp"
-				flush="false" />
 
 		
 			<hr style="margin-top: -10px;">

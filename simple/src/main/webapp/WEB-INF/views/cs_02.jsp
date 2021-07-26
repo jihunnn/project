@@ -126,16 +126,16 @@
 			<!-- 최근 본 상품 끝 -->
 
 			<!-- 내용 -->
-
-			<table class="table" style="height: 25px; font-size: 13px;">
+			<form name="frmNotice" method="post"
+				action="${contextPath}/admin/modNotice.do?noticeNum=${notice.noticeNum}" enctype="multipart/form-data">
+				<table class="table" style="height: 25px; font-size: 13px;">
 				<thead class="table-dark" align=center>
 					<tr align="center"
-						style="background-color: #eeeeee; border-top: 1px solid #7e9c8c;  border-bottom: 1px solid #c6c8ca !important;">
-						<td scope="col" colspan="6"
-							><a
-							style="color: black;">${notice.noticeTitle}</a></td>
+						style="background-color: #eeeeee; border-top: 1px solid #7e9c8c; border-bottom: 1px solid #c6c8ca !important;">
+						<td scope="col" colspan="6"><a style="color: black;">${notice.noticeTitle}</a></td>
 					</tr>
-					<tr style="background-color: #eeeeee; color: black;  border-bottom: 1px solid #c6c8ca !important;">
+					<tr
+						style="background-color: #eeeeee; color: black; border-bottom: 1px solid #c6c8ca !important;">
 						<td scope="col" width="150">작성자</td>
 						<td scope="col" width="150"
 							style="background-color: white; color: black;"><a>${notice.noticeWriter }</a></td>
@@ -156,11 +156,13 @@
 					</tr>
 				</thead>
 			</table>
-
-			<button type="button"
+				<button type="submit" 
+				class="btn btn-dark " id="buttonmy"
+				style="margin-left: 540px; margin-top: 30px; border-radius: 2px; background-color: #7e9c8c; color: white; border: none; border-radius: 2px; width: 120px; height: 40px; padding-top: 10px; padding-top: 4px; float: left;">수정</button>
+				<button type="button"
 				onclick="location.href='${contextPath}/board/listNotice.do'"
 				id="buttonmy" class="btn btn-dark"
-				style="float: right; border-radius: 2px; background-color: #7e9c8c; font-size: 14px; padding-top:4px; border:none;">목 록</button>
+				style="margin-left: 20px; margin-top: 30px; border-radius: 2px; background-color: white; color: gray; border: 1px solid #7e9c8c; border-radius: 2px; width: 120px; height: 40px; padding-top: 10px; padding-top: 4px; float: left;">삭제</button></form>
 		</div>
 		<!-- 내용 끝 -->
 	</section>

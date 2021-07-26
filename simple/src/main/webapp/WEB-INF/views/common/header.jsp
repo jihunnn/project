@@ -92,11 +92,24 @@ hr {
 			<ul class="navbar-nav ml-auto">
 
 				<c:choose>
-					<c:when test="${isLogOn == true && member != null}">
-						<h6 style="font-size: 12px; margin-top:18px;">
-							<span
-								style="text-decoration: underline; text-underline-position: under;">${member.memName}님! </span>환영합니다.
-						</h6>
+					<c:when
+						test="${isLogOn == true && member != null || AdminisLogOn == true && admin != null}">
+						<c:choose>
+							<c:when test="${isLogOn == true && member != null}">
+								<h6 style="font-size: 12px; margin-top: 18px;">
+									<span
+										style="text-decoration: underline; text-underline-position: under;">${member.memName}님!
+									</span>환영합니다.
+								</h6>
+							</c:when>
+							<c:otherwise>
+								<h6 style="font-size: 12px; margin-top: 18px;">
+									<span
+										style="text-decoration: underline; text-underline-position: under;">${admin.memName}님!
+									</span>환영합니다.
+								</h6>
+							</c:otherwise>
+						</c:choose>
 						<li class="nav-item active"><a
 							href="${contextPath}/logout.do" class="nav-link"
 							style="margin-bottom: 100px; padding-right: 10px; font-size: 12px;">LOGOUT</a></li>
@@ -126,26 +139,20 @@ hr {
 					style="padding-right: 10px; font-size: 12px;">매장안내</a></li>
 				<li class="nav-item"><a
 					href="${contextPath}/board/listNotice.do" class="nav-link"
-					style="font-size: 12px;">고객센터</a></li>
-				<c:choose>
-					<c:when test="${adminisLogOn == true && admin != null }">
-						<li class="nav-item active"><a
-							href="${contextPath}/admin/logout.do" class="nav-link"
-							style="font-size: 12px;">LOGOUT</a></li>
-					</c:when>
-					<c:otherwise>
-						<li class="nav-item active" style="height: 50px;"><a
-							href="${contextPath}/admin_login.do" class="nav-link"
-							style="padding-left: 10px; font-size: 12px; padding-right:0px;">관리자</a></li>
-					</c:otherwise>
-				</c:choose>
+					style="font-size: 12px; padding-right:0px;">고객센터</a></li>
+				<c:if test="${AdminisLogOn ==true}">
+					<li class="nav-item active" style="height: 50px;"><a
+						href="${contextPath}/product/admin_listProduct.do" class="nav-link"
+						style="padding-left: 30px; font-size: 12px; padding-right: 0px;">관리자</a></li>
+				</c:if>
+
 			</ul>
 
 			<div class="dropdown">
 				<button type="button" id="dropdownMenu1"
 					onclick="location.href = '${contextPath}/product/listProduct.do?sort=침대&subsort=x'"
 					data-toggle="dropdown" class="category"
-					style="margin-left: -950px; margin-bottom: 0px; font-size: 16px; cursor: pointer; margin-top:40px;">침대
+					style="margin-left: -950px; margin-bottom: 0px; font-size: 16px; cursor: pointer; margin-top: 40px;">침대
 				</button>
 				<ul class="dropdown-menu" role="menu"
 					aria-labelledby="dropdownMenu1"
@@ -174,7 +181,7 @@ hr {
 				<button type="button" id="dropdownMenu1"
 					onclick="location.href = '${contextPath}/product/listProduct.do?sort=소파&subsort=x'"
 					data-toggle="dropdown" aria-expanded="true" class="category"
-					style="margin-left: -850px; cursor: pointer; font-size: 16px; margin-top:40px;">
+					style="margin-left: -850px; cursor: pointer; font-size: 16px; margin-top: 40px;">
 					소파</button>
 				<ul class="dropdown-menu" role="menu"
 					aria-labelledby="dropdownMenu1"
@@ -201,7 +208,7 @@ hr {
 				<button type="button" id="dropdownMenu1"
 					onclick="location.href = '${contextPath}/product/listProduct.do?sort=화장대/옷장/수납'"
 					data-toggle="dropdown" aria-expanded="true" class="category"
-					style="margin-left: -760px; cursor: pointer; font-size: 16px; margin-top:40px;">
+					style="margin-left: -760px; cursor: pointer; font-size: 16px; margin-top: 40px;">
 					화장대/옷장/수납</button>
 				<ul class="dropdown-menu" role="menu"
 					aria-labelledby="dropdownMenu1"
@@ -227,7 +234,7 @@ hr {
 				<button type="button" id="dropdownMenu1"
 					onclick="location.href = '${contextPath}/product/listProduct.do?sort=식탁/의자'"
 					data-toggle="dropdown" aria-expanded="true" class="category"
-					style="margin-left: -570px; cursor: pointer; font-size: 16px; margin-top:40px;">
+					style="margin-left: -570px; cursor: pointer; font-size: 16px; margin-top: 40px;">
 					식탁/의자</button>
 				<ul class="dropdown-menu" role="menu"
 					aria-labelledby="dropdownMenu1"
@@ -254,7 +261,7 @@ hr {
 				<button type="button" id="dropdownMenu1"
 					onclick="location.href = '${contextPath}/product/listProduct.do?sort=테이블/책상/책장'"
 					data-toggle="dropdown" aria-expanded="true" class="category"
-					style="margin-left: -440px; cursor: pointer; font-size: 16px; margin-top:40px;">
+					style="margin-left: -435px; cursor: pointer; font-size: 16px; margin-top: 40px;">
 					테이블/책상/책장</button>
 				<ul class="dropdown-menu" role="menu"
 					aria-labelledby="dropdownMenu1"
@@ -306,19 +313,19 @@ hr {
 
 					<li id=sitemap role="presentation"><a role="menuitem"
 						tabindex="-1" href="" id="categorydetile"
-						style="float: left; margin-left: -1200px; font-weight: bold; background-color: lightgrey; width: 180px; margin-top: 20px; color: #000000;">침대</a></li>
+						style="float: left; margin-left: -1200px; font-weight: bold; border-bottom: 1px solid #7e9c8c; width: 180px; margin-top: 20px; color: #7e9c8c;">침대</a></li>
 					<li id=sitemap role="presentation"><a role="menuitem"
 						tabindex="-1" href="" id="categorydetile"
-						style="float: left; margin-left: -980px; font-weight: bold; background-color: lightgrey; width: 180px; margin-top: 20px; color: #000000;">소파</a></li>
+						style="float: left; margin-left: -980px; font-weight: bold; border-bottom: 1px solid #7e9c8c; width: 180px; margin-top: 20px; color: #7e9c8c;">소파</a></li>
 					<li id=sitemap role="presentation"><a role="menuitem"
 						tabindex="-1" href="" id="categorydetile"
-						style="float: left; margin-left: -755px; font-weight: bold; background-color: lightgrey; width: 180px; margin-top: 20px; color: #000000;">화장대/옷장/수납</a></li>
+						style="float: left; margin-left: -755px; font-weight: bold; border-bottom: 1px solid #7e9c8c; width: 180px; margin-top: 20px; color: #7e9c8c;">화장대/옷장/수납</a></li>
 					<li id=sitemap role="presentation"><a role="menuitem"
 						tabindex="-1" href="" id="categorydetile"
-						style="float: left; margin-left: -530px; font-weight: bold; background-color: lightgrey; width: 180px; margin-top: 20px; color: #000000;">식탁/의자</a></li>
+						style="float: left; margin-left: -530px; font-weight: bold; border-bottom: 1px solid #7e9c8c; width: 180px; margin-top: 20px; color: #7e9c8c;">식탁/의자</a></li>
 					<li id=sitemap role="presentation"><a role="menuitem"
 						tabindex="-1" href="" id="categorydetile"
-						style="float: left; margin-left: -300px; font-weight: bold; background-color: lightgrey; width: 180px; margin-top: 20px; color: #000000;">테이블/책상/책장</a></li>
+						style="float: left; margin-left: -300px; font-weight: bold; border-bottom: 1px solid #7e9c8c; width: 180px; margin-top: 20px; color: #7e9c8c;">테이블/책상/책장</a></li>
 					<li role="presentation"><a role="menuitem" tabindex="-1"
 						href="" id="categorydetile"
 						style="float: left; margin-left: -1200px; width: 180px; text-align: center; padding-top: 60px; color: #000000;">싱글</a></li>
@@ -408,15 +415,15 @@ hr {
 
 					<li id=sitemap role="presentation"><a role="menuitem"
 						tabindex="-1" href="" id="categorydetile"
-						style="float: left; margin-left: -1200px; font-weight: bold; background-color: lightgrey; width: 180px; margin-top: 20px; margin-top: 230px; color: #000000;">매장
+						style="float: left; margin-left: -1200px; font-weight: bold; border-bottom: 1px solid #7e9c8c; width: 180px; margin-top: 20px; margin-top: 230px; color: #7e9c8c;">매장
 							안내</a></li>
 					<li id=sitemap role="presentation"><a role="menuitem"
 						tabindex="-1" href="" id="categorydetile"
-						style="float: left; margin-left: -980px; font-weight: bold; background-color: lightgrey; width: 180px; margin-top: 20px; margin-top: 230px; color: #000000;">마이
+						style="float: left; margin-left: -980px; font-weight: bold; border-bottom: 1px solid #7e9c8c; width: 180px; margin-top: 20px; margin-top: 230px; color: #7e9c8c;">마이
 							페이지</a></li>
 					<li id=sitemap role="presentation"><a role="menuitem"
 						tabindex="-1" href="" id="categorydetile"
-						style="float: left; margin-left: -755px; font-weight: bold; background-color: lightgrey; width: 180px; margin-top: 20px; margin-top: 230px; color: #000000;">고객센터</a></li>
+						style="float: left; margin-left: -755px; font-weight: bold; border-bottom: 1px solid #7e9c8c; width: 180px; margin-top: 20px; margin-top: 230px; color: #7e9c8c;">고객센터</a></li>
 
 
 					<li role="presentation"><a role="menuitem" tabindex="-1"
@@ -515,6 +522,7 @@ hr {
 </nav>
 <hr
 	style="margin-top: -100px; color: red; margin-bottom: 100px; width: 49%; margin-left: 655px;" />
-<hr class="awake"style="margin-bottom: 0px; box-shadow:0 0 10px 0 rgb(0 0 0 / 10%) !important; -webkit-box-shadow: 0 0 10px 0 rgb(0 0 0 / 10%) !important;" />
+<hr class="awake"
+	style="margin-bottom: 0px; box-shadow: 0 0 10px 0 rgb(0 0 0/ 10%) !important; -webkit-box-shadow: 0 0 10px 0 rgb(0 0 0/ 10%) !important;" />
 
 <!-------------header 끝------------------------------------------------------------------------------------------------------------------------>

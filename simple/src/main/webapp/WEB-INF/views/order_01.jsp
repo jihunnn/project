@@ -132,6 +132,7 @@ h4 {
 		form.submit();
 
 	}
+
 	
 	function sameInfo(f){
 		f.memSpName.value = f.memName.value;
@@ -142,6 +143,7 @@ h4 {
 		f.memSpPhoneNum1_1.value = f.memPhoneNum1.value;
 		f.memSpPhoneNum1_2.value = f.memPhoneNum2.value;
 	}
+
 </script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
@@ -265,7 +267,9 @@ h4 {
 	
 
 	<!-- 타이틀 -->
+
 	<section class="ftco-section" style="padding-top: 100px; ">
+
 		<div class="container">
 
 			<!-- 타이틀 끝 -->
@@ -306,15 +310,18 @@ h4 {
 
 
 			<form name="CheckOrder" action="order_03.jsp" method="post">
+
 			<input type="hidden" value="${member.memId}"/>
 			
 			
 				<div class="order_list text-center">
 					<table class="table" style="font-size: 13px;">
 
+
 						<thead class="table-dark">
 							<tr
 								style="background-color: #eeeeee; border-top: 1px solid #7e9c8c; color: black; border-bottom: 1px solid #c6c8ca; font-size: 15px;">
+
 								<th scope="col" width="150"></th>
 								<th scope="col">상품명</th>
 								<th scope="col" width="250">옵션</th>
@@ -344,6 +351,7 @@ h4 {
 					</div>
 
 				</div>
+
 
 
 				<div style="font-size: 25px; font-weight: bold; margin-top: 70px;">
@@ -380,6 +388,7 @@ h4 {
 										<input type="text" name="memAdr2" id="sample6_address2" value="<%=memAdr[2]%>" readonly disabled
 											style="font-size: 14px; border: 1px solid #dcdcdc; width: 326px; height: 36px;">
 
+
 									</p></th>
 							</tr>
 							<tr style="border-bottom: 1px solid rgba(0, 0, 0, 0.1);">
@@ -401,6 +410,10 @@ h4 {
 						</tbody>
 					</table>
 				</div>
+
+
+
+
 
 
 				<div style="font-size: 25px; margin-top: 40px; font-weight: bold;">

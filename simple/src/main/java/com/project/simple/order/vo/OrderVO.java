@@ -262,6 +262,7 @@ public class OrderVO {
 		this.memCartId = memCartId;
 	}
 	
+
 	
 	
 }

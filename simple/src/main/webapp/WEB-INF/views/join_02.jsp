@@ -112,61 +112,41 @@ h3 {
 
 
 	<!-- 타이틀 -->
-	<section class="ftco-section testimony-section"
-		style="padding-top: 50px;">
-		<div class="container" style="margin-bottom:500px;">
-			<div class="row justify-content-center mb-5 pb-3"
-				style="background-color: #f5f5f5; border: 1px solid #e7e7e7; margin-top: 50px;">
-				<div class="col-md-20 heading-section ftco-animate"
-					style="height: 60px;">
-					<h2 class="mb-4" style="font-size: 35px; margin-top: 15px;">회원가입</h2>
-				</div>
-			</div>
-			<!-- 타이틀 끝 -->
-			<!-- 최근 본 상품 -->
-			<div id="recentlyProduct"
-				style="position: absolute; width: 120px; height: 310px; margin-left: 1370px; border: 1px solid #d2d2d2; margin-top: -100px;">
-				<ul
-					style="list-style: none; margin-top: 10px; padding-left: 20px; margin-bottom: 10px;">
-					<li><a href="#"
-						style="padding-left: -10px; padding-bottom: 1px; color: black;">최근본상품</a></li>
-				</ul>
-				<hr style="margin-top: 0px; margin-bottom: 0px; color: #d2d2d2;">
-				<ul style="list-style: none; padding-top: 5px;">
-					<li><a href="#"><img
-							src="${contextPath}/resources/images/image_1.jpg"
-							style="width: 100px; height: 100px; padding-top: 10px; margin-left: -30px;"></a></li>
-					<li><a href="#"><img
-							src="${contextPath}/resources/images/image_2.jpg"
-							style="width: 100px; height: 100px; padding-top: 10px; padding-top: 10px; margin-left: -30px;"></a></li>
-				</ul>
-				<hr style="margin-top: 0px; margin-bottom: 0px; color: #d2d2d2;">
-				<ul
-					style="list-style: none; padding-left: 30px; margin-bottom: 10px; margin-top: 8px;">
-					<li><a href="#"
-						style="color: black; text-align: center; margin-top: 8px; padding-top: 30px;">더보기▼</a></li>
-				</ul>
-			</div>
+	<div
+		style="padding-top: 50px; margin-top: 50px; margin-bottoem: 200px;">
 
-			<section class="ftco-section testimony-section" id="sect"
-				style="padding-top: 50px;">
-				<div class="container" style="text-align: center;">
-					<div style="padding-bottom: 40px">
-						<h4 style="font-size: 22px;">축하합니다! 회원가입이 성공적으로 완료되었습니다.</h4>
-					</div>
-					<div>
-						<div style="padding-right: 15px">
-							<button onclick="location.href='${contextPath}/login_01.do'"
-								style="width: 262px; background-color: #212529; color: white;">
-								<i class="go_login-06"></i><span>로그인으로 돌아가기</span>
-							</button>
-						</div>
-					</div>
 
+		<!-- 타이틀 끝 -->
+		<!-- 최근 본 상품 -->
+
+
+		<div
+			style="padding-top: 120px; border: 1px solid #eeeeee; width: 600px; height: 400px; margin-bottom: 200px; margin-left: 620px;">
+			<div class="container" style="text-align: center;">
+				<div style="padding-bottom: 40px">
+					<h4 style="font-size: 20px; color: gray; font-weight: bold;">축하합니다!
+						회원가입이 성공적으로 완료되었습니다.</h4>
+					<h4 style="font-size: 18px; color: gray;">알차고 실속있는 서비스로
+						찾아뵙겠습니다.</h4>
 				</div>
-			</section>
+				<div>
+					<div style="padding-right: 15px">
+						<button onclick="location.href='${contextPath}/login_01.do'"
+							style="width: 262px; margin-right:20px;background-color: white; color: gray; border: none; border-radius: 2px; width: 130px; height: 45px; border: 1px solid #eeeeee;">
+							<i class="go_login-06"></i><span>홈으로</span>
+						</button>
+						<button onclick="location.href='${contextPath}/login_01.do'"
+							style="width: 262px; background-color: #7e9c8c; color: white; border: none; border-radius: 2px; width: 130px; height: 45px;">
+							<i class="go_login-06"></i><span>로그인</span>
+						</button>
+
+					</div>
+				</div>
+
+			</div>
 		</div>
-	</section>
+	</div>
+
 </body>
 </html>
 

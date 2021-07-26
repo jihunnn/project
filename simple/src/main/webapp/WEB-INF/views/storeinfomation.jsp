@@ -34,29 +34,23 @@
 </head>
 <body>
 
-	<img src="${contextPath}/resources/images/store.jpg" width=100%
-		height=350px>
+
 
 	<section class="ftco-section"
 		style="padding-top: 20px; margin-bottom: 50px; padding-bottom: 0px; margin-bottom: 400px;">
 		<div class="container">
-			<div class="row justify-content-center mb-5 pb-3"
-				style="background-color: #f5f5f5; border: 1px solid #e7e7e7; margin-top: 50px;">
-				<div class="col-md-20 heading-section ftco-animate"
-					style="height: 60px;">
-					<h2 class="mb-4" style="font-size: 35px; margin-top: 15px;">매장안내</h2>
-				</div>
-			</div>
+	<img src="${contextPath}/resources/images/store.jpg" width=100%
+		height=350px>
 
 
 			<!-- 탭메뉴 영역 -->
 
-			<ul class="nav  tabs" style="margin-top: 100px; margin-left: 0px;">
+			<ul class="nav  tabs " style="margin-top: 100px; margin-left: 0px;">
 				<li role="presentation" class="active"
 					style="width: 500px; margin-lift: 300px;"><a href="#tab1"
-					style="text-align: center; font-size: 22px; color: black; padding-left: 300px;">회사소개</a></li>
+					style="text-align: center; font-size: 20px; color: black; padding-left: 300px;">회사소개</a></li>
 				<li role="presentation" style="width: 500px;"><a href="#tab2"
-					style="text-align: center; font-size: 22px; color: black; padding-left: 300px;">매장안내</a></li>
+					style="text-align: center; font-size: 20px; color: black; padding-left: 300px;">매장안내</a></li>
 			</ul>
 			<hr>
 			<div id="wrapper">
@@ -72,9 +66,9 @@
 					<div id="tab2" class="tab_content"
 						style="margin-left: 170px; margin-right: 170px;">
 						<!--Content-->
-						<table style="margin-top: 50px; width: 1000px;">
+						<table style="margin-top: 50px; width: 1000px; font-size: 13px;">
 							<thead class="table-dark" align=center>
-								<tr align="center">
+								<tr align="center" style="height: 41px; color:black; background-color: #eeeeee; border-top:1px solid #7e9c8c; border-bottom: 1px solid #c6c8ca;">
 									<td scope="col" width="100">대전 본사</td>
 									<td scope="col" width="100">천안 칙영</td>
 
@@ -93,7 +87,7 @@
 									</td>
 								</tr>
 								<tr
-									style="border-bottom: 1px solid #212529; background-color: white; color: black;">
+									style="border-bottom: 1px solid #c6c8ca; background-color: white; color: black;">
 
 									<td scope="col" width="100" height="400" Style="float: left;">
 										<br>
@@ -101,7 +95,7 @@
 										
 
 
-										<div id="map" style="width: 400px; height: 300px;"></div> 
+										<div id="map" style="width: 400px; height: 300px; "></div> 
 										<script
 											type="text/javascript"
 											src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c83ccc3f8927a61c4d4a118cbe7ec75f&libraries=services"></script>
@@ -145,7 +139,7 @@
 																	// 인포윈도우로 장소에 대한 설명을 표시합니다
 																	var infowindow = new kakao.maps.InfoWindow(
 																			{
-																				content : '<div style="width:200px; text-align:center;padding:6px 0;"><a href="http://kko.to/TW3gabH4B" ">SIMPLE 대전본사</a></div>'
+																				content : '<div style="width:150px; text-align:center;  background-color:#7e9c8c; padding:6px 0; border:none;"><a href="http://kko.to/TW3gabH4B" style=" color:white;">SIMPLE 대전본사</a></div>'
 																			});
 																	infowindow
 																			.open(
@@ -205,7 +199,7 @@
 																	// 인포윈도우로 장소에 대한 설명을 표시합니다
 																	var infowindow = new kakao.maps.InfoWindow(
 																			{
-																				content : '<div style="width:200px; text-align:center; padding:6px 0;"><a href="http://kko.to/AcBPrbT4M" ">SIMPLE 천안직영</a></div>'
+																				content : '<div style="width:150px; border:none; text-align:center;  background-color:#7e9c8c; padding:6px 0;"><a href="http://kko.to/AcBPrbT4M" style=" color:white;">SIMPLE 천안직영</a></div>'
 																			});
 																	infowindow
 																			.open(

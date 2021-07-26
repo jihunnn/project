@@ -20,10 +20,12 @@
 			value="/WEB-INF/views/order_02.jsp" />
 	</definition>
 	
+
 	<definition name="admin_listorder" extends="baseLayout">
 		<put-attribute name="body"
 			value="/WEB-INF/views/admin_listorder.jsp" />
 	</definition>
 	
+
 	
 </tiles-definitions>	
