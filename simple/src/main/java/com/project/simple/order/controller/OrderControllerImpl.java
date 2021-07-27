@@ -47,10 +47,13 @@ public class OrderControllerImpl implements OrderController {
 		
 		
 		if (isLogOn == null) {
+			
+			session.removeAttribute("orderlist");
 			List<CartVO> list = (ArrayList) session.getAttribute("orderlist");
+			
 			if (list == null) {
 				list = new ArrayList<CartVO>();
-				session.setAttribute("orderlist", list);
+				session.setAttribute("orderlist", list);		
 			}
 			
 			String[] ajaxMsg01 = request.getParameterValues("valueArr");
