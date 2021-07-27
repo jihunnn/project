@@ -371,7 +371,9 @@ h4 {
 						}
 						%>
 
-						<input type="hidden" value="${member.memId}" />
+						<input type="hidden" name="memId" value="${member.memId}" />
+						
+						
 						<div class="order_list">
 							<table class="table">
 								<colgroup>
@@ -383,7 +385,7 @@ h4 {
 										<th scope="col"><a
 											style="color: red; padding-right: 5px; write-space: nowrap;">*</a>이름</th>
 										<th scope="col"><input type="text" name="memName"
-											value="${member.memName}" readonly disabled
+											value="${member.memName}" readonly 
 											style="font-size: 14px; border: 1px solid #dcdcdc; width: 326px; height: 36px;"></th>
 									</tr>
 									<tr style="border-bottom: 1px solid #eeeeee;">

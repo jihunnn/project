@@ -58,10 +58,8 @@ public class OrderServiceImpl implements OrderService {
 		return orderGoodsList;
 	}
 	
-	public void addNewOrder(List<OrderVO> myOrderList) throws Exception{
-		orderDAO.insertNewOrder(myOrderList);
-		//카트에서 주문 상품 제거한다.
-		orderDAO.removeGoodsFromCart(myOrderList);
+	public void addNewOrder(OrderVO orderVO) throws Exception{
+		orderDAO.insertNewOrder(orderVO);	
 	}	
 	
 	public OrderVO selectcartlist(String memCartId) throws Exception {

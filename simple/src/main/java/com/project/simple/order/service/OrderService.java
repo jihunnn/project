@@ -15,7 +15,7 @@ public interface OrderService {
 	public Map<String, Object> orderSearch(Map<String, Object> orderSearchMap) throws Exception;
 	public int orderSearchCount(Map<String, Object> search) throws Exception ;
 	public List<OrderVO> listMyOrderGoods(OrderVO orderVO) throws Exception;
-	public void addNewOrder(List<OrderVO> myOrderList) throws Exception;
+	public void addNewOrder(OrderVO orderVO) throws Exception;
 	public OrderVO findMyOrder(String order_id) throws Exception;
 	public OrderVO selectcartlist(String memCartId) throws Exception;
 

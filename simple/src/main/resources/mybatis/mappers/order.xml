@@ -104,6 +104,18 @@
 			select count(*) as orderCount from simple.memberorder;
 	]]>
 	</select>
-
+	
+	<!-- 일반회원가입 -->
+	<insert id="insertNewOrder" parameterType="orderVO">
+		<![CDATA[ 
+			insert into simple.memberorder(memOrderSeqNum, memOrderNum, memId, productNum, productName, option1name, option1value, option2name, option2value, productCnt, productPrice, totalPrice, memOrderDate, memSpName, memOrderMsg, memSpAdr, memSpPhoneNum1, memSpPhoneNum2, memDepositorName, memPaymentMethod, purchaseConfirm, returnConfirm, reviewConfirm) 
+			values(default, #{memOrderNum}, #{memId}, #{productNum}, #{productName}, #{option1name}, #{option1value}, #{option2name}, #{option2value}, #{productCnt}, #{productPrice}, #{totalPrice}, default, #{memSpName}, #{memOrderMsg}, (select concat_ws('-',#{memSpAdr},#{memSpAdr1},#{memSpAdr2})),(select concat_ws('-',#{memSpPhoneNum1_0},#{memSpPhoneNum1_0},#{memSpPhoneNum1_0})),
+					(select concat_ws('-',#{memSpPhoneNum2_0},#{memSpPhoneNum2_1},#{memSpPhoneNum2_2})), #{memDepositorName}, #{memPaymentMethod}, default, default, default);
+		]]>
+	</insert>
+	
+	
+	
+	
 
 </mapper>

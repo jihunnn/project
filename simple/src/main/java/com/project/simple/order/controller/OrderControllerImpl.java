@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -34,7 +35,7 @@ public class OrderControllerImpl implements OrderController {
 	private OrderService orderService;
 	@Autowired
 	private OrderVO orderVO;
-	
+
 	// 장바구니에서 주문페이지 이동(회원/비회원)
 	@RequestMapping(value = "/order.do", method = RequestMethod.POST)
 	private ModelAndView order(@ModelAttribute("orderVO") OrderVO orderVO, HttpServletRequest request,
@@ -44,80 +45,142 @@ public class OrderControllerImpl implements OrderController {
 
 		List<CartVO> cartlist = (ArrayList) session.getAttribute("cartlist");
 		Boolean isLogOn = (Boolean) session.getAttribute("isLogOn");
-		
-		
+
 		if (isLogOn == null) {
-			
+
 			session.removeAttribute("orderlist");
 			List<CartVO> list = (ArrayList) session.getAttribute("orderlist");
-			
+
 			if (list == null) {
 				list = new ArrayList<CartVO>();
-				session.setAttribute("orderlist", list);		
+				session.setAttribute("orderlist", list);
 			}
-			
+
 			String[] ajaxMsg01 = request.getParameterValues("valueArr");
 			int[] ajaxMsg = null;
-			if(ajaxMsg01 != null){
-				ajaxMsg = new int[ajaxMsg01.length];		
-				for( int i=0; i<ajaxMsg01.length; i++ ) {
-				ajaxMsg[i] = Integer.parseInt( ajaxMsg01[i] );
-				}		
+			if (ajaxMsg01 != null) {
+				ajaxMsg = new int[ajaxMsg01.length];
+				for (int i = 0; i < ajaxMsg01.length; i++) {
+					ajaxMsg[i] = Integer.parseInt(ajaxMsg01[i]);
+				}
 			}
 			int size = ajaxMsg01.length;
 			for (int i = 0; i < size; i++) {
-			int no = ajaxMsg[i];
-			CartVO vo = cartlist.get(no);
-			list.add(vo);
+				int no = ajaxMsg[i];
+				CartVO vo = cartlist.get(no);
+				list.add(vo);
 			}
-			
-			session.setAttribute("orderlist", list); 
+
+			session.setAttribute("orderlist", list);
 			mav.setViewName("order_01");
 		}
 
 		if (isLogOn == true) {
 			List<OrderVO> orderlist = new ArrayList();
-			String [] ajaxMsg = request.getParameterValues("valueArr");
+			String[] ajaxMsg = request.getParameterValues("valueArr");
 			int size = ajaxMsg.length;
-		
+
 			for (int i = 0; i < size; i++) {
-			orderlist.add(orderService.selectcartlist(ajaxMsg[i]));	
+				orderlist.add(orderService.selectcartlist(ajaxMsg[i]));
 			}
-			
-			session.setAttribute("orderlist", orderlist); 
+
+			session.setAttribute("orderlist", orderlist);
 			mav.setViewName("order_01");
 		}
 		return mav;
 	}
 
-	
 	// 주문페이지 이동(회원)
 	@RequestMapping(value = "/order_01.do", method = RequestMethod.GET)
 	private ModelAndView order_01(@ModelAttribute("orderVO") OrderVO orderVO, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		
+
 		ModelAndView mav = new ModelAndView();
 		return mav;
-		
-		}
 
-	
-		
+	}
+
 	// 주문페이지 이동(비회원)
 	@RequestMapping(value = "/order_02.do", method = RequestMethod.GET)
-	private String order_02(HttpServletRequest request,
-			HttpServletResponse response) {
+	private String order_02(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView();
 
 		return "order_02";
 	}
-	
 
-	//관리자 주문조회 
+	// 주문내역 DB 저장(주문완료)
+	@RequestMapping(value = "/addorderlist.do", method = RequestMethod.POST)
+	private ModelAndView addorderlist(@ModelAttribute("orderVO") OrderVO orderVO, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		HttpSession session = request.getSession();
+		Boolean isLogOn = (Boolean) session.getAttribute("isLogOn");
+
+		if (isLogOn == true) {
+			ArrayList<OrderVO> orderlist = (ArrayList) session.getAttribute("orderlist");
+			int size = orderlist.size();
+			
+			String randomnumber = numberGen(9,1);			
+			int memOrderNum = Integer.parseInt(randomnumber);
+			
+			for (int i = 0; i < size; i++) {
+				OrderVO vo = orderlist.get(i);
+				String productNum = vo.getProductNum();
+				String productName = vo.getProductName();
+				String option1name = vo.getOption1name();
+				String option1value = vo.getOption1value();
+				String option2name = vo.getOption2name();
+				String option2value = vo.getOption2value();
+				String deliverycharge = vo.getDeliverycharge();
+				int productCnt = vo.getProductCnt();
+				int productPrice = vo.getProductPrice();
+				int totalPrice = vo.getTotalPrice();
+				orderVO.setProductNum(productNum);
+				orderVO.setProductName(productName);
+				orderVO.setOption1name(option1name);
+				orderVO.setOption1value(option1value);
+				orderVO.setOption2name(option2name);
+				orderVO.setOption2value(option2value);
+				orderVO.setDeliverycharge(deliverycharge);
+				orderVO.setMemOrderNum(memOrderNum);
+				orderVO.setProductCnt(productCnt);
+				orderVO.setProductPrice(productPrice);
+				orderVO.setTotalPrice(totalPrice);
+				orderService.addNewOrder(orderVO);
+			}
+			mav.setViewName("order_03");
+		}
+
+		return mav;
+	}
+
+	// 10자리 난수 생성
+	public static String numberGen(int len, int dupCd) {
+
+		Random rand = new Random();
+		String numStr = ""; 
+		
+		for (int i = 0; i < len; i++) {
+			String ran = Integer.toString(rand.nextInt(10));
+			if (dupCd == 1) {
+				numStr += ran;
+			} else if (dupCd == 2) {
+				if (!numStr.contains(ran)) {
+					numStr += ran;
+				} else {					
+					i -= 1;
+				}
+			}
+		}
+		return numStr;
+	}
+
+	// 관리자 주문조회
 	@Override
 	@RequestMapping(value = "/admin_listorder.do", method = { RequestMethod.GET, RequestMethod.POST })
 
-	public ModelAndView listorder(Criteria cri, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ModelAndView listorder(Criteria cri, HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
 		String viewName = (String) request.getAttribute("viewName");
 		List<OrderVO> ordersList = orderService.listOrders(cri);
 		int orderCount = orderService.orderCount();
@@ -131,14 +194,14 @@ public class OrderControllerImpl implements OrderController {
 		mav.addObject("ordersList", ordersList);
 		mav.addObject("pageMaker", pageMaker);
 
-
 		return mav;
 	}
-	
+
 	@Override
 	@RequestMapping(value = "/admin_listorder/orderSearch.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView orderSearch(@RequestParam("search") String search, @RequestParam("searchType") String searchType,
-			Criteria cri, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ModelAndView orderSearch(@RequestParam("search") String search,
+			@RequestParam("searchType") String searchType, Criteria cri, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
 		String viewName = (String) request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
 
@@ -151,7 +214,7 @@ public class OrderControllerImpl implements OrderController {
 		orderSearchMap.put("searchType", searchType);
 		System.out.println(searchType);
 		orderSearchMap = orderService.orderSearch(orderSearchMap);
-		
+
 		int orderSearchCount = orderService.orderSearchCount(orderSearchMap);
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
@@ -161,11 +224,11 @@ public class OrderControllerImpl implements OrderController {
 		mav.addObject("orderSearchMap", orderSearchMap);
 		mav.addObject("pageMaker", pageMaker);
 		mav.addObject("pageNum", pageNum);
-		
+
 		return mav;
 
 	}
-	
+
 	@RequestMapping(value = "/orderEachGoods.do", method = RequestMethod.POST)
 	public ModelAndView orderEachGoods(@ModelAttribute("orderVO") OrderVO _orderVO, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
@@ -203,9 +266,6 @@ public class OrderControllerImpl implements OrderController {
 		session.setAttribute("orderer", memberInfo);
 		return mav;
 	}
-	
-	
-
 
 	/*
 	 * @RequestMapping(value="/orderAllCartGoods.do" ,method = RequestMethod.POST)
