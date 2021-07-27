@@ -40,6 +40,13 @@ public class OrderServiceImpl implements OrderService {
 	public OrderVO findMyOrder(String order_id) throws Exception{
 		return orderDAO.findMyOrder(order_id);
 	}
+	
+	//회원 주문하기
+	@Override
+	public void addNewOrder1(List<OrderVO> orderlist) throws Exception{
+		orderDAO.insertNewOrder1(orderlist);
+	}
+	
 
 }
 	

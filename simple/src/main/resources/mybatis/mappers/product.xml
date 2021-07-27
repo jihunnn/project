@@ -190,7 +190,7 @@
 	<select id="selectAllMypageReviewList"
 		resultMap="productReviewResult">
 	<![CDATA[
-			select reviewNum, o.productImage, reviewFile, r.productNum, r.memOrderSeqNum , productReviewTitle, reviewDate, productContent, p.productName, o.option1, o.option2 
+			select reviewNum, o.productImage, reviewFile, r.productNum, r.memOrderSeqNum , productReviewTitle, reviewDate, productContent, p.productName, o.option1value, o.option2value 
 			from productReview as r left join product as p on r.productNum=p.productNum
 			join memberOrder as o on r.memOrderSeqNum=o.memOrderSeqNum 
 			where r.memId=#{memId} order by reviewNum desc

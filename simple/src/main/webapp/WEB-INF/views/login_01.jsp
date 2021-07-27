@@ -328,13 +328,13 @@
 								<div>
 									<img src="${contextPath}/resources/images/login/login-id.jpg"
 										width="23"><input
-										style="font-size: 14px; border: 1px solid #dcdcdc; width: 326px; height: 36px;"
+										style="font-size: 14px; border: 1px solid #dcdcdc; width: 326px; height: 36px;" onkeypress="if(event.keyCode == 13){Login(); return; }"
 										type="text" name="memId" s placeholder="아이디를 입력하세요">
 								</div>
 								<div>
 									<img src="${contextPath}/resources/images/login/login-pwd.jpg"
 										width="23"><input
-										style="font-size: 14px; margin-top: 10px; border: 1px solid #dcdcdc; width: 326px; height: 36px;"
+										style="font-size: 14px; margin-top: 10px; border: 1px solid #dcdcdc; width: 326px; height: 36px;" onkeypress="if(event.keyCode == 13){Login(); return; }"
 										type="password" name="memPwd" placeholder="비밀번호를 입력하세요">
 								</div>
 							</div>

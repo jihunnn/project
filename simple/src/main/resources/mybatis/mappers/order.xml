@@ -7,6 +7,10 @@
 	<!-- notice 게시판 -->
 	<resultMap id="orderResult" type="orderVO">
 		<result property="memId" column="memId" />
+		<result property="memSpName" column="memSpName" />
+		<result property="memSpPhoneNum1" column="memSpPhoneNum1" />
+		<result property="memSpAdr" column="memSpAdr" />
+		<result property="memPaymentMethod" column="memPaymentMethod" />
 		<result property="productNum" column="productNum" />
 		<result property="productCnt" column="productCnt" />
 		<result property="productName" column="productName" />
@@ -18,17 +22,32 @@
 		<result property="productimage" column="productimage" />
 		<result property="deliverycharge" column="deliverycharge" />
 		<result property="memCartId" column="memCartId" />
+		<result property="productPrice" column="productPrice" />
+		
 	</resultMap>
 
 
 
 	<!-- 장바구니리스트불러오기 -->
-	<select id="selectcartlist"  parameterType="String" resultMap="orderResult">
+	<select id="selectcartlist" parameterType="String"
+		resultMap="orderResult">
 		<![CDATA[ 
 			select * from simple.membercart
 			where memCartId = #{memCartId};
 		
-		]]>	
+		]]>
 	</select>
+
+	<insert id="insertNewOrder" parameterType="java.util.List">
+
+			insert into memberOrder(memId,  memSpName, memSpPhoneNum1,  memSpAdr, memPaymentMethod,productName, productNum,totalPrice,productCnt,productPrice)
+			values
+			<foreach item="item"  collection="list" open="(" close=")" separator=",">
+			(#{item.memId}, #{item.memSpName}, #{item.memSpPhoneNum1_0}, #{item.memSpAdr}, #{item.memPaymentMethod}, 
+			#{item.productName},#{item.productNum}, #{item.totalPrice}, #{item.productCnt},#{item.productPrice}</foreach>
+			);
 	
+
+	</insert>
+
 </mapper>

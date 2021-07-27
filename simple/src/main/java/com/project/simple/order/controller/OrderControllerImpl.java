@@ -35,6 +35,7 @@ import com.project.simple.cart.vo.CartVO;
 import com.project.simple.member.vo.MemberVO;
 import com.project.simple.order.service.OrderService;
 import com.project.simple.order.vo.OrderVO;
+import com.project.simple.page.Criteria;
 
 @Controller("orderController")
 public class OrderControllerImpl implements OrderController {
@@ -229,86 +230,51 @@ public class OrderControllerImpl implements OrderController {
 	 * mav.addObject("myOrderList", myOrderList); return mav; }
 	 */
 
-	// 1:1문의 글쓰기
-	/*@Override
+	@Override
 	@RequestMapping(value = "/order/addNewOrder.do", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity addNewOrder(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)
+	public ResponseEntity addNewOrder(@ModelAttribute("order") OrderVO order,HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-		multipartRequest.setCharacterEncoding("utf-8");
-		Map<String, Object> orderMap = new HashMap<String, Object>();
-		Enumeration enu = multipartRequest.getParameterNames();
-		while (enu.hasMoreElements()) {
-			String name = (String) enu.nextElement();
-			String value = multipartRequest.getParameter(name);
-			orderMap.put(name, value);
 
-		}
+		request.setCharacterEncoding("utf-8");
 
-		String productImage = upload(multipartRequest);
-		HttpSession session = multipartRequest.getSession();
+
+		HttpSession session = request.getSession();
 		MemberVO memberVO = (MemberVO) session.getAttribute("member");
-		String memId = memberVO.getmemId();
-		orderMap.put("memOrderSeqNum", 0);
-		orderMap.put("memId", memId);
-		orderMap.put("productImage", productImage);
+		List<OrderVO> orderlist = (ArrayList) session.getAttribute("orderlist");
+		
+		Iterator<OrderVO> it = orderlist.iterator();
+
+		while(it.hasNext()) {
+			OrderVO str = it.next();
+			System.out.println(str);
+		}
+		
+		
+
 
 		String message;
 		ResponseEntity resEnt = null;
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
 		try {
-			int memOrderSeqNum = orderService.addNewOrder(productMap);
-			if (productimage != null && productImage.length() != 0) {
-				File srcFile = new File(ARTICLE_IMAGE_REPO_order + "\\" + "temp" + "\\" + productimage);
-				File destDir = new File(ARTICLE_IMAGE_REPO_order + "\\" + memOrderSeqNum);
-				FileUtils.moveFileToDirectory(srcFile, destDir, true);
-			}
+			orderService.addNewOrder1(orderlist);
 
 			message = "<script>";
-			message += " alert('새글을 추가했습니다.');";
-			message += "  location.href='" + multipartRequest.getContextPath() + "/order/listInquiry.do';";
+			message += " alert('반품신청이 완료되었습니다.');";
+			message += "  location.href='" + request.getContextPath() + "/mypage_07.do';";
 			message += " </script>";
 			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
 
 		} catch (Exception e) {
-			File srcFile = new File(ARTICLE_IMAGE_REPO_inquiry + "\\" + "temp" + "\\" + inquiryFile);
-			srcFile.delete();
 
 			message = "<script>";
 			message += " alert('오류가 발생했습니다. 다시 시도해주세요');";
-			message += "  location.href='" + multipartRequest.getContextPath() + "/order/inquiryForm.do';";
+			message += "  location.href='" + request.getContextPath() + "/mypage/returnWrite.do';";
 			message += " </script>";
 			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
 			e.printStackTrace();
 		}
 		return resEnt;
 	}
-
-	private String upload(MultipartHttpServletRequest multipartRequest) throws Exception {
-		String inquiryFile = null;
-		Iterator<String> fileNames = multipartRequest.getFileNames();
-		while (fileNames.hasNext()) {
-			String fileName = fileNames.next();
-
-			MultipartFile mFile = multipartRequest.getFile(fileName);
-			inquiryFile = mFile.getOriginalFilename();
-			File file = new File(ARTICLE_IMAGE_REPO_order + "\\" + "temp" + "\\" + fileName);
-			if (mFile.getSize() != 0) {
-				if (!file.exists()) {
-					file.getParentFile().mkdirs();
-					mFile.transferTo(new File(ARTICLE_IMAGE_REPO_order + "\\" + "temp" + "\\" + productImage));// 임시로
-																												// 저장되
-																												// multipartFile을
-																												// 실제
-																												// 파일로
-																												// 전송
-
-				}
-			}
-		}
-		return inquiryFile;
-
-	}*/
-
 }

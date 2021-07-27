@@ -2,6 +2,7 @@ package com.project.simple.order.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,5 +59,15 @@ public class OrderDAOImpl implements OrderDAO {
 		return sqlSession.selectOne("mapper.order.selectOrderID");
 		
 	}
+	
+	//회원 주문하기
+	@Override
+	public void insertNewOrder1(List<OrderVO> orderlist) throws DataAccessException {
+
+
+		sqlSession.insert("mapper.order.insertNewOrder", orderlist);
+		
+	}
+
 }
 

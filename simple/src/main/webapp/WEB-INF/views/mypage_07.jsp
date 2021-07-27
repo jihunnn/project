@@ -334,13 +334,13 @@
 															<img src="${contextPath}/resources/images/image_1.jpg"
 																width="110" height="110" style="float: left;"> <a
 																style="margin-left: 0px; padding-right: 10px;" href="${contextPath}/product/viewProduct.do?productNum=${returnSearchList.productNum}">${returnSearchList.productName}</a>
-															<c:if test="${returnSearchList.option1 != null}">
+															<c:if test="${returnSearchList.option1value != null}">
 																<p
-																	style="margin-left: 140px; font-size: 13px; width: 100px;">${returnSearchList.option1}</p>
+																	style="margin-left: 140px; font-size: 13px; width: 100px;">${returnSearchList.option1value}</p>
 															</c:if>
-															<c:if test="${returnSearchList.option2 != null}">
+															<c:if test="${returnSearchList.option1value != null}">
 																<p
-																	style="margin-left: 140px; font-size: 13px; width: 100px;">${returnSearchList.option2}</p>
+																	style="margin-left: 140px; font-size: 13px; width: 100px;">${returnSearchList.option2value}</p>
 															</c:if>
 														</div>
 													</th>
@@ -425,13 +425,13 @@
 															<img src="${contextPath}/resources/images/image_1.jpg"
 																width="110" height="110" style="float: left;"> <a
 																style="margin-left: 0px; padding-right: 10px;" href="${contextPath}/product/viewProduct.do?productNum=${mypageReturnList.productNum}">${mypageReturnList.productName}</a>
-															<c:if test="${mypageReturnList.option1 != null}">
+															<c:if test="${mypageReturnList.option1value != null}">
 																<p
-																	style="margin-left: 140px; font-size: 13px; width: 100px;">${mypageReturnList.option1}</p>
+																	style="margin-left: 140px; font-size: 13px; width: 100px;">${mypageReturnList.option1value}</p>
 															</c:if>
-															<c:if test="${mypageReturnList.option2 != null}">
+															<c:if test="${mypageReturnList.option2value != null}">
 																<p
-																	style="margin-left: 140px; font-size: 13px; width: 100px;">${mypageReturnList.option2}</p>
+																	style="margin-left: 140px; font-size: 13px; width: 100px;">${mypageReturnList.option2value}</p>
 															</c:if>
 														</div>
 													</th>

@@ -141,8 +141,9 @@ public class MypageDAOImpl implements MypageDAO{
 	//마이페이지 반품 리스트
 	@Override
 	public List<MypageVO> selectMypageReturnList(Map<String ,Object> mypageReturnMap) throws DataAccessException {
+		System.out.println(mypageReturnMap);
 		List<MypageVO> mypageReturnList =sqlSession.selectList("mapper.mypage.selectAllMypageReturnList",mypageReturnMap);		
-		
+		System.out.println(mypageReturnList);
 		return mypageReturnList;
 	}
 	

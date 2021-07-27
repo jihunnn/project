@@ -40,13 +40,13 @@ public class OrderVO {
 	private String reviewConfirm;
 	private String deliverycharge;
 	
-	private int memSpPhoneNum1_0;
-	private int memSpPhoneNum1_1;
-	private int memSpPhoneNum1_2;
+	private String memSpPhoneNum1_0;
+	private String memSpPhoneNum1_1;
+	private String memSpPhoneNum1_2;
 	
-	private int memSpPhoneNum2_0;
-	private int memSpPhoneNum2_1;
-	private int memSpPhoneNum2_2;
+	private String memSpPhoneNum2_0;
+	private String memSpPhoneNum2_1;
+	private String memSpPhoneNum2_2;
 	
 	private String memSpAdr;
 	private String memSpAdr1;
@@ -55,40 +55,40 @@ public class OrderVO {
 	private int memCartId;
 
 	
-	public int getMemSpPhoneNum1_0() {
+	public String getMemSpPhoneNum1_0() {
 		return memSpPhoneNum1_0;
 	}
-	public void setMemSpPhoneNum1_0(int memSpPhoneNum1_0) {
+	public void setMemSpPhoneNum1_0(String memSpPhoneNum1_0) {
 		this.memSpPhoneNum1_0 = memSpPhoneNum1_0;
 	}
-	public int getMemSpPhoneNum1_1() {
+	public String getMemSpPhoneNum1_1() {
 		return memSpPhoneNum1_1;
 	}
-	public void setMemSpPhoneNum1_1(int memSpPhoneNum1_1) {
+	public void setMemSpPhoneNum1_1(String memSpPhoneNum1_1) {
 		this.memSpPhoneNum1_1 = memSpPhoneNum1_1;
 	}
-	public int getMemSpPhoneNum1_2() {
+	public String getMemSpPhoneNum1_2() {
 		return memSpPhoneNum1_2;
 	}
-	public void setMemSpPhoneNum1_2(int memSpPhoneNum1_2) {
+	public void setMemSpPhoneNum1_2(String memSpPhoneNum1_2) {
 		this.memSpPhoneNum1_2 = memSpPhoneNum1_2;
 	}
-	public int getMemSpPhoneNum2_0() {
+	public String getMemSpPhoneNum2_0() {
 		return memSpPhoneNum2_0;
 	}
-	public void setMemSpPhoneNum2_0(int memSpPhoneNum2_0) {
+	public void setMemSpPhoneNum2_0(String memSpPhoneNum2_0) {
 		this.memSpPhoneNum2_0 = memSpPhoneNum2_0;
 	}
-	public int getMemSpPhoneNum2_1() {
+	public String getMemSpPhoneNum2_1() {
 		return memSpPhoneNum2_1;
 	}
-	public void setMemSpPhoneNum2_1(int memSpPhoneNum2_1) {
+	public void setMemSpPhoneNum2_1(String memSpPhoneNum2_1) {
 		this.memSpPhoneNum2_1 = memSpPhoneNum2_1;
 	}
-	public int getMemSpPhoneNum2_2() {
+	public String getMemSpPhoneNum2_2() {
 		return memSpPhoneNum2_2;
 	}
-	public void setMemSpPhoneNum2_2(int memSpPhoneNum2_2) {
+	public void setMemSpPhoneNum2_2(String memSpPhoneNum2_2) {
 		this.memSpPhoneNum2_2 = memSpPhoneNum2_2;
 	}
 	public String getMemSpAdr1() {

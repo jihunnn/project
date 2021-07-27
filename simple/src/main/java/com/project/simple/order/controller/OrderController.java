@@ -23,6 +23,6 @@ public interface OrderController {
 	// public ModelAndView payToOrderGoods(@RequestParam Map<String, String>
 	// orderMap,HttpServletRequest request, HttpServletResponse response) throws
 	// Exception;
-	/*public ResponseEntity addNewOrder(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)
-			throws Exception;*/
+	public ResponseEntity addNewOrder(@ModelAttribute("order") OrderVO order,HttpServletRequest request, HttpServletResponse response)
+			throws Exception;
 }

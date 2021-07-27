@@ -53,24 +53,27 @@
 		if (valueArr.length == 0) {
 			alert("선택된 상품이 없습니다.");
 		} else {
-			var chk = confirm("정말 삭제하시겠습니까?");
-			$.ajax({
-				url : url, //전송 URL
-				type : 'POST', //POST방식
-				traditional : true,
-				data : {
-					valueArr : valueArr
-				//보내고자 하는 data 변수 설정
-				},
-				success : function(jdata) {
-					if (jdata = 1) {
-						alert("삭제성공");
-						location.replace("memcart.do") //list 로 페이지 새로고침
-					} else {
-						alert("오류 발생");
+			if (confirm('선택한 상품을 삭제하시겠습니까?')) {
+				$.ajax({
+					url : url, //전송 URL
+					type : 'POST', //POST방식
+					traditional : true,
+					data : {
+						valueArr : valueArr
+					//보내고자 하는 data 변수 설정
+					},
+					success : function(jdata) {
+						if (jdata = 1) {
+							alert("상품이 삭제 되었습니다.");
+							location.replace("memcart.do") //list 로 페이지 새로고침
+						} else {
+							alert("오류 발생");
+						}
 					}
-				}
-			});
+				});
+			} else {
+				return false;
+			}
 		}
 	}
 
@@ -87,24 +90,27 @@
 		if (valueArr.length == 0) {
 			alert("선택된 상품이 없습니다.");
 		} else {
-			var chk = confirm("정말 삭제하시겠습니까?");
-			$.ajax({
-				url : url, //전송 URL
-				type : 'POST', //POST방식
-				traditional : true,
-				data : {
-					valueArr : valueArr
-				//보내고자 하는 data 변수 설정
-				},
-				success : function(jdata) {
-					if (jdata = 1) {
-						alert("삭제성공");
-						location.replace("nonmemcart.do") //list 로 페이지 새로고침
-					} else {
-						alert("오류 발생");
+			if (confirm('선택한 상품을 삭제하시겠습니까?')) {
+				$.ajax({
+					url : url, //전송 URL
+					type : 'POST', //POST방식
+					traditional : true,
+					data : {
+						valueArr : valueArr
+					//보내고자 하는 data 변수 설정
+					},
+					success : function(jdata) {
+						if (jdata = 1) {
+							alert("상품이 삭제 되었습니다.");
+							location.replace("nonmemcart.do") //list 로 페이지 새로고침
+						} else {
+							alert("오류 발생");
+						}
 					}
-				}
-			});
+				});
+			} else {
+				return false;
+			}
 		}
 	}
 
@@ -121,24 +127,27 @@
 		if (valueArr.length == 0) {
 			alert("선택된 상품이 없습니다.");
 		} else {
-			var chk = confirm("주문 하시겠습니까?");
-			$.ajax({
-				url : url, //전송 URL
-				type : 'POST', //POST방식
-				traditional : true,
-				data : {
-					valueArr : valueArr
-				//보내고자 하는 data 변수 설정
-				},
-				success : function(jdata) {
-					if (jdata = 1) {
-						location.replace("order_01.do") //list 로 페이지 새로고침
-					} else {
-						alert("오류 발생");
+			if (confirm('주문 하시겠습니까?')) {
+				$.ajax({
+					url : url, //전송 URL
+					type : 'POST', //POST방식
+					traditional : true,
+					data : {
+						valueArr : valueArr
+					//보내고자 하는 data 변수 설정
+					},
+					success : function(jdata) {
+						if (jdata = 1) {
+							location.replace("order_01.do") //list 로 페이지 새로고침
+						} else {
+							alert("오류 발생");
+						}
 					}
-				}
 
-			});
+				});
+			} else {
+				return false;
+			}
 		}
 	}
 
@@ -155,24 +164,27 @@
 		if (valueArr.length == 0) {
 			alert("선택된 상품이 없습니다.");
 		} else {
-			var chk = confirm("주문 하시겠습니까?");
-			$.ajax({
-				url : url, //전송 URL
-				type : 'POST', //POST방식
-				traditional : true,
-				data : {
-					valueArr : valueArr
-				//보내고자 하는 data 변수 설정
-				},
-				success : function(jdata) {
-					if (jdata = 1) {
-						location.replace("order_01.do") //list 로 페이지 새로고침
-					} else {
-						alert("오류 발생");
+			if (confirm('주문 하시겠습니까?')) {
+				$.ajax({
+					url : url, //전송 URL
+					type : 'POST', //POST방식
+					traditional : true,
+					data : {
+						valueArr : valueArr
+					//보내고자 하는 data 변수 설정
+					},
+					success : function(jdata) {
+						if (jdata = 1) {
+							location.replace("order_01.do") //list 로 페이지 새로고침
+						} else {
+							alert("오류 발생");
+						}
 					}
-				}
 
-			});
+				});
+			} else {
+				return false;
+			}
 		}
 	}
 </script>
@@ -196,7 +208,7 @@
 					<div
 						style="font-size: 25px; font-weight: bold; margin-bottom: 20px;">
 						<a style="color: #7e9c8c;">장바구니</a>
-						<button type="button" onclick="deleteValue02();"
+						<button type="button" onclick="deleteValue01();"
 							style="float: right; border-radius: 2px; margin-bottom: 3px; margin-top: 15px; background-color: white; color: gray; border: 1px solid #eeeeee; border-radius: 2px; width: 70px; height: 30px; font-size: 14px;"
 							class="btn-secondary btn-xs">선택삭제</button>
 						<button type="button" onclick="checkAll()"
@@ -259,7 +271,7 @@
 
 				<c:choose>
 					<c:when test="${isLogOn == true && member != null}">
-						<table class="table" style="margin-top: 0px;">
+						<table class="table" style="margin-top: 0px; font-size: 14px;">
 							<thead class="table-dark" align=center>
 								<tr align="center"
 									style="background-color: #eeeeee; border-top: 1px solid #7e9c8c; border-bottom: 1px solid #c6c8ca; font-size: 15px; color: black;">

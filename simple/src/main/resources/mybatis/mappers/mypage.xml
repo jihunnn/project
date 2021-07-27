@@ -48,7 +48,7 @@
 		resultMap="myOrderInfoResult">
 	<![CDATA[
 			
-		select memOrderNum, memOrderDate, purchaseConfirm, reviewConfirm, returnConfirm,  o.memOrderSeqNum, productCnt, option1, option2, p.productImage,p.productPrice, p.productName, p.productNum, d.deliveryStatus 
+		select memOrderNum, memOrderDate, purchaseConfirm, reviewConfirm, returnConfirm,  o.memOrderSeqNum, productCnt, option1value, option2value, p.productImage,p.productPrice, p.productName, p.productNum, d.deliveryStatus 
 		from memberOrder as o left join product as p on o.productNum=p.productNum 
 		join memdelivery as d on o.memOrderSeqNum=d.memOrderSeqNum  where o.memId=#{memId} order by memOrderSeqNum desc
 		limit #{pageStart}, #{perPageNum};
@@ -69,7 +69,7 @@
 	<![CDATA[
 			
 
-		select memOrderNum, memOrderDate, purchaseConfirm, reviewConfirm, returnConfirm,  o.memOrderSeqNum, productCnt, option1, option2, p.productImage,p.productPrice, p.productName, p.productNum, d.deliveryStatus 
+		select memOrderNum, memOrderDate, purchaseConfirm, reviewConfirm, returnConfirm,  o.memOrderSeqNum, productCnt, option1value, option2value, p.productImage,p.productPrice, p.productName, p.productNum, d.deliveryStatus 
 		from memberOrder as o left join product as p on o.productNum=p.productNum 
 		join memdelivery as d on o.memOrderSeqNum=d.memOrderSeqNum
 			where memOrderNum = #{memOrderNum} order by memOrderSeqNum desc;
@@ -96,7 +96,7 @@
 	<select id="myOrderInfoSearchList" resultMap="myOrderInfoResult">
 	<![CDATA[
 			
-			select memOrderNum, memOrderDate, purchaseConfirm, reviewConfirm, returnConfirm,  o.memOrderSeqNum, productCnt, option1, option2, p.productImage,p.productPrice, p.productName, p.productNum, d.deliveryStatus 
+			select memOrderNum, memOrderDate, purchaseConfirm, reviewConfirm, returnConfirm,  o.memOrderSeqNum, productCnt, option1value, option2value, p.productImage,p.productPrice, p.productName, p.productNum, d.deliveryStatus 
 			from memberOrder as o left join product as p on o.productNum=p.productNum 
 			join memdelivery as d on o.memOrderSeqNum=d.memOrderSeqNum  
 			where memId=#{memId} and memOrderDate between #{search1} and DATE_ADD(#{search2}, interval 1 day) order by memOrderSeqNum desc
@@ -141,7 +141,7 @@
 	<select id="reviewSearchList" resultMap="productReviewResult">
 	<![CDATA[
 			
-			select reviewNum, o.productImage, reviewFile, r.productNum, r.memOrderSeqNum , productReviewTitle, reviewDate, productContent, p.productName, o.option1, o.option2 
+			select reviewNum, o.productImage, reviewFile, r.productNum, r.memOrderSeqNum , productReviewTitle, reviewDate, productContent, p.productName, o.option1value, o.option2value 
 			from productReview as r left join product as p on r.productNum=p.productNum
 			join memberOrder as o on r.memOrderSeqNum=o.memOrderSeqNum 
 			where r.memId=#{memId} and reviewDate between #{search1} and DATE_ADD(#{search2}, interval 1 day) order by reviewNum desc
@@ -193,7 +193,7 @@
 	<![CDATA[
 			
 
-			select reviewNum, o.productImage, reviewFile, r.productNum, r.memOrderSeqNum , o.memOrderDate, o.productCnt, o.productPrice, productReviewTitle, reviewDate, productContent, p.productName, o.option1, o.option2 
+			select reviewNum, o.productImage, reviewFile, r.productNum, r.memOrderSeqNum , o.memOrderDate, o.productCnt, o.productPrice, productReviewTitle, reviewDate, productContent, p.productName, o.option1value, o.option2value 
 			from productReview as r left join product as p on r.productNum=p.productNum
 			join memberOrder as o on r.memOrderSeqNum=o.memOrderSeqNum 
 			where reviewNum = #{reviewNum} order by reviewNum desc;
@@ -236,7 +236,7 @@
 		resultMap="mypageReturnResult">
 	<![CDATA[
 			
-		select r.memOrderSeqNum, returnDate, returnNum, returnType, returnContent, r.currentStatus,  o.productCnt, o.option1, o.option2, o.productImage,o.productPrice, p.productName, o.productNum
+		select r.memOrderSeqNum, returnDate, returnNum, returnType, returnContent, r.currentStatus,  o.productCnt, o.option1value, o.option2value, o.productImage,o.productPrice, p.productName, o.productNum
 		from returnhistory as r left join memberOrder as o on r.memOrderSeqNum=o.memOrderSeqNum 
 		join product as p on r.productNum=p.productNum  where o.memId=#{memId} order by returnDate desc
 		limit #{pageStart}, #{perPageNum};
@@ -255,7 +255,7 @@
 	<select id="returnSearchList" resultMap="mypageReturnResult">
 	<![CDATA[
 			
-		select r.memOrderSeqNum, returnDate, returnNum, returnType, returnContent, r.currentStatus,  o.productCnt, o.option1, o.option2, o.productImage,o.productPrice, p.productName, o.productNum
+		select r.memOrderSeqNum, returnDate, returnNum, returnType, returnContent, r.currentStatus,  o.productCnt, o.option1value, o.option2value, o.productImage,o.productPrice, p.productName, o.productNum
 		from returnhistory as r left join memberOrder as o on r.memOrderSeqNum=o.memOrderSeqNum 
 		join product as p on r.productNum=p.productNum
 		where r.memId=#{memId} and returnDate between #{search1} and DATE_ADD(#{search2}, interval 1 day) order by returnNum desc
@@ -298,7 +298,7 @@
 	<![CDATA[
 			
 			
-		select r.memOrderSeqNum, returnDate, returnNum, returnType, returnContent, r.currentStatus,  o.productCnt, o.option1, o.option2, o.productImage,o.productPrice, p.productName, o.productNum
+		select r.memOrderSeqNum, returnDate, returnNum, returnType, returnContent, r.currentStatus,  o.productCnt, o.option1value, o.option2value, o.productImage,o.productPrice, p.productName, o.productNum
 		from returnhistory as r left join memberOrder as o on r.memOrderSeqNum=o.memOrderSeqNum 
 		join product as p on r.productNum=p.productNum  where returnNum = #{returnNum} order by returnDate desc
 		;

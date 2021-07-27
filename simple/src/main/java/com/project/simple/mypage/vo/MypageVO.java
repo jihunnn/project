@@ -31,8 +31,8 @@ public class MypageVO {
 	private Date memOrderDate;
 	private int productCnt;
 	private String productImage;
-	private String option1;
-	private String option2;
+	private String option1value;
+	private String option2value;
 	private String productName;
 	private String productPrice;
 	private String deliveryStatus;
@@ -208,20 +208,20 @@ public class MypageVO {
 		this.productImage = productImage;
 	}
 	
-	public String getOption1() {
-		return option1;
+	public String getOption1value() {
+		return option1value;
 	}
 	
-	public void setOption1(String option1) {
-		this.option1 = option1;
+	public void setOption1(String option1value) {
+		this.option1value = option1value;
 	}
 	
-	public String getOption2() {
-		return option2;
+	public String getOption2value() {
+		return option2value;
 	}
 	
-	public void setOption2(String option2) {
-		this.option2 = option2;
+	public void setOption2value(String option2value) {
+		this.option2value = option2value;
 	}
 	
 	public String getProductName() {
