@@ -2,6 +2,7 @@ package com.project.simple.order.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,19 @@ public class OrderDAOImpl implements OrderDAO {
 	public List<OrderVO> selectAllOrderList(Criteria cri) throws DataAccessException{
 		List<OrderVO> ordersList = sqlSession.selectList("mapper.order.selectAllOrderList", cri);
 		return ordersList;
+	}
+	
+	@Override
+	public int orderSearchCount(Map<String, Object> search) throws DataAccessException {
+		int orderSearchCount = sqlSession.selectOne("mapper.order.orderSearchCount",search);
+
+		return orderSearchCount;
+	}
+	
+	@Override
+	public List<OrderVO> orderSearchList(Map<String, Object> orderSearchMap) throws DataAccessException {
+		List<OrderVO> orderSearchList =sqlSession.selectList("mapper.order.orderSearchList",orderSearchMap);		
+		return orderSearchList;
 	}
 	
 	@Override

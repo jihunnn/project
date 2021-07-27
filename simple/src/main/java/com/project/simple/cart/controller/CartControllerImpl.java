@@ -48,15 +48,13 @@ public class CartControllerImpl implements CartController {
 				list = new ArrayList<CartVO>();
 				session.setAttribute("cartlist", list);
 			}
+			
 			list.add(cartVO);
 			mav.setViewName("redirect:/nonmemcart.do");
 
 		} else if (isLogOn == true) {
 
 			int result = 0;
-			MemberVO membervo = (MemberVO) session.getAttribute("member");
-			String memId = membervo.getmemId();
-			cartVO.setMemId(memId);
 			result = cartService.addcartlist(cartVO);
 			mav.setViewName("redirect:/memcart.do");
 		}

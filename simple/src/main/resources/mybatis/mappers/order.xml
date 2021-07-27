@@ -49,6 +49,54 @@
 	]]>
 	</select>
 
+
+
+
+	<select id="orderSearchList" resultMap="orderResult">
+			select *
+			from memberorder 
+			where
+			<if test="searchType=='memId' and search != null and search != '' ">
+				memId like CONCAT('%', #{search}, '%')			
+			</if>
+			
+			<if test="searchType=='memOrderNum' and search != null and search != '' ">
+				memOrderNum like CONCAT('%', #{search}, '%')
+			</if>
+
+			<if test="searchType=='productName' and search != null and search != '' ">
+				productName like CONCAT('%', #{search}, '%')
+			</if>	
+			
+			<if test="searchType=='memSpPhoneNum1' and search != null and search != '' ">
+				memSpPhoneNum1 like CONCAT('%', #{search}, '%')
+			</if>	
+			limit #{pageStart}, #{perPageNum};
+	</select>
+	
+	<select id="orderSearchCount" resultType="int"
+		parameterType="java.util.Map">
+			select count(*) 
+			from memberorder 
+			where
+			<if test="searchType=='memId' and search != null and search != '' ">
+				memId like CONCAT('%', #{search}, '%')
+		
+			</if>
+
+			<if test="searchType=='memOrderNum' and search != null and search != '' ">
+				memOrderNum like CONCAT('%', #{search}, '%')
+			</if>
+
+			<if test="searchType=='productName' and search != null and search != '' ">
+				productName like CONCAT('%', #{search}, '%')
+			</if>	
+			
+			<if test="searchType=='memSpPhoneNum1' and search != null and search != '' ">
+				memSpPhoneNum1 like CONCAT('%', #{search}, '%')
+			</if>	
+	</select>
+
 	<select id="selectOrderCount" resultType="int"
 		parameterType="int">
 	<![CDATA[

@@ -122,8 +122,16 @@ hr {
 				</c:choose>
 				<li class="nav-item"><a href="${contextPath}/join_01.do"
 					class="nav-link" style="padding-right: 10px; font-size: 12px;">JOIN</a></li>
-				<li class="nav-item"><a href="" class="nav-link"
+				<c:choose>
+				<c:when test="${isLogOn==null}">
+				<li class="nav-item"><a href="${contextPath}/nonmemcart.do" class="nav-link"
 					style="padding-right: 10px; font-size: 12px;">CART</a></li>
+				</c:when>
+				<c:otherwise>
+				<li class="nav-item"><a href="${contextPath}/memcart.do" class="nav-link"
+					style="padding-right: 10px; font-size: 12px;">CART</a></li>
+				</c:otherwise>
+				</c:choose>
 				<c:choose>
 					<c:when test="${isLogOn == true && member != null}">
 						<li class="nav-item"><a href="${contextPath}/mypage_01.do"

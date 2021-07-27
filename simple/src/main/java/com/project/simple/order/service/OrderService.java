@@ -12,6 +12,8 @@ import com.project.simple.page.Criteria;
 public interface OrderService {
 	public List<OrderVO> listOrders(Criteria cri) throws Exception;
 	public int orderCount() throws Exception;
+	public Map<String, Object> orderSearch(Map<String, Object> orderSearchMap) throws Exception;
+	public int orderSearchCount(Map<String, Object> search) throws Exception ;
 	public List<OrderVO> listMyOrderGoods(OrderVO orderVO) throws Exception;
 	public void addNewOrder(List<OrderVO> myOrderList) throws Exception;
 	public OrderVO findMyOrder(String order_id) throws Exception;

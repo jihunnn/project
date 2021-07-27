@@ -132,6 +132,37 @@ public class OrderControllerImpl implements OrderController {
 		return mav;
 	}
 	
+	@Override
+	@RequestMapping(value = "/admin_listorder/orderSearch.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView orderSearch(@RequestParam("search") String search, @RequestParam("searchType") String searchType,
+			Criteria cri, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String viewName = (String) request.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView(viewName);
+
+		Map<String, Object> orderSearchMap = new HashMap<String, Object>();
+		int pageStart = cri.getPageStart();
+		int perPageNum = cri.getPerPageNum();
+		orderSearchMap.put("pageStart", pageStart);
+		orderSearchMap.put("perPageNum", perPageNum);
+		orderSearchMap.put("search", search);
+		orderSearchMap.put("searchType", searchType);
+		System.out.println(searchType);
+		orderSearchMap = orderService.orderSearch(orderSearchMap);
+		
+		int orderSearchCount = orderService.orderSearchCount(orderSearchMap);
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		int pageNum = pageMaker.getCri().getPage();
+		orderSearchMap.put("pageNum", pageNum);
+		pageMaker.setTotalCount(orderSearchCount);
+		mav.addObject("orderSearchMap", orderSearchMap);
+		mav.addObject("pageMaker", pageMaker);
+		mav.addObject("pageNum", pageNum);
+		
+		return mav;
+
+	}
+	
 	@RequestMapping(value = "/orderEachGoods.do", method = RequestMethod.POST)
 	public ModelAndView orderEachGoods(@ModelAttribute("orderVO") OrderVO _orderVO, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {

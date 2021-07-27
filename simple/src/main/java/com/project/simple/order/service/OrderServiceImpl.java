@@ -36,6 +36,22 @@ public class OrderServiceImpl implements OrderService {
 		return orderCount;
 	}
 	
+	@Override
+	public Map<String, Object> orderSearch(Map<String, Object> orderSearchMap) throws Exception {
+		List<OrderVO> orderSearchList=orderDAO.orderSearchList(orderSearchMap);
+
+		orderSearchMap.put("orderSearchList", orderSearchList);
+		
+
+		return orderSearchMap;
+	}
+	
+	@Override
+	public int orderSearchCount(Map<String, Object> search) throws Exception {
+		int orderSearchCount = orderDAO.orderSearchCount(search);
+		return orderSearchCount;
+	}
+	
 	public List<OrderVO> listMyOrderGoods(OrderVO orderVO) throws Exception{
 		List<OrderVO> orderGoodsList;
 		orderGoodsList=orderDAO.listMyOrderGoods(orderVO);

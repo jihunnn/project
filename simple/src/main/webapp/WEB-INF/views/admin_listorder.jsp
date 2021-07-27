@@ -3,9 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
-<c:if test="${!empty memberSearchMap.search}">
-	<c:set var="memberSearchList"
-		value="${memberSearchMap.memberSearchList}" />
+<c:if test="${!empty orderSearchMap.search}">
+	<c:set var="orderSearchList"
+		value="${orderSearchMap.orderSearchList}" />
 </c:if>
 <!DOCTYPE html>
 <html lang="en">
@@ -159,7 +159,7 @@
 				<li><a
 					onclick="location.href='${contextPath}/product/admin_listProduct.do'"
 					data-hover="상품관리"
-					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 100px; cursor: pointer; background-color: white;  padding-bottom: 0px;">상품관리</a></li>
+					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 100px; cursor: pointer; background-color: white; padding-bottom: 0px;">상품관리</a></li>
 
 
 				<li><a
@@ -177,18 +177,16 @@
 				<li><a
 					onclick="location.href='${contextPath}/board/listNotice.do'"
 					data-hover="게시판관리"
-					style="font-size: 20px; margin-right:100px; border: none; color: #5a5a5a; background-color: white; cursor: pointer; padding-bottom: 0px;">게시판관리</a></li>
+					style="font-size: 20px; margin-right: 100px; border: none; color: #5a5a5a; background-color: white; cursor: pointer; padding-bottom: 0px;">게시판관리</a></li>
 
-				<li><a
-					onclick="location.href='${contextPath}/admin_listorder'"
+				<li><a onclick="location.href='${contextPath}/admin_listorder'"
 					data-hover="게시판관리"
 					style="font-size: 20px; border: none; color: #5a5a5a; background-color: white; cursor: pointer; padding-bottom: 0px;">주문관리</a></li>
 			</ul>
 
 
 			<form name="memberSearch"
-				action="${contextPath}/admin_listmember/memberSearch.do"
-				method="post">
+				action="${contextPath}/admin_listorder/orderSearch.do" method="post">
 				<div style="margin-bottom: 10px;">
 					<button type="submit" id="buttonmy" class="btn btn-dark"
 						style="margin-top: 21px; float: right; padding-top: 4px; height: 34px; font-size: 14px; padding-top: 4px; background-color: #7e9c8c; border: none;">조회</button>
@@ -196,19 +194,19 @@
 						style="margin-top: 21px; float: right; height: 34px; border: 1px solid #dcdcdc; font-size: 14px; margin-right: 5px;"
 						name="search"> <select name="searchType"
 						style="font-size: 14px; margin-bottom: 10px; margin-right: 5px; float: right; width: 80px; height: 34px; border: 1px solid #dcdcdc; margin-top: 21px;">
-						<option value="memEmail">이메일</option>
-						<option value="memPhoneNum">전화번호</option>
-						<option value="memAdr">주소</option>
-						<option value="logintype">회원유형</option>
+						<option value="memId">아이디</option>
+						<option value="memOrderNum">주문번호</option>
+						<option value="productName">상품명</option>
+						<option value="memSpPhoneNum1">전화번호</option>
 					</select>
 					<button type="button" onclick="deleteValue02();"
 						style="float: left; border-radius: 2px; margin-bottom: 3px; margin-top: 25px; background-color: white; color: gray; border: 1px solid #eeeeee; border-radius: 2px; width: 70px; height: 30px; font-size: 14px;"
 						class="btn-secondary btn-xs">선택삭제</button>
 					<button type="button" onclick="deleteValue02();"
-						style="float: left; border-radius: 2px; margin-bottom:3px; margin-left:700px;  margin-top: 25px; background-color: white; color: gray; border: 1px solid #eeeeee; border-radius: 2px; width: 70px; height: 30px; font-size: 14px;"
+						style="float: left; border-radius: 2px; margin-bottom: 3px; margin-left: 700px; margin-top: 25px; background-color: white; color: gray; border: 1px solid #eeeeee; border-radius: 2px; width: 70px; height: 30px; font-size: 14px;"
 						class="btn-secondary btn-xs">회원</button>
 					<button type="button" onclick="deleteValue02();"
-						style="float: left; border-radius: 2px; margin-bottom: 3px;  margin-left:10px; margin-top: 25px; background-color: white; color: gray; border: 1px solid #eeeeee; border-radius: 2px; width: 70px; height: 30px; font-size: 14px;"
+						style="float: left; border-radius: 2px; margin-bottom: 3px; margin-left: 10px; margin-top: 25px; background-color: white; color: gray; border: 1px solid #eeeeee; border-radius: 2px; width: 70px; height: 30px; font-size: 14px;"
 						class="btn-secondary btn-xs">비회원</button>
 
 				</div>
@@ -218,9 +216,9 @@
 			<table class="table" style="font-size: 14px;">
 				<thead class="table-dark" align=center>
 					<tr align="center"
-						style="background-color: #eeeeee; color: black; border-top: 1px solid #7e9c8c; border-bottom: 1px solid #c6c8ca; font-size: 15px;">						
-						<td scope="col" style="width: 40px;">선택</td>
-						<td scope="col" style="width: 60px;">주문번호</td>												
+						style="background-color: #eeeeee; color: black; border-top: 1px solid #7e9c8c; border-bottom: 1px solid #c6c8ca; font-size: 15px;">
+						<td scope="col" style="width: 50px;">선택</td>
+						<td scope="col" style="width: 60px;">주문번호</td>
 						<td scope="col" style="width: 60px;">아이디</td>
 						<td scope="col" style="width: 120px;">상품명</td>
 						<td scope="col" style="width: 150px;">상품옵션</td>
@@ -231,41 +229,48 @@
 						<td scope="col" style="width: 80px;">삭제</td>
 					</tr>
 					<c:choose>
-						<c:when test="${!empty memberSearchMap.search}">
+						<c:when test="${!empty orderSearchMap.search}">
 							<c:choose>
-								<c:when test="${empty memberSearchMap.memberSearchList}">
+								<c:when test="${empty orderSearchMap.orderSearchList}">
 									<tr height="200">
 										<td colspan="5"
 											style="background-color: white; padding-top: 100px;">
 											<p align="center">
-												<b><span style="color: black; ">조회된 주문내역이 없습니다.</span></b>
+												<b><span style="color: black;">조회된 주문내역이 없습니다.</span></b>
 											</p>
 										</td>
 									</tr>
 								</c:when>
 								<c:otherwise>
 
-									<c:forEach var="memberSearch" items="${memberSearchList}">
+									<c:forEach var="orderSearch" items="${orderSearchList}">
 										<tr
 											style="border-bottom: 1px solid #c6c8ca; background-color: white; color: black;">
-											<td scope="col"><input type="checkbox" name="chk"
-												value=""></td>
-											<td scope="col">${memberSearch.memId}</td>
-											<td scope="col">${memberSearch.memName }</td>
-											<td scope="col">${memberSearch.memEmail}</td>
-											<td scope="col">${memberSearch.memPhoneNum}</td>
-											<td scope="col">${memberSearch.memAdr}</td>
-											<td scope="col">${memberSearch.logintype }</td>
-											<td scope="col">${memberSearch.memRegdate}</td>
-											<td scope="col"><button type="button"
-													onclick="location.href='${contextPath}/admin_removeMember.do?memId=${memberSearch.memId }'"
-													class="btn btn-dark">삭제</button></td>
-										</tr>
+											<th scope="col" style="vertical-align: middle;"><input
+												type="checkbox" name="chk" value=""></th>
+											<th scope="col" style="vertical-align: middle;">${orderSearch.memOrderNum}</th>
+											<th scope="col" style="vertical-align: middle;">${orderSearch.memId}</th>
+											<th scope="col" style="vertical-align: middle;">${orderSearch.productName}</th>
+											<th scope="col" style="vertical-align: middle;">${orderSearch.option1name}:${orderSearch.option1value}<br>${orderSearch.option2name}:${orderSearch.option2value}</th>
+											<th scope="col" style="vertical-align: middle;">${orderSearch.totalPrice}원</th>
+											<th scope="col" style="vertical-align: middle;">${orderSearch.memSpPhoneNum1}</th>
+											<th scope="col" style="vertical-align: middle;">${orderSearch.memSpAdr}</th>
+											<th scope="col" style="vertical-align: middle;">${orderSearch.memOrderDate}</th>
+											<th scope="col" style="vertical-align: middle;"><input
+												type="hidden" value="${orderSearch.memId}" name="memId" />
+												<button type="submit" class="btn btn-dark"
+													style="border-radius: 2px; margin-bottom: 3px; background-color: white; color: gray; border: 1px solid #7e9c8c; border-radius: 2px; width: 70px; height: 30px; font-size: 14px;">수정</button>
+												<br>
+												<button type="button"
+													onclick="location.href='${contextPath}/admin_removeMember.do?memId=${orderSearch.memId}'"
+													class="btn btn-dark"
+													style="border-radius: 2px; margin-bottom: 3px; margin-top: 5px; background-color: white; color: gray; border: 1px solid #7e9c8c; border-radius: 2px; width: 70px; height: 30px; font-size: 14px;">삭제</button>
+											</th>
 									</c:forEach>
 								</c:otherwise>
 							</c:choose>
 						</c:when>
-						<c:when test="${empty memberSearchMap.search}">
+						<c:when test="${empty orderSearchMap.search}">
 							<c:choose>
 								<c:when test="${empty ordersList}">
 									<tr height="200">
@@ -278,23 +283,23 @@
 									</tr>
 								</c:when>
 								<c:otherwise>
-									<form action="${contextPath}/admin/viewMember.do" method="post">
+									<form action="${contextPath}/admin/viewOrder.do" method="post">
 										<c:forEach var="ordersList" items="${ordersList}">
 
 											<tr
 												style="border-bottom: 1px solid #c6c8ca; background-color: white; color: black;">
-												<th scope="col" style="vertical-align:middle;"><input type="checkbox" name="chk"
-													value=""></th>
-												<th scope="col" style="vertical-align:middle;">${ordersList.memOrderNum}</th>
-												<th scope="col" style="vertical-align:middle;">${ordersList.memId}</th>
-												<th scope="col" style="vertical-align:middle;">${ordersList.productName}</th>
-												<th scope="col" style="vertical-align:middle;">${ordersList.option1name}:${ordersList.option1value}<br>${ordersList.option2name}:${ordersList.option2value}</td>
-												<th scope="col" style="vertical-align:middle;">${ordersList.totalPrice}원</th>
-												<th scope="col" style="vertical-align:middle;">${ordersList.memSpPhoneNum1}</th>
-												<th scope="col" style="vertical-align:middle;">${ordersList.memSpAdr}</th>
-												<th scope="col" style="vertical-align:middle;">${ordersList.memOrderDate}</th>
-												<th scope="col" style="vertical-align:middle;"><input type="hidden"
-													value="${member.memId}" name="memId" />
+												<th scope="col" style="vertical-align: middle;"><input
+													type="checkbox" name="chk" value=""></th>
+												<th scope="col" style="vertical-align: middle;">${ordersList.memOrderNum}</th>
+												<th scope="col" style="vertical-align: middle;">${ordersList.memId}</th>
+												<th scope="col" style="vertical-align: middle;">${ordersList.productName}</th>
+												<th scope="col" style="vertical-align: middle;">${ordersList.option1name}:${ordersList.option1value}<br>${ordersList.option2name}:${ordersList.option2value}</th>
+												<th scope="col" style="vertical-align: middle;">${ordersList.totalPrice}원</th>
+												<th scope="col" style="vertical-align: middle;">${ordersList.memSpPhoneNum1}</th>
+												<th scope="col" style="vertical-align: middle;">${ordersList.memSpAdr}</th>
+												<th scope="col" style="vertical-align: middle;">${ordersList.memOrderDate}</th>
+												<th scope="col" style="vertical-align: middle;"><input
+													type="hidden" value="${member.memId}" name="memId" />
 													<button type="submit" class="btn btn-dark"
 														style="border-radius: 2px; margin-bottom: 3px; background-color: white; color: gray; border: 1px solid #7e9c8c; border-radius: 2px; width: 70px; height: 30px; font-size: 14px;">수정</button>
 													<br>
@@ -325,7 +330,7 @@
 
 					<a class="arrow prev"
 						style="border: 1px solid #7e9c8c; color: #7e9c8c; margin-right: 0px; margin-left: 2px;"
-						href='<c:url value="/admin_listmember.do?page=${pageMaker.startPage-1 }"/>'><i
+						href='<c:url value="/admin_listorder.do?page=${pageMaker.startPage-1 }"/>'><i
 						class="fa fa-chevron-left"></i></a>
 
 				</c:if>
@@ -334,7 +339,7 @@
 
 					<a
 						style="border: 1px solid #7e9c8c; color: #7e9c8c; margin-right: 0px; margin-left: 2px;"
-						href='<c:url value="/admin_listmember.do?page=${pageNum }"/>'><i
+						href='<c:url value="/admin_listorder.do?page=${pageNum }"/>'><i
 						class="fa">${pageNum }</i></a>
 
 				</c:forEach>
@@ -342,7 +347,7 @@
 
 					<a class="arrow next"
 						style="border: 1px solid #7e9c8c; color: #7e9c8c; margin-right: 0px; margin-left: 2px;"
-						href='<c:url value="/admin_listmember.do?page=${pageMaker.endPage+1 }"/>'><i
+						href='<c:url value="/admin_listorder.do?page=${pageMaker.endPage+1 }"/>'><i
 						class="fa fa-chevron-right"></i></a>
 
 				</c:if>
