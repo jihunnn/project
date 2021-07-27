@@ -53,7 +53,10 @@ public class CartControllerImpl implements CartController {
 			mav.setViewName("redirect:/nonmemcart.do");
 
 		} else if (isLogOn == true) {
-
+			
+			MemberVO membervo = (MemberVO) session.getAttribute("member");
+			String memId = membervo.getmemId();
+			cartVO.setMemId(memId);
 			int result = 0;
 			result = cartService.addcartlist(cartVO);
 			mav.setViewName("redirect:/memcart.do");

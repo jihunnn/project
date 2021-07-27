@@ -69,7 +69,7 @@ public class OrderControllerImpl implements OrderController {
 			}
 			
 			session.setAttribute("orderlist", list); 
-			mav.setViewName("order_02");
+			mav.setViewName("order_01");
 		}
 
 		if (isLogOn == true) {

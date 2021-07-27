@@ -242,27 +242,7 @@ h4 {
 <title>주문결제창</title>
 <body>
 
-<%
-	MemberVO member = (MemberVO) session.getAttribute("member");
-	String FullmemPhoneNum = member.getmemPhoneNum();
-	String FullmemEmail = member.getmemEmail();
-	String FullmemAdr = member.getmemAdr();
 
-	String a1 = "-";
-	String e1 = "@";
-	String p1 = "-";
-
-	String[] memAdr = FullmemAdr.split(a1);
-	String[] memEmail = FullmemEmail.split(e1);
-	String[] memPhoneNum= FullmemPhoneNum.split(p1);
-
-	for (int i = 0; i < memAdr.length; i++) {
-	}
-	for (int i = 0; i < memEmail.length; i++) {
-	}
-	for (int i = 0; i < memPhoneNum.length; i++) {
-	}
-%>
 	
 	
 
@@ -311,7 +291,7 @@ h4 {
 
 			<form name="CheckOrder" action="order_03.jsp" method="post">
 
-			<input type="hidden" value="${member.memId}"/>
+			
 			
 			
 				<div class="order_list text-center">
@@ -357,6 +337,32 @@ h4 {
 				<div style="font-size: 25px; font-weight: bold; margin-top: 70px;">
 					<a style="color: #7e9c8c; margin-top: 40px;">주문자정보</a>
 				</div>
+				
+				<c:choose>
+				<c:when test="${isLogOn == true}">
+				<%
+	MemberVO member = (MemberVO) session.getAttribute("member");
+	String FullmemPhoneNum = member.getmemPhoneNum();
+	String FullmemEmail = member.getmemEmail();
+	String FullmemAdr = member.getmemAdr();
+
+	String a1 = "-";
+	String e1 = "@";
+	String p1 = "-";
+
+	String[] memAdr = FullmemAdr.split(a1);
+	String[] memEmail = FullmemEmail.split(e1);
+	String[] memPhoneNum= FullmemPhoneNum.split(p1);
+
+	for (int i = 0; i < memAdr.length; i++) {
+	}
+	for (int i = 0; i < memEmail.length; i++) {
+	}
+	for (int i = 0; i < memPhoneNum.length; i++) {
+	}
+%>
+				
+				<input type="hidden" value="${member.memId}"/>
 				<div class="order_list">
 					<table class="table">
 						<colgroup>
@@ -410,6 +416,66 @@ h4 {
 						</tbody>
 					</table>
 				</div>
+				</c:when>
+				<c:otherwise>
+				<div class="order_list">
+					<table class="table">
+						<colgroup>
+							<col width="20%" />
+						</colgroup>
+						<tbody>
+							<tr
+								style="border-bottom: 1px solid #eeeeee; border-top: 1px solid rgba(0, 0, 0, 0.1);">
+								<th scope="col"><a
+									style="color: red; padding-right: 5px; write-space: nowrap;">*</a>이름</th>
+								<th scope="col"><input type="text" name="memName" value="" 
+									style="font-size: 14px; border: 1px solid #dcdcdc; width: 326px; height: 36px;"></th>
+							</tr>
+							<tr style="border-bottom: 1px solid #eeeeee;">
+								<th scope="col"><a
+									style="color: red; padding-right: 5px; write-space: nowrap;">*</a>주소</th>
+								<th scope="col"><input type="text" name="memAdr" value="" 
+									id="sample6_postcode" 
+									style="font-size: 14px; border: 1px solid #dcdcdc; width: 211px; height: 36px;"><input type="button" onclick="sample6_execDaumPostcode1()"
+									value="우편번호 찾기"
+									style="font-size: 14px; border: none; background-color: #c6c6c6; color: white; width: 100px; height: 37px;">
+									&nbsp;&nbsp;&nbsp;
+									
+									<p>
+										<br> <input type="text" name="memAdr1" value="" 
+											id="sample6_address"
+											style="font-size: 14px; border: 1px solid #dcdcdc; width: 326px; height: 36px;">
+	
+									</p>
+									<p>
+										<input type="text" name="memAdr2" id="sample6_address2" value=""  
+											style="font-size: 14px; border: 1px solid #dcdcdc; width: 326px; height: 36px;">
+
+
+									</p></th>
+							</tr>
+							<tr style="border-bottom: 1px solid rgba(0, 0, 0, 0.1);">
+								<th scope="col"><a
+									style="color: red; padding-right: 5px; write-space: nowrap;">*</a>연락처</th>
+								<th scope="col"><select name="memPhoneNum"  
+									style="width: 80px; font-size: 14px; border: 1px solid #dcdcdc; height: 36px;">
+										<option value="">선택</option>
+										<option value="011">011</option>
+										<option value="016">016</option>
+										<option value="017">017</option>
+										<option value="019">019</option>
+										<option value="010">010</option>
+								</select> - <input type="text" name="memPhoneNum1" value="" 
+									style="width: 109px; font-size: 14px; border: 1px solid #dcdcdc; height: 36px;">
+									- <input type="text" name="memPhoneNum2" value=""
+									style="width: 109px; font-size: 14px; border: 1px solid #dcdcdc; height: 36px;"></th>
+							</tr>
+						</tbody>
+					</table>
+					</div>
+				</c:otherwise>
+				</c:choose>
+
 
 
 
