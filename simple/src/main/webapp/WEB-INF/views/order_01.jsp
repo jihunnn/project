@@ -255,7 +255,7 @@ h4 {
 	<section class="ftco-section" style="padding-top: 100px;">
 
 		<div class="container">
-<form name="CheckOrder" action="${contextPath}/addorderlist.do" method="post">
+<form name="CheckOrder" action="${contextPath}/order/addNewOrder.do" method="post">
 			<!-- 타이틀 끝 -->
 
 

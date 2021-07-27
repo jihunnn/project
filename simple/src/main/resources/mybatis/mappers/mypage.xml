@@ -18,6 +18,10 @@
 		<result property="memDepositorName" column="memDepositorName" />
 		<result property="memPaymentMethod" column="memPaymentMethod" />
 		<result property="totalPrice" column="totalPrice" />
+		<result property="option1value" column="option1value" />
+		<result property="option2value" column="option2value" />
+		<result property="option1Name" column="option1Name" />
+		<result property="option2Name" column="option2Name" />
 		<result property="memOrderDate" column="memOrderDate" />
 		<result property="productCnt" column="productCnt" />
 		<result property="productImage" column="productImage" />
@@ -48,7 +52,7 @@
 		resultMap="myOrderInfoResult">
 	<![CDATA[
 			
-		select memOrderNum, memOrderDate, purchaseConfirm, reviewConfirm, returnConfirm,  o.memOrderSeqNum, productCnt, option1value, option2value, p.productImage,p.productPrice, p.productName, p.productNum, d.deliveryStatus 
+		select memOrderNum, memOrderDate, purchaseConfirm, reviewConfirm, returnConfirm,  o.memOrderSeqNum, productCnt, option1Name, option2Name, option1value, option2value, p.productImage,p.productPrice, p.productName, p.productNum, d.deliveryStatus 
 		from memberOrder as o left join product as p on o.productNum=p.productNum 
 		join memdelivery as d on o.memOrderSeqNum=d.memOrderSeqNum  where o.memId=#{memId} order by memOrderSeqNum desc
 		limit #{pageStart}, #{perPageNum};
@@ -69,7 +73,7 @@
 	<![CDATA[
 			
 
-		select memOrderNum, memOrderDate, purchaseConfirm, reviewConfirm, returnConfirm,  o.memOrderSeqNum, productCnt, option1value, option2value, p.productImage,p.productPrice, p.productName, p.productNum, d.deliveryStatus 
+		select memOrderNum, memOrderDate, purchaseConfirm, reviewConfirm, returnConfirm,  o.memOrderSeqNum, productCnt, option1Name, option2Name, option1value, option2value, p.productImage, p.productPrice, p.productName, p.productNum, d.deliveryStatus 
 		from memberOrder as o left join product as p on o.productNum=p.productNum 
 		join memdelivery as d on o.memOrderSeqNum=d.memOrderSeqNum
 			where memOrderNum = #{memOrderNum} order by memOrderSeqNum desc;
@@ -130,7 +134,7 @@
 	<![CDATA[
 			
 
-		select memOrderNum, memOrderDate, o.memOrderSeqNum, productCnt, option1, option2, p.productImage, p.productPrice, p.productName
+		select memOrderNum, memOrderDate, o.memOrderSeqNum, productCnt, option1Name, option2Name, option1value, option2value, p.productImage, p.productPrice, p.productName
 		from memberOrder as o left join product as p on o.productNum=p.productNum 
 		join memdelivery as d on o.memOrderSeqNum=d.memOrderSeqNum  where o.memOrderSeqNum=#{memOrderSeqNum};
 			
@@ -141,7 +145,7 @@
 	<select id="reviewSearchList" resultMap="productReviewResult">
 	<![CDATA[
 			
-			select reviewNum, o.productImage, reviewFile, r.productNum, r.memOrderSeqNum , productReviewTitle, reviewDate, productContent, p.productName, o.option1value, o.option2value 
+			select reviewNum, o.productImage, reviewFile, r.productNum, r.memOrderSeqNum , productReviewTitle, reviewDate, productContent, p.productName, o.option1Name, o.option2Name, o.option1value, o.option2value 
 			from productReview as r left join product as p on r.productNum=p.productNum
 			join memberOrder as o on r.memOrderSeqNum=o.memOrderSeqNum 
 			where r.memId=#{memId} and reviewDate between #{search1} and DATE_ADD(#{search2}, interval 1 day) order by reviewNum desc

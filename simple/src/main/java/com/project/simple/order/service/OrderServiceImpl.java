@@ -43,8 +43,8 @@ public class OrderServiceImpl implements OrderService {
 	
 	//회원 주문하기
 	@Override
-	public void addNewOrder1(List<OrderVO> orderlist) throws Exception{
-		orderDAO.insertNewOrder1(orderlist);
+	public void addNewOrder1(OrderVO order) throws Exception{
+		orderDAO.insertNewOrder1(order);
 	}
 	
 

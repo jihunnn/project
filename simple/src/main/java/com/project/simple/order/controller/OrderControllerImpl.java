@@ -230,51 +230,5 @@ public class OrderControllerImpl implements OrderController {
 	 * mav.addObject("myOrderList", myOrderList); return mav; }
 	 */
 
-	@Override
-	@RequestMapping(value = "/order/addNewOrder.do", method = RequestMethod.POST)
-	@ResponseBody
-	public ResponseEntity addNewOrder(@ModelAttribute("order") OrderVO order,HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
 
-		request.setCharacterEncoding("utf-8");
-
-
-		HttpSession session = request.getSession();
-		MemberVO memberVO = (MemberVO) session.getAttribute("member");
-		List<OrderVO> orderlist = (ArrayList) session.getAttribute("orderlist");
-		
-		Iterator<OrderVO> it = orderlist.iterator();
-
-		while(it.hasNext()) {
-			OrderVO str = it.next();
-			System.out.println(str);
-		}
-		
-		
-
-
-		String message;
-		ResponseEntity resEnt = null;
-		HttpHeaders responseHeaders = new HttpHeaders();
-		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
-		try {
-			orderService.addNewOrder1(orderlist);
-
-			message = "<script>";
-			message += " alert('반품신청이 완료되었습니다.');";
-			message += "  location.href='" + request.getContextPath() + "/mypage_07.do';";
-			message += " </script>";
-			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
-
-		} catch (Exception e) {
-
-			message = "<script>";
-			message += " alert('오류가 발생했습니다. 다시 시도해주세요');";
-			message += "  location.href='" + request.getContextPath() + "/mypage/returnWrite.do';";
-			message += " </script>";
-			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
-			e.printStackTrace();
-		}
-		return resEnt;
-	}
 }

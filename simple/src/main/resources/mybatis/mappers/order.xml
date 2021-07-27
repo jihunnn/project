@@ -23,7 +23,7 @@
 		<result property="deliverycharge" column="deliverycharge" />
 		<result property="memCartId" column="memCartId" />
 		<result property="productPrice" column="productPrice" />
-		
+
 	</resultMap>
 
 
@@ -38,15 +38,11 @@
 		]]>
 	</select>
 
-	<insert id="insertNewOrder" parameterType="java.util.List">
-
-			insert into memberOrder(memId,  memSpName, memSpPhoneNum1,  memSpAdr, memPaymentMethod,productName, productNum,totalPrice,productCnt,productPrice)
-			values
-			<foreach item="item"  collection="list" open="(" close=")" separator=",">
-			(#{item.memId}, #{item.memSpName}, #{item.memSpPhoneNum1_0}, #{item.memSpAdr}, #{item.memPaymentMethod}, 
-			#{item.productName},#{item.productNum}, #{item.totalPrice}, #{item.productCnt},#{item.productPrice}</foreach>
-			);
-	
+	<insert id="insertNewOrder" parameterType="OrderVO">
+<![CDATA[ 
+			insert into memberOrder(memId, productName)
+			values (#{memId},#{productName});
+	]]>
 
 	</insert>
 

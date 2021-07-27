@@ -12,7 +12,7 @@ public interface OrderService {
 	public void addNewOrder(List<OrderVO> myOrderList) throws Exception;
 	public OrderVO findMyOrder(String order_id) throws Exception;
 	public OrderVO selectcartlist(String memCartId) throws Exception;
-	public void addNewOrder1(List<OrderVO> orderlist) throws Exception;
+	public void addNewOrder1(OrderVO order) throws Exception;
 
 	
 	

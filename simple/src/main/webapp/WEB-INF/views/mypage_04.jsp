@@ -352,13 +352,13 @@
 															width="90" height="90" style="float: left;"> <a
 															style="margin-left: 30px; font-size:14px;"
 															href="${contextPath}/product/viewProduct.do?productNum=${myOrderInfoSearchList.productNum}">${myOrderInfoSearchList.productName}</a>
-														<c:if test="${myOrderInfoSearchList.option1 !=null}">
-															<p style="margin-left: 121px; font-size: 12px;">옵션1 :
-																${myOrderInfoSearchList.option1}</p>
+														<c:if test="${myOrderInfoSearchList.option1value !=null}">
+															<p style="margin-left: 121px; font-size: 12px;">${myOrderInfoSearchList.option1Name} :
+																${myOrderInfoSearchList.option1value}</p>
 														</c:if>
-														<c:if test="${myOrderInfoSearchList.option2 !=null}">
-															<p style="margin-left: 121px; font-size: 12px;">옵션2 :
-																${myOrderInfoSearchList.option2}</p>
+														<c:if test="${myOrderInfoSearchList.option2value !=null}">
+															<p style="margin-left: 121px; font-size: 12px;">${myOrderInfoSearchList.option2Name} :
+																${myOrderInfoSearchList.option2value}</p>
 														</c:if>
 													</div>
 
@@ -503,13 +503,13 @@
 															width="90" height="90" style="float: left;"> <a
 															style="margin-left: 30px; font-size:14px;"
 															href="${contextPath}/product/viewProduct.do?productNum=${myOrderInfoList.productNum}">${myOrderInfoList.productName}</a>
-														<c:if test="${myOrderInfoList.option1 !=null}">
-															<p style="margin-left: 121px; font-size: 11px;">옵션1 :
-																${myOrderInfoList.option1}</p>
+														<c:if test="${myOrderInfoList.option1value !=null}">
+															<p style="margin-left: 121px; font-size: 11px;">${myOrderInfoList.option1Name} :
+																${myOrderInfoList.option1value}</p>
 														</c:if>
-														<c:if test="${myOrderInfoList.option2 !=null}">
-															<p style="margin-left: 121px; font-size: 11px;">옵션2 :
-																${myOrderInfoList.option2}</p>
+														<c:if test="${myOrderInfoList.option2value !=null}">
+															<p style="margin-left: 121px; font-size: 11px;">${myOrderInfoList.option2Name} :
+																${myOrderInfoList.option2value}</p>
 														</c:if>
 													</div>
 

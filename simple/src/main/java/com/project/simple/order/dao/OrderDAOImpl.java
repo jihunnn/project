@@ -62,10 +62,11 @@ public class OrderDAOImpl implements OrderDAO {
 	
 	//회원 주문하기
 	@Override
-	public void insertNewOrder1(List<OrderVO> orderlist) throws DataAccessException {
+	public void insertNewOrder1(OrderVO order) throws DataAccessException {
 
 
-		sqlSession.insert("mapper.order.insertNewOrder", orderlist);
+		sqlSession.insert("mapper.order.insertNewOrder", order);
+		System.out.println(order);
 		
 	}
 

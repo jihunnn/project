@@ -28,7 +28,7 @@ public class MypageDAOImpl implements MypageDAO{
 	@Override
 	public List<MypageVO> selectMyOrderInfoList(Map<String ,Object> myOrderInfoMap) throws DataAccessException {
 		List<MypageVO> myOrderInfoList =sqlSession.selectList("mapper.mypage.selectAllMyOrderInfoList",myOrderInfoMap);		
-		
+
 		return myOrderInfoList;
 	}
 	

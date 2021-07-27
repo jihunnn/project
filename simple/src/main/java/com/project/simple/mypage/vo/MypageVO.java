@@ -31,6 +31,8 @@ public class MypageVO {
 	private Date memOrderDate;
 	private int productCnt;
 	private String productImage;
+	private String option2Name;
+	private String option1Name;
 	private String option1value;
 	private String option2value;
 	private String productName;
@@ -343,11 +345,18 @@ public class MypageVO {
 		this.productContent = productContent;
 	}
 	
-	public String getReviewFile() {
-		return reviewFile;
+	public String getOption1Name() {
+		return option1Name;
 	}
-	public void setReviewFile(String reviewFile) {
-		this.reviewFile = reviewFile;
+	public void setOption1Name(String option1Name) {
+		this.option1Name = option1Name;
+	}
+	
+	public String getOption2Name() {
+		return option2Name;
+	}
+	public void setOption2Name(String option2Name) {
+		this.option2Name = option2Name;
 	}
 
 	
