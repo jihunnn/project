@@ -10,6 +10,12 @@
 		<put-attribute name="side" value="/WEB-INF/views/common/side.jsp" />
 	</definition>
 	
+	
+	<definition name="nonorder_01" extends="baseLayout">
+		<put-attribute name="body"
+			value="/WEB-INF/views/nonorder_01.jsp" />
+	</definition>
+	
 	<definition name="order_01" extends="baseLayout">
 		<put-attribute name="body"
 			value="/WEB-INF/views/order_01.jsp" />

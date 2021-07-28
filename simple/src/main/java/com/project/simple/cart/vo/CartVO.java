@@ -9,6 +9,7 @@ public class CartVO {
 	private String productNum;
 	private int productCnt;
 	private String productName;
+	private String productPrice;
 	private String option1name;
 	private String option1value;
 	private String option2name;
@@ -23,6 +24,13 @@ public class CartVO {
 	}
 	public void setMemId(String memId) {
 		this.memId = memId;
+	}
+	
+	public String getProductPrice() {
+		return productPrice;
+	}
+	public void setProductPrice(String productPrice) {
+		this.productPrice = productPrice;
 	}
 	public String getProductNum() {
 		return productNum;

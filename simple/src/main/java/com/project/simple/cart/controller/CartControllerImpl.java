@@ -42,7 +42,7 @@ public class CartControllerImpl implements CartController {
 		HttpSession session = request.getSession();
 		Boolean isLogOn = (Boolean) session.getAttribute("isLogOn");
 
-		if (isLogOn == null || isLogOn == false) {
+		if (isLogOn == null) {
 			List<CartVO> list = (ArrayList) session.getAttribute("cartlist");
 			if (list == null) {
 				list = new ArrayList<CartVO>();

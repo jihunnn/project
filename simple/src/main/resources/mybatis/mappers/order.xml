@@ -8,7 +8,6 @@
 	<resultMap id="orderResult" type="orderVO">
 		<result property="memId" column="memId" />
 		<result property="memName" column="memName" />
-		<result property="memId" column="memId" />
 		<result property="memSpName" column="memSpName" />
 		<result property="memOrderMsg" column="memOrderMsg" />
 		<result property="memSpAdr" column="memSpAdr" />
@@ -28,7 +27,18 @@
 		<result property="deliverycharge" column="deliverycharge" />
 		<result property="memCartId" column="memCartId" />
 		<result property="memOrderNum" column="memOrderNum" />
+		<result property="nonMemOrderNum" column="nonMemOrderNum" />
+		<result property="nonMemSpName" column="nonMemSpName" />
+		<result property="nonMemOrderMsg" column="nonMemOrderMsg" />
+		<result property="nonMemSpAdr" column="nonMemSpAdr" />
+		<result property="nonMemSpPhoneNum1" column="nonMemSpPhoneNum1" />
+		<result property="nonMemSpPhoneNum2" column="nonMemSpPhoneNum2" />
+		<result property="nonMemDepositorName" column="nonMemDepositorName" />
+		<result property="nonMemPaymentMethod" column="nonMemPaymentMethod" />
+		<result property="CurrentStatus" column="CurrenStatus" />
 	</resultMap>
+	
+	
 
 
 
@@ -105,13 +115,22 @@
 	]]>
 	</select>
 	
-	<!-- 일반회원가입 -->
+	<!-- 주문테이블입력 -->
 	<insert id="insertNewOrder" parameterType="orderVO">
-		<![CDATA[ 
+		
+		
+		 <if test="memId != null">
 			insert into simple.memberorder(memOrderSeqNum, memOrderNum, memId, productNum, productName, option1name, option1value, option2name, option2value, productCnt, productPrice, totalPrice, memOrderDate, memSpName, memOrderMsg, memSpAdr, memSpPhoneNum1, memSpPhoneNum2, memDepositorName, memPaymentMethod, purchaseConfirm, returnConfirm, reviewConfirm) 
 			values(default, #{memOrderNum}, #{memId}, #{productNum}, #{productName}, #{option1name}, #{option1value}, #{option2name}, #{option2value}, #{productCnt}, #{productPrice}, #{totalPrice}, default, #{memSpName}, #{memOrderMsg}, (select concat_ws('-',#{memSpAdr},#{memSpAdr1},#{memSpAdr2})),(select concat_ws('-',#{memSpPhoneNum1_0},#{memSpPhoneNum1_0},#{memSpPhoneNum1_0})),
 					(select concat_ws('-',#{memSpPhoneNum2_0},#{memSpPhoneNum2_1},#{memSpPhoneNum2_2})), #{memDepositorName}, #{memPaymentMethod}, default, default, default);
-		]]>
+		</if>
+		
+		<if test="memId == null">
+			insert into simple.nonmemberorder(nonMemOrderSeqNum, nonMemOrderNum, nonMemName, productNum, productName, option1name, option1value, option2name, option2value, productCnt, productPrice, totalPrice, nonMemSpName, nonMemOrderMsg, nonMemSpAdr, nonMemSpPhoneNum1, nonMemSpPhoneNum2, nonMemDepositorName, nonMemPaymentMethod, CurrentStatus) 
+			values(default, #{nonmemOrderNum}, #{nonmemName},  #{productNum}, #{productName}, #{option1name}, #{option1value}, #{option2name}, #{option2value}, #{productCnt}, #{productPrice}, #{totalPrice},  #{nonmemSpName}, #{nonmemOrderMsg}, (select concat_ws('-',#{nonmemSpAdr},#{nonmemSpAdr1},#{nonmemSpAdr2})),(select concat_ws('-',#{nonmemSpPhoneNum1_0},#{nonmemSpPhoneNum1_0},#{nonmemSpPhoneNum1_0})),
+					(select concat_ws('-',#{nonmemSpPhoneNum2_0},#{nonmemSpPhoneNum2_1},#{nonmemSpPhoneNum2_2})), #{nonmemDepositorName}, #{nonmemPaymentMethod}, default);
+		</if>
+		
 	</insert>
 	
 	

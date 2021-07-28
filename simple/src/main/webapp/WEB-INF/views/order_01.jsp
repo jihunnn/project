@@ -138,15 +138,15 @@ h4 {
 		f.memSpPhoneNum1_1.value = f.memPhoneNum1.value;
 		f.memSpPhoneNum1_2.value = f.memPhoneNum2.value;
 	}
-	
-	$("input[type=radio]").click(function(){
-	    $(this).prop("checked", true);
-	    $("form").submit();
+
+	$("input[type=radio]").click(function() {
+		$(this).prop("checked", true);
+		$("form").submit();
 	})
+	
 </script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
-
 	//비회원 주문자 우편번호
 	function sample6_execDaumPostcode() {
 		new daum.Postcode(
@@ -188,11 +188,12 @@ h4 {
 						document.getElementById('sample6_address_nonmember').value = fullAddr;
 
 						// 커서를 상세주소 필드로 이동한다.
-						document.getElementById('sample6_address2_nonmember').focus();
+						document.getElementById('sample6_address2_nonmember')
+								.focus();
 					}
 				}).open();
 	}
-	
+
 	//배송지 우편번호
 	function sample6_execDaumPostcode2() {
 		new daum.Postcode(
@@ -238,9 +239,6 @@ h4 {
 					}
 				}).open();
 	}
-
-	
-
 </script>
 </head>
 <title>주문결제창</title>
@@ -248,52 +246,74 @@ h4 {
 
 
 
+	<%
+	MemberVO member = (MemberVO) session.getAttribute("member");
+	String FullmemPhoneNum = member.getmemPhoneNum();
+	String FullmemEmail = member.getmemEmail();
+	String FullmemAdr = member.getmemAdr();
 
+	String a1 = "-";
+	String e1 = "@";
+	String p1 = "-";
+
+	String[] memAdr = FullmemAdr.split(a1);
+	String[] memEmail = FullmemEmail.split(e1);
+	String[] memPhoneNum = FullmemPhoneNum.split(p1);
+
+	for (int i = 0; i < memAdr.length; i++) {
+	}
+	for (int i = 0; i < memEmail.length; i++) {
+	}
+	for (int i = 0; i < memPhoneNum.length; i++) {
+	}
+	%>
 
 	<!-- 타이틀 -->
 
 	<section class="ftco-section" style="padding-top: 100px;">
 
 		<div class="container">
-<form name="CheckOrder" action="${contextPath}/addorderlist.do" method="post">
-			<!-- 타이틀 끝 -->
+			<form name="CheckOrder" action="${contextPath}/addorderlist.do"
+				method="post">
+				<input type="hidden" name="totalPrice" value="${totalPrice}" />
+				<!-- 타이틀 끝 -->
 
 
 
-			<div style="font-size: 25px; font-weight: bold;">
-				<a style="color: #7e9c8c;">주문리스트</a>
-			</div>
+				<div style="font-size: 25px; font-weight: bold;">
+					<a style="color: #7e9c8c;">주문리스트</a>
+				</div>
 
 
 
-			<!-- 최근 본 상품 -->
-			<div id="recentlyProduct"
-				style="position: absolute; width: 120px; height: 310px; margin-left: 1370px; border: 1px solid #d2d2d2; margin-top: 0px;">
-				<ul
-					style="list-style: none; margin-top: 10px; padding-left: 20px; margin-bottom: 10px;">
-					<li><a href="#"
-						style="padding-left: -10px; padding-bottom: 1px; color: black;">최근본상품</a></li>
-				</ul>
-				<hr style="margin-top: 0px; margin-bottom: 0px; color: #d2d2d2;">
-				<ul style="list-style: none; padding-top: 5px;">
-					<li><a href="#"><img
-							src="${contextPath}/resources/images/image_1.jpg"
-							style="width: 100px; height: 100px; padding-top: 10px; margin-left: -30px;"></a></li>
-					<li><a href="#"><img
-							src="${contextPath}/resources/images/image_2.jpg"
-							style="width: 100px; height: 100px; padding-top: 10px; padding-top: 10px; margin-left: -30px;"></a></li>
-				</ul>
-				<hr style="margin-top: 0px; margin-bottom: 0px; color: #d2d2d2;">
-				<ul
-					style="list-style: none; padding-left: 30px; margin-bottom: 10px; margin-top: 8px;">
-					<li><a href="#"
-						style="color: black; text-align: center; margin-top: 8px; padding-top: 30px;">더보기▼</a></li>
-				</ul>
-			</div>
-			<!-- 최근본상품끝 -->
+				<!-- 최근 본 상품 -->
+				<div id="recentlyProduct"
+					style="position: absolute; width: 120px; height: 310px; margin-left: 1370px; border: 1px solid #d2d2d2; margin-top: 0px;">
+					<ul
+						style="list-style: none; margin-top: 10px; padding-left: 20px; margin-bottom: 10px;">
+						<li><a href="#"
+							style="padding-left: -10px; padding-bottom: 1px; color: black;">최근본상품</a></li>
+					</ul>
+					<hr style="margin-top: 0px; margin-bottom: 0px; color: #d2d2d2;">
+					<ul style="list-style: none; padding-top: 5px;">
+						<li><a href="#"><img
+								src="${contextPath}/resources/images/image_1.jpg"
+								style="width: 100px; height: 100px; padding-top: 10px; margin-left: -30px;"></a></li>
+						<li><a href="#"><img
+								src="${contextPath}/resources/images/image_2.jpg"
+								style="width: 100px; height: 100px; padding-top: 10px; padding-top: 10px; margin-left: -30px;"></a></li>
+					</ul>
+					<hr style="margin-top: 0px; margin-bottom: 0px; color: #d2d2d2;">
+					<ul
+						style="list-style: none; padding-left: 30px; margin-bottom: 10px; margin-top: 8px;">
+						<li><a href="#"
+							style="color: black; text-align: center; margin-top: 8px; padding-top: 30px;">더보기▼</a></li>
+					</ul>
+				</div>
+				<!-- 최근본상품끝 -->
 
 
-			
+
 
 
 
@@ -329,14 +349,14 @@ h4 {
 									</th>
 									<th scope="col" style="vertical-align: middle;">${orderlist.productCnt}개</th>
 									<th scope="col" style="vertical-align: middle;">${orderlist.deliverycharge}</th>
-									<th scope="col" style="vertical-align: middle;">${orderlist.totalPrice}원</th>
+									<th scope="col" style="vertical-align: middle;">${orderlist.productPrice}원</th>
 								</tr>
 							</tbody>
 						</c:forEach>
 					</table>
 
 					<div style="font-size: 18px; float: right;">
-						<span>총금액ㅤ</span><a style="color: #7e9c8c; font-weight: bold;">2,400,000원</a>
+						<span>총금액ㅤ</span><a style="color: #7e9c8c; font-weight: bold;">${totalPrice}원</a>
 					</div>
 
 				</div>
@@ -347,160 +367,68 @@ h4 {
 					<a style="color: #7e9c8c; margin-top: 40px;">주문자정보</a>
 				</div>
 
-				<c:choose>
-					<c:when test="${isLogOn == true}">
-						<%
-						MemberVO member = (MemberVO) session.getAttribute("member");
-						String FullmemPhoneNum = member.getmemPhoneNum();
-						String FullmemEmail = member.getmemEmail();
-						String FullmemAdr = member.getmemAdr();
-
-						String a1 = "-";
-						String e1 = "@";
-						String p1 = "-";
-
-						String[] memAdr = FullmemAdr.split(a1);
-						String[] memEmail = FullmemEmail.split(e1);
-						String[] memPhoneNum = FullmemPhoneNum.split(p1);
-
-						for (int i = 0; i < memAdr.length; i++) {
-						}
-						for (int i = 0; i < memEmail.length; i++) {
-						}
-						for (int i = 0; i < memPhoneNum.length; i++) {
-						}
-						%>
-
-						<input type="hidden" name="memId" value="${member.memId}" />
-						
-						
-						<div class="order_list">
-							<table class="table">
-								<colgroup>
-									<col width="20%" />
-								</colgroup>
-								<tbody>
-									<tr
-										style="border-bottom: 1px solid #eeeeee; border-top: 1px solid rgba(0, 0, 0, 0.1);">
-										<th scope="col"><a
-											style="color: red; padding-right: 5px; write-space: nowrap;">*</a>이름</th>
-										<th scope="col"><input type="text" name="memName"
-											value="${member.memName}" readonly 
-											style="font-size: 14px; border: 1px solid #dcdcdc; width: 326px; height: 36px;"></th>
-									</tr>
-									<tr style="border-bottom: 1px solid #eeeeee;">
-										<th scope="col"><a
-											style="color: red; padding-right: 5px; write-space: nowrap;">*</a>주소</th>
-										<th scope="col"><input type="text" name="memAdr"
-											value="<%=memAdr[0]%>" disabled id="sample6_postcode"
-											readonly
-											style="font-size: 14px; border: 1px solid #dcdcdc; width: 211px; height: 36px;">
-											&nbsp;&nbsp;&nbsp;
-
-											<p>
-												<br> <input type="text" name="memAdr1"
-													value="<%=memAdr[1]%>" disabled id="sample6_address"
-													readonly
-													style="font-size: 14px; border: 1px solid #dcdcdc; width: 326px; height: 36px;">
-
-											</p>
-											<p>
-												<input type="text" name="memAdr2" id="sample6_address2"
-													value="<%=memAdr[2]%>" readonly disabled
-													style="font-size: 14px; border: 1px solid #dcdcdc; width: 326px; height: 36px;">
 
 
-											</p></th>
-									</tr>
-									<tr style="border-bottom: 1px solid rgba(0, 0, 0, 0.1);">
-										<th scope="col"><a
-											style="color: red; padding-right: 5px; write-space: nowrap;">*</a>연락처</th>
-										<th scope="col"><select name="memPhoneNum" disabled
-											style="width: 80px; font-size: 14px; border: 1px solid #dcdcdc; height: 36px;">
-												<option value="<%=memPhoneNum[0]%>"><%=memPhoneNum[0]%></option>
-												<option value="011">011</option>
-												<option value="016">016</option>
-												<option value="017">017</option>
-												<option value="019">019</option>
-												<option value="010">010</option>
-										</select> - <input type="text" name="memPhoneNum1"
-											value="<%=memPhoneNum[1]%>" readonly disabled
-											style="width: 109px; font-size: 14px; border: 1px solid #dcdcdc; height: 36px;">
-											- <input type="text" name="memPhoneNum2"
-											value="<%=memPhoneNum[2]%>" readonly disabled
-											style="width: 109px; font-size: 14px; border: 1px solid #dcdcdc; height: 36px;"></th>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</c:when>
-					<c:otherwise>
-						<div class="order_list">
-							<table class="table">
-								<colgroup>
-									<col width="20%" />
-								</colgroup>
-								<tbody>
-									<tr
-										style="border-bottom: 1px solid #eeeeee; border-top: 1px solid rgba(0, 0, 0, 0.1);">
-										<th scope="col"><a
-											style="color: red; padding-right: 5px; write-space: nowrap;">*</a>이름</th>
-										<th scope="col"><input type="text" name="memName"
-											value=""
-											style="font-size: 14px; border: 1px solid #dcdcdc; width: 326px; height: 36px;"></th>
-									</tr>
-									<tr style="border-bottom: 1px solid #eeeeee;">
-										<th scope="col"><a
-											style="color: red; padding-right: 5px; write-space: nowrap;">*</a>주소</th>
-										<th scope="col"><input type="text" name="memAdr" value=""
-											id="sample6_postcode_nonmember"
-											style="font-size: 14px; border: 1px solid #dcdcdc; width: 211px; height: 36px;">&nbsp;&nbsp;&nbsp;&nbsp;<input
-											type="button" onclick="sample6_execDaumPostcode()"
-											value="우편번호 찾기"
-											style="font-size: 14px; border: none; background-color: #c6c6c6; color: white; width: 100px; height: 37px;">
-											&nbsp;&nbsp;&nbsp;
-
-											<p>
-												<br> <input type="text" name="memAdr1" value=""
-													id="sample6_address_nonmember"
-													style="font-size: 14px; border: 1px solid #dcdcdc; width: 326px; height: 36px;">
-
-											</p>
-											<p>
-												<input type="text" name="memAdr2" id="sample6_address2_nonmember"
-													value=""
-													style="font-size: 14px; border: 1px solid #dcdcdc; width: 326px; height: 36px;">
+				<input type="hidden" name="memId" value="${member.memId}" />
 
 
-											</p></th>
-									</tr>
-									<tr style="border-bottom: 1px solid rgba(0, 0, 0, 0.1);">
-										<th scope="col"><a
-											style="color: red; padding-right: 5px; write-space: nowrap;">*</a>연락처</th>
-										<th scope="col"><select name="memPhoneNum"
-											style="width: 80px; font-size: 14px; border: 1px solid #dcdcdc; height: 36px;">
-												<option value="">선택</option>
-												<option value="011">011</option>
-												<option value="016">016</option>
-												<option value="017">017</option>
-												<option value="019">019</option>
-												<option value="010">010</option>
-										</select> - <input type="text" name="memPhoneNum1" value=""
-											style="width: 109px; font-size: 14px; border: 1px solid #dcdcdc; height: 36px;">
-											- <input type="text" name="memPhoneNum2" value=""
-											style="width: 109px; font-size: 14px; border: 1px solid #dcdcdc; height: 36px;"></th>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</c:otherwise>
-				</c:choose>
+				<div class="order_list">
+					<table class="table">
+						<colgroup>
+							<col width="20%" />
+						</colgroup>
+						<tbody>
+							<tr
+								style="border-bottom: 1px solid #eeeeee; border-top: 1px solid rgba(0, 0, 0, 0.1);">
+								<th scope="col"><a
+									style="color: red; padding-right: 5px; write-space: nowrap;">*</a>이름</th>
+								<th scope="col"><input type="text" name="memName"
+									value="${member.memName}" readonly
+									style="font-size: 14px; border: 1px solid #dcdcdc; width: 326px; height: 36px;"></th>
+							</tr>
+							<tr style="border-bottom: 1px solid #eeeeee;">
+								<th scope="col"><a
+									style="color: red; padding-right: 5px; write-space: nowrap;">*</a>주소</th>
+								<th scope="col"><input type="text" name="memAdr"
+									value="<%=memAdr[0]%>" disabled id="sample6_postcode" readonly
+									style="font-size: 14px; border: 1px solid #dcdcdc; width: 211px; height: 36px;">
+									&nbsp;&nbsp;&nbsp;
+
+									<p>
+										<br> <input type="text" name="memAdr1"
+											value="<%=memAdr[1]%>" disabled id="sample6_address" readonly
+											style="font-size: 14px; border: 1px solid #dcdcdc; width: 326px; height: 36px;">
+
+									</p>
+									<p>
+										<input type="text" name="memAdr2" id="sample6_address2"
+											value="<%=memAdr[2]%>" readonly disabled
+											style="font-size: 14px; border: 1px solid #dcdcdc; width: 326px; height: 36px;">
 
 
-
-
-
-
+									</p></th>
+							</tr>
+							<tr style="border-bottom: 1px solid rgba(0, 0, 0, 0.1);">
+								<th scope="col"><a
+									style="color: red; padding-right: 5px; write-space: nowrap;">*</a>연락처</th>
+								<th scope="col"><select name="memPhoneNum" disabled
+									style="width: 80px; font-size: 14px; border: 1px solid #dcdcdc; height: 36px;">
+										<option value="<%=memPhoneNum[0]%>"><%=memPhoneNum[0]%></option>
+										<option value="011">011</option>
+										<option value="016">016</option>
+										<option value="017">017</option>
+										<option value="019">019</option>
+										<option value="010">010</option>
+								</select> - <input type="text" name="memPhoneNum1"
+									value="<%=memPhoneNum[1]%>" readonly disabled
+									style="width: 109px; font-size: 14px; border: 1px solid #dcdcdc; height: 36px;">
+									- <input type="text" name="memPhoneNum2"
+									value="<%=memPhoneNum[2]%>" readonly disabled
+									style="width: 109px; font-size: 14px; border: 1px solid #dcdcdc; height: 36px;"></th>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 
 				<div style="font-size: 25px; margin-top: 40px; font-weight: bold;">
 					<a style="color: #7e9c8c;">배송정보</a>
@@ -585,7 +513,8 @@ h4 {
 								<th scope="col"><input name="memDepositorName" type="text"
 									value=""
 									style="font-size: 14px; border: 1px solid #dcdcdc; height: 36px; width: 326px;"><a
-									style="font-size: 14px; color: color:#b3b3b3;">ㅤ(무통장 입금 시 입력)</a></th>
+									style="font-size: 14px; color: color:#b3b3b3;">ㅤ(무통장 입금 시
+										입력)</a></th>
 							</tr>
 						</tbody>
 					</table>
@@ -618,7 +547,8 @@ h4 {
 										<option value="농협카드">농협카드</option>
 										<option value="비씨카드">BC카드</option>
 										<option value="우리카드">우리카드</option>
-										<option value="신한카드">신한카드</option></select></th>
+										<option value="신한카드">신한카드</option>
+								</select></th>
 
 							</tr>
 
@@ -626,17 +556,17 @@ h4 {
 					</table>
 				</div>
 				<br> <br>
-			
-			<div style="text-align: center">
-				<button type="submit" class="btn btn-secondary"
-					onclick="Check_Order()"
-					style="padding-left: 10px; margin-left: 40px; background-color: #7e9c8c; color: white; border: none; border-radius: 2px; width: 130px; height: 45px;">결제하기</button>
-				&nbsp;&nbsp;
-				<button type="button" class="btn btn-secondary"
-					onclick="location.href='/cart'"
-					style="padding-left: 10px; background-color: white; color: #7e9c8c; border: 1px solid #7e9c8c; border-radius: 2px; width: 130px; height: 45px;">취소하기</button>
-			</div>
-			<br> <br>
+
+				<div style="text-align: center">
+					<button type="submit" class="btn btn-secondary"
+						onclick="Check_Order()"
+						style="padding-left: 10px; margin-left: 40px; background-color: #7e9c8c; color: white; border: none; border-radius: 2px; width: 130px; height: 45px;">결제하기</button>
+					&nbsp;&nbsp;
+					<button type="button" class="btn btn-secondary"
+						onclick="location.href='/cart'"
+						style="padding-left: 10px; background-color: white; color: #7e9c8c; border: 1px solid #7e9c8c; border-radius: 2px; width: 130px; height: 45px;">취소하기</button>
+				</div>
+				<br> <br>
 			</form>
 		</div>
 	</section>

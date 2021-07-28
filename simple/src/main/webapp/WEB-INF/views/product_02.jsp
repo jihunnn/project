@@ -143,12 +143,12 @@ function getSelectValue2(frm)
 var fo;
 window.onload = function() {
 	fo = document.forms["form1"];
-	fo['totalPrice'].value = fo['price'].value;
+	fo['productPrice'].value = fo['price'].value;
 }
 
 
 function checkPrice() {
-	fo['totalPrice'].value= Number(fo['price'].value) + Number(fo['option1'].value) + Number(fo['option2'].value);
+	fo['productPrice'].value= Number(fo['price'].value) + Number(fo['option1'].value) + Number(fo['option2'].value);
 }
 	
 	
@@ -328,7 +328,7 @@ function addCartBtn() {
 							style="width: 27px; height: 28px; white-space: nowrap; color: #5f5f5f; float: left; font-size: 18px; border: none; margin-top: 30px;">
 						<h2
 							style="margin-top: 200px; font-size: 18px; test-align: right; width: 400px; margin-left: 380px;">
-							총 상품 금액ㅤ<input type="text" name="totalPrice" value="0"
+							총 상품 금액ㅤ<input type="text" name="productPrice" value="0"
 								style="border: none; text-align: right; font-size: 20px; width: 98px; margin-left: 18px;"
 								readonly />원
 						</h2>

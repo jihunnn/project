@@ -117,6 +117,7 @@
 	//회원구매
 	function memberbuy() {
 		var url = "order.do"
+		var totalPrice = $("#totalPrice").val();
 		var valueArr = new Array();
 		var list = $("input[name='chk']");
 		for (var i = 0; i < list.length; i++) {
@@ -133,7 +134,7 @@
 					type : 'POST', //POST방식
 					traditional : true,
 					data : {
-						valueArr : valueArr
+						valueArr : valueArr, totalPrice : totalPrice
 					//보내고자 하는 data 변수 설정
 					},
 					success : function(jdata) {
@@ -143,7 +144,6 @@
 							alert("오류 발생");
 						}
 					}
-
 				});
 			} else {
 				return false;
@@ -154,6 +154,7 @@
 	//비회원구매
 	function nonmemberbuy() {
 		var url = "order.do"
+		var totalPrice = $("#totalPrice").val();
 		var valueArr = new Array();
 		var list = $("input[name='chk']");
 		for (var i = 0; i < list.length; i++) {
@@ -170,12 +171,12 @@
 					type : 'POST', //POST방식
 					traditional : true,
 					data : {
-						valueArr : valueArr
+						valueArr : valueArr, totalPrice : totalPrice
 					//보내고자 하는 data 변수 설정
 					},
 					success : function(jdata) {
 						if (jdata = 1) {
-							location.replace("order_01.do") //list 로 페이지 새로고침
+							location.replace("nonorder_01.do") //list 로 페이지 새로고침
 						} else {
 							alert("오류 발생");
 						}
@@ -307,7 +308,7 @@
 												<option value="5개">5개</option>
 										</select></td>
 										<td scope="col" align=center><br> <br>${cartlist.deliverycharge}</td>
-										<td scope="col" align=center><br> <br>${cartlist.totalPrice}</td>
+										<td scope="col" align=center><br> <br>${cartlist.productPrice}</td>
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -320,7 +321,7 @@
 									<td></td>
 									<td colspan="3" align=right
 										style="font-size: 18px; color: #7e9c8c; font-weight: bold;">총
-										금액 : 원</td>
+										금액 : <input type="hidden" value="3000000" id="totalPrice"/>3,000,000원</td>
 								</tr>
 							</tfoot>
 						</table>
@@ -377,7 +378,7 @@
 												<option value="5개">5개</option>
 										</select></td>
 										<td scope="col" align=center><br> <br>${cartlist.deliverycharge}</td>
-										<td scope="col" align=center><br> <br>${cartlist.totalPrice}</td>
+										<td scope="col" align=center><br> <br>${cartlist.productPrice}</td>
 									</tr>
 								</tbody>
 							</c:forEach>
@@ -387,8 +388,7 @@
 									<td></td>
 									<td></td>
 									<td colspan="3" align=right
-										style="font-size: 18px; color: #7e9c8c; font-weight: bold;">총
-										금액 : 원</td>
+										style="font-size: 18px; color: #7e9c8c; font-weight: bold;"><input type="hidden" value="3000000" id="totalPrice"/>3,000,000원</td>
 								</tr>
 							</tfoot>
 						</table>
