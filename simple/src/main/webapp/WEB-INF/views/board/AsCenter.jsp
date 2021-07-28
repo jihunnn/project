@@ -21,6 +21,20 @@
         }
     }
     
+	function asCenter() {
+		var form = document.asCenterSearch;
+
+		if (form.search.value == "") {
+			alert("검색 단어를 입력해주세요")
+			form.search.focus();
+			return false;
+		}
+
+
+		form.submit();
+
+	}
+    
     
 </script>
 
@@ -237,7 +251,7 @@ function InquiryList() {
 				action="${contextPath}/board/asCenterSearch.do" method="post">
 				<div>
 
-					<button type="submit" id="buttonmy" class="btn btn-dark"
+					<button type="button" onclick="asCenter()" id="buttonmy" class="btn btn-dark"
 						style="margin-top: 21px; float: right; padding-top: 4px; height: 34px; font-size: 14px; padding-top: 4px; background-color:#7e9c8c; border:none;">검색</button>
 					<input type="text" 
 						style="margin-top: 21px; float: right; height:34px; border: 1px solid #dcdcdc; font-size:14px; margin-right: 5px;"

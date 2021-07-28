@@ -179,27 +179,19 @@ h3 {
 
 		var form = document.find_user_id_password;
 
-		if (form.id_find_name.value == "") {
+		if (form.memName.value == "") {
 			alert("이름을 입력해주세요!");
-			form.id_find_name.focus();
+			form.memName.focus();
 			return false;
 
 		}
-		if (form.id_find_phone.value == "") {
-			alert("휴대전화번호 뒤7~8자리를 입력해주세요!");
+		if (form.memPhoneNum.value == "") {
+			alert("핸드폰번호를 입력해주세요!");
 			form.id_find_phone.focus();
 			return false;
 		}
 
-		for (var i = 0; i < form.id_find_phone.length; i++) {
-			ch = form.id_find_phone.value.charAt(i)
-			if (!(ch >= '0' && ch <= '9')) {
-				alert("핸드폰번호는 숫자만 입력가능합니다.")
-				form.id_find_phone.focus();
-				form.id_find_phone.select();
-				return false;
-			}
-		}
+		
 		form.submit();
 
 	}
@@ -217,21 +209,25 @@ h3 {
 		}
 	}
 	//비밀번호 찾기_이메일
-	function find_user_password_email() {
-		var form = document.find_user_password;
-		if (form.pwd_find_id.value == "") {
-			alert("아이디를 입력해주세요!");
-			form.id_find_name.focus();
-
-		} else {
-			form.submit();
-			form.action = "login-05.jsp";
-		}
-
-	}
+	$(function(){
+		$("#findBtn").click(function(){
+			
+			$.ajax({
+				url : "${contextPath}/find_pw.do",
+				type : "POST",
+				data : {
+					memId : $("#memId").val(),
+					memEmail : $("#memEmail").val()
+				},
+				success : function(result) {
+					alert(result);
+				},
+			})
+		});
+	})
 </script>
 </head>
-<title>주문결제창</title>
+<title>아이디/비밀번호 찾기창</title>
 <body>
 
 	<!-- 타이틀 -->
@@ -272,15 +268,15 @@ h3 {
 						<div id="LeftBox" style="margin-right: 100px;">
 							<h3 id="login_text">아이디 찾기</h3>
 							<div class="id_find_text">
-								<form name="find_user_id_password" action="${contextPath}/login_findid.do"
+								<form name="find_user_id_password" action="${contextPath}/findId.do"
 									method="post">
 									<div id="id_find_name">
-										<input type="text" name="id_find_name" size="37"
+										<input type="text" name="memName" size="37"
 											placeholder="이름을 입력하세요" style="font-size: 14px;  border: 1px solid #dcdcdc; width: 326px; height: 36px;">
 									</div>
 									<div id="id_find_phone">
-										<input type="text" name="id_find_phone" size="37"style="font-size: 14px;  border: 1px solid #dcdcdc; width: 326px; height: 36px;"
-											placeholder="휴대전화번호 뒤 7~8자리를 입력하세요">
+										<input type="text" name="memPhoneNum" size="37"style="font-size: 14px;  border: 1px solid #dcdcdc; width: 326px; height: 36px;"
+											placeholder="핸드폰번호를 입력하세요 ex) 000-0000-0000">
 									</div>
 								</form>
 							</div>
@@ -301,17 +297,18 @@ h3 {
 
 						<div class="pwd_find">
 							<form name="find_user_password" method="post">
-								<input type="text" name="pwd_find_id" class="pwd_find_id" style="font-size: 14px;  border: 1px solid #dcdcdc; width: 326px; height: 36px;"
+								<input type="text" name="memId" id="memId"  style="margin-bottom: 10px; font-size: 14px;  border: 1px solid #dcdcdc; width: 326px; height: 36px; "
 									size="37" placeholder="아이디를 입력하세요">
+								<input type="text" name="memEmail" id="memEmail" style="margin-bottom: 10px; font-size: 14px;  border: 1px solid #dcdcdc; width: 326px; height: 36px;"
+									size="37" placeholder="이메일을 입력하세요">
 
 							</form>
 							<div id="confirm">
 								<input type="submit" id="phone_confirm" value="휴대폰 인증"
 									onclick="find_user_password_phone()"
 									style="width: 160px !important; background-color: #eeeeee; color:#5f5f5f;border-radius: 2px; border:none;margin-top: 10px;">
-								<input type="submit" id="email_confirm" value="이메일 인증"
-									onclick="find_user_password_email()"
-									style="width: 160px !important; margin-left:2px; background-color: #eeeeee; color:#5f5f5f; border-radius: 2px; border:none;">
+								<button type="button" id="findBtn" 
+									style="width: 160px ; height:100px; !important; margin-left:2px; background-color: #eeeeee; color:#5f5f5f; border-radius: 2px; border:none;">이메일 인증</button>
 							</div>
 						</div>
 
@@ -325,7 +322,7 @@ h3 {
 	<div class="container">
 		<section class="Easy-sgin-in-wrap1">
 			<ul class="sign-button-list1">
-				<li><button onclick="location.href='Login-01.jsp'"
+				<li><button onclick="location.href='${contextPath}/login_01.do'"
 						style="background-color: #5f5f5f; color: white; border-radius: 2px; border:none;">
 						<i class="return-login"></i><span>로그인으로 돌아가기</span>
 					</button></li>

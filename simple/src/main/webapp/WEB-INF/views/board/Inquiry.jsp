@@ -83,6 +83,25 @@
         	location.href='${contextPath}/board/listInquiry.do';
         }
     }
+    
+	function inquiry() {
+		var form = document.inquirySearch;
+
+		if (form.search1.value == "") {
+			alert("시작날짜를 설정 해주세요")
+			form.search1.focus();
+			return false;
+		}
+
+		if (form.search2.value == "") {
+			alert("마지막날짜를 설정 해주세요")
+			document.form.search2.focus();
+			return false;
+		}
+
+		form.submit();
+
+	}
 </script>
 
 
@@ -309,7 +328,7 @@
 					<span class="glyphicon glyphicon-calendar" aria-hidden="true"
 						style="margin-left: -35px;"> </span>
 
-					<button type="submit" class="btn btn-default"
+					<button type="button" onclick="inquiry()"class="btn btn-default"
 						style="background-color: #dcdcdc; font-size:14px; fmargin-left: 380px; margin-top: 0px; margin-bottom:3px; width: 80px; height: 34px; font-size: 14px; display: inline !important;  background-color:#7e9c8c; border:none; color: white; border-radius: 2px; height: 30px;  padding-top: 3px;">조회</button>
 				</div>
 			</form>
@@ -331,7 +350,7 @@
 								</c:when>
 								<c:when test="${!empty inquirySearchMap.inquirySearchList}">
 									<c:set var="num"
-										value="${pageMaker.totalCount - ((pageNum-1) * 10) }" />
+										value="${pageMaker.totalCount - ((inquirySearchMap.pageNum-1) * 10) }" />
 									<c:forEach var="inquirySearch" items="${inquirySearch}"
 										varStatus="inquiryNum">
 										<tr
@@ -383,10 +402,11 @@
 
 				</thead>
 			</table>
+			<c:if test="${isLogOn== true &&member !=null}">
 			<a id="buttonmy" class="btn btn-dark"
 				href="${contextPath}/board/inquiryForm.do"
 				style="float: right; margin-top: 25px; border-radius: 2px;  background-color: #7e9c8c; color: white; border:none; border-radius: 2px; width: 120px; height: 40px; padding-top:10px; font-size:14px;">글쓰기</a>
-		
+			</c:if>
 		<!-- 내용 끝 -->
 		<!-- 페이징 글번호 -->
 		<c:choose>

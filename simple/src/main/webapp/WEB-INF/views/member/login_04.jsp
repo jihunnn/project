@@ -60,7 +60,7 @@ h3 {
 }
 </style>
 </head>
-<title>주문결제창</title>
+<title>아이디찾기완료창</title>
 <body>
 
 	<!-- 타이틀 -->
@@ -109,7 +109,9 @@ h3 {
 						<h3>아이디 확인</h3>
 					</div>
 					<div>
-						<a>홍길동</a> <a>님의 아이디는</a> <a>hkd0123</a> <a>입니다.</a>
+						<c:if  test="${findId == true && member != null}">
+		                        <a>${member.memName}</a> <a>님의 아이디는</a> <a>${member.memId}</a> <a>입니다.</a>
+		                </c:if>
 					</div>
 
 				</div>
@@ -121,11 +123,11 @@ h3 {
 		<section class="Easy-sgin-in-wrap5">
 			<ul class="sign-button-list5">
 				<li><button style="background-color: #212529; color: white;"
-						onclick="location.href='/Login-01'">
+						onclick="location.href='${contextPath}/login_01.do'">
 						<i class="back_login-01"></i><span>로그인으로 돌아가기</span>
 					</button></li>
 				<li><button style="background-color: #212529; color: white;"
-						onclick="location.href='/Login-03'">
+						onclick="location.href='${contextPath}/login_03.do'">
 						<i class="go_Login-03"></i><span>비밀번호 찾기</span>
 					</button></li>
 			</ul>

@@ -12,7 +12,7 @@
 <head>
 <script>
 	$(document).on('click', '#btnSearch', function(object) {
-
+		if()
 		object.preventDefault();
 		var url = "${contextPath}/board/questionSearch.do";
 		url = url + "?search=" + $('#search').val();
