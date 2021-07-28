@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.project.simple.cart.service.CartService;
 import com.project.simple.cart.vo.CartVO;
 //import com.bookshop01.common.base.BaseController;
 //import com.bookshop01.goods.vo.GoodsVO;
@@ -31,6 +32,8 @@ import com.project.simple.page.PageMaker;
 
 @Controller("orderController")
 public class OrderControllerImpl implements OrderController {
+	@Autowired
+	private CartService cartService;
 	@Autowired
 	private OrderService orderService;
 	@Autowired
@@ -46,9 +49,8 @@ public class OrderControllerImpl implements OrderController {
 		List<CartVO> cartlist = (ArrayList) session.getAttribute("cartlist");
 		Boolean isLogOn = (Boolean) session.getAttribute("isLogOn");
 
-		if (isLogOn==null) {
-			
-			
+		if (isLogOn == null) {
+
 			session.removeAttribute("orderlist");
 			List<CartVO> list = (ArrayList) session.getAttribute("orderlist");
 
@@ -56,7 +58,7 @@ public class OrderControllerImpl implements OrderController {
 				list = new ArrayList<CartVO>();
 				session.setAttribute("orderlist", list);
 			}
-			
+
 			String totalPrice = request.getParameter("totalPrice");
 			String[] ajaxMsg01 = request.getParameterValues("valueArr");
 			int[] ajaxMsg = null;
@@ -87,6 +89,7 @@ public class OrderControllerImpl implements OrderController {
 				orderlist.add(orderService.selectcartlist(ajaxMsg[i]));
 			}
 
+			session.setAttribute("memCartId", ajaxMsg);
 			session.setAttribute("totalPrice", totalPrice);
 			session.setAttribute("orderlist", orderlist);
 			mav.setViewName("order_01");
@@ -103,18 +106,16 @@ public class OrderControllerImpl implements OrderController {
 		return mav;
 
 	}
-	
+
 	// 주문페이지 이동(회원)
-		@RequestMapping(value = "/nonorder_01.do", method = RequestMethod.GET)
-		private ModelAndView nonorder_01(@ModelAttribute("orderVO") OrderVO orderVO, HttpServletRequest request,
-				HttpServletResponse response) throws Exception {
+	@RequestMapping(value = "/nonorder_01.do", method = RequestMethod.GET)
+	private ModelAndView nonorder_01(@ModelAttribute("orderVO") OrderVO orderVO, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
 
-			ModelAndView mav = new ModelAndView();
-			return mav;
+		ModelAndView mav = new ModelAndView();
+		return mav;
 
-		}
-
-	
+	}
 
 	// 주문내역 DB 저장(주문완료)
 	@RequestMapping(value = "/addorderlist.do", method = RequestMethod.POST)
@@ -124,8 +125,8 @@ public class OrderControllerImpl implements OrderController {
 		HttpSession session = request.getSession();
 		session.removeAttribute("totalPrice");
 		Boolean isLogOn = (Boolean) session.getAttribute("isLogOn");
-		
-		if (isLogOn==null) {
+
+		if (isLogOn == null) {
 			ArrayList<CartVO> orderlist = (ArrayList) session.getAttribute("orderlist");
 			int size = orderlist.size();
 
@@ -133,7 +134,6 @@ public class OrderControllerImpl implements OrderController {
 			int nonmemOrderNum = Integer.parseInt(randomnumber);
 			String nonmemPaymentMethod = orderVO.getNonmemPaymentMethod();
 			String Price = orderVO.getTotalPrice();
-			
 
 			for (int i = 0; i < size; i++) {
 				CartVO vo = orderlist.get(i);
@@ -158,19 +158,19 @@ public class OrderControllerImpl implements OrderController {
 				orderVO.setProductCnt(productCnt);
 				orderVO.setProductPrice(productPrice);
 				orderVO.setTotalPrice(totalPrice);
-				
+
 				orderService.addNewOrder(orderVO);
 			}
+
 			session.removeAttribute("cartlist");
-			
-		
+
 			mav.addObject("Price", Price);
 			mav.addObject("nonmemPaymentMethod", nonmemPaymentMethod);
 			mav.addObject("nonmemOrderNum", randomnumber);
 			mav.setViewName("order_03");
+
 		}
-		
-		
+
 		else if (isLogOn == true) {
 			ArrayList<OrderVO> orderlist = (ArrayList) session.getAttribute("orderlist");
 			int size = orderlist.size();
@@ -179,7 +179,7 @@ public class OrderControllerImpl implements OrderController {
 			int memOrderNum = Integer.parseInt(randomnumber);
 			String memPaymentMethod = orderVO.getMemPaymentMethod();
 			String Price = orderVO.getTotalPrice();
-			int point = Integer.parseInt(Price)/10;
+			int point = Integer.parseInt(Price) / 10;
 
 			for (int i = 0; i < size; i++) {
 				OrderVO vo = orderlist.get(i);
@@ -204,16 +204,24 @@ public class OrderControllerImpl implements OrderController {
 				orderVO.setProductCnt(productCnt);
 				orderVO.setProductPrice(productPrice);
 				orderVO.setTotalPrice(totalPrice);
-				
-				orderService.addNewOrder(orderVO);
+
+				orderService.addNewOrder(orderVO); // 마이바티스에서 분기
 			}
 			
+			
+			String[] memCartId = (String[]) session.getAttribute("memCartId");
+			for(int i=0; i<size; i++) {
+				cartService.removeCompleteCartlist(memCartId[i]);
+			}
+			
+			session.removeAttribute("memCartId");
 			mav.addObject("point", point);
 			mav.addObject("Price", Price);
 			mav.addObject("memPaymentMethod", memPaymentMethod);
 			mav.addObject("memOrderNum", randomnumber);
 			mav.setViewName("order_03");
-		}	
+
+		}
 		return mav;
 	}
 

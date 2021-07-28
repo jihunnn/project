@@ -19,6 +19,9 @@ public class OrderVO {
 	private int productCnt;
 	private String productPrice;	
 	private String totalPrice;
+	private String memSpPhoneNum1;  //관리자 주문리스트조회할때 사용
+	private String memSpPhoneNum2;  //관리자 주문리스트조회할때 사용
+	private String memOrderDate;   	//관리자 주문리스트조회할때 사용
 	
 	//회원주문페이지
 	private String memId;
@@ -46,7 +49,7 @@ public class OrderVO {
 	private String memSpAdr1;
 	private String memSpAdr2;
 	
-	//비회원주문페이지
+	//비회원주문페이지	
 	private int nonmemOrderSeqNum;         //비회원 주문 상품 일련 번호
 	private int nonmemOrderNum;            //비회원 주문 번호
 	private String nonmemName;             //비회원 주문자
@@ -64,6 +67,14 @@ public class OrderVO {
 	private String nonmemDepositorName;         
 	private String nonmemPaymentMethod;             //지불 방법
 	private String productImage;
+	
+	
+	public String getMemOrderDate() {
+		return memOrderDate;
+	}
+	public void setMemOrderDate(String memOrderDate) {
+		this.memOrderDate = memOrderDate;
+	}
 	public String getProductNum() {
 		return productNum;
 	}
@@ -75,6 +86,19 @@ public class OrderVO {
 	}
 	public void setProductName(String productName) {
 		this.productName = productName;
+	}
+	
+	public String getMemSpPhoneNum1() {
+		return memSpPhoneNum1;
+	}
+	public void setMemSpPhoneNum1(String memSpPhoneNum1) {
+		this.memSpPhoneNum1 = memSpPhoneNum1;
+	}
+	public String getMemSpPhoneNum2() {
+		return memSpPhoneNum2;
+	}
+	public void setMemSpPhoneNum2(String memSpPhoneNum2) {
+		this.memSpPhoneNum2 = memSpPhoneNum2;
 	}
 	public int getProductCnt() {
 		return productCnt;

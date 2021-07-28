@@ -41,11 +41,21 @@
 	</select>
 	
 	
-	<!--  장바구니 리스트 삭제 -->
+	
+	<!--  주문완료한 내역 장바구니에서 삭제 -->
+	<delete id="deleteCompleteCartlist"  parameterType="String" >
+		<![CDATA[ 
+			delete from simple.membercart
+			where memCartId = #{memCartId};
+		
+		]]>	
+	</delete>
+	
+	<!--  장바구니 선택삭제 리스트 삭제 -->
 	<delete id="deleteCartProduct"  parameterType="String" >
 		<![CDATA[ 
 			delete from simple.membercart
-			where memCartId = #{productNum};
+			where memCartId = #{memCartId};
 		
 		]]>	
 	</delete>

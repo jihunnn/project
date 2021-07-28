@@ -12,7 +12,8 @@ public interface CartService {
 	public boolean findCartProduct(CartVO cartVO) throws Exception;
 
 	public List<CartVO> selectcartlist(String memId) throws Exception;
-	public void removeCartProduct(String productNum)throws Exception;
+	public void removeCartProduct(String memCartId)throws Exception;
+	public void removeCompleteCartlist(String memCartId) throws Exception;
 
 	public int addcartlist(CartVO cartVO)throws Exception;
 }

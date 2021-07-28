@@ -49,9 +49,17 @@ public class CartServiceImpl implements CartService{
 		return cartDAO.selectCartList(memId);
 	}
 	
+	//주문완료한 내역 장바구니에서 삭제
 	@Override
-	public void removeCartProduct(String productNum) throws Exception {
-		cartDAO.deleteCartProduct(productNum);
+	public void removeCompleteCartlist(String memCartId) throws Exception{
+		cartDAO.deleteCompleteCartlist(memCartId);
+	}
+	
+	
+	//장바구니 선택목록 삭제
+	@Override
+	public void removeCartProduct(String memCartId) throws Exception {
+		cartDAO.deleteCartProduct(memCartId);
 		
 	}
 }
