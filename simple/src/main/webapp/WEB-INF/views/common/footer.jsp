@@ -3,7 +3,20 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
-
+<script>
+function InquiryList() {
+    if (${isLogOn != true && member == null}) {
+    	if(${AdminisLogOn == true && admin != null}) {
+        	
+        	location.href='${contextPath}/admin/listAllInquiry.do';
+        } else{
+        alert("로그인이 필요합니다.");
+        location.href = '${contextPath}/login_01.do';}
+    }   else {
+    	location.href='${contextPath}/board/listInquiry.do';
+    }
+}
+</script>
 
 <!-------------footer------------------------------------------------------------------------------------------------------------------------>
 <footer class="ftco-footer ftco-bg-dark ftco-section"
@@ -16,14 +29,16 @@
 					<h2 class="ftco-heading-2"
 						style="font-size: 14px; margin-bottom: 0px; width: 90px; font-weight: bold; float: left; padding-top: 1px;">A/S
 						접수 센터</h2>
-					<button class="butten" onClick="location.href =''" type="button"
+					<button class="butten" onClick="location.href ='${contextPath}/board/listAsCenter.do'" type="button"
 						class="btn"
 						style="margin-bottom: 0px; cursor: pointer; padding-top: 3px; border-radius: 1px; font-size: 10px; background-color: #7e9c8c; width: 54px; height: 24px;">바로가기</button>
 
 					<div
 						style="border-bottom: 4px solid #7e9c8c; width: 40px; margin-top: 10px;"></div>
 					<div class="block-23 mb-3">
+					
 						<p class="atag" style="font-size: 12px; margin-top: 25px; color:#7e9c8c; font-weight:bold;">042-527-3057</p>
+						<p class="atag" style="font-size: 12px; margin-top: 25px; color:white;">tkawhchlrh@naver.com</p>
 						<p style="font-size: 12px; margin-bottom: 0px; color:white;">MON-FRI
 							9:00~18:00</p>
 
@@ -37,7 +52,7 @@
 					<h2 class="ftco-heading-2"
 						style="font-size: 14px; margin-bottom: 0px; width: 83px; font-weight: bold; float: left; padding-top: 2px;">1:1
 						문의하기</h2>
-					<button class="butten" onClick="location.href =''" type="button"
+					<button class="butten"  onclick="InquiryList()" type="button"
 						class="btn"
 						style="margin-bottom: 0px; cursor: pointer; padding-top: 2px; border-radius: 1px; font-size: 10px; background-color: #7e9c8c; width: 54px; height: 24px;">바로가기</button>
 					<div class="block-23 mb-3">
@@ -54,15 +69,15 @@
 			<div class="col-md">
 				<div class="ftco-footer-widget mb-4" style="text-align: left">
 					<h2 class="ftco-heading-2"
-						style="font-size: 14px; margin-bottom: 0px; width: 65px; font-weight: bold; float: left; padding-top: 2px;"">제휴
-						문의</h2>
-					<button class="butten" onClick="location.href =''" type="button"
+						style="font-size: 14px; margin-bottom: 0px; width: 65px; font-weight: bold; float: left; padding-top: 2px;">공지사항</h2>
+						<button class="butten" onClick="location.href ='${contextPath}/board/listNotice.do'" type="button"
 						class="btn"
 						style="margin-bottom: 0px; cursor: pointer; padding-top: 2px; border-radius: 1px; font-size: 10px; background-color: #7e9c8c; width: 54px; height: 24px;">바로가기</button>
+					
 					<div class="block-23 mb-3">
 						<div
 							style="border-bottom: 4px solid #7e9c8c; width: 40px; margin-top: 10px;"></div>
-						<p class="atag" style="font-size: 12px; margin-top: 25px; color:white;">tkawhchlrh@naver.com</p>
+						
 						<p style="font-size: 12px; margin-bottom: 0px;">ㅤ</p>
 
 					</div>

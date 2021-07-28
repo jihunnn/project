@@ -1,7 +1,9 @@
 package com.project.simple.admin.controller;
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -91,6 +93,7 @@ public class AdminControllerImpl implements AdminController {
 	@RequestMapping(value = "/admin/listAllInquiry.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView listAllInquiry(Criteria cri, HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
+		Map<String, Object> inquiryMap = new HashMap<String, Object>();
 		String viewName = (String) request.getAttribute("viewName");
 		List<ArticleVO> listAllInquiry = adminService.listAllInquiry(cri);
 		int inquiryCount = adminService.inquiryCount();
@@ -98,7 +101,10 @@ public class AdminControllerImpl implements AdminController {
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(inquiryCount);
-		mav.addObject("inquiryList", listAllInquiry);
+		int pageNum = pageMaker.getCri().getPage();
+		inquiryMap.put("pageNum", pageNum);
+		inquiryMap.put("inquiryList", listAllInquiry);
+		mav.addObject("inquiryMap", inquiryMap);
 		mav.addObject("pageMaker", pageMaker);
 		return mav;
 	}

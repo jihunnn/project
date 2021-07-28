@@ -14,22 +14,25 @@
 			value="/WEB-INF/views/common/side.jsp" />
 	</definition>
 
-	<definition name="order_01" extends="baseLayout">
+    <definition name="order_01" extends="baseLayout">
 		<put-attribute name="body"
-			value="/WEB-INF/views/order_01.jsp" />
+			value="/WEB-INF/views/order/order_01.jsp" />
 	</definition>
 
 	<definition name="order_02" extends="baseLayout">
 		<put-attribute name="body"
-			value="/WEB-INF/views/order_02.jsp" />
+			value="/WEB-INF/views/order/order_02.jsp" />
 	</definition>
 
-
-	<definition name="admin_listorder" extends="baseLayout">
+	<definition name="order_03" extends="baseLayout">
 		<put-attribute name="body"
-			value="/WEB-INF/views/admin_listorder.jsp" />
+			value="/WEB-INF/views/order/order_03.jsp" />
 	</definition>
 
+    <definition name="nonorderinquiry" extends="baseLayout">
+		<put-attribute name="body"
+			value="/WEB-INF/views/order/nonorderinquiry.jsp" />
+	</definition>
 
 
 

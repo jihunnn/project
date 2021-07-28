@@ -32,4 +32,5 @@ public interface ProductController {
 			Criteria1 cri, HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ModelAndView viewProduct(@RequestParam("productNum") String productNum, Criteria cri,HttpServletRequest request,
 			HttpServletResponse response) throws Exception;
+	public ModelAndView main(HttpServletRequest request, HttpServletResponse response) throws Exception;
 }

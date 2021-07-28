@@ -20,5 +20,13 @@ public interface MemberDAO{
 	public List<MemberVO> memberSearchList(Map<String, Object> memberSearchMap)throws DataAccessException;
 	public int memberSearchCount(Map<String, Object> search) throws DataAccessException;
 	public MemberVO deleteMemberlist(String memId) throws DataAccessException;
+	public MemberVO find_Id(MemberVO memberVO) throws DataAccessException;
+	public String selectOverlappedID(String memId) throws DataAccessException;
+	public int update_pw(MemberVO memberVO) throws Exception;
+	public int check_id(String memId) throws Exception;
+	public MemberVO check_email(String memId) throws Exception;
+	
+
+
 	
 }

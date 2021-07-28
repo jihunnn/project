@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +13,7 @@
 
 	<section class="home-slider js-fullheight owl-carousel">
 		<div class="slider-item js-fullheight"
-			style="background-image:url(${contextPath}/resources/images/bg_1.jpg);">
+			style="background-image:url(${contextPath}/resources/images/main1.jpg);">
 			<div class="overlay"></div>
 			<div class="container">
 				<div
@@ -31,7 +32,7 @@
 		</div>
 
 		<div class="slider-item js-fullheight"
-			style="background-image:url(${contextPath}/resources/images/bg_2.jpg);">
+			style="background-image:url(${contextPath}/resources/images/main2.jpg);">
 			<div class="overlay"></div>
 			<div class="container">
 				<div
@@ -58,66 +59,35 @@
 				</div>
 			</div>
 			<div class="row">
+			<c:choose>
+			 <c:when test="${empty BestProductMap.BestProductList}">
+			     <b><span style="color:black;">등록된 상품이 없습니다.</span></b>
+			 </c:when>
+			 <c:when test="${!empty BestProductMap.BestProductList}">
+			 <c:forEach var="product" items="${BestProductMap.myProductList}">
 				<div class="col-md-4 ftco-animate">
 					<div class="blog-entry">
-						<a href="blog-single.html" class="block-20"
-							style="background-image: url('${contextPath}/resources/images/product/sopia.jpg');">
-						</a>
+						<a href="${contextPath}/product/viewProduct.do?productNum=${product.productNum}" class="block-20">
+						  <img  class="block-20" style="width: 400px; margin-left:10px" src="${contextPath}/download_product.do?productNum=${product.productNum}&productImage=${product.productImage}" id="preview" /></a>
 						<div class="text d-flex py-1">
 							<div class="desc pl-2">
 								<h3 class="heading">
-									<a href="#" style="font-size:15px;">소피아 대리석 4인 식탁 세트</a>
+									<a href="${contextPath}/product/viewProduct.do?productNum=${product.productNum}" style="font-size:15px;">${product.productName}</a>
 								</h3>
 
 								<hr style="margin-top: 15px; margin-bottom:10px;">
 								<h3 class="heading"
 									style="float:right; white-space: nowrap; margin-bottom:10px;">
-									<a href="#" style="font-size: 17px; ">2,190,000원</a>
+									<a href="${contextPath}/product/viewProduct.do?productNum=${product.productNum}" style="font-size: 17px; "><fmt:formatNumber pattern="###,###,###" value="${product.productPrice}"/></a>
 								</h3>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-4 ftco-animate">
-					<div class="blog-entry" data-aos-delay="100">
-						<a href="blog-single.html" class="block-20"
-							style="background-image: url('${contextPath}/resources/images/image_2.jpg');">
-						</a>
-						<div class="text d-flex py-1">
-							<div class="desc pl-2">
-								<h3 class="heading">
-									<a href="#" style="font-size:15px;">소피아 대리석 4인 식탁 세트</a>
-								</h3>
-
-								<hr style="margin-top: 15px; margin-bottom:10px;">
-								<h3 class="heading"
-									style="float:right; white-space: nowrap; margin-bottom:10px;">
-									<a href="#" style="font-size: 17px; ">2,190,000원</a>
-								</h3>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4 ftco-animate">
-					<div class="blog-entry" data-aos-delay="200">
-						<a href="blog-single.html" class="block-20"
-							style="background-image: url('${contextPath}/resources/images/image_3.jpg');">
-						</a>
-							<div class="text d-flex py-1">
-							<div class="desc pl-2">
-								<h3 class="heading">
-									<a href="#" style="font-size:15px;">소피아 대리석 4인 식탁 세트</a>
-								</h3>
-
-								<hr style="margin-top: 15px; margin-bottom:10px;">
-								<h3 class="heading"
-									style="float:right; white-space: nowrap; margin-bottom:10px;">
-									<a href="#" style="font-size: 17px;">2,190,000원</a>
-								</h3>
-							</div>
-						</div>
-					</div>
-				</div>
+				</c:forEach>
+				</c:when>
+				</c:choose>
+	
 			</div>
 		</div>
 	</section>

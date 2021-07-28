@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
@@ -14,10 +15,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class FileDownloadController {
-	private static final String ARTICLE_IMAGE_REPO = "C:\\spring\\product_image";
+	private static final String ARTICLE_IMAGE_REPO_product = "C:\\spring\\product_image";
 	private static final String ARTICLE_IMAGE_REPO_inquiry = "C:\\spring\\inquiry_image";
 	private static final String ARTICLE_IMAGE_REPO_asCenter = "C:\\spring\\asCenter_image";
-	private static final String ARTICLE_IMAGE_REPO_review = "C:\\spring\\review_image";
+	private static String ARTICLE_IMAGE_REPO_review;
 
 	@RequestMapping("/download.do")
 	protected void download(@RequestParam("inquiryFile") String inquiryFile,
@@ -65,7 +66,8 @@ public class FileDownloadController {
 	protected void download_product(@RequestParam("productImage") String productImage,
 			@RequestParam("productNum") String productNum, HttpServletResponse response) throws Exception {
 		OutputStream out = response.getOutputStream();
-		String downFile = ARTICLE_IMAGE_REPO + "\\" + productNum + "\\" + productImage;
+
+		String downFile = ARTICLE_IMAGE_REPO_product + "\\" + productNum + "\\" + productImage;
 		File file = new File(downFile);
 		System.out.println(productNum);
 		response.setHeader("Cache-Control", "no-cache");
@@ -84,9 +86,10 @@ public class FileDownloadController {
 
 	@RequestMapping("/download_product1.do")
 	protected void download_product1(@RequestParam("productContentImage") String productImage,
-			@RequestParam("productNum") String productNum, HttpServletResponse response) throws Exception {
+			@RequestParam("productNum") String productNum, HttpServletResponse response ) throws Exception {
 		OutputStream out = response.getOutputStream();
-		String downFile = ARTICLE_IMAGE_REPO + "\\" + productNum + "\\" + productImage;
+
+		String downFile = ARTICLE_IMAGE_REPO_product + "\\" + productNum + "\\" + productImage;
 		File file = new File(downFile);
 		System.out.println(productNum);
 		response.setHeader("Cache-Control", "no-cache");
@@ -105,8 +108,9 @@ public class FileDownloadController {
 	
 	@RequestMapping("/download_review.do")
 	protected void download_review(@RequestParam("reviewFile") String reviewFile,
-			@RequestParam("reviewNum") String reviewNum, HttpServletResponse response) throws Exception {
+			@RequestParam("reviewNum") String reviewNum, HttpServletResponse response, HttpServletRequest request) throws Exception {
 		OutputStream out = response.getOutputStream();
+		ARTICLE_IMAGE_REPO_review = request.getSession().getServletContext().getRealPath("/resources/upload/review_image");
 		String downFile = ARTICLE_IMAGE_REPO_review + "\\" + reviewNum + "\\" + reviewFile;
 		File file = new File(downFile);
 		response.setHeader("Cache-Control", "no-cache");
@@ -122,6 +126,8 @@ public class FileDownloadController {
 		in.close();
 		out.close();
 	}
+	
+	
 	
 
 

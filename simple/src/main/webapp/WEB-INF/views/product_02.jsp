@@ -224,8 +224,8 @@ function addCartBtn() {
 				<input type="hidden" name="productNum" value="${product.productNum}" />
 				<input type="hidden" name="productName"
 					value="${product.productName}" /> <input type="hidden"
-					name="option1name" value="${option1[1].option1name}" /> <input
-					type="hidden" name="option2name" value="${option2[1].option2name}" />
+					name="option1Name" value="${option1[1].option1Name}" /> <input
+					type="hidden" name="option2Name" value="${option2[1].option2Name}" />
 				<input type="hidden" name="deliverycharge" value="무료배송" />
 
 
@@ -236,7 +236,7 @@ function addCartBtn() {
 					<section>
 						<div class="col-md-4 ftco-animate">
 							<div class="blog-entry">
-								<a><img src="${contextPath}/resources/images/image_1.jpg"
+								<a><img src="${contextPath}/download_product.do?productNum=${product.productNum}&productImage=${product.productImage}"
 									style="width: 600px; padding-top: 10px; padding-top: 10px; margin-left: -15px; float: left;">
 								</a> <br>
 							</div>
@@ -277,25 +277,25 @@ function addCartBtn() {
 
 
 						<h3 class="heading">
-							<c:forEach items="${option1}" var="name1">
+							<c:forEach items="${option1}" var="name1" begin="0" end="0">
 								<a
-									style="position: absolute; white-space: nowrap; margin-top: 82px; margin-left: 51px; float: left; font-size: 14px; color: #5f5f5f; font-weight: normal;">${name1.option1name}ㅤㅤ
+									style="position: absolute; white-space: nowrap; margin-top: 82px; margin-left: 51px; float: left; font-size: 14px; color: #5f5f5f; font-weight: normal;">${name1.option1Name}ㅤㅤ
 									ㅤ</a>
 							</c:forEach>
 						</h3>
 						<select id="option1" name="option1"
 							onchange="checkPrice();getSelectValue1(this.form);"
-							style="margin-left: 180px; margin-top: 70px; float: left !important; left: 675px; font-size: 14px; border: 1px solid #dcdcdc; width: 326px; height: 32px;">
+							style="margin-left: 180px; margin-top: 70px; left: 675px; font-size: 14px; border: 1px solid #dcdcdc; width: 326px; height: 32px;">
 							<option value="">옵션 선택</option>
-							<c:forEach items="${option1}" var="option1">
+							<c:forEach items="${option1}" var="option1" >
 								<option value="${option1.option1price}">${option1.option1value}
 									+ (${option1.option1price}원)</option>
 							</c:forEach>
 						</select> <input type="hidden" name="option1value"> <br>
 						<h3 class="heading">
-							<c:forEach items="${option2}" var="name2">
+							<c:forEach items="${option2}" var="name2"  begin="0" end="0">
 								<a
-									style="position: absolute; float: left !important; left: 809px; white-space: nowrap; margin-top: 100px; margin-left: 155px; float: left; font-size: 14px; color: #5f5f5f; font-weight: normal;">${name2.option2name}
+									style="position: absolute; white-space: nowrap; margin-top: 35px; margin-left: 51px; float: left; font-size: 14px; color: #5f5f5f; font-weight: normal;">${name2.option2Name}
 									ㅤ</a>
 							</c:forEach>
 

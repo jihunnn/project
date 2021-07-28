@@ -65,7 +65,7 @@
 	
 	<delete id="deleteFavoriteProduct" parameterType="String">
 	    <![CDATA[
-	      delete from favoriteproduct
+	      delete from simple.favoriteproduct
 	      where productNum=#{productNum};
     	]]>
 	</delete><!-- 관심상품에 상품 삭제 -->

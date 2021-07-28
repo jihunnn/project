@@ -377,13 +377,13 @@
 																<a
 																	href="${contextPath}/product/viewProduct.do?productNum=${reviewSearchList.productNum}">${reviewSearchList.productName}</a>
 															</div>
-															<c:if test="${reviewSearchList.option1 !=null}">
-																<p style="margin-left: 140px; font-size: 13px;">옵션1
-																	: ${reviewSearchList.option1}</p>
+															<c:if test="${reviewSearchList.option1value !=null}">
+																<p style="margin-left: 140px; font-size: 13px;">${reviewSearchList.option1Name}
+																	: ${reviewSearchList.option1value}</p>
 															</c:if>
-															<c:if test="${reviewSearchList.option2 !=null}">
-																<p style="margin-left: 140px; font-size: 13px;">옵션2
-																	: ${reviewSearchList.option2}</p>
+															<c:if test="${reviewSearchList.option2value !=null}">
+																<p style="margin-left: 140px; font-size: 13px;">${reviewSearchList.option2Name}
+																	: ${reviewSearchList.option2value}</p>
 															</c:if>
 														</div>
 													</th>
@@ -488,13 +488,13 @@
 																<a
 																	href="${contextPath}/product/viewProduct.do?productNum=${mypageReviewList.productNum}">${mypageReviewList.productName}</a>
 															</div>
-															<c:if test="${mypageReviewList.option1 !=null}">
-																<p style="margin-left: 140px; font-size: 13px;">옵션1
-																	: ${mypageReviewList.option1}</p>
+															<c:if test="${mypageReviewList.option1value !=null}">
+																<p style="margin-left: 140px; font-size: 13px;">${mypageReviewList.option1Name}
+																	: ${mypageReviewList.option1value}</p>
 															</c:if>
-															<c:if test="${mypageReviewList.option2 !=null}">
-																<p style="margin-left: 140px; font-size: 13px;">옵션2
-																	: ${mypageReviewList.option2}</p>
+															<c:if test="${mypageReviewList.option2value !=null}">
+																<p style="margin-left: 140px; font-size: 13px;">${mypageReviewList.option2Name}
+																	: ${mypageReviewList.option2value}</p>
 															</c:if>
 														</div>
 													</th>

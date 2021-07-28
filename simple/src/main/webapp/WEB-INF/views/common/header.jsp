@@ -79,7 +79,7 @@ hr {
 
 <nav
 	class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
-	id="ftco-navbar" style="padding-bottom: 0px;">
+	id="ftco-navbar" style="padding-bottom: 0px; top:0px;">
 	<div class="container" style="height: 150px;">
 		<a class="navbar-brand" href="${contextPath}/main.do">SIMPLE</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -152,7 +152,7 @@ hr {
 				<button type="button" id="dropdownMenu1"
 					onclick="location.href = '${contextPath}/product/listProduct.do?sort=침대&subsort=x'"
 					data-toggle="dropdown" class="category"
-					style="margin-left: -950px; margin-bottom: 0px; font-size: 16px; cursor: pointer; margin-top: 40px;">침대
+					style="margin-left: -950px; margin-bottom: 0px; font-size: 16px; cursor: pointer; margin-top: 40px; background-color:transparent; ">침대
 				</button>
 				<ul class="dropdown-menu" role="menu"
 					aria-labelledby="dropdownMenu1"
@@ -181,7 +181,7 @@ hr {
 				<button type="button" id="dropdownMenu1"
 					onclick="location.href = '${contextPath}/product/listProduct.do?sort=소파&subsort=x'"
 					data-toggle="dropdown" aria-expanded="true" class="category"
-					style="margin-left: -850px; cursor: pointer; font-size: 16px; margin-top: 40px;">
+					style="margin-left: -850px; cursor: pointer; font-size: 16px; margin-top: 40px; background-color:transparent;">
 					소파</button>
 				<ul class="dropdown-menu" role="menu"
 					aria-labelledby="dropdownMenu1"
@@ -208,7 +208,7 @@ hr {
 				<button type="button" id="dropdownMenu1"
 					onclick="location.href = '${contextPath}/product/listProduct.do?sort=화장대/옷장/수납'"
 					data-toggle="dropdown" aria-expanded="true" class="category"
-					style="margin-left: -760px; cursor: pointer; font-size: 16px; margin-top: 40px;">
+					style="margin-left: -760px; cursor: pointer; font-size: 16px; margin-top: 40px; background-color:transparent;">
 					화장대/옷장/수납</button>
 				<ul class="dropdown-menu" role="menu"
 					aria-labelledby="dropdownMenu1"
@@ -234,7 +234,7 @@ hr {
 				<button type="button" id="dropdownMenu1"
 					onclick="location.href = '${contextPath}/product/listProduct.do?sort=식탁/의자'"
 					data-toggle="dropdown" aria-expanded="true" class="category"
-					style="margin-left: -570px; cursor: pointer; font-size: 16px; margin-top: 40px;">
+					style="margin-left: -570px; cursor: pointer; font-size: 16px; margin-top: 40px; background-color:transparent;">
 					식탁/의자</button>
 				<ul class="dropdown-menu" role="menu"
 					aria-labelledby="dropdownMenu1"
@@ -261,7 +261,7 @@ hr {
 				<button type="button" id="dropdownMenu1"
 					onclick="location.href = '${contextPath}/product/listProduct.do?sort=테이블/책상/책장'"
 					data-toggle="dropdown" aria-expanded="true" class="category"
-					style="margin-left: -435px; cursor: pointer; font-size: 16px; margin-top: 40px;">
+					style="margin-left: -435px; cursor: pointer; font-size: 16px; margin-top: 40px; background-color:transparent;">
 					테이블/책상/책장</button>
 				<ul class="dropdown-menu" role="menu"
 					aria-labelledby="dropdownMenu1"

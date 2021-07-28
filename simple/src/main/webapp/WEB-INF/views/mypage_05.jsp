@@ -400,7 +400,7 @@ function returnConfirmResult() {
 										<div style="font-size: 11px;">
 											<a>연락처 :</a> <a>${memOrderSeqNum.memSpPhoneNum1}</a>
 											<c:if test="${memOrderSeqNum.memSpPhoneNum2 !=null}">
-												<a>/ ${memOrderSeqNum.memSpPhone2}</a>
+												<a>/ ${memOrderSeqNum.memSpPhone2Num2}</a>
 											</c:if>
 										</div>
 										<div style="font-size: 11px;">

@@ -114,11 +114,7 @@
 				</div>
 			
 			</div>
-=======
-			<!-- Top Menu -->
-			<jsp:include page="/WEB-INF/views/common/admin_topmenu.jsp"
-				flush="false" />
->>>>>>> branch 'master' of https://github.com/jihunnn/project.git
+
 
 		
 			<hr style="margin-top: -10px;">

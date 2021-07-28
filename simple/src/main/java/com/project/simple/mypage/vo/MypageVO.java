@@ -214,7 +214,7 @@ public class MypageVO {
 		return option1value;
 	}
 	
-	public void setOption1(String option1value) {
+	public void setOption1value(String option1value) {
 		this.option1value = option1value;
 	}
 	
@@ -357,6 +357,13 @@ public class MypageVO {
 	}
 	public void setOption2Name(String option2Name) {
 		this.option2Name = option2Name;
+	}
+	
+	public String getReviewFile() {
+		return reviewFile;
+	}
+	public void setReviewFile(String reviewFile) {
+		this.reviewFile = reviewFile;
 	}
 
 	

@@ -261,13 +261,13 @@
 														src="${contextPath}/download_product.do?productNum=${reviewNum.productNum}&productImage=${reviewNum.productImage}"
 														width="110" height="110" style="float: left;"> <a
 														style="margin-left: 30px;">${reviewNum.productName}</a>
-													<c:if test="${reviewNum.option1 !=null}">
-														<p style="margin-left: 140px; font-size: 13px;">옵션1 :
-															${reviewNum.option1}</p>
+													<c:if test="${reviewNum.option1value !=null}">
+														<p style="margin-left: 140px; font-size: 13px;">${reviewNum.option1Name} :
+															${reviewNum.option1value}</p>
 													</c:if>
-													<c:if test="${reviewNum.option2 !=null}">
-														<p style="margin-left: 140px; font-size: 13px;">옵션2 :
-															${reviewNum.option2}</p>
+													<c:if test="${reviewNum.option2value !=null}">
+														<p style="margin-left: 140px; font-size: 13px;">${reviewNum.option2Name} :
+															${reviewNum.option2value}</p>
 													</c:if>
 												</div>
 
@@ -379,13 +379,13 @@
 														src="${contextPath}/download_product.do?productNum=${mypageVO.productNum}&productImage=${mypageVO.productImage}"
 														width="110" height="110" style="float: left;"> <a
 														style="margin-left: 30px;">${mypageVO.productName}</a>
-													<c:if test="${mypageVO.option1 !=null}">
-														<p style="margin-left: 140px; font-size: 13px;">옵션1 :
-															${mypageVO.option1}</p>
+													<c:if test="${mypageVO.option1value !=null}">
+														<p style="margin-left: 140px; font-size: 13px;">${mypageVO.option1Name} :
+															${mypageVO.option1value}</p>
 													</c:if>
-													<c:if test="${mypageVO.option2 !=null}">
-														<p style="margin-left: 140px; font-size: 13px;">옵션2 :
-															${mypageVO.option2}</p>
+													<c:if test="${mypageVO.option2value !=null}">
+														<p style="margin-left: 140px; font-size: 13px;">${mypageVO.option2Name} :
+															${mypageVO.option2value}</p>
 													</c:if>
 												</div>
 

@@ -5,6 +5,20 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script>
+    function InquiryList() {
+        if (${isLogOn != true && member == null}) {
+        	if(${AdminisLogOn == true && admin != null}) {
+            	
+            	location.href='${contextPath}/admin/listAllInquiry.do';
+            } else{
+            alert("로그인이 필요합니다.");
+            location.href = '${contextPath}/login_01.do';}
+        }   else {
+        	location.href='${contextPath}/board/listInquiry.do';
+        }
+    }
+</script>
 </head>
 <body>
 	<div class="col-lg-2" 
@@ -20,13 +34,13 @@
 				class="list-group-item list-group-item-action text-center font-weight-bold" style="text-align:left !important; ">주문/배송조회<span style="float:right; color:#7e9c8c;">〉</span></a>
 			<a href="${contextPath}/mypage_07.do"
 				class="list-group-item list-group-item-action text-center font-weight-bold" style="text-align:left !important; ">취소/반품내역<span style="float:right; color:#7e9c8c;">〉</span></a>
-			<a href="${contextPath}/myCartList.do"
+			<a href="${contextPath}/memcart.do"
 				class="list-group-item list-group-item-action text-center font-weight-bold" style="text-align:left !important; ">장바구니<span style="float:right; color:#7e9c8c;">〉</span></a>
 			<a href="${contextPath}/mypage_08.do"
 				class="list-group-item list-group-item-action text-center font-weight-bold" style="text-align:left !important; ">관심상품<span style="float:right; color:#7e9c8c;">〉</span></a>
-			<a href="#"
+			<a onclick="InquiryList()"
 				class="list-group-item list-group-item-action text-center font-weight-bold" style="text-align:left !important; ">1:1문의<span style="float:right; color:#7e9c8c;">〉</span></a>
-			<a href="#"
+			<a href="${contextPath}/board/listAsCenter.do"
 				class="list-group-item list-group-item-action text-center font-weight-bold" style="text-align:left !important; ">A/S접수<span style="float:right; color:#7e9c8c;">〉</span></a>
 			<a href="${contextPath}/mypage_14.do"
 				class="list-group-item list-group-item-action text-center font-weight-bold" style="text-align:left !important; ">상품

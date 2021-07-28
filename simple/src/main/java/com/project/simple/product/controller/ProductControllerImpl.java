@@ -45,15 +45,24 @@ import com.project.simple.product.vo.ProductVO;
 
 public class ProductControllerImpl implements ProductController {
 	private static final String ARTICLE_IMAGE_REPO = "C:\\spring\\product_image";
-	private static final String ARTICLE_IMAGE_REPO_productReview = "C:\\spring\\asCenter_image";
+	private static final String ARTICLE_IMAGE_REPO_review = "C:\\spring\\review_image";
 	@Autowired
 	private ProductService productService;
 	@Autowired
 	private ProductVO productVO;
 	private static final Logger logger = LoggerFactory.getLogger(ProductControllerImpl.class);
 	
-	
-	
+	@Override // 메인 best상품 조회
+	@RequestMapping(value = "/main.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView main(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String viewName = (String) request.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView(viewName);
+		Map<String ,List> BestProductMap= productService.BestProductList();
+		System.out.println(BestProductMap);
+		mav.addObject("BestProductMap", BestProductMap);
+		return mav;
+	}
+
 	
 
 	@Override //상품등록하기
@@ -70,6 +79,7 @@ public class ProductControllerImpl implements ProductController {
 
 
 		}
+	
 
 		List<String> productImage1 = upload(multipartRequest);
 		String productImage = productImage1.get(0).toString();
@@ -425,7 +435,6 @@ public class ProductControllerImpl implements ProductController {
 		String viewName = (String) request.getAttribute("viewName");
 		HttpSession session=request.getSession();
 		productVO = productService.viewProduct(productNum);
-
 		Map<String, Object> option = (Map<String, Object>) productService.viewOptionvalue(productNum);
 		ModelAndView mav = new ModelAndView();
 		
