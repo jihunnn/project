@@ -42,7 +42,7 @@ import com.project.simple.page.Criteria;
 @Controller("boardController")
 public class BoardControllerImpl implements BoardController {
 	private static final String ARTICLE_IMAGE_REPO_inquiry="C:\\spring\\inquiry_image";
-	private static final String ARTICLE_IMAGE_REPO_asCenter="C:\\spring\\asCenter_image";;
+	private static final String ARTICLE_IMAGE_REPO_asCenter="C:\\spring\\asCenter_image";
 
 	@Autowired
 	private BoardService boardService;

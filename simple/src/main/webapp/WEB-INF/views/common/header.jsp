@@ -79,7 +79,7 @@ hr {
 
 <nav
 	class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
-	id="ftco-navbar" style="padding-bottom: 0px; top:0px;">
+	id="ftco-navbar" style="padding-bottom: 0px; ">
 	<div class="container" style="height: 150px;">
 		<a class="navbar-brand" href="${contextPath}/main.do">SIMPLE</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"

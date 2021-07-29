@@ -412,7 +412,7 @@ h3 {
 											style="padding-left: 50px;"><input type="password"
 											style="border: 1px solid #dcdcdc; font-size: 14px; width: 326px; height: 36px;"
 											name="memPwd" size="30" value=""><a
-											style="color: #b3b3b3; font-size: 10px;">10자이상/영문, 대소문자,
+											style="color: gray; font-size: 10px;">10자이상/영문, 대소문자,
 												숫자만 입력가능</a></td>
 
 									</tr>

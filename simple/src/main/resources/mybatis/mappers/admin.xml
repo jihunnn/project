@@ -99,5 +99,22 @@
 	]]>
 	</select>
 
+	<insert id="insertNewNotice" parameterType="java.util.Map">
+		<![CDATA[
+			insert into notice(noticeNum, noticeTitle, noticeWriter, noticeContent, noticeImg)
+			values(#{noticeNum}, #{noticeTitle},  #{noticeWriter}, #{noticeContent}, #{noticeImg});
+		]]>
+
+	</insert>
+
+	<select id="selectNewNoticeNum" resultType="int">
+	<![CDATA[
+			
+			select max(noticeNum)+1 from notice;
+	
+
+	]]>
+	</select>
+
 
 </mapper>

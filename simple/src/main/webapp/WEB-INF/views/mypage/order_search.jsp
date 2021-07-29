@@ -371,7 +371,7 @@
 														${myOrderInfoSearchList.deliveryStatus}<br>
 													</ins> <c:choose>
 														<c:when
-															test="${myOrderInfoSearchList.purchaseConfirm =='구매'}">
+															test="${myOrderInfoSearchList.purchaseConfirm =='구매확정(미)'}">
 
 															<form>
 																<input type="button" name="purchaseConfirm"
@@ -384,12 +384,12 @@
 															</form>
 														</c:when>
 														<c:when
-															test="${myOrderInfoSearchList.purchaseConfirm =='구매확정'}">
+															test="${myOrderInfoSearchList.purchaseConfirm =='구매확정(완)'}">
 
 
 															<c:choose>
 																<c:when
-																	test="${myOrderInfoSearchList.reviewConfirm == '리뷰'}">
+																	test="${myOrderInfoSearchList.reviewConfirm == '리뷰작성(미)'}">
 																	<input type="button" name="reviewConfirm"
 																		style="font-size: 12px; width: 110px; border:none; background-color: #212529; margin-bottom: 5px;font-size:14px; color: white;"
 																		id="pressbtn1" class="confirmation"
@@ -397,7 +397,7 @@
 																		value="리뷰작성">
 																</c:when>
 																<c:when
-																	test="${myOrderInfoSearchList.reviewConfirm == '리뷰작성'}">
+																	test="${myOrderInfoSearchList.reviewConfirm == '리뷰작성(완)'}">
 																	<input type="button" name="reviewConfirm"
 																		style="font-size: 12px; width: 110px; border:none; background-color: #212529; margin-bottom: 5px; color: white; font-size:14px;"
 																		id="pressbtn1" class="confirmation"
@@ -407,14 +407,14 @@
 														</c:when>
 													</c:choose> <c:choose>
 														<c:when
-															test="${myOrderInfoSearchList.returnConfirm == '반품'}">
+															test="${myOrderInfoSearchList.returnConfirm == '반품신청(미)'}">
 															<input type="button"
 																style="font-size: 12px; width: 110px; background-color: #212529; border:none; margin-bottom: 5px; color: white; font-size:14px;"
 																onclick="location.href='${contextPath}/mypage/returnWrite.do?&productNum=${myOrderInfoSearchList.productNum}&memOrderSeqNum=${myOrderInfoSearchList.memOrderSeqNum}'"
-																value="반품신청">
+																value="반품신청(미)">
 														</c:when>
 														<c:when
-															test="${myOrderInfoSearchList.returnConfirm == '반품신청'}">
+															test="${myOrderInfoSearchList.returnConfirm == '반품신청(완)'}">
 															<input type="button"
 																style="font-size: 12px; width: 110px; background-color: #212529; border:none; margin-bottom: 5px; color: white; font-size:14px;"
 																onclick="returnConfirmResult()" value="반품신청">
@@ -521,7 +521,7 @@
 														style="color: red; font-size: 12px; ">
 														${myOrderInfoList.deliveryStatus}<br>
 													</ins> <c:choose>
-														<c:when test="${myOrderInfoList.purchaseConfirm =='구매'}">
+														<c:when test="${myOrderInfoList.purchaseConfirm =='구매확정(미)'}">
 
 															<form>
 																<input type="button" name="purchaseConfirm"
@@ -533,11 +533,11 @@
 																	value="${myOrderInfoList.memOrderSeqNum}" />
 															</form>
 														</c:when>
-														<c:when test="${myOrderInfoList.purchaseConfirm =='구매확정'}">
+														<c:when test="${myOrderInfoList.purchaseConfirm =='구매확정(완)'}">
 
 
 															<c:choose>
-																<c:when test="${myOrderInfoList.reviewConfirm == '리뷰'}">
+																<c:when test="${myOrderInfoList.reviewConfirm == '리뷰작성(미)'}">
 																	<input type="button" name="reviewConfirm"
 																		style="font-size: 12px; width: 110px; background-color: #28a745; margin-bottom: 5px; color: white; border:none;"
 																		id="pressbtn1" class="confirmation"
@@ -545,7 +545,7 @@
 																		value="리뷰작성">
 																</c:when>
 																<c:when
-																	test="${myOrderInfoList.reviewConfirm == '리뷰작성'}">
+																	test="${myOrderInfoList.reviewConfirm == '리뷰작성(완)'}">
 																	<input type="button" name="reviewConfirm"
 																		style="font-size: 12px; width: 110px; background-color: #28a745;border:none; margin-bottom: 5px; color: white;"
 																		id="pressbtn1" class="confirmation"
@@ -554,13 +554,13 @@
 															</c:choose>
 														</c:when>
 													</c:choose> <c:choose>
-														<c:when test="${myOrderInfoList.returnConfirm == '반품'}">
+														<c:when test="${myOrderInfoList.returnConfirm == '반품신청(미)'}">
 															<input type="button"
 																style="font-size: 12px; width: 110px; background-color: #212529; margin-bottom: 5px; color: white; border:none; "
 																onclick="location.href='${contextPath}/mypage/returnWrite.do?&productNum=${myOrderInfoList.productNum}&memOrderSeqNum=${myOrderInfoList.memOrderSeqNum}'"
 																value="반품신청">
 														</c:when>
-														<c:when test="${myOrderInfoList.returnConfirm == '반품신청'}">
+														<c:when test="${myOrderInfoList.returnConfirm == '반품신청(완)'}">
 															<input type="button"
 																style="font-size: 12px; width: 110px; background-color: #212529; margin-bottom: 5px; color: white; border:none; "
 																onclick="returnConfirmResult()" value="반품신청">

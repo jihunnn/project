@@ -2,6 +2,7 @@ package com.project.simple.admin.dao;
 
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,19 @@ public class AdminDAOImpl implements AdminDAO {
 		int inquiryCount = sqlSession.selectOne("mapper.admin.selectInquiryCount");
 
 		return inquiryCount;
+	}
+	
+	@Override
+	public int insertNewNotice(Map noticeMap) throws DataAccessException {
+		int noticeNum = selectNewNoticeNum();
+		noticeMap.put("noticeNum", noticeNum);
+		sqlSession.insert("mapper.admin.insertNewNotice", noticeMap);
+		return noticeNum;
+	}
+	
+	private int selectNewNoticeNum() throws DataAccessException {
+		return sqlSession.selectOne("mapper.admin.selectNewNoticeNum");
+		
 	}
 	
 	// notice 수정하기

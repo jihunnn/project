@@ -1,6 +1,7 @@
 package com.project.simple.admin.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.project.simple.admin.vo.AdminVO;
 import com.project.simple.board.vo.ArticleVO;
@@ -15,6 +16,7 @@ public interface AdminService {
 	public List<ArticleVO> listAllInquiry(Criteria cri) throws Exception;
 	public int inquiryCount() throws Exception;
 	
+	public int addNewNotice(Map noticeMap) throws Exception;
 	public ArticleVO noticeForm(int noticeNum) throws Exception;
 
 

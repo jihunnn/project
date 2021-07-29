@@ -20,7 +20,7 @@
 		<result property="totalPrice" column="totalPrice" />
 		<result property="option1value" column="option1value" />
 		<result property="option2value" column="option2value" />
-		<result property="option1Name" column="option1Name" />
+		<result property="option1name" column="option1name" />
 		<result property="option2Name" column="option2Name" />
 		<result property="memOrderDate" column="memOrderDate" />
 		<result property="productCnt" column="productCnt" />
@@ -52,7 +52,7 @@
 		resultMap="myOrderInfoResult">
 	<![CDATA[
 			
-		select memOrderNum, memOrderDate, purchaseConfirm, reviewConfirm, returnConfirm,  o.memOrderSeqNum, productCnt, option1Name, option2Name, option1value, option2value, p.productImage,p.productPrice, p.productName, p.productNum, d.deliveryStatus 
+		select memOrderNum, memOrderDate, purchaseConfirm, reviewConfirm, returnConfirm,  o.memOrderSeqNum, productCnt, option1name, option2name, option1value, option2value, p.productImage,p.productPrice, p.productName, p.productNum, d.deliveryStatus 
 		from memberOrder as o left join product as p on o.productNum=p.productNum 
 		join memdelivery as d on o.memOrderSeqNum=d.memOrderSeqNum  where o.memId=#{memId} order by memOrderSeqNum desc
 		limit #{pageStart}, #{perPageNum};
@@ -124,7 +124,7 @@
 	<update id="updatePurchaseConfirm" parameterType="String">
 		update
 		memberOrder
-		set purchaseConfirm = '구매확정' where
+		set purchaseConfirm = '구매확정(완)' where
 		memOrderSeqNum =
 		#{memOrderSeqNum};
 	</update>
@@ -177,7 +177,7 @@
 	<update id="updateReviewConfirm" parameterType="java.util.Map">
 		update
 		memberOrder
-		set reviewConfirm = '리뷰작성' where
+		set reviewConfirm = '리뷰작성(완)' where
 		memOrderSeqNum =
 		#{memOrderSeqNum};
 	</update>
