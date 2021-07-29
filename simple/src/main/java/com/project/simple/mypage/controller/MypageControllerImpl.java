@@ -220,7 +220,7 @@ public class MypageControllerImpl implements MypageController {
 		mypageReviewMap.put("pageStart", pageStart);
 		mypageReviewMap.put("perPageNum", perPageNum);
 		mypageReviewMap = mypageService.listMypageReview(mypageReviewMap);
-		int mypageReviewCount = mypageService.myOrderInfoCount(memId);
+		int mypageReviewCount = mypageService.mypageReviewCount(memId);
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
 		int pageNum = pageMaker.getCri().getPage();
@@ -277,7 +277,6 @@ public class MypageControllerImpl implements MypageController {
 		multipartRequest.setCharacterEncoding("utf-8");
 		
 		ARTICLE_IMAGE_REPO_review = multipartRequest.getSession().getServletContext().getRealPath("/resources/upload/review_image");
-		System.out.println(ARTICLE_IMAGE_REPO_review);
 
 		Map<String, Object> reviewMap = new HashMap<String, Object>();
 		Enumeration enu = multipartRequest.getParameterNames();
@@ -488,6 +487,7 @@ public class MypageControllerImpl implements MypageController {
 		MemberVO memberVO = (MemberVO) session.getAttribute("member");
 		String memId = memberVO.getmemId();
 		productVO.setMemId(memId);
+		System.out.println(memId);
 
 		Map<String, Object> mypageReturnMap = new HashMap<String, Object>();
 		int pageStart = cri.getPageStart();

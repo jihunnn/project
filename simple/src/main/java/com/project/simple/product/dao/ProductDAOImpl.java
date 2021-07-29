@@ -115,6 +115,18 @@ public class ProductDAOImpl implements ProductDAO{
 
 		return productSearchCount;
 	}
+	@Override
+	public List<ProductVO> selectBestList() throws DataAccessException {
+		List<ProductVO> bestList = (List)sqlSession.selectList("mapper.product.selectBestList");
+	
+		return bestList;
+	}
+	@Override
+	public List<ProductVO> selectProductList(List<ProductVO> bestList) throws DataAccessException {
+		List<ProductVO> myProductList;
+		myProductList = sqlSession.selectList("mapper.product.selectProductList",bestList);
+		return myProductList;
+	}
 	
 
 

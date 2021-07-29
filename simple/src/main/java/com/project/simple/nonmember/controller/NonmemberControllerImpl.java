@@ -69,6 +69,5 @@ public class NonmemberControllerImpl implements NonmemberController{
 		return mav;
 	}
 
-	
-	
+
 }

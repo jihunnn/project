@@ -143,7 +143,7 @@
 <title>hello!</title>
 <body>
 
-	<div id="header" style="height:160px;">
+	<div id="header" style="height:150px;">
 		<tiles:insertAttribute name="header" />
 	</div>
 	
@@ -151,7 +151,7 @@
 		<tiles:insertAttribute name="body" />
 	</div>
 
-	<div id="footer">
+	<div id="footer" style="background-color:#222222;" >
 		<tiles:insertAttribute name="footer" />
 	</div>
 

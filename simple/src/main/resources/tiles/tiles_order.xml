@@ -3,40 +3,37 @@
 	"http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
 <tiles-definitions>
 
-    <definition name="baseLayout" template="/WEB-INF/views/common/layout.jsp">
-		<put-attribute name="header" value="/WEB-INF/views/common/header.jsp" />
+	<definition name="baseLayout"
+		template="/WEB-INF/views/common/layout.jsp">
+		<put-attribute name="header"
+			value="/WEB-INF/views/common/header.jsp" />
 		<put-attribute name="body" value="" />
-		<put-attribute name="footer" value="/WEB-INF/views/common/footer.jsp" />
-		<put-attribute name="side" value="/WEB-INF/views/common/side.jsp" />
+		<put-attribute name="footer"
+			value="/WEB-INF/views/common/footer.jsp" />
+		<put-attribute name="side"
+			value="/WEB-INF/views/common/side.jsp" />
 	</definition>
-	
-	
+
+    <definition name="order_01" extends="baseLayout">
+		<put-attribute name="body"
+			value="/WEB-INF/views/order/order_01.jsp" />
+	</definition>
+
 	<definition name="nonorder_01" extends="baseLayout">
 		<put-attribute name="body"
-			value="/WEB-INF/views/nonorder_01.jsp" />
+			value="/WEB-INF/views/order/nonorder_01.jsp" />
 	</definition>
-	
-	<definition name="order_01" extends="baseLayout">
-		<put-attribute name="body"
-			value="/WEB-INF/views/order_01.jsp" />
-	</definition>
-	
-	<definition name="order_02" extends="baseLayout">
-		<put-attribute name="body"
-			value="/WEB-INF/views/order_02.jsp" />
-	</definition>
-	
-	<definition name="order_03" extends="baseLayout">
-		<put-attribute name="body"
-			value="/WEB-INF/views/order_03.jsp" />
-	</definition>
-	
 
-	<definition name="admin_listorder" extends="baseLayout">
+	<definition name="order_03" extends="baseLayout">	
 		<put-attribute name="body"
-			value="/WEB-INF/views/admin_listorder.jsp" />
+			value="/WEB-INF/views/order/order_03.jsp" />
 	</definition>
-	
 
-	
+    <definition name="nonorderinquiry" extends="baseLayout">
+		<put-attribute name="body"
+			value="/WEB-INF/views/order/nonorderinquiry.jsp" />
+	</definition>
+
+
+
 </tiles-definitions>	

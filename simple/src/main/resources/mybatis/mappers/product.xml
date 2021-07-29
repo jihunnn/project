@@ -17,8 +17,10 @@
 		<result property="productOrigin" column="productOrigin" />
 		<result property="productContentImage"
 			column="productContentImage" />
-		<result property="option1" column="option1" />
-		<result property="option2" column="option2" />
+		<result property="option1Name" column="option1name" />
+		<result property="option2Name" column="option2name" />
+		<result property="option1value" column="option1value" />
+		<result property="option2value" column="option2value" />
 	</resultMap>
 	<resultMap id="productReviewResult" type="productVO">
 		<result property="reviewNum" column="reviewNum" />
@@ -39,6 +41,32 @@
 	</resultMap>
 
 
+	<!-- best상품 조회 -->
+	<select id="selectBestList" resultMap="proResult">
+	<![CDATA[
+		select productNum, count(*) ,productPrice
+        from(
+        select productNum,MemOrderNum,productPrice
+        from simple.memberorder
+        union
+        select productNum,nonMemOrderNum,nonMemOrderSeqNum
+        from simple.nonmemberorder) as best
+        group by productNum limit 3;
+	]]>
+	</select>
+	<select id="selectProductList" resultMap="proResult" parameterType="java.util.Map">
+      <![CDATA[
+          select *
+          from simple.product
+          where productNum in
+          
+      ]]>
+      <foreach item="item" collection="list" open="(" separator="," close=")">
+			#{item.productNum}
+		</foreach>
+		
+	</select>
+	
 	<!-- 상품 조회 -->
 
 	<select id="selectAllProductList" resultMap="proResult"
@@ -60,7 +88,7 @@
 
 	<![CDATA[
 			
-			select option1name, option1value, option1price from detailoption where productNum = #{productNum} group by option1name, option1value, option1price;
+			select option1name,  option1value, option1price from detailoption where productNum = #{productNum} group by option1name, option1value, option1price;
 		
 	]]>
 	</select>
@@ -190,7 +218,7 @@
 	<select id="selectAllMypageReviewList"
 		resultMap="productReviewResult">
 	<![CDATA[
-			select reviewNum, o.productImage, reviewFile, r.productNum, r.memOrderSeqNum , productReviewTitle, reviewDate, productContent, p.productName, o.option1, o.option2 
+			select reviewNum, o.productImage, reviewFile, r.productNum, r.memOrderSeqNum , productReviewTitle, reviewDate, productContent, p.productName, o.option1Name, o.option2Name, o.option1value, o.option2value 
 			from productReview as r left join product as p on r.productNum=p.productNum
 			join memberOrder as o on r.memOrderSeqNum=o.memOrderSeqNum 
 			where r.memId=#{memId} order by reviewNum desc

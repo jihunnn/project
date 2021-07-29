@@ -1,5 +1,6 @@
 package com.project.simple.product.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,7 +11,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.project.simple.product.vo.ProductVO;
-
+import com.project.simple.favorite.vo.FavoriteVO;
 import com.project.simple.product.dao.ProductDAO;
 import com.project.simple.product.page.Criteria1;
 
@@ -120,7 +121,15 @@ public class ProductServiceImpl implements ProductService{
 		
 		return option;
 	}
-
+	@Override
+	public Map<String, List> BestProductList() throws Exception {
+		Map<String,List> BestProductMap=new HashMap<String,List>();
+		List<ProductVO> BestProductList=productDAO.selectBestList();
+		List<ProductVO> myProductList=productDAO.selectProductList(BestProductList);
+		BestProductMap.put("BestProductList", BestProductList);
+		BestProductMap.put("myProductList", myProductList);
+		return BestProductMap;
+	}
 
 
 	

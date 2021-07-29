@@ -41,8 +41,8 @@ import com.project.simple.page.Criteria;
 
 @Controller("boardController")
 public class BoardControllerImpl implements BoardController {
-	private static final String ARTICLE_IMAGE_REPO_inquiry = "C:\\spring\\inquiry_image";
-	private static final String ARTICLE_IMAGE_REPO_asCenter = "C:\\spring\\asCenter_image";
+	private static final String ARTICLE_IMAGE_REPO_inquiry="C:\\spring\\inquiry_image";
+	private static final String ARTICLE_IMAGE_REPO_asCenter="C:\\spring\\asCenter_image";;
 
 	@Autowired
 	private BoardService boardService;
@@ -156,6 +156,7 @@ public class BoardControllerImpl implements BoardController {
 		pageMaker.setTotalCount(inquiryCount);
 		session.setAttribute("inquiryMap", inquiryMap);
 		session.setAttribute("pageMaker", pageMaker);
+		mav.addObject("pageNum", pageNum);
 		return mav;
 
 	}
@@ -211,6 +212,7 @@ public class BoardControllerImpl implements BoardController {
 	@ResponseBody
 	public ResponseEntity addNewInquiry(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)
 			throws Exception {
+
 		multipartRequest.setCharacterEncoding("utf-8");
 		Map<String, Object> inquiryMap = new HashMap<String, Object>();
 		Enumeration enu = multipartRequest.getParameterNames();
@@ -328,6 +330,7 @@ public class BoardControllerImpl implements BoardController {
 	@ResponseBody
 	public ResponseEntity modInquiry(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)
 			throws Exception {
+
 		multipartRequest.setCharacterEncoding("utf-8");
 		Map<String, Object> inquiryMap = new HashMap<String, Object>();
 		Enumeration enu = multipartRequest.getParameterNames();
@@ -337,7 +340,9 @@ public class BoardControllerImpl implements BoardController {
 			inquiryMap.put(name, value);
 
 		}
+		
 
+		
 		String inquiryFile = upload(multipartRequest);
 		inquiryMap.put("inquiryFile", inquiryFile);
 
@@ -353,7 +358,7 @@ public class BoardControllerImpl implements BoardController {
 			boardService.modInquiry(inquiryMap);
 			if (inquiryFile != null && inquiryFile.length() != 0) {
 				String OrignInquiryFile = (String) inquiryMap.get("OrignInquiryFile");
-
+				
 				File oldFile = new File(ARTICLE_IMAGE_REPO_inquiry + "\\" + inquiryNum + "\\" + OrignInquiryFile);
 				oldFile.delete();
 
@@ -387,6 +392,7 @@ public class BoardControllerImpl implements BoardController {
 	@ResponseBody
 	public ResponseEntity removeInquiry(@RequestParam("inquiryNum") int inquiryNum, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
+
 		response.setContentType("text/html; charset-utf-8");
 		String message;
 		ResponseEntity resEnt = null;
@@ -510,6 +516,7 @@ public class BoardControllerImpl implements BoardController {
 	@ResponseBody
 	public ResponseEntity addNewAsCenter(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)
 			throws Exception {
+
 		multipartRequest.setCharacterEncoding("utf-8");
 		Map<String, Object> asCenterMap = new HashMap<String, Object>();
 		Enumeration enu = multipartRequest.getParameterNames();
@@ -603,6 +610,7 @@ public class BoardControllerImpl implements BoardController {
 	@ResponseBody
 	public ResponseEntity modAsCenter(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)
 			throws Exception {
+
 		multipartRequest.setCharacterEncoding("utf-8");
 		Map<String, Object> asCenterMap = new HashMap<String, Object>();
 		Enumeration enu = multipartRequest.getParameterNames();
@@ -661,6 +669,7 @@ public class BoardControllerImpl implements BoardController {
 	@ResponseBody
 	public ResponseEntity removeAsCenter(@RequestParam("asCenterNum") int asCenterNum, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
+
 		response.setContentType("text/html; charset-utf-8");
 		String message;
 		ResponseEntity resEnt = null;
