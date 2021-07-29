@@ -140,7 +140,7 @@
 	<select id="memberSearchList" resultMap="memResult">
 			
 			select *
-			from member 
+			from simple.member 
 			where
 			<if test="searchType=='memEmail' and search != null and search != '' ">
 
@@ -181,7 +181,7 @@
 
 			
 			select count(*) 
-			from member 
+			from simple.member 
 			where
 			<if test="searchType=='memEmail' and search != null and search != '' ">
 

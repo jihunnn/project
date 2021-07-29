@@ -88,7 +88,8 @@ public class OrderControllerImpl implements OrderController {
 			for (int i = 0; i < size; i++) {
 				orderlist.add(orderService.selectcartlist(ajaxMsg[i]));
 			}
-
+			
+			
 			session.setAttribute("memCartId", ajaxMsg);
 			session.setAttribute("totalPrice", totalPrice);
 			session.setAttribute("orderlist", orderlist);
@@ -129,7 +130,7 @@ public class OrderControllerImpl implements OrderController {
 		if (isLogOn == null) {
 			ArrayList<CartVO> orderlist = (ArrayList) session.getAttribute("orderlist");
 			int size = orderlist.size();
-
+				
 			String randomnumber = numberGen(9, 1);
 			int nonmemOrderNum = Integer.parseInt(randomnumber);
 			String nonmemPaymentMethod = orderVO.getNonmemPaymentMethod();

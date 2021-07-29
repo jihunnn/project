@@ -169,7 +169,7 @@ function getSelectValue2(frm)
 						<div class="col-md-4 ftco-animate">
 							<div class="blog-entry">
 								<a><img src="${contextPath}/download_product.do?productNum=${product.productNum}&productImage=${product.productImage}"
-									style="width: 600px; height:409.68px; padding-top: 10px; padding-top: 10px; margin-left: -15px; float: left;">
+									style="width: 600px; padding-top: 10px; padding-top: 10px; margin-left: -15px; float: left;">
 								</a> <br>
 							</div>
 						</div>
@@ -177,8 +177,8 @@ function getSelectValue2(frm)
 
 
 					<div style="width: 685px; height: 480px;">
-						<h6
-							style="font-size: 20px; font-weight:bold; color: #7e9c8c; margin-left: 50px; margin-top: 5px;">${product.productName}</h6>
+						<h3
+							style="font-size: 20px; color: #7e9c8c; margin-left: 50px; margin-top: 5px;">${product.productName}</h3>
 						<hr style="width: 600px;">
 						<h3 class="heading">
 							<a

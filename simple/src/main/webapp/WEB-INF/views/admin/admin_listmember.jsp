@@ -266,7 +266,7 @@
 									</tr>
 								</c:when>
 								<c:otherwise>
-									<form action="${contextPath}/admin/viewMember.do" method="post">
+									
 										<c:forEach var="member" items="${membersList}">
 
 											<tr
@@ -282,7 +282,7 @@
 												<td scope="col" style="height: 70px ; display: table-cell; vertical-align: middle;">${member.memRegdate}</td>
 												<td scope="col" style="height: 70px ; display: table-cell; vertical-align: middle;"><input type="hidden"
 													value="${member.memId}" name="memId" />
-													<button type="submit" class="btn btn-dark"
+													<button type="button" class="btn btn-dark" onclick="location.href='${contextPath}/admin/viewMember.do?memId=${member.memId }'"
 														style="border-radius: 2px; margin-bottom: 3px; background-color: white; color: gray; border: 1px solid #7e9c8c; border-radius: 2px; width: 70px; height: 30px; font-size: 14px;">수정</button>
 													<br>
 													<button type="button"
@@ -293,7 +293,7 @@
 											</tr>
 
 										</c:forEach>
-									</form>
+									
 								</c:otherwise>
 							</c:choose>
 						</c:when>

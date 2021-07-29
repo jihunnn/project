@@ -73,10 +73,10 @@
 		parameterType="java.util.Map">
 
 		<if test='subsort == "x"'>
-			select * from product where category = #{sort}
+			select * from simple.product where category = #{sort}
 		</if>
 		<if test='subsort != "x"'>
-			select * from product where category = #{sort} and
+			select * from simple.product where category = #{sort} and
 			subCategory = #{subsort}
 		</if>
 
@@ -141,7 +141,7 @@
 	<!-- into simple.productoption(productNum, option1, option2) values(#{productNum},#{option1},#{option2}) 
 		into simple.productdetail(productNum, productContentImage) values(#{productNum},#{productContentImage}); -->
 	<update id="updateProduct" parameterType="java.util.Map">
-		update product
+		update simple.product
 		set productName = #{productName},
 		productPrice =
 		#{productPrice},
@@ -171,7 +171,7 @@
 		parameterType="string"> 
 	<![CDATA[
 			
-			select * from product
+			select * from simple.product
 			where productNum = #{productNum};
 			
 	]]>
@@ -179,7 +179,7 @@
 	<select id="selectProductBySearchWord" resultMap="proResult"
 		parameterType="String">
      <![CDATA[
-				select * from product
+				select * from simple.product
 		    where productName like CONCAT('%', #{searchWord}, '%')
 		    order by category;
 		]]>
@@ -188,7 +188,7 @@
 	<select id="selectKeywordSearch" resultType="String"
 		parameterType="String">
 	    <![CDATA[
-        select productName from product 
+        select productName from simple.product 
         where         
         productName like CONCAT('%', #{keyword}, '%')
         order by category;
@@ -200,7 +200,7 @@
 		resultMap="productReviewResult">
 	<![CDATA[
 			
-			select reviewNum, productNum, memOrderSeqNum , productReviewTitle, reviewDate, productContent, m.memName from member as m right join productReview as a on m.memId=a.memId 
+			select reviewNum, productNum, memOrderSeqNum , productReviewTitle, reviewDate, productContent, m.memName from simple.member as m right join simple.productReview as a on m.memId=a.memId 
 			where productNum = #{productNum} order by reviewNum desc
 			limit #{pageStart}, #{perPageNum};
 			
@@ -210,7 +210,7 @@
 		parameterType="java.util.Map">
 	<![CDATA[
 			
-			select count(*)  from productReview where productNum = #{productNum};
+			select count(*)  from simple.productReview where productNum = #{productNum};
 			
 	]]>
 	</select>
@@ -230,7 +230,7 @@
 		parameterType="int">
 	<![CDATA[
 			
-			select count(*)  from productReview where memId=#{memId};
+			select count(*)  from simple.productReview where memId=#{memId};
 			
 	]]>
 	</select>
@@ -238,7 +238,7 @@
 	<select id="selectAllProductQuestionList"
 		resultMap="productQuestionResult">
 	<![CDATA[
-			select * from productQuestion where productNum=#{productNum}
+			select * from simple.productQuestion where productNum=#{productNum}
 			limit #{pageStart}, #{perPageNum};
 			
 	]]>
@@ -247,7 +247,7 @@
 		parameterType="int">
 	<![CDATA[
 			
-			select count(*)  from productQuestion where memId=#{memId};
+			select count(*)  from simple.productQuestion where memId=#{memId};
 			
 	]]>
 	</select>
