@@ -103,7 +103,7 @@
 .snip1284 a:before, .snip1284 a:after {
 	width: 3px;
 	height: 0;
-	position: absolute;
+	position: absolute;	
 	content: '';
 	-webkit-transition: all 0.35s ease;
 	transition: all 0.35s ease;
