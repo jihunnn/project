@@ -126,7 +126,7 @@ public class MemberControllerImpl implements MemberController {
 			if (session.getAttribute("admin") != null) {
 				session.removeAttribute("admin");
 				session.removeAttribute("AdminisLogOn");
-				System.out.println("dkdkfjdkfdjkf");
+				
 
 			}
 			session.removeAttribute("quickList");

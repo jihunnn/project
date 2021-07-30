@@ -452,7 +452,8 @@ public class ProductControllerImpl implements ProductController {
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(productReviewCount);
 		int pageNum = pageMaker.getCri().getPage();
-
+		
+		
 		addQuick(productNum,productVO,session);
 		mav.setViewName(viewName);
 		mav.addObject("option", option);

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <c:set var="option1" value="${option.optionList1}" />
 <c:set var="option2" value="${option.optionList2}" />
@@ -10,6 +11,10 @@
 <html lang="en">
 <head>
 <style type="text/css">
+#div_cart_buy_button {
+	height: 150px;
+}
+
 #pdcategory {
 	font-size: 17px;
 	background-color: #f8f8f8;
@@ -262,10 +267,27 @@ function add_favorite(productNum) {
 		<div class="container">
 			<form name="form1" method="GET" id="addCartForm">
 				<input type="hidden" name="productNum" value="${product.productNum}" />
+
 				<input type="hidden" name="productName"
-					value="${product.productName}" /> <input type="hidden"
-					name="option1name" value="${option1[1].option1Name}" /> <input
-					type="hidden" name="option2name" value="${option2[1].option2Name}" />
+					value="${product.productName}" />
+
+				<c:if test="${option1[0].option1Name != null }">
+					<input type="hidden" name="option1name"
+						value="${option1[0].option1Name}" />
+				</c:if>
+				<c:if test="${option2[0].option2Name != null }">
+					<input type="hidden" name="option2name"
+						value="${option2[0].option2Name}" />
+				</c:if>
+				<c:if test="${option1.isEmpty() != false}">
+					<input type="hidden" name="option1name"
+					value="옵션 1" />
+				</c:if>
+				<c:if test="${option2.isEmpty() != false}">
+					<input type="hidden" name="option2name"
+					value="옵션 2" />
+				</c:if>
+					
 				<input type="hidden" name="deliverycharge" value="무료배송" />
 
 
@@ -278,19 +300,20 @@ function add_favorite(productNum) {
 							<div class="blog-entry">
 								<a><img
 									src="${contextPath}/download_product.do?productNum=${product.productNum}&productImage=${product.productImage}"
-									style="border:1px solid gray; width: 600px; height:409.68px;  margin-left: -15px; float: left;">
+									style="border: 1px solid gray; width: 600px; height: 409.68px; margin-left: -15px; float: left;">
 								</a> <br>
 							</div>
 						</div>
 					</section>
-					<input type="hidden" name="productImage"value="${product.productImage}"/>
+					<input type="hidden" name="productImage"
+						value="${product.productImage}" />
 
-					<div style="width: 685px; height: 480px;">
-					
+					<div style="width: 685px; height: 410px;">
+
 						<h1
-							style="font-weight:bold; font-size: 20px; color: #7e9c8c; float: left; margin-left: 50px; margin-top: 5px;">${product.productName}</h1>
+							style="font-weight: bold; font-size: 20px; color: #7e9c8c; float: left; margin-left: 50px; margin-top: 5px;">${product.productName}</h1>
 
-						<a  href="javascript:add_favorite('${product.productNum }')"
+						<a href="javascript:add_favorite('${product.productNum }')"
 							style="all: none; font-size: 15px; color: #7e9c8c; margin-left: 430px; margin-top: 5px;">관심상품</a>
 						<hr style="width: 600px;">
 						<h3 class="heading">
@@ -320,65 +343,129 @@ function add_favorite(productNum) {
 						<br>
 
 
+						<c:choose>
 
-						<h3 class="heading">
-							<c:forEach items="${option1}" var="name1" begin="0" end="0">
-								<a
-									style="position: absolute; white-space: nowrap; margin-top: 82px; margin-left: 51px; float: left; font-size: 14px; color: #5f5f5f; font-weight: normal;">${name1.option1Name}ㅤㅤ
-									ㅤ</a>
-							</c:forEach>
-						</h3>
-						<select id="option1" name="option1"
-							onchange="checkPrice();getSelectValue1(this.form);"
-							style="margin-left: 180px; margin-top: 70px; left: 675px; font-size: 14px; border: 1px solid #dcdcdc; width: 326px; height: 32px;">
-							<option value="">옵션 선택</option>
-							<c:forEach items="${option1}" var="option1">
-								<option value="${option1.option1price}">${option1.option1value}
-									+ (${option1.option1price}원)</option>
-							</c:forEach>
-						</select> <input type="hidden" name="option1value"> <br>
-						<h3 class="heading">
-							<c:forEach items="${option2}" var="name2" begin="0" end="0">
-								<a
-									style="position: absolute; white-space: nowrap; margin-top: 35px; margin-left: 51px; float: left; font-size: 14px; color: #5f5f5f; font-weight: normal;">${name2.option2Name}
-									ㅤ</a>
-							</c:forEach>
 
-						</h3>
-						<select name="option2" id="option2"
-							onchange="checkPrice();getSelectValue2(this.form);"
-							style="margin-left: 180px; margin-top: 20px; float: left !important; font-size: 14px; border: 1px solid #dcdcdc; width: 326px; height: 32px;">
-							<option value="">옵션 선택</option>
-							<c:forEach items="${option2}" var="option2">
-								<option value="${option2.option2price}">${option2.option2value}
-									+ (${option2.option2price}원)</option>
-							</c:forEach>
-						</select> <br> <input type="hidden" name="option2value">
+							<c:when test="${option1.isEmpty() == false}">
+								<h3 class="heading">
 
-						<button type="button" class="btn btn-default" onclick="checkbuy()"
-							style="background-color: #7e9c8c; float: left; margin-left: 50px; margin-top: 37px; width: 280px; height: 50px; border-radius: 2px; font-size: 14px; color: white;">바로구매</button>
-						<button type="button" class="btn btn-default"
-							onclick="addCartBtn()"
-							style="background-color: #eeeeee; float: left; margin-left: 350px; margin-top: -50px; width: 280px; height: 50px; border-radius: 2px; font-size: 14px;">장바구니</button>
+									<c:forEach items="${option1}" var="name1" begin="0" end="0">
+										<a
+											style="position: absolute; white-space: nowrap; margin-top: 82px; margin-left: 51px; float: left; font-size: 14px; color: #5f5f5f; font-weight: normal;">${name1.option1Name}ㅤㅤ
+											ㅤ</a>
+									</c:forEach>
+								</h3>
+								<select id="option1" name="option1"
+									onchange="checkPrice();getSelectValue1(this.form);"
+									style="margin-left: 180px; margin-top: 70px; left: 675px; font-size: 14px; border: 1px solid #dcdcdc; width: 326px; height: 32px;">
+									<option value="">옵션 선택</option>
+									<c:forEach items="${option1}" var="option1">
+										<option value="${option1.option1price}">${option1.option1value}
+											+ (${option1.option1price}원)</option>
+									</c:forEach>
+								</select>
+								<input type="hidden" name="option1value">
+								<br>
+							</c:when>
 
-						<input type="button" name="up" onclick="up()" value=" + " size="3"
-							style="width: 27px; height: 28px; white-space: nowrap; float: left; color: #5f5f5f; margin-left: 50px; font-size: 18px; border: none; margin-top: 30px;">
 
-						<input type="text" name="productCnt" id="quantity" value="1"
-							readonly="readonly"
-							style="white-space: nowrap; float: left; font-size: 14px; width: 50px; height: 28px; text-align: center; margin-top: 30px; border: 1px solid #eeeeee;" />
+							<c:otherwise>
+								<h3 class="heading">
 
-						<input type="button" name="down" onclick="down()" value=" - "
-							size="3"
-							style="width: 27px; height: 28px; white-space: nowrap; color: #5f5f5f; float: left; font-size: 18px; border: none; margin-top: 30px;">
-						<h2
-							style="margin-top: 200px; font-size: 18px; test-align: right; width: 400px; margin-left: 380px;">
-							총 상품 금액ㅤ<input type="text" name="productPrice" value="0"
-								style="border: none; text-align: right; font-size: 20px; width: 98px; margin-left: 18px;"
+										<a
+											style="position: absolute; white-space: nowrap; margin-top: 82px; margin-left: 51px; float: left; font-size: 14px; color: #5f5f5f; font-weight: normal;">옵션 ㅤㅤ
+											ㅤ</a>
+									
+								</h3>
+								<select id="option1" name="option1"
+									onchange="checkPrice();getSelectValue1(this.form);"
+									style="margin-left: 180px; margin-top: 70px; left: 675px; font-size: 14px; border: 1px solid #dcdcdc; width: 326px; height: 32px;">
+									<option  value="0">없음</option>	
+								</select>
+								<input type="hidden" name="option1value">
+								<br>
+							</c:otherwise>
+						</c:choose>
+
+
+
+						<c:choose>
+							<c:when test="${option2.isEmpty() == false }">
+								<h3 class="heading">
+									<c:forEach items="${option2}" var="name2" begin="0" end="0">
+										<a
+											style="position: absolute; white-space: nowrap; margin-top: 35px; margin-left: 51px; float: left; font-size: 14px; color: #5f5f5f; font-weight: normal;">${name2.option2Name}
+											ㅤ</a>
+									</c:forEach>
+								</h3>
+								<select name="option2" id="option2"
+									onchange="checkPrice();getSelectValue2(this.form);"
+									style="margin-left: 180px; margin-top: 20px; float: left !important; font-size: 14px; border: 1px solid #dcdcdc; width: 326px; height: 32px;">
+									<option value="">옵션 선택</option>
+									<c:forEach items="${option2}" var="option2">
+										<option value="${option2.option2price}">${option2.option2value}
+											+ (${option2.option2price}원)</option>
+									</c:forEach>
+								</select>
+								<br>
+								<input type="hidden" name="option2value">
+							</c:when>
+							
+							<c:otherwise>
+								<h3 class="heading">			
+										<a
+											style="position: absolute; white-space: nowrap; margin-top: 35px; margin-left: 51px; float: left; font-size: 14px; color: #5f5f5f; font-weight: normal;">옵션
+											ㅤ</a>		
+								</h3>
+								<select name="option2" id="option2"
+									onchange="checkPrice();getSelectValue2(this.form);"  
+									style="margin-left: 180px; margin-top: 20px; float: left !important; font-size: 14px; border: 1px solid #dcdcdc; width: 326px; height: 32px;">
+									<option selected="selected"  value="0">없음</option>
+								</select>
+								<br>
+								<input type="hidden" name="option2value">
+							</c:otherwise>
+						
+						</c:choose>
+
+						<div
+							style="position:relative; left:50px; margin-right: 0px;margin-top: 70px;width: 200px;">
+							<input type="button" name="up" onclick="up()" value=" + "
+								size="3"
+								style="width: 27px; height: 28px; white-space: nowrap; color: #5f5f5f; font-size: 18px; border: none;">
+							<input type="text" name="productCnt" id="quantity" value="1"
+								readonly="readonly"
+								style="white-space: nowrap; font-size: 14px; width: 50px; height: 28px; border: 1px solid #eeeeee;" />
+							<input type="button" name="down" onclick="down()" value=" - "
+								size="3"
+								style="width: 27px; height: 28px; white-space: nowrap; color: #5f5f5f; font-size: 18px; border: none;">
+
+						</div>
+
+						<h5
+							style="position:relative;left:400px;bottom:35px;">
+							총 금액ㅤ<input type="text" name="productPrice" value="0"
+								style="border: none; text-align: right; font-size: 20px; width: 98px; "
 								readonly />원
-						</h2>
+						</h5>
 
 					</div>
+
+
+
+					<div id="div_cart_buy_button ">
+						<button type="button" class="btn btn-default" onclick="checkbuy()"
+							style="background-color: #7e9c8c; margin-left: 650px; width: 280px; height: 50px; border-radius: 2px; font-size: 14px; color: white;">바로구매</button>
+					</div>
+					<div id="div_cart_buy_button ">
+						<button type="button" class="btn btn-default"
+							onclick="addCartBtn()"
+							style="background-color: #eeeeee; margin-left: 30px; float: right; width: 280px; height: 50px; border-radius: 2px; font-size: 14px;">장바구니</button>
+					</div>
+
+
+					<br>
+
 
 				</div>
 
@@ -500,8 +587,8 @@ function add_favorite(productNum) {
 													</div>
 													<div class="modal-body">
 														<p>${productReview.productContent}</p>
-														<img style="width: 300px; height:300px;"
-							src="${contextPath}/download_review.do?reviewNum=${productReview.reviewNum}&reviewFile=${productReview.reviewFile}">
+														<img style="width: 300px; height: 300px;"
+															src="${contextPath}/download_review.do?reviewNum=${productReview.reviewNum}&reviewFile=${productReview.reviewFile}">
 													</div>
 
 													<img src="" />
