@@ -288,25 +288,29 @@ function Check_Join() {
 				<li><a
 					onclick="location.href='${contextPath}/product/admin_listProduct.do'"
 					data-hover="상품관리"
-					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; margin-left: 20px; padding-bottom: 0px;">상품관리</a></li>
+					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 100px; cursor: pointer; background-color: white; margin-left: 20px; padding-bottom: 0px;">상품관리</a></li>
 
 
-				<li><a
+				<li ><a
 					onclick="location.href='${contextPath}/product/add_product.do'"
 					data-hover="상품등록"
-					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">상품등록</a></li>
+					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 100px; cursor: pointer; background-color: white; padding-bottom: 0px;">상품등록</a></li>
 
 
 				<li class="current"><a
 					onclick="location.href='${contextPath}/admin_listmember.do'"
 					data-hover="회원관리"
-					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">회원관리</a></li>
+					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 100px; cursor: pointer; background-color: white; padding-bottom: 0px;">회원관리</a></li>
 
 
 				<li><a
-					onclick="location.href='location.href='${contextPath}/board/listNotice.do'"
+					onclick="location.href='${contextPath}/board/listNotice.do'"
 					data-hover="게시판관리"
-					style="font-size: 20px; border: none; color: #5a5a5a; background-color: white; cursor: pointer; padding-bottom: 0px;">게시판관리</a></li>
+					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 100px; background-color: white; cursor: pointer; padding-bottom: 0px;">게시판관리</a></li>
+				<li><a
+					onclick="location.href='${contextPath}/admin_listorder.do'"
+					data-hover="주문관리"
+					style="font-size: 20px; border: none; color: #5a5a5a; background-color: white; cursor: pointer; padding-bottom: 0px;">주문관리</a></li>
 			</ul>
 
 			<hr style="margin-top: -10px;">

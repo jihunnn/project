@@ -293,7 +293,7 @@
 										<th scope="col"style="vertical-align: middle; align:center;"><input
 											type="checkbox" name="chk" value="${cartlist.memCartId}"></th>
 										<td scope="col"><img
-											src="${contextPath}/resources/images/bed.jpg" width=80
+											src="${contextPath}/download_product.do?productNum=${cartlist.productNum}&productImage=${cartlist.productImage}" width=80
 											height=80></td>
 										<td scope="col" align=left style="padding-top: 25px;">${cartlist.productName}<br>${cartlist.option1name}
 											: ${cartlist.option1value} <br>${cartlist.option2name} :

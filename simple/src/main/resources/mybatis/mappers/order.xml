@@ -23,7 +23,7 @@
 		<result property="option1value" column="option1value" />
 		<result property="option2value" column="option2value" />
 		<result property="totalPrice" column="totalPrice" />
-		<result property="productimage" column="productimage" />
+		<result property="productImage" column="productImage" />
 		<result property="deliverycharge" column="deliverycharge" />
 		<result property="memCartId" column="memCartId" />
 		<result property="memOrderNum" column="memOrderNum" />
@@ -120,15 +120,15 @@
 		
 		
 		 <if test="memId != null">
-			insert into simple.memberorder(memOrderSeqNum, memOrderNum, memId, productNum, productName, option1name, option1value, option2name, option2value, productCnt, productPrice, totalPrice, memOrderDate, memSpName, memOrderMsg, memSpAdr, memSpPhoneNum1, memSpPhoneNum2, memDepositorName, memPaymentMethod, purchaseConfirm, returnConfirm, reviewConfirm) 
+			insert into simple.memberorder(memOrderSeqNum, memOrderNum, memId, productNum, productName, option1name, option1value, option2name, option2value, productCnt, productPrice, totalPrice, memOrderDate, memSpName, memOrderMsg, memSpAdr, memSpPhoneNum1, memSpPhoneNum2, memDepositorName, memPaymentMethod, purchaseConfirm, returnConfirm, reviewConfirm, productImage) 
 			values(default, #{memOrderNum}, #{memId}, #{productNum}, #{productName}, #{option1name}, #{option1value}, #{option2name}, #{option2value}, #{productCnt}, #{productPrice}, #{totalPrice}, default, #{memSpName}, #{memOrderMsg}, (select concat_ws('-',#{memSpAdr},#{memSpAdr1},#{memSpAdr2})),(select concat_ws('-',#{memSpPhoneNum1_0},#{memSpPhoneNum1_1},#{memSpPhoneNum1_2})),
-					(select concat_ws('-',#{memSpPhoneNum2_0},#{memSpPhoneNum2_1},#{memSpPhoneNum2_2})), #{memDepositorName}, #{memPaymentMethod}, default, default, default);
+					(select concat_ws('-',#{memSpPhoneNum2_0},#{memSpPhoneNum2_1},#{memSpPhoneNum2_2})), #{memDepositorName}, #{memPaymentMethod}, default, default, default, #{productImage});
 		</if>
 		
 		<if test="memId == null">
-			insert into simple.nonmemberorder(nonMemOrderSeqNum, nonMemOrderNum, nonMemName, productNum, productName, option1name, option1value, option2name, option2value, productCnt, productPrice, totalPrice, nonMemSpName, nonMemOrderMsg, nonMemSpAdr, nonMemSpPhoneNum1, nonMemSpPhoneNum2, nonMemDepositorName, nonMemPaymentMethod, CurrentStatus) 
+			insert into simple.nonmemberorder(nonMemOrderSeqNum, nonMemOrderNum, nonMemName, productNum, productName, option1name, option1value, option2name, option2value, productCnt, productPrice, totalPrice, nonMemSpName, nonMemOrderMsg, nonMemSpAdr, nonMemSpPhoneNum1, nonMemSpPhoneNum2, nonMemDepositorName, nonMemPaymentMethod, CurrentStatus, productImage) 
 			values(default, #{nonmemOrderNum}, #{nonmemName},  #{productNum}, #{productName}, #{option1name}, #{option1value}, #{option2name}, #{option2value}, #{productCnt}, #{productPrice}, #{totalPrice},  #{nonmemSpName}, #{nonmemOrderMsg}, (select concat_ws('-',#{nonmemSpAdr},#{nonmemSpAdr1},#{nonmemSpAdr2})),(select concat_ws('-',#{nonmemSpPhoneNum1_0},#{nonmemSpPhoneNum1_1},#{nonmemSpPhoneNum1_2})),
-					(select concat_ws('-',#{nonmemSpPhoneNum2_0},#{nonmemSpPhoneNum2_1},#{nonmemSpPhoneNum2_2})), #{nonmemDepositorName}, #{nonmemPaymentMethod}, default);
+					(select concat_ws('-',#{nonmemSpPhoneNum2_0},#{nonmemSpPhoneNum2_1},#{nonmemSpPhoneNum2_2})), #{nonmemDepositorName}, #{nonmemPaymentMethod}, default, #{productImage});
 		</if>
 		
 	</insert>

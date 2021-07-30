@@ -46,7 +46,7 @@ public class MemberControllerImpl implements MemberController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 
-		return "admin_listmember";
+		return "main";
 	}
 	
 	// 멤버로그인작업 ppt226

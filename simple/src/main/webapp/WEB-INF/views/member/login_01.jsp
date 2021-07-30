@@ -271,16 +271,7 @@
 				return false;
 			}
 		}
-		for (var i = 0; i < form.nonMemPwd.value.length; i++) {
-			ch = form.nonMemPwd.value.charAt(i)
-			if (!(ch >= '0' && ch <= '9') && !(ch >= 'a' && ch <= 'z')
-					&& !(ch >= 'A' && ch <= 'Z')) {
-				alert("주문 비밀번호는 영문 대소문자, 숫자만 입력가능합니다.")
-				form.nonMemPwd.focus();
-				form.nonMemPwd.select();
-				return false;
-			}
-		}
+	
 
 		if (form.nonMemName.value == "") {
 			alert("주문자명을 입력해주세요!");
@@ -289,9 +280,6 @@
 		} else if (form.nonMemOrderNum.value == "") {
 			alert("주문 번호를 입력해주세요!");
 			form.nonMemOrderNum.focus();
-		} else if (form.nonMemPwd.value == "") {
-			alert("주문 비밀번호를 입력해주세요!");
-			form.nonMemPwd.focus();
 		} else {
 
 			form.submit();
@@ -391,7 +379,7 @@
 					<form name="Non_order"
 						action="${contextPath}/nonmember/order_lookup.do" method="post">
 						<div class="order_input">
-							<div >
+							<div style=" padding-top: 10px;">
 								<p style="margin-bottom:10px;">
 									<input type="text" name="nonMemName" class="order_name"
 										size="18"
@@ -404,20 +392,16 @@
 										style="border: 1px solid #dcdcdc; margin-left:5px; font-size: 14px;  height:36px; width:220px; "
 										placeholder="주문번호">
 								</p>
-								<p>
-									<input type="text" name="nonMemPwd" size="18"
-										style="border: 1px solid #dcdcdc; margin-left:20px; font-size: 14px; height:36px; width:220px; "
-										placeholder="주문비밀번호">
-								</p>
+							
 							</div>
 						</div>
 					</form>
 					<input type="submit" id="submit_NonOrderInquiry" value="주문조회"
 						onclick="Non_order_Inquiry()"
-						style="background-color: #7e9c8c; margin-left:10px; color: white; height: 129px; border-radius: 2px; border:none;">
+						style="background-color: #7e9c8c; margin-top: 10px; margin-left:20px; color: white; height: 82px; border-radius: 2px; border:none;">
 					<div id="Non_order_content" style="font-size:12px;">
 						<ul>
-							<li>주문자명, 주문 번호, 주문 비밀번호가 일치 하지 않을 경우,조회가 불가능합니다.</li>
+							<li>주문자명, 주문 번호가 일치 하지 않을 경우,조회가 불가능합니다.</li>
 							<li>비회원으로 로그인 하시는 분께서 주문 번호를 잊으신 경우, 고객센터로 연락주시면 신속하게
 								처리해드리겠습니다.</li>
 							<li>비회원으로 주문 하실 경우, 회원 혜택을 받지 못합니다.</li>

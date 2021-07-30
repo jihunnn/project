@@ -52,7 +52,7 @@
 		resultMap="myOrderInfoResult">
 	<![CDATA[
 			
-		select memOrderNum, memOrderDate, purchaseConfirm, reviewConfirm, returnConfirm,  o.memOrderSeqNum, productCnt, option1Name, option2Name, option1value, option2value, p.productImage,p.productPrice, p.productName, p.productNum, d.deliveryStatus 
+		select memOrderNum, memOrderDate, purchaseConfirm, reviewConfirm, returnConfirm,  o.memOrderSeqNum, productCnt, option1name, option2name, option1value, option2value, p.productImage,p.productPrice, p.productName, p.productNum, d.deliveryStatus 
 		from memberOrder as o left join product as p on o.productNum=p.productNum 
 		join memdelivery as d on o.memOrderSeqNum=d.memOrderSeqNum  where o.memId=#{memId} order by memOrderSeqNum desc
 		limit #{pageStart}, #{perPageNum};
@@ -177,7 +177,7 @@
 	<update id="updateReviewConfirm" parameterType="java.util.Map">
 		update
 		memberOrder
-		set reviewConfirm = '리뷰작성' where
+		set reviewConfirm = '리뷰작성(완)' where
 		memOrderSeqNum =
 		#{memOrderSeqNum};
 	</update>
@@ -292,7 +292,7 @@
 	<update id="updateReturnConfirm" parameterType="java.util.Map">
 		update
 		memberOrder
-		set returnConfirm = '반품신청(완)' where
+		set returnConfirm = '반품신청' where
 		memOrderSeqNum =
 		#{memOrderSeqNum};
 	</update>

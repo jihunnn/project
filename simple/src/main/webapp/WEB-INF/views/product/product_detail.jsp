@@ -278,12 +278,12 @@ function add_favorite(productNum) {
 							<div class="blog-entry">
 								<a><img
 									src="${contextPath}/download_product.do?productNum=${product.productNum}&productImage=${product.productImage}"
-									style="border:1px solid gray; width: 600px; height:409.68px; padding-top: 10px; padding-top: 10px; margin-left: -15px; float: left;">
+									style="border:1px solid gray; width: 600px; height:409.68px;  margin-left: -15px; float: left;">
 								</a> <br>
 							</div>
 						</div>
 					</section>
-
+					<input type="hidden" name="productImage"value="${product.productImage}"/>
 
 					<div style="width: 685px; height: 480px;">
 					
@@ -465,7 +465,7 @@ function add_favorite(productNum) {
 					<div id="tab2" class="tab_content">
 						<!--Content-->
 						<table class="table"
-							style="margin-top: 60px; text-align: center; width: 1200px; margin-left: -70px; font-size: 14px;">
+							style="margin-top: 60px; text-align: center; width: 1200px; margin-left: 20px; font-size: 14px;">
 
 							<tr
 								style="background-color: #eeeeee; border-top: 1px solid #7e9c8c; border-bottom: 1px solid #c6c8ca;">
@@ -500,6 +500,8 @@ function add_favorite(productNum) {
 													</div>
 													<div class="modal-body">
 														<p>${productReview.productContent}</p>
+														<img style="width: 300px; height:300px;"
+							src="${contextPath}/download_review.do?reviewNum=${productReview.reviewNum}&reviewFile=${productReview.reviewFile}">
 													</div>
 
 													<img src="" />

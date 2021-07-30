@@ -52,6 +52,7 @@ public class ProductControllerImpl implements ProductController {
 	private ProductVO productVO;
 	private static final Logger logger = LoggerFactory.getLogger(ProductControllerImpl.class);
 	
+	
 	@Override // 메인 best상품 조회
 	@RequestMapping(value = "/main.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView main(HttpServletRequest request, HttpServletResponse response) throws Exception {
