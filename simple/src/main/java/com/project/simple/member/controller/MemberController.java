@@ -26,6 +26,8 @@ public interface MemberController{
 	public ModelAndView memberSearch(@RequestParam("search") String search, @RequestParam("searchType") String searchType, Criteria cri, HttpServletRequest request,
 			HttpServletResponse response) throws Exception;
 	public ResponseEntity overlapped(@RequestParam("memId") String id, HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ModelAndView email_confirm(@RequestParam("Approval_key") String Approval_key, HttpServletRequest request, HttpServletResponse response)
+			throws Exception;
 
 	
 }

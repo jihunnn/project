@@ -46,9 +46,17 @@ public class CartDAOImpl implements  CartDAO{
 		return memCartId;
 	}
 
+	
+	//주문완료한 내역 장바구에서 삭제
+	@Override 
+	public void deleteCompleteCartlist(String memCartId) throws DataAccessException{
+		sqlSession.delete("mapper.cart.deleteCompleteCartlist",memCartId);
+	}
+	
+	//장바구니 선택목록 삭제
 	@Override
-	public void deleteCartProduct(String productNum) throws DataAccessException {
-		sqlSession.delete("mapper.cart.deleteCartProduct",productNum);
+	public void deleteCartProduct(String memCartId) throws DataAccessException {
+		sqlSession.delete("mapper.cart.deleteCartProduct",memCartId);
 		
 	}
 

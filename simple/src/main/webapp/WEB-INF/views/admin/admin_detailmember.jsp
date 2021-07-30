@@ -198,11 +198,86 @@
 	font-size: 25px;
 }
 </style>
+<script type="text/javascript">
+function Check_Join() {
+	var form = document.Checkmodify;
 
+	if (form.memName.value == "") {
+		alert("이름을 입력하지 않았습니다.")
+		form.memName.focus();
+		return false;
+	}
+
+	if (form.memName.value.length < 2) {
+		alert("이름을 2자 이상 입력해주십시오.")
+		document.form.memName.focus();
+		return false;
+	}
+
+	//아이디 입력여부 검사
+	if (form.memId.value == "") {
+		alert("아이디를 입력해주세요!")
+		form.memId.focus();
+		return false;
+	}
+	//아이디 유효성 검사 (영문소문자, 숫자만 허용)
+	for (var i = 0; i < form.memId.value.length; i++) {
+		ch = form.memId.value.charAt(i)
+		if (!(ch >= '0' && ch <= '9') && !(ch >= 'a' && ch <= 'z')
+				&& !(ch >= 'A' && ch <= 'Z')) {
+			alert("아이디는 영문 대소문자, 숫자만 입력가능합니다.")
+			form.memId.focus();
+			form.memId.select();
+			return false;
+		}
+	}
+
+	//아이디에 공백 사용하지 않기
+	if (form.memId.value.indexOf(" ") >= 0) {
+		alert("아이디에 공백을 사용할 수 없습니다.")
+		form.memId.focus();
+		form.memId.select();
+		return false;
+	}
+	//아이디 길이 체크 (4~12자)
+	if (form.memId.value.length<4 || form.memId.value.length>12) {
+		alert("아이디를 4~12자까지 입력해주세요.")
+		form.memId.focus();
+		form.memId.select();
+		return false;
+	}
+
+	
+	if (form.memEmail.value == "") {
+		alert("이메일을 입력하지 않았습니다.")
+		form.memEmail.focus();
+		return false;
+	}
+
+	
+	if (form.memPhoneNum.value == "") {
+		alert("핸드폰번호를 입력하지 않았습니다..")
+		form.memPhoneNum.focus();
+		return false;
+	}
+	if (form.memAdr.value == "") {
+		alert("주소를 입력하지 않았습니다.")
+		form.memAdr.focus();
+		return false;
+	} 
+	 if (confirm("회원정보를 수정하시겠습니까?")){ //확인
+    	 form.submit();
+    } else { //취소
+     	return false;
+    }
+
+  
+}
+</script>
 
 
 </head>
-<title>상품등록창</title>
+<title>회원수정창</title>
 <body>
 
 	<section class="ftco-section testimony-section"
@@ -213,35 +288,41 @@
 				<li><a
 					onclick="location.href='${contextPath}/product/admin_listProduct.do'"
 					data-hover="상품관리"
-					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; margin-left: 20px; padding-bottom: 0px;">상품관리</a></li>
+					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 100px; cursor: pointer; background-color: white; margin-left: 20px; padding-bottom: 0px;">상품관리</a></li>
 
 
-				<li><a
+				<li ><a
 					onclick="location.href='${contextPath}/product/add_product.do'"
 					data-hover="상품등록"
-					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">상품등록</a></li>
+					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 100px; cursor: pointer; background-color: white; padding-bottom: 0px;">상품등록</a></li>
 
 
 				<li class="current"><a
 					onclick="location.href='${contextPath}/admin_listmember.do'"
 					data-hover="회원관리"
-					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">회원관리</a></li>
+					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 100px; cursor: pointer; background-color: white; padding-bottom: 0px;">회원관리</a></li>
 
 
 				<li><a
-					onclick="location.href='location.href='${contextPath}/board/listNotice.do'"
+					onclick="location.href='${contextPath}/board/listNotice.do'"
 					data-hover="게시판관리"
-					style="font-size: 20px; border: none; color: #5a5a5a; background-color: white; cursor: pointer; padding-bottom: 0px;">게시판관리</a></li>
+					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 100px; background-color: white; cursor: pointer; padding-bottom: 0px;">게시판관리</a></li>
+				<li><a
+					onclick="location.href='${contextPath}/admin_listorder.do'"
+					data-hover="주문관리"
+					style="font-size: 20px; border: none; color: #5a5a5a; background-color: white; cursor: pointer; padding-bottom: 0px;">주문관리</a></li>
 			</ul>
 
 			<hr style="margin-top: -10px;">
-
+           
 			<section class="ftco-section testimony-section"
 				style="padding-top: 100px;">
+				<form name="Checkmodify" action="${contextPath}/admin/modMember.do" method="post">
 				<div class="container">
+				
 					<section class="Easy-sgin-in-wrap4">
 						<div id="LeftBox" style="font-size: 14px;">
-							<form name="" action="" method="post">
+							
 								<table style="margin-top:30px; margin-left:35px;">
 									<tr style="border-top: 1px solid #7e9c8c;  height:60px; border-bottom: 1px solid #c6c8ca; font-size: 15px;">
 										<td style="width: 200px; text-align:center; background-color:#7e9c8c; color:white;">아이디</td>
@@ -287,7 +368,7 @@
 									</tr>
 								</table>
 
-							</form>
+							
 
 
 						</div>
@@ -296,15 +377,17 @@
 				<div class="container">
 					<section class="Easy-sgin-in-wrap4">
 						<ul class="sign-button-list4">
-							<li style="margin-left: 50px;"><button
-									onclick=""
-									style="background-color: #7e9c8c; font-size: 14px; color: white; border: none; border-radius: 2px; width: 400px; float: left;">
-									<i class="sgin-up"></i><span>확인</span>
-								</button></li>
 							<li style="margin-left: 50px;">
-								<button
-									onclick="location.href=''"
-									style="background-color: white; font-size: 14px; color: gray; border: 1px solid #7e9c8c; border-radius: 2px; width: 400px; float: left;">
+							<button  onclick="Check_Join()"
+									style="background-color: white; font-size:14px; color: gray; border: 1px solid #7e9c8c; border-radius:2px; width:400px; float:left;">
+									<i class="btn-Non Order Inquiry"></i><span>수정</span>
+								</button>
+									
+							</li>
+					
+							<li style="margin-left: 50px;">
+								<button  onclick="location.href='${contextPath}/admin_listmember.do'"
+									style="background-color: white; font-size:14px; color: gray; border: 1px solid #7e9c8c; border-radius:2px; width:400px; float:left;">
 									<i class="btn-Non Order Inquiry"></i><span>취소</span>
 								</button>
 							</li>
@@ -312,7 +395,9 @@
 						</ul>
 					</section>
 				</div>
+				</form>
 			</section>
+			
 		</div>
 	</section>
 

@@ -14,12 +14,13 @@
 		<result property="memAdr" column="memAdr" />
 		<result property="logintype" column="logintype" />
 		<result property="memRegdate" column="memRegdate" />
+		<result property="Approval_key" column="Approval_key"/>
 	</resultMap>
 	
 	
 	<!-- 비밀번호 변경 -->
 	<update id="update_pw" parameterType="memberVO">
-		update simple.member set memPwd = #{memPwd} where memId = #{memId}
+		update simple.member set Approval_key = #{Approval_key} where memId = #{memId}
 	</update>
 	
     <select id="find_Id" resultType="memberVO"
@@ -42,7 +43,11 @@
 	   from simple.member
 	  where memId=#{memId};
 	</select>
-
+	<select id="EmailConfirm" parameterType="MemberVO" resultType="String">
+	 select *
+	   from simple.member
+	  where memId=#{memId};
+     </select>
 	<!-- 회원리스트 조회 -->
 	<select id="selectAllMemberList" resultMap="memResult">
 	<![CDATA[
@@ -66,8 +71,8 @@
 
 
 
-			insert into simple.member(memId, memName, memPwd, memEmail, memPhoneNum, memAdr, logintype) 
-			values(#{memId},#{memName},#{memPwd},(select concat_ws('@',#{memEmail},#{memEmail1})),(select concat_ws('-',#{memPhoneNum},#{memPhoneNum1},#{memPhoneNum2})),(select concat_ws('-',#{memAdr},#{memAdr1},#{memAdr2})),"일반");
+			insert into simple.member(memId, memName, memPwd, memEmail, memPhoneNum, memAdr, logintype,approval_key) 
+			values(#{memId},#{memName},#{memPwd},(select concat_ws('@',#{memEmail},#{memEmail1})),(select concat_ws('-',#{memPhoneNum},#{memPhoneNum1},#{memPhoneNum2})),(select concat_ws('-',#{memAdr},#{memAdr1},#{memAdr2})),"일반",#{approval_key});
 
 		]]>
 	</insert>
@@ -135,7 +140,7 @@
 	<select id="memberSearchList" resultMap="memResult">
 			
 			select *
-			from member 
+			from simple.member 
 			where
 			<if test="searchType=='memEmail' and search != null and search != '' ">
 
@@ -176,7 +181,7 @@
 
 			
 			select count(*) 
-			from member 
+			from simple.member 
 			where
 			<if test="searchType=='memEmail' and search != null and search != '' ">
 

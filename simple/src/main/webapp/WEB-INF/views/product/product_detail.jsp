@@ -143,12 +143,12 @@ function getSelectValue2(frm)
 var fo;
 window.onload = function() {
 	fo = document.forms["form1"];
-	fo['totalPrice'].value = fo['price'].value;
+	fo['productPrice'].value = fo['price'].value;
 }
 
 
 function checkPrice() {
-	fo['totalPrice'].value= Number(fo['price'].value) + Number(fo['option1'].value) + Number(fo['option2'].value);
+	fo['productPrice'].value= Number(fo['price'].value) + Number(fo['option1'].value) + Number(fo['option2'].value);
 }
 	
 	
@@ -245,66 +245,6 @@ function add_favorite(productNum) {
 	
 }
 
-function add_cart(productNum) {
-	if(confirm("장바구니에 등록하시겠습니까?"))
-	{
-		if(${isLogOn != true }){
-		      alert("로그인이 필요합니다.");
-		}else{
-	        $.ajax({
-	        	type : "post",
-	        	async : false, //false인 경우 동기식으로 처리한다.
-	        	url : "${contextPath}/addProductInCart.do",
-	        	data : {
-	        		productNum:productNum
-			
-		        },
-		        success : function(data, textStatus) {
-
-		        	//alert(data);
-	            	//	$('#message').append(data);
-		        	if(data.trim()=='add_success'){
-		        		alert("장바구니에 담았습니다.");	
-
-	        				/*$("#favorite_add").show();*/
-	        		}else if(data.trim()=='already_existed'){
-
-	        			alert("이미 장바구니에 등록된 상품입니다.");	
-	    	    	}
-	  		
-	        	},
-	        	error : function(data, textStatus) {
-		        	alert("에러가 발생했습니다."+data);
-	        	},
-	        	complete : function(data, textStatus) {
-		        	//alert("작업을완료 했습니다");
-		        }
-	        }); //end ajax	
-		}
-	}else{
-		return false;
-	}
-}
-
-
-	
-/*	var productNum = ${'#favorite'}.val();
-	
-	$.ajax({ url: "${contextPath}/mypage_08.do", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
-		data: { productNum:productNum },// HTTP 요청과 함께 서버로 보낼 데이터 
-		method: "GET", // HTTP 요청 메소드(GET, POST 등) 
-		dataType: "text", // 서버에서 보내줄 데이터의 타입 })
-                success: function (data) {
-                	alert("아아아");
-                }
-            })
-        })*/
-
-
-
-
-	
-
 
 	
 </script>
@@ -338,17 +278,17 @@ function add_cart(productNum) {
 							<div class="blog-entry">
 								<a><img
 									src="${contextPath}/download_product.do?productNum=${product.productNum}&productImage=${product.productImage}"
-									style="width: 600px; padding-top: 10px; padding-top: 10px; margin-left: -15px; float: left;">
+									style="border:1px solid gray; width: 600px; height:409.68px;  margin-left: -15px; float: left;">
 								</a> <br>
 							</div>
 						</div>
 					</section>
-
+					<input type="hidden" name="productImage"value="${product.productImage}"/>
 
 					<div style="width: 685px; height: 480px;">
 					
-						<h3
-							style="font-size: 20px; color: #7e9c8c; float: left; margin-left: 50px; margin-top: 5px;">${product.productName}</h3>
+						<h1
+							style="font-weight:bold; font-size: 20px; color: #7e9c8c; float: left; margin-left: 50px; margin-top: 5px;">${product.productName}</h1>
 
 						<a  href="javascript:add_favorite('${product.productNum }')"
 							style="all: none; font-size: 15px; color: #7e9c8c; margin-left: 430px; margin-top: 5px;">관심상품</a>
@@ -433,7 +373,7 @@ function add_cart(productNum) {
 							style="width: 27px; height: 28px; white-space: nowrap; color: #5f5f5f; float: left; font-size: 18px; border: none; margin-top: 30px;">
 						<h2
 							style="margin-top: 200px; font-size: 18px; test-align: right; width: 400px; margin-left: 380px;">
-							총 상품 금액ㅤ<input type="text" name="totalPrice" value="0"
+							총 상품 금액ㅤ<input type="text" name="productPrice" value="0"
 								style="border: none; text-align: right; font-size: 20px; width: 98px; margin-left: 18px;"
 								readonly />원
 						</h2>
@@ -525,7 +465,7 @@ function add_cart(productNum) {
 					<div id="tab2" class="tab_content">
 						<!--Content-->
 						<table class="table"
-							style="margin-top: 60px; text-align: center; width: 1200px; margin-left: -70px; font-size: 14px;">
+							style="margin-top: 60px; text-align: center; width: 1200px; margin-left: 20px; font-size: 14px;">
 
 							<tr
 								style="background-color: #eeeeee; border-top: 1px solid #7e9c8c; border-bottom: 1px solid #c6c8ca;">
@@ -560,6 +500,8 @@ function add_cart(productNum) {
 													</div>
 													<div class="modal-body">
 														<p>${productReview.productContent}</p>
+														<img style="width: 300px; height:300px;"
+							src="${contextPath}/download_review.do?reviewNum=${productReview.reviewNum}&reviewFile=${productReview.reviewFile}">
 													</div>
 
 													<img src="" />

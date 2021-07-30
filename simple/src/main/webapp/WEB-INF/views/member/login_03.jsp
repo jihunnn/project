@@ -221,10 +221,12 @@ h3 {
 				},
 				success : function(result) {
 					alert(result);
+				
 				},
 			})
 		});
 	})
+	
 </script>
 </head>
 <title>아이디/비밀번호 찾기창</title>

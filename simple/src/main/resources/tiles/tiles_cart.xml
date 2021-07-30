@@ -12,6 +12,6 @@
 	
 	<definition name="cart" extends="baseLayout">
 		<put-attribute name="body"
-			value="/WEB-INF/views/cart.jsp" />
+			value="/WEB-INF/views/cart/cart.jsp" />
 	</definition>
 </tiles-definitions>	

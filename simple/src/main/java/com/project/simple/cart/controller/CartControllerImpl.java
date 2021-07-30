@@ -42,21 +42,22 @@ public class CartControllerImpl implements CartController {
 		HttpSession session = request.getSession();
 		Boolean isLogOn = (Boolean) session.getAttribute("isLogOn");
 
-		if (isLogOn == null || isLogOn == false) {
+		if (isLogOn == null) {
 			List<CartVO> list = (ArrayList) session.getAttribute("cartlist");
 			if (list == null) {
 				list = new ArrayList<CartVO>();
 				session.setAttribute("cartlist", list);
 			}
+			
 			list.add(cartVO);
 			mav.setViewName("redirect:/nonmemcart.do");
 
 		} else if (isLogOn == true) {
-
-			int result = 0;
+			
 			MemberVO membervo = (MemberVO) session.getAttribute("member");
 			String memId = membervo.getmemId();
 			cartVO.setMemId(memId);
+			int result = 0;
 			result = cartService.addcartlist(cartVO);
 			mav.setViewName("redirect:/memcart.do");
 		}

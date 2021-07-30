@@ -19,12 +19,12 @@
 			value="/WEB-INF/views/order/order_01.jsp" />
 	</definition>
 
-	<definition name="order_02" extends="baseLayout">
+	<definition name="nonorder_01" extends="baseLayout">
 		<put-attribute name="body"
-			value="/WEB-INF/views/order/order_02.jsp" />
+			value="/WEB-INF/views/order/nonorder_01.jsp" />
 	</definition>
 
-	<definition name="order_03" extends="baseLayout">
+	<definition name="order_03" extends="baseLayout">	
 		<put-attribute name="body"
 			value="/WEB-INF/views/order/order_03.jsp" />
 	</definition>

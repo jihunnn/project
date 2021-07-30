@@ -46,7 +46,7 @@ public class MemberControllerImpl implements MemberController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 
-		return "admin_listmember";
+		return "main";
 	}
 	
 	// 멤버로그인작업 ppt226
@@ -329,6 +329,13 @@ public class MemberControllerImpl implements MemberController {
 		mav.setViewName(viewName);
 		return mav;
 	}
+	@RequestMapping(value = "/login_05.do", method = RequestMethod.GET)
+	private ModelAndView login_05(HttpServletRequest request, HttpServletResponse response) {
+		String viewName = (String) request.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName(viewName);
+		return mav;
+	}
 
     //관리자 회원리스트
 	@Override
@@ -405,6 +412,18 @@ public class MemberControllerImpl implements MemberController {
 		String result =	memberService.overlapped(memId);
 		resEntity = new ResponseEntity(result, HttpStatus.OK);
 		return resEntity;
+			
+	}	
+	@Override
+	@RequestMapping(value="/email_confirm.do" ,method = RequestMethod.POST)
+	public ModelAndView email_confirm(@RequestParam("Approval_key") String Approval_key, HttpServletRequest request, HttpServletResponse response) throws Exception{
+		String viewName = (String) request.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView();
+
+		memberVO = memberService.email_confirm(Approval_key);
+		mav.addObject("memId", memberVO);
+		mav.setViewName("redirect:/login_06.do");
+		return mav;
 			
 	}	
 

@@ -115,4 +115,10 @@ public class MemberDAOImpl implements MemberDAO{
 	public MemberVO check_email(String memId) throws Exception{
 		return sqlSession.selectOne("mapper.member.check_email", memId);
 	}
+
+	@Override
+	public MemberVO EmailConfirm(String approval_key) throws Exception {
+		MemberVO result =  sqlSession.selectOne("mapper.member.EmailConfirm",approval_key);
+		return result;
+	}
 }

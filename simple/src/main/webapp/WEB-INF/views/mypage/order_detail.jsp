@@ -309,15 +309,15 @@ function returnConfirmResult() {
 												<img src="${contextPath}/resources/images/image_1.jpg"
 													width="110" height="110" style="float: left;"> <a
 													style="margin-left: 0px;">${memOrderNum.productName}</a>
-												<c:if test="${memOrderNum.option1value !=null}">
+												<c:if test="${memOrderNum.option1Value !=null}">
 													<p
 														style="margin-left: 130px; font-size: 13px; width: 100px;">${memOrderNum.option1Name}
-														: ${memOrderNum.option1value}</p>
+														: ${memOrderNum.option1Value}</p>
 												</c:if>
-												<c:if test="${memOrderNum.option2value !=null}">
+												<c:if test="${memOrderNum.option2Value !=null}">
 													<p
 														style="margin-left: 130px; font-size: 13px; width: 100px;">${memOrderNum.option2Name}
-														: ${memOrderNum.option2value}</p>
+														: ${memOrderNum.option2Value}</p>
 												</c:if>
 
 											</div>

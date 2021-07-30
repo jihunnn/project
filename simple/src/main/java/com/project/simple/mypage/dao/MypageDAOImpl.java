@@ -27,9 +27,8 @@ public class MypageDAOImpl implements MypageDAO{
 	//상품 주문내역조회
 	@Override
 	public List<MypageVO> selectMyOrderInfoList(Map<String ,Object> myOrderInfoMap) throws DataAccessException {
-
 		List<MypageVO> myOrderInfoList =sqlSession.selectList("mapper.mypage.selectAllMyOrderInfoList",myOrderInfoMap);		
-		System.out.println(myOrderInfoList);
+
 		return myOrderInfoList;
 	}
 	
@@ -48,13 +47,12 @@ public class MypageDAOImpl implements MypageDAO{
 	@Override
 	public MypageVO selectViewMyOrderInfoMem(int memOrderSeqNum) throws DataAccessException {
 		return sqlSession.selectOne("mapper.mypage.selectMyOrderInfoMem", memOrderSeqNum);
-		
 	}
 	
 	//상품 주문내역 -->>기간검색
 	@Override
 	public List<MypageVO> myOrderInfoSearchList(Map<String ,Object> myOrderInfoSearchMap) throws DataAccessException {
-		
+
 		List<MypageVO> myOrderInfoSearchList =sqlSession.selectList("mapper.mypage.myOrderInfoSearchList",myOrderInfoSearchMap);		
 		return myOrderInfoSearchList;
 	}

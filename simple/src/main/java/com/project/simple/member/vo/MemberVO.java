@@ -19,6 +19,7 @@ public class MemberVO{
 	private String memAdr2;
 	private String logintype;
 	private String memRegdate;
+	private String Approval_key;
 	
 	public MemberVO() {
 		
@@ -142,5 +143,11 @@ public class MemberVO{
 		this.memRegdate = memRegdate;
 	}
 
+	public String getApproval_key() {
+		return Approval_key;
+	}
+	public void setApproval_key(String Approval_key) {
+		this.Approval_key = Approval_key;
+	}
 
 }

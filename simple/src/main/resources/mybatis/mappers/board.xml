@@ -51,7 +51,7 @@
 	<select id="selectAllNoticeList" resultMap="noticeResult">
 	<![CDATA[
 			
-			select noticeNum, noticeDate, noticeTitle, noticeWriter, noticeHit from notice order by noticeNum desc
+			select noticeNum, noticeDate, noticeTitle, noticeWriter, noticeHit from simple.notice order by noticeNum desc
 			limit #{pageStart}, #{perPageNum};
 			
 
@@ -64,7 +64,7 @@
 		parameterType="int">
 	<![CDATA[
 			
-			select count(*) as noticeCount from notice;
+			select count(*) as noticeCount from simple.notice;
 			
 
 	]]>
@@ -75,7 +75,7 @@
 		parameterType="int"> 
 	<![CDATA[
 			
-			select * from notice
+			select * from simple.notice
 			where noticeNum = #{noticeNum}
 			
 
@@ -83,7 +83,7 @@
 	</select>
 
 	<update id="updateNoticeHit" parameterType="int">
-		UPDATE notice SET
+		UPDATE simple.notice SET
 		noticeHit = noticeHit + 1 WHERE noticeNum = #{noticeNum}
 	</update>
 
@@ -91,7 +91,7 @@
 	<select id="selectAllQuestionList" resultMap="questionResult">
 	<![CDATA[
 			
-			select * from question order by questionNum desc
+			select * from simple.question order by questionNum desc
 			limit #{pageStart}, #{perPageNum};
 			
 
@@ -102,7 +102,7 @@
 		parameterType="int">
 	<![CDATA[
 			
-			select count(*) as questionCount from question;
+			select count(*) as questionCount from simple.question;
 			
 
 	]]>
@@ -111,7 +111,7 @@
 	<select id="questionSearchList" resultMap="questionResult">
 	<![CDATA[
 			
-			select * from question where questionTitle like CONCAT('%', #{search}, '%')  order by questionNum desc
+			select * from simple.question where questionTitle like CONCAT('%', #{search}, '%')  order by questionNum desc
 			limit #{pageStart}, #{perPageNum}
 			;
 			
@@ -123,7 +123,7 @@
 		parameterType="int">
 	<![CDATA[
 			
-			select count(*) as questionCount from question where questionTitle like CONCAT('%', #{search}, '%');
+			select count(*) as questionCount from simple.question where questionTitle like CONCAT('%', #{search}, '%');
 			
 
 	]]>
@@ -135,7 +135,7 @@
 		parameterType="java.util.HashMap" resultMap="inquiryResult">
 	<![CDATA[
 			
-			select * from inquiry where memId=#{memId} order by inquiryNum desc
+			select * from simple.inquiry where memId=#{memId} order by inquiryNum desc
 			limit #{pageStart}, #{perPageNum};
 			
 
@@ -144,7 +144,7 @@
 	<select id="selectInquiryCount" resultType="int">
 	<![CDATA[
 			
-			select count(*) as inquiryCount from inquiry where memId=#{memId};
+			select count(*) as inquiryCount from simple.inquiry where memId=#{memId};
 			
 
 	]]>
@@ -153,7 +153,7 @@
 	<select id="inquirySearchList" resultMap="inquiryResult">
 	<![CDATA[
 			
-			select * from inquiry where memId=#{memId} and inquiryDate between #{search1} and DATE_ADD(#{search2}, interval 1 day) order by inquiryNum desc
+			select * from simple.inquiry where memId=#{memId} and inquiryDate between #{search1} and DATE_ADD(#{search2}, interval 1 day) order by inquiryNum desc
 			limit #{pageStart}, #{perPageNum};
 			;
 			
@@ -165,7 +165,7 @@
 		parameterType="java.util.Map">
 	<![CDATA[
 			
-			select count(*) from inquiry where memId=#{memId} and inquiryDate between #{search1} and  DATE_ADD(#{search2}, interval 1 day);
+			select count(*) from simple.inquiry where memId=#{memId} and inquiryDate between #{search1} and  DATE_ADD(#{search2}, interval 1 day);
 			
 
 	]]>
@@ -173,7 +173,7 @@
 
 	<insert id="insertNewInquiry" parameterType="java.util.Map">
 		<![CDATA[
-			insert into inquiry(memId,inquiryNum, inquiryType,inquiryTitle, inquiryContent, inquiryFile)
+			insert into simple.inquiry(memId,inquiryNum, inquiryType,inquiryTitle, inquiryContent, inquiryFile)
 			values(#{memId},#{inquiryNum}, #{inquiryType}, #{inquiryTitle}, #{inquiryContent}, #{inquiryFile});
 		]]>
 
@@ -182,7 +182,7 @@
 	<select id="selectNewInquiryNum" resultType="int">
 	<![CDATA[
 			
-			select max(inquiryNum)+1 from inquiry;
+			select max(inquiryNum)+1 from simple.inquiry;
 	
 
 	]]>
@@ -192,7 +192,7 @@
 		parameterType="int"> 
 	<![CDATA[
 			
-			select * from inquiry
+			select * from simple.inquiry
 			where inquiryNum = #{inquiryNum};
 			
 
@@ -203,7 +203,7 @@
 		parameterType="int"> 
 	<![CDATA[
 			
-			select * from inquiry
+			select * from simple.inquiry
 			where inquiryNum = #{inquiryNum};
 			
 
@@ -211,7 +211,7 @@
 	</select>
 
 	<update id="updateInquiry" parameterType="java.util.Map">
-		update inquiry
+		update simple.inquiry
 		set inquiryTitle = #{inquiryTitle},
 		inquiryContent =
 		#{inquiryContent}
@@ -223,7 +223,7 @@
 
 	<update id="deleteInquiry" parameterType="java.util.Map">
 
-		delete from inquiry
+		delete from simple.inquiry
 		where inquiryNum=#{inquiryNum};
 
 	</update>
@@ -232,7 +232,7 @@
 	<select id="selectAllAsCenterList" resultMap="asCenterResult">
 	<![CDATA[
 			
-			select asCenterNum, asCenterPwd, asCenterTitle , asCenterContent, asCenterDate, asCenterStatus, m.memName from member as m right join asCenter as a on m.memId=a.memId order by asCenterNum desc
+			select asCenterNum, asCenterPwd, asCenterTitle , asCenterContent, asCenterDate, asCenterStatus, m.memName from simple.member as m right join simple.asCenter as a on m.memId=a.memId order by asCenterNum desc
 			limit #{pageStart}, #{perPageNum};
 			
 
@@ -243,7 +243,7 @@
 		parameterType="int">
 	<![CDATA[
 			
-			select count(*) as asCenterCount from asCenter;
+			select count(*) as asCenterCount from simple.asCenter;
 			
 
 	]]>
@@ -253,7 +253,7 @@
 		parameterType="int"> 
 	<![CDATA[
 			
-		select asCenterNum, asCenterTitle , asCenterContent, asCenterPwd, asCenterDate, asCenterFile, m.memName from member as m right join asCenter as a on m.memId=a.memId where asCenterNum=#{asCenterNum};
+		select asCenterNum, asCenterTitle , asCenterContent, asCenterPwd, asCenterDate, asCenterFile, m.memName from simple.member as m right join simple.asCenter as a on m.memId=a.memId where asCenterNum=#{asCenterNum};
 			
 
 	]]>
@@ -262,7 +262,7 @@
 
 	<insert id="insertNewAsCenter" parameterType="java.util.Map">
 		<![CDATA[
-			insert into asCenter(memId,asCenterNum, asCenterTitle, asCenterContent, asCenterPwd, asCenterFile)
+			insert into simple.asCenter(memId,asCenterNum, asCenterTitle, asCenterContent, asCenterPwd, asCenterFile)
 			values(#{memId},#{asCenterNum}, #{asCenterTitle},  #{asCenterContent}, #{asCenterPwd}, #{asCenterFile});
 		]]>
 
@@ -271,14 +271,14 @@
 	<select id="selectNewAsCenterNum" resultType="int">
 	<![CDATA[
 			
-			select max(asCenterNum)+1 from asCenter;
+			select max(asCenterNum)+1 from simple.asCenter;
 	
 
 	]]>
 	</select>
 
 	<update id="updateAsCenter" parameterType="java.util.Map">
-		update asCenter
+		update simple.asCenter
 		set asCenterTitle = #{asCenterTitle},
 		asCenterContent =
 		#{asCenterContent},
@@ -291,14 +291,14 @@
 
 	<update id="deleteAsCenter" parameterType="java.util.Map">
 
-		delete from AsCenter
+		delete from simple.asCenter
 		where asCenterNum=#{asCenterNum};
 
 	</update>
 	
 	<select id="asCenterSearchList" resultMap="asCenterResult">
 			
-			select asCenterNum, asCenterTitle , asCenterContent, asCenterPwd, asCenterDate, asCenterFile, asCenterStatus, m.memName from member as m right join asCenter as a on m.memId=a.memId where
+			select asCenterNum, asCenterTitle , asCenterContent, asCenterPwd, asCenterDate, asCenterFile, asCenterStatus, m.memName from simple.member as m right join simple.asCenter as a on m.memId=a.memId where
 			<if test="searchType=='asCenterTitle' and search != null and search != '' ">
 
 				asCenterTitle like CONCAT('%', #{search}, '%')
@@ -332,7 +332,7 @@
 		parameterType="java.util.Map">
 
 			
-			select count(*) from member as m right join asCenter as a on m.memId=a.memId where
+			select count(*) from simple.member as m right join simple.asCenter as a on m.memId=a.memId where
 			<if test="searchType=='asCenterTitle' and search != null and search != '' ">
 
 				asCenterTitle like CONCAT('%', #{search}, '%')

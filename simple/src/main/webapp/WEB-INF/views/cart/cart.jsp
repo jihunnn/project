@@ -117,6 +117,7 @@
 	//회원구매
 	function memberbuy() {
 		var url = "order.do"
+		var totalPrice = $("#totalPrice").val();
 		var valueArr = new Array();
 		var list = $("input[name='chk']");
 		for (var i = 0; i < list.length; i++) {
@@ -133,7 +134,7 @@
 					type : 'POST', //POST방식
 					traditional : true,
 					data : {
-						valueArr : valueArr
+						valueArr : valueArr, totalPrice : totalPrice
 					//보내고자 하는 data 변수 설정
 					},
 					success : function(jdata) {
@@ -143,7 +144,6 @@
 							alert("오류 발생");
 						}
 					}
-
 				});
 			} else {
 				return false;
@@ -154,6 +154,7 @@
 	//비회원구매
 	function nonmemberbuy() {
 		var url = "order.do"
+		var totalPrice = $("#totalPrice").val();
 		var valueArr = new Array();
 		var list = $("input[name='chk']");
 		for (var i = 0; i < list.length; i++) {
@@ -170,12 +171,12 @@
 					type : 'POST', //POST방식
 					traditional : true,
 					data : {
-						valueArr : valueArr
+						valueArr : valueArr, totalPrice : totalPrice
 					//보내고자 하는 data 변수 설정
 					},
 					success : function(jdata) {
 						if (jdata = 1) {
-							location.replace("order_01.do") //list 로 페이지 새로고침
+							location.replace("nonorder_01.do") //list 로 페이지 새로고침
 						} else {
 							alert("오류 발생");
 						}
@@ -283,21 +284,22 @@
 									<td scope="col" width="80">가격</td>
 								</tr>
 							</thead>
+							
+							<c:forEach items="${cartlist}" var="cartlist">
+								<tbody>
 
-							<tbody>
-								<c:forEach items="${cartlist}" var="cartlist">
-									<tr style="border-bottom: 1px solid #c6c8ca;">
-										<td scope="col" height="100" align=center><br> <br>
-											<input type="checkbox" name="chk"
-											value="${cartlist.memCartId}"></td>
+									<tr class="tr1" align="center"
+									style="border-bottom: 1px solid rgba(0, 0, 0, 0.1);">
+										<th scope="col"style="vertical-align: middle; align:center;"><input
+											type="checkbox" name="chk" value="${cartlist.memCartId}"></th>
 										<td scope="col"><img
-											src="${contextPath}/resources/images/bed.jpg" width=130
-											height=130></td>
+											src="${contextPath}/download_product.do?productNum=${cartlist.productNum}&productImage=${cartlist.productImage}" width=80
+											height=80></td>
 										<td scope="col" align=left style="padding-top: 25px;">${cartlist.productName}<br>${cartlist.option1name}
 											: ${cartlist.option1value} <br>${cartlist.option2name} :
 											${cartlist.option2value}
 										</td>
-										<td scope="col" align=center><br> <br> <select
+										<td scope="col" align=center> <select
 											name="number"
 											style="height: 25px; border: 1px solid #dcdcdc;">
 												<option value="1개">1개</option>
@@ -306,12 +308,12 @@
 												<option value="4개">4개</option>
 												<option value="5개">5개</option>
 										</select></td>
-										<td scope="col" align=center><br> <br>${cartlist.deliverycharge}</td>
-										<td scope="col" align=center><br> <br>${cartlist.totalPrice}</td>
+										<td scope="col" align=center>${cartlist.deliverycharge}</td>
+										<td scope="col" align=center>${cartlist.productPrice}</td>
 									</tr>
-								</c:forEach>
-							</tbody>
 
+								</tbody>
+							</c:forEach>
 							<tfoot>
 								<tr>
 
@@ -320,7 +322,7 @@
 									<td></td>
 									<td colspan="3" align=right
 										style="font-size: 18px; color: #7e9c8c; font-weight: bold;">총
-										금액 : 원</td>
+										금액 : <input type="hidden" value="3000000" id="totalPrice"/>3,000,000원</td>
 								</tr>
 							</tfoot>
 						</table>
@@ -361,8 +363,8 @@
 										<td scope="col" height="100" align=center><br> <br>
 											<input type="checkbox" name="chk" value="${status.index}"></td>
 										<td scope="col"><img
-											src="${contextPath}/resources/images/bed.jpg" width=130
-											height=130></td>
+											src="${contextPath}/resources/images/bed.jpg" width=80
+											height=80></td>
 										<td scope="col" align=left style="padding-top: 25px;">${cartlist.productName}<br>${cartlist.option1name}
 											: ${cartlist.option1value} <br>${cartlist.option2name} :
 											${cartlist.option2value}
@@ -377,7 +379,7 @@
 												<option value="5개">5개</option>
 										</select></td>
 										<td scope="col" align=center><br> <br>${cartlist.deliverycharge}</td>
-										<td scope="col" align=center><br> <br>${cartlist.totalPrice}</td>
+										<td scope="col" align=center><br> <br>${cartlist.productPrice}</td>
 									</tr>
 								</tbody>
 							</c:forEach>
@@ -387,8 +389,7 @@
 									<td></td>
 									<td></td>
 									<td colspan="3" align=right
-										style="font-size: 18px; color: #7e9c8c; font-weight: bold;">총
-										금액 : 원</td>
+										style="font-size: 18px; color: #7e9c8c; font-weight: bold;"><input type="hidden" value="3000000" id="totalPrice"/>3,000,000원</td>
 								</tr>
 							</tfoot>
 						</table>

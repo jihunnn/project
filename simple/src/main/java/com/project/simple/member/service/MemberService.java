@@ -43,6 +43,8 @@ public interface MemberService{
 
 	public void check_id(String memId, HttpServletResponse response) throws Exception;
 
+	public MemberVO email_confirm(String approval_key)throws Exception;
+
 	
 	
 }

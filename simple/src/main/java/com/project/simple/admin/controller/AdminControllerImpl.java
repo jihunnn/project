@@ -1,30 +1,19 @@
 package com.project.simple.admin.controller;
 
 
-import java.io.File;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -38,8 +27,6 @@ import com.project.simple.page.PageMaker;
 
 @Controller("adminController")
 public class AdminControllerImpl implements AdminController {
-	private static final String ARTICLE_IMAGE_REPO_notice="C:\\spring\\notice_image";
-	
 	@Autowired
 	private AdminService adminService;
 
@@ -88,7 +75,7 @@ public class AdminControllerImpl implements AdminController {
 	}
 
 	// 회원상세보기
-	@RequestMapping(value = "/admin/viewMember.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/viewMember.do",  method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView viewMember(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String memId = request.getParameter("memId");
 		String viewName = (String) request.getAttribute("viewName");
@@ -104,7 +91,6 @@ public class AdminControllerImpl implements AdminController {
 	@RequestMapping(value = "/admin/listAllInquiry.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView listAllInquiry(Criteria cri, HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-		Map<String, Object> inquiryMap = new HashMap<String, Object>();
 		String viewName = (String) request.getAttribute("viewName");
 		List<ArticleVO> listAllInquiry = adminService.listAllInquiry(cri);
 		int inquiryCount = adminService.inquiryCount();
@@ -112,10 +98,7 @@ public class AdminControllerImpl implements AdminController {
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(inquiryCount);
-		int pageNum = pageMaker.getCri().getPage();
-		inquiryMap.put("pageNum", pageNum);
-		inquiryMap.put("inquiryList", listAllInquiry);
-		mav.addObject("inquiryMap", inquiryMap);
+		mav.addObject("inquiryList", listAllInquiry);
 		mav.addObject("pageMaker", pageMaker);
 		return mav;
 	}
@@ -127,89 +110,6 @@ public class AdminControllerImpl implements AdminController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(viewName);
 		return mav;
-	}
-	
-	//공지사항 글쓰기
-	// 1:1 문의 글쓰기
-	@Override
-	@RequestMapping(value = "/admin/addNewNotice.do", method = RequestMethod.POST)
-	@ResponseBody
-	public ResponseEntity addNewNotice(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)
-			throws Exception {
-
-		multipartRequest.setCharacterEncoding("utf-8");
-		Map<String, Object> noticeMap = new HashMap<String, Object>();
-		Enumeration enu = multipartRequest.getParameterNames();
-		while (enu.hasMoreElements()) {
-			String name = (String) enu.nextElement();
-			String value = multipartRequest.getParameter(name);
-			noticeMap.put(name, value);
-
-		}
-
-		String noticeFile = uploadNotice(multipartRequest);
-		HttpSession session = multipartRequest.getSession();
-
-		noticeMap.put("asCenterNum", 0);
-
-		noticeMap.put("noticeFile", noticeFile);
-
-		String message;
-		ResponseEntity resEnt = null;
-		HttpHeaders responseHeaders = new HttpHeaders();
-		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
-		try {
-			int noticeNum = adminService.addNewNotice(noticeMap);
-			if (noticeFile != null && noticeFile.length() != 0) {
-				File srcFile = new File(ARTICLE_IMAGE_REPO_notice + "\\" + "temp" + "\\" + noticeFile);
-				File destDir = new File(ARTICLE_IMAGE_REPO_notice + "\\" + noticeNum);
-				FileUtils.moveFileToDirectory(srcFile, destDir, true);
-			}
-
-			message = "<script>";
-			message += " alert('새글을 추가했습니다.');";
-			message += "  location.href='" + multipartRequest.getContextPath() + "/board/listNotice.do';";
-			message += " </script>";
-			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
-
-		} catch (Exception e) {
-			File srcFile = new File(ARTICLE_IMAGE_REPO_notice + "\\" + "temp" + "\\" + noticeFile);
-			srcFile.delete();
-
-			message = "<script>";
-			message += " alert('오류가 발생했습니다. 다시 시도해주세요');";
-			message += "  location.href='" + multipartRequest.getContextPath() + "/admin/noticeForm.do';";
-			message += " </script>";
-			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
-			e.printStackTrace();
-		}
-		return resEnt;
-	}
-
-	private String uploadNotice(MultipartHttpServletRequest multipartRequest) throws Exception {
-		String noticeFile = null;
-		Iterator<String> fileNames = multipartRequest.getFileNames();
-		while (fileNames.hasNext()) {
-			String fileName = fileNames.next();
-
-			MultipartFile mFile = multipartRequest.getFile(fileName);
-			noticeFile = mFile.getOriginalFilename();
-			File file = new File(ARTICLE_IMAGE_REPO_notice + "\\" + "temp" + "\\" + fileName);
-			if (mFile.getSize() != 0) {
-				if (!file.exists()) {
-					file.getParentFile().mkdirs();
-					mFile.transferTo(new File(ARTICLE_IMAGE_REPO_notice + "\\" + "temp" + "\\" + noticeFile));// 임시로
-																													// 저장되
-																													// multipartFile을
-																													// 실제
-																													// 파일로
-																													// 전송
-
-				}
-			}
-		}
-		return noticeFile;
-
 	}
 	
 	//공지사항 수정하기
@@ -225,7 +125,6 @@ public class AdminControllerImpl implements AdminController {
 
 		return mav;
 	}
-	
 
 
 }

@@ -118,13 +118,14 @@ public class MemberServiceImpl implements MemberService{
 
 		if(div.equals("find_pw")) {
 
-			subject = "SIMPLE 임시 비밀번호 입니다.";
+			subject = "SIMPLE 인증번호 입니다.";
 			msg += "<div align='center' style='border:1px solid black; font-family:verdana'>";
 			msg += "<h3 style='color: blue;'>";
-			
-			msg += memberDAO.check_email(memberVO.getmemId()).getmemName() + "님의 임시 비밀번호 입니다. 비밀번호를 변경하여 사용하세요.</h3>";
-			msg += "<p>임시 비밀번호 : ";
-			msg += memberVO.getmemPwd() + "</p></div>";
+			msg +=  "";
+			msg += "<p>인증번호는 ";
+			msg += memberVO.getApproval_key();
+			msg += "입니다</p></h3>";
+			msg += "해당 인증번호를 인증번호 확인란에 기입하여 주세요.</div>";
 		}
 			
 
@@ -166,21 +167,26 @@ public class MemberServiceImpl implements MemberService{
 		}else {
 		
 			   
-			// 임시 비밀번호 생성
-			String memPwd = "";
+			// 인증번호 생성
+			String Approval_key = "";
 			for (int i = 0; i < 12; i++) {
-				memPwd += (char) ((Math.random() * 26) + 97);
+				Approval_key += (char) ((Math.random() * 26) + 97);
 			}
-			memberVO.setmemPwd(memPwd);
-			// 비밀번호 변경
+			memberVO.setApproval_key(Approval_key);
+			// 인증번호 변경
 			memberDAO.update_pw(memberVO);
-			// 비밀번호 변경 메일 발송
+			// 인증번호 메일 발송
 			send_mail(memberVO, "find_pw");
 				
-			out.print("이메일로 임시 비밀번호를 발송하였습니다.");
+			out.print("이메일로 인증번호를 발송하였습니다.");
 			out.close();
 		}
 			
 		}
+	@Override
+	public MemberVO email_confirm(String approval_key) throws Exception {
+		return memberDAO.EmailConfirm(approval_key);
+	}
+	
 	
 }

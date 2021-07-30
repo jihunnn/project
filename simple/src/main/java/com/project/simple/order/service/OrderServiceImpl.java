@@ -5,14 +5,17 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.annotation.Propagation;
 
 
 import com.project.simple.cart.vo.CartVO;
+import com.project.simple.member.vo.MemberVO;
 import com.project.simple.order.dao.OrderDAO;
 import com.project.simple.order.vo.OrderVO;
+import com.project.simple.page.Criteria;
 
 
 @Service("orderService")
@@ -21,16 +24,42 @@ public class OrderServiceImpl implements OrderService {
 	@Autowired
 	private OrderDAO orderDAO;
 	
+	@Override
+	public List<OrderVO> listOrders(Criteria cri) throws Exception{
+		List<OrderVO> ordersList = orderDAO.selectAllOrderList(cri);
+		return ordersList;
+	}
+	
+	@Override
+	public int orderCount() throws Exception {
+		int orderCount = orderDAO.selectOrderCount();
+		return orderCount;
+	}
+	
+	@Override
+	public Map<String, Object> orderSearch(Map<String, Object> orderSearchMap) throws Exception {
+		List<OrderVO> orderSearchList=orderDAO.orderSearchList(orderSearchMap);
+
+		orderSearchMap.put("orderSearchList", orderSearchList);
+		
+
+		return orderSearchMap;
+	}
+	
+	@Override
+	public int orderSearchCount(Map<String, Object> search) throws Exception {
+		int orderSearchCount = orderDAO.orderSearchCount(search);
+		return orderSearchCount;
+	}
+	
 	public List<OrderVO> listMyOrderGoods(OrderVO orderVO) throws Exception{
 		List<OrderVO> orderGoodsList;
 		orderGoodsList=orderDAO.listMyOrderGoods(orderVO);
 		return orderGoodsList;
 	}
 	
-	public void addNewOrder(List<OrderVO> myOrderList) throws Exception{
-		orderDAO.insertNewOrder(myOrderList);
-		//카트에서 주문 상품 제거한다.
-		orderDAO.removeGoodsFromCart(myOrderList);
+	public void addNewOrder(OrderVO orderVO) throws Exception{
+		orderDAO.insertNewOrder(orderVO);	
 	}	
 	
 	public OrderVO selectcartlist(String memCartId) throws Exception {
@@ -40,13 +69,6 @@ public class OrderServiceImpl implements OrderService {
 	public OrderVO findMyOrder(String order_id) throws Exception{
 		return orderDAO.findMyOrder(order_id);
 	}
-	
-	//회원 주문하기
-	@Override
-	public void addNewOrder1(OrderVO order) throws Exception{
-		orderDAO.insertNewOrder1(order);
-	}
-	
 
 }
 	

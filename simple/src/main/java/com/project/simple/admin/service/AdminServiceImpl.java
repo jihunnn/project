@@ -2,7 +2,6 @@ package com.project.simple.admin.service;
 
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,13 +45,6 @@ public class AdminServiceImpl implements AdminService {
 		int inquiryCount = adminDAO.selectInquiryCount();
 		return inquiryCount;
 	}
-	
-	//공지사항 글 추가하기
-	@Override
-	public int addNewNotice(Map noticeMap) throws Exception{
-		return adminDAO.insertNewNotice(noticeMap);
-	}
-	
 	
 	//공지사항 수정하기
 	@Override

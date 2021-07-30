@@ -75,18 +75,11 @@
 <body>
 
 	
-	<img src="${contextPath}/resources/images/product-01.jpg" width=100%
-		height=350px>
-
 	<section class="ftco-section" style="padding-top: 30px;">
 		<div class="container">
-			<div class="row justify-content-center mb-5 pb-3"
-				style="background-color: #f5f5f5; border: 1px solid #e7e7e7; margin-top: 20px;">
-				<div class="col-md-20 heading-section ftco-animate"
-					style="height: 60px;">
-					<h2 class="mb-4" style="font-size: 35px; margin-top: 15px;">상품검색</h2>
-				</div>
-			</div>
+		<img src="${contextPath}/resources/images/product/selina.jpg" width=100%
+		height=350px style="margin-bottom:30px;">
+		
 
 			<!-- 최근 본 상품 -->
 			<div id="recentlyProduct"
@@ -112,38 +105,47 @@
 						style="color: black; text-align: center; margin-top: 8px; padding-top: 30px;">더보기▼</a></li>
 				</ul>
 			</div>
+            <hr style="margin-top: -15px; margin-bottom: 30px;">
 
-
-			<div class="btn-group btn-group-justified" role="group"
-				aria-label="..." style="margin-bottom: 30px; margin-top: 10px;">
-				
-			</div>
+			
 
 			<div class="row">
 			   <c:choose>
 			      <c:when test="${empty productList}">
-			         <b><span style="color:black;">제품이 없습니다.</sapn></b>
+			         <b><span style="color:black;">제품이 없습니다.</span></b>
 			      </c:when>
 			      <c:when test="${!empty productList}">
 			      <c:forEach var="product" items="${productList}" >
 				<div class="col-md-4 ftco-animate">
 					<div class="blog-entry">
-					
-						<a href="${contextPath}/product/viewProduct.do?productNum=${product.productNum}" class="block-20"
-							style="background-image: url('${contextPath}/resources/images/image_1.jpg');">
-						</a>
+					<c:choose>
+										<c:when
+											test="${not empty product.productImage && product.productImage != 'null'}">
+											<input type="hidden" name="OrignProductFile"
+												value="${product.productImage}" class="block-20" />
+											<a
+												href="${contextPath}/product/viewProduct.do?productNum=${product.productNum}">
+												<img class="block-20" style="width: 400px;"
+												src="${contextPath}/download_product.do?productNum=${product.productNum}&productImage=${product.productImage}"
+												id="preview" />
+											</a>
+										</c:when>
+									</c:choose>
+						
 						<div class="text d-flex py-1">
-							<div class="desc pl-2">
-								<h3 class="heading">
-									<a href="${contextPath}/product/viewProduct.do?productNum=${product.productNum}">${product.productName}</a>
-								</h3>
-								<hr style="margin-top: 25px;">
-								<h3 class="heading"
-									style="padding-left: 67%; white-space: nowrap;">
-									<a href="${contextPath}/product/viewProduct.do?productNum=${product.productNum}" style="font-size: 22px;"><fmt:formatNumber pattern="###,###,###" value="${product.productPrice}"/></a>
-								</h3>
-							</div>
-						</div>
+										<div class="desc pl-2">
+											<h3 class="heading">
+												<a style="font-size:15px;"
+													href="${contextPath}/product/viewProduct.do?productNum=${product.productNum}">${product.productName}</a>
+											</h3>
+											<hr style="margin-top: 15px; margin-bottom:10px;">
+												<h3 class="heading"
+													style="float: right; white-space: nowrap; margin-bottom: 10px;">
+													<a href="#" style="font-size: 16px;"><fmt:formatNumber
+															pattern="###,###,###" value="${product.productPrice}" />원</a>
+												</h3>
+										</div>
+									</div>
 					</div>
 				</div>
 				</c:forEach>
@@ -152,7 +154,7 @@
 				
 			
 			</div>
-	
+	</div>
 
 
 	</section>

@@ -2,7 +2,6 @@ package com.project.simple.admin.dao;
 
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.dao.DataAccessException;
 
@@ -22,6 +21,6 @@ public interface AdminDAO {
 	public int selectInquiryCount() throws DataAccessException;
 	
 	public ArticleVO selectNotice(int noticeNum) throws DataAccessException ;
-	public int insertNewNotice(Map noticeMap) throws DataAccessException;
+
 
 }

@@ -173,7 +173,7 @@
 
 
 				<li><a
-					onclick="${contextPath}/product/listProduct.do?sort=침대&subsort=패밀리'"
+					onclick="location.href ='${contextPath}/product/listProduct.do?sort=침대&subsort=패밀리'"
 					data-hover="패밀리"
 					style="font-size: 17px; border: none; color: #5a5a5a; background-color: white; cursor: pointer; padding-bottom: 0px; margin-right: 150px;">패밀리</a></li>
 				<li><a

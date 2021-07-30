@@ -9,12 +9,13 @@ public class CartVO {
 	private String productNum;
 	private int productCnt;
 	private String productName;
+	private String productPrice;
 	private String option1name;
 	private String option1value;
 	private String option2name;
 	private String option2value;
 	private int totalPrice;
-	private String productimage;
+	private String productImage;
 	private String deliverycharge;
 	private int memCartId;
 	
@@ -23,6 +24,13 @@ public class CartVO {
 	}
 	public void setMemId(String memId) {
 		this.memId = memId;
+	}
+	
+	public String getProductPrice() {
+		return productPrice;
+	}
+	public void setProductPrice(String productPrice) {
+		this.productPrice = productPrice;
 	}
 	public String getProductNum() {
 		return productNum;
@@ -72,11 +80,11 @@ public class CartVO {
 	public void setTotalPrice(int totalPrice) {
 		this.totalPrice = totalPrice;
 	}
-	public String getProductimage() {
-		return productimage;
+	public String getProductImage() {
+		return productImage;
 	}
-	public void setProductimage(String productimage) {
-		this.productimage = productimage;
+	public void setProductImage(String productImage) {
+		this.productImage = productImage;
 	}
 	public String getDeliverycharge() {
 		return deliverycharge;

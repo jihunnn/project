@@ -20,7 +20,7 @@
 		<result property="totalPrice" column="totalPrice" />
 		<result property="option1value" column="option1value" />
 		<result property="option2value" column="option2value" />
-		<result property="option1name" column="option1name" />
+		<result property="option1Name" column="option1Name" />
 		<result property="option2Name" column="option2Name" />
 		<result property="memOrderDate" column="memOrderDate" />
 		<result property="productCnt" column="productCnt" />

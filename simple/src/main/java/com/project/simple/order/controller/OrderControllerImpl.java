@@ -1,34 +1,26 @@
 package com.project.simple.order.controller;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.project.simple.cart.service.CartService;
 import com.project.simple.cart.vo.CartVO;
 //import com.bookshop01.common.base.BaseController;
 //import com.bookshop01.goods.vo.GoodsVO;
@@ -36,10 +28,12 @@ import com.project.simple.member.vo.MemberVO;
 import com.project.simple.order.service.OrderService;
 import com.project.simple.order.vo.OrderVO;
 import com.project.simple.page.Criteria;
+import com.project.simple.page.PageMaker;
 
 @Controller("orderController")
 public class OrderControllerImpl implements OrderController {
-	private static final String ARTICLE_IMAGE_REPO_order = "C:\\spring\\order_image";
+	@Autowired
+	private CartService cartService;
 	@Autowired
 	private OrderService orderService;
 	@Autowired
@@ -56,12 +50,16 @@ public class OrderControllerImpl implements OrderController {
 		Boolean isLogOn = (Boolean) session.getAttribute("isLogOn");
 
 		if (isLogOn == null) {
+
+			session.removeAttribute("orderlist");
 			List<CartVO> list = (ArrayList) session.getAttribute("orderlist");
+
 			if (list == null) {
 				list = new ArrayList<CartVO>();
 				session.setAttribute("orderlist", list);
 			}
 
+			String totalPrice = request.getParameter("totalPrice");
 			String[] ajaxMsg01 = request.getParameterValues("valueArr");
 			int[] ajaxMsg = null;
 			if (ajaxMsg01 != null) {
@@ -76,20 +74,24 @@ public class OrderControllerImpl implements OrderController {
 				CartVO vo = cartlist.get(no);
 				list.add(vo);
 			}
-
+			session.setAttribute("totalPrice", totalPrice);
 			session.setAttribute("orderlist", list);
-			mav.setViewName("order_02");
+			mav.setViewName("nonorder_01");
 		}
 
-		if (isLogOn == true) {
+		else if (isLogOn == true) {
 			List<OrderVO> orderlist = new ArrayList();
 			String[] ajaxMsg = request.getParameterValues("valueArr");
+			String totalPrice = request.getParameter("totalPrice");
 			int size = ajaxMsg.length;
 
 			for (int i = 0; i < size; i++) {
 				orderlist.add(orderService.selectcartlist(ajaxMsg[i]));
 			}
-
+			
+			
+			session.setAttribute("memCartId", ajaxMsg);
+			session.setAttribute("totalPrice", totalPrice);
 			session.setAttribute("orderlist", orderlist);
 			mav.setViewName("order_01");
 		}
@@ -106,20 +108,199 @@ public class OrderControllerImpl implements OrderController {
 
 	}
 
-	// 주문페이지 이동(비회원)
-	@RequestMapping(value = "/order_02.do", method = RequestMethod.GET)
-	private String order_02(HttpServletRequest request, HttpServletResponse response) {
-		ModelAndView mav = new ModelAndView();
-
-		return "order_02";
-	}
-
-	// 관리자 주문리스트 조회
-	@RequestMapping(value = "/admin_listorder.do", method = RequestMethod.GET)
-	private ModelAndView admin_listorder(@ModelAttribute("orderVO") OrderVO orderVO, HttpServletRequest request,
+	// 주문페이지 이동(회원)
+	@RequestMapping(value = "/nonorder_01.do", method = RequestMethod.GET)
+	private ModelAndView nonorder_01(@ModelAttribute("orderVO") OrderVO orderVO, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 
 		ModelAndView mav = new ModelAndView();
+		return mav;
+
+	}
+
+	// 주문내역 DB 저장(주문완료)
+	@RequestMapping(value = "/addorderlist.do", method = RequestMethod.POST)
+	private ModelAndView addorderlist(@ModelAttribute("orderVO") OrderVO orderVO, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		HttpSession session = request.getSession();
+		session.removeAttribute("totalPrice");
+		Boolean isLogOn = (Boolean) session.getAttribute("isLogOn");
+
+		if (isLogOn == null) {
+			ArrayList<CartVO> orderlist = (ArrayList) session.getAttribute("orderlist");
+			int size = orderlist.size();
+				
+			String randomnumber = numberGen(9, 1);
+			int nonmemOrderNum = Integer.parseInt(randomnumber);
+			String nonmemPaymentMethod = orderVO.getNonmemPaymentMethod();
+			String Price = orderVO.getTotalPrice();
+
+			for (int i = 0; i < size; i++) {
+				CartVO vo = orderlist.get(i);
+				String productNum = vo.getProductNum();
+				String productName = vo.getProductName();
+				String option1name = vo.getOption1name();
+				String option1value = vo.getOption1value();
+				String option2name = vo.getOption2name();
+				String option2value = vo.getOption2value();
+				String deliverycharge = vo.getDeliverycharge();
+				int productCnt = vo.getProductCnt();
+				String productPrice = vo.getProductPrice();
+				String totalPrice = orderVO.getTotalPrice();
+				String productImage = vo.getProductImage();
+				orderVO.setProductNum(productNum);
+				orderVO.setProductName(productName);
+				orderVO.setOption1name(option1name);
+				orderVO.setOption1value(option1value);
+				orderVO.setOption2name(option2name);
+				orderVO.setOption2value(option2value);
+				orderVO.setDeliverycharge(deliverycharge);
+				orderVO.setNonmemOrderNum(nonmemOrderNum);
+				orderVO.setProductCnt(productCnt);
+				orderVO.setProductPrice(productPrice);
+				orderVO.setTotalPrice(totalPrice);
+				orderVO.setProductImage(productImage);
+
+				orderService.addNewOrder(orderVO);
+			}
+
+			session.removeAttribute("cartlist");
+
+			mav.addObject("Price", Price);
+			mav.addObject("nonmemPaymentMethod", nonmemPaymentMethod);
+			mav.addObject("nonmemOrderNum", randomnumber);
+			mav.setViewName("order_03");
+
+		}
+
+		else if (isLogOn == true) {
+			ArrayList<OrderVO> orderlist = (ArrayList) session.getAttribute("orderlist");
+			int size = orderlist.size();
+
+			String randomnumber = numberGen(9, 1);
+			int memOrderNum = Integer.parseInt(randomnumber);
+			String memPaymentMethod = orderVO.getMemPaymentMethod();
+			String Price = orderVO.getTotalPrice();
+			int point = Integer.parseInt(Price) / 10;
+
+			for (int i = 0; i < size; i++) {
+				OrderVO vo = orderlist.get(i);
+				String productNum = vo.getProductNum();
+				String productName = vo.getProductName();
+				String option1name = vo.getOption1name();
+				String option1value = vo.getOption1value();
+				String option2name = vo.getOption2name();
+				String option2value = vo.getOption2value();
+				String deliverycharge = vo.getDeliverycharge();
+				int productCnt = vo.getProductCnt();
+				String productPrice = vo.getProductPrice();
+				String totalPrice = orderVO.getTotalPrice();
+				String productImage = vo.getProductImage();
+				orderVO.setProductNum(productNum);
+				orderVO.setProductName(productName);
+				orderVO.setOption1name(option1name);
+				orderVO.setOption1value(option1value);
+				orderVO.setOption2name(option2name);
+				orderVO.setOption2value(option2value);
+				orderVO.setDeliverycharge(deliverycharge);
+				orderVO.setMemOrderNum(memOrderNum);
+				orderVO.setProductCnt(productCnt);
+				orderVO.setProductPrice(productPrice);
+				orderVO.setTotalPrice(totalPrice);
+				orderVO.setProductImage(productImage);
+
+				orderService.addNewOrder(orderVO); // 마이바티스에서 분기
+			}
+			
+			
+			String[] memCartId = (String[]) session.getAttribute("memCartId");
+			for(int i=0; i<size; i++) {
+				cartService.removeCompleteCartlist(memCartId[i]);
+			}
+			
+			session.removeAttribute("memCartId");
+			mav.addObject("point", point);
+			mav.addObject("Price", Price);
+			mav.addObject("memPaymentMethod", memPaymentMethod);
+			mav.addObject("memOrderNum", randomnumber);
+			mav.setViewName("order_03");
+
+		}
+		return mav;
+	}
+
+	// 10자리 주문번호 난수 생성
+	public static String numberGen(int len, int dupCd) {
+
+		Random rand = new Random();
+		String numStr = "";
+
+		for (int i = 0; i < len; i++) {
+			String ran = Integer.toString(rand.nextInt(10));
+			if (dupCd == 1) {
+				numStr += ran;
+			} else if (dupCd == 2) {
+				if (!numStr.contains(ran)) {
+					numStr += ran;
+				} else {
+					i -= 1;
+				}
+			}
+		}
+		return numStr;
+	}
+
+	// 관리자 주문조회
+	@Override
+	@RequestMapping(value = "/admin_listorder.do", method = { RequestMethod.GET, RequestMethod.POST })
+
+	public ModelAndView listorder(Criteria cri, HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		String viewName = (String) request.getAttribute("viewName");
+		List<OrderVO> ordersList = orderService.listOrders(cri);
+		int orderCount = orderService.orderCount();
+		ModelAndView mav = new ModelAndView(viewName);
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(orderCount);
+		int pageNum = pageMaker.getCri().getPage();
+
+		mav.addObject("pageNum", pageNum);
+		mav.addObject("ordersList", ordersList);
+		mav.addObject("pageMaker", pageMaker);
+
+		return mav;
+	}
+
+	@Override
+	@RequestMapping(value = "/admin_listorder/orderSearch.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public ModelAndView orderSearch(@RequestParam("search") String search,
+			@RequestParam("searchType") String searchType, Criteria cri, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		String viewName = (String) request.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView(viewName);
+
+		Map<String, Object> orderSearchMap = new HashMap<String, Object>();
+		int pageStart = cri.getPageStart();
+		int perPageNum = cri.getPerPageNum();
+		orderSearchMap.put("pageStart", pageStart);
+		orderSearchMap.put("perPageNum", perPageNum);
+		orderSearchMap.put("search", search);
+		orderSearchMap.put("searchType", searchType);
+		System.out.println(searchType);
+		orderSearchMap = orderService.orderSearch(orderSearchMap);
+
+		int orderSearchCount = orderService.orderSearchCount(orderSearchMap);
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		int pageNum = pageMaker.getCri().getPage();
+		orderSearchMap.put("pageNum", pageNum);
+		pageMaker.setTotalCount(orderSearchCount);
+		mav.addObject("orderSearchMap", orderSearchMap);
+		mav.addObject("pageMaker", pageMaker);
+		mav.addObject("pageNum", pageNum);
+
 		return mav;
 
 	}
@@ -229,6 +410,5 @@ public class OrderControllerImpl implements OrderController {
 	 * mav.addObject("myOrderInfo",receiverMap);//OrderVO로 주문결과 페이지에 주문자 정보를 표시한다.
 	 * mav.addObject("myOrderList", myOrderList); return mav; }
 	 */
-
 
 }

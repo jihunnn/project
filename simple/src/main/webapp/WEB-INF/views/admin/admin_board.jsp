@@ -9,20 +9,25 @@
 <script type="text/javascript">
 <!--글쓰기 유효형 검사-->
 	function notice_write() {
-		var form = document.noticeForm;
+		var form = document.inquiryForm;
 
-		if (form.noticeTitle.value == "") {
-			alert("제목을 입력해주세요")
-			form.noticeTitle.focus();
+		if (form.inquiryType.value == "") {
+			alert("문의유형을 선택해주세요")
+			form.inquiryType.focus();
 			return false;
 		}
 
-		if (form.noticeContent.value == "") {
+		if (form.inquiryTitle.value == "") {
+			alert("글 제목을 입력해주세요")
+			document.form.inquiryTitle.focus();
+			return false;
+		}
+
+		if (form.inquiryContent.value == "") {
 			alert("글 내용을 입력해주세요")
-			document.form.noticeContent.focus();
+			document.form.inquiryContent.focus();
 			return false;
 		}
-
 
 		form.submit();
 	}
@@ -37,16 +42,6 @@
         	location.href='${contextPath}/board/listInquiry.do'
         }
     }
-    
-	function readURL(input) {
-		if (input.files && input.files[0]) {
-			var reader = new FileReader();
-			reader.onload = function(e) {
-				$('#preview').attr('src', e.target.result);
-			}
-			reader.readAsDataURL(input.files[0]);
-		}
-	}
 </script>
 
 
@@ -128,7 +123,7 @@
 		style="padding-top: 50px; margin-bottom: 50px; margin-top: 30px;">
 		<div class="container">
 			<ul class="snip1284">
-				<li class="current"><a
+				<li><a
 					onclick="location.href='${contextPath}/board/listNotice.do'"
 					data-hover="공지사항"
 					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; margin-left: 20px; padding-bottom: 0px;">공지사항</a></li>
@@ -141,7 +136,7 @@
 						묻는 질문</a></li>
 
 
-				<li ><a onclick="InquiryList()"
+				<li class="current"><a onclick="InquiryList()"
 					data-hover="1:1문의"
 					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">1:1문의</a></li>
 
@@ -188,8 +183,8 @@
 
 			<!-- 내용 -->
 
-			<form name="noticeForm"
-				action="${contextPath}/admin/addNewNotice.do" method="post"
+			<form name="inquiryForm"
+				action="${contextPath}/board/addNewNotice.do" method="post"
 				enctype="multipart/form-data">
 				<table class=table
 					style="padding-top: 50px; border-top: #212529; height: 25px; font-size: 14px;">
@@ -258,7 +253,7 @@
 									style="padding-left: 95px; font-weight: bold; padding-top: 17px;">제목</td>
 								<td colspan="2"
 									style="padding-top: 17px; background-color: white;"><input
-									type=text name="noticeTitle" size=60 value=""
+									type=text name="inquiryTitle" size=60 value=""
 									style="height: 28px; border: 1px solid #d2d2d2; border-radius: 3px;"></td>
 							</tr>
 							<tr style="border-bottom: 1px solid #dcdcdc;">
@@ -266,14 +261,14 @@
 									style="padding-left: 95px; font-weight: bold; padding-top: 20px;">내용</td>
 								<td colspan="2"
 									style="padding-top: 17px; background-color: white; height: 300px;"><input
-									type="text" name="noticeContent" value=""
+									type="text" name="inquiryContent" value=""
 									style="width: 725px; height: 300px; padding-top: 17px; border: 1px solid #d2d2d2;"></td>
 							</tr>
 							<tr >
 								<td
 									style="padding-left: 95px; font-weight: bold; padding-top: 17px;">파일첨부</td>
 								<td style="background-color: white;"><input type="file"
-									style="padding-top: 5px; font-size: 14px;" name="noticeFile"
+									style="padding-top: 5px; font-size: 14px;" name="inquiryFile"
 									onchange="readURL(this);"></td>
 								<td><img id="preview"
 									src="${contextPath}/resources/images/simpleLogo.jpg"
@@ -296,7 +291,7 @@
 					</c:when>
 					<c:when test="${empty noticeNum}">
 						<div>
-							<button type="button" onClick="notice_write()"
+							<button type="button" onclick="notice_write()"
 								class="btn btn-dark " id="buttonmy"
 								style="margin-left: 540px; margin-top: 30px; border-radius: 2px;  background-color: #7e9c8c; color: white; border:none; border-radius: 2px; width: 120px; height: 40px; padding-top:10px; padding-top: 4px; float:left;">등록</button>
 
