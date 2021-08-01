@@ -10,28 +10,28 @@
 
 
 <script type="text/javascript">
-//구매확정 이벤트창
-function confirmOrderConfirm(obj) {
-	if (confirm("구매확정하시겠습니까??") == true) { //확인
-		var memOrderSeqNum = jQuery('#memOrderSeqNum').val();
-		obj.action = "${contextPath}/mypage/purchaseConfirm.do?memOrderSeqNum=memOrderSeqNum";
-		obj.submit();
+	//구매확정 이벤트창
+	function confirmOrderConfirm(obj) {
+		if (confirm("구매확정하시겠습니까??") == true) { //확인
+			var memOrderSeqNum = jQuery('#memOrderSeqNum').val();
+			obj.action = "${contextPath}/mypage/purchaseConfirm.do?memOrderSeqNum=memOrderSeqNum";
+			obj.submit();
 
-	} else { //취소
+		} else { //취소
 
-		return false;
+			return false;
+
+		}
 
 	}
+	function reviewConfirmResult() {
 
-}
-function reviewConfirmResult() {
+		alert("이미 리뷰를 작성하였습니다.")
+	}
+	function returnConfirmResult() {
 
-	alert("이미 리뷰를 작성하였습니다.")
-}
-function returnConfirmResult() {
-
-	alert("이미 반품을 신청하셨습니다. 반품내역을 확인해주세요.")
-}
+		alert("이미 반품을 신청하셨습니다. 반품내역을 확인해주세요.")
+	}
 </script>
 
 <style>
@@ -309,15 +309,15 @@ function returnConfirmResult() {
 												<img src="${contextPath}/resources/images/image_1.jpg"
 													width="110" height="110" style="float: left;"> <a
 													style="margin-left: 0px;">${memOrderNum.productName}</a>
-												<c:if test="${memOrderNum.option1Value !=null}">
+												<c:if test="${memOrderNum.option1value !=null}">
 													<p
 														style="margin-left: 130px; font-size: 13px; width: 100px;">${memOrderNum.option1Name}
-														: ${memOrderNum.option1Value}</p>
+														: ${memOrderNum.option1value}</p>
 												</c:if>
-												<c:if test="${memOrderNum.option2Value !=null}">
+												<c:if test="${memOrderNum.option2value !=null}">
 													<p
 														style="margin-left: 130px; font-size: 13px; width: 100px;">${memOrderNum.option2Name}
-														: ${memOrderNum.option2Value}</p>
+														: ${memOrderNum.option2value}</p>
 												</c:if>
 
 											</div>
@@ -328,41 +328,19 @@ function returnConfirmResult() {
 												onclick="location='#'" id="now-state"
 												style="color: red; font-size: 14px;">
 												${memOrderNum.deliveryStatus}<br>
-											</ins>
-											 <c:choose>
-														<c:when test="${memOrderNum.purchaseConfirm =='구매확정(미)'}">
+											</ins> <c:choose>
+												<c:when test="${memOrderNum.purchaseConfirm =='구매확정(미)'}">
 
-															<form>
-																<input type="button" name="purchaseConfirm"
-																	style="font-size: 14px; width: 110px; background-color: #212529; margin-bottom: 5px; color: white;"
-																	class="confirmation"
-																	onclick="confirmOrderConfirm(this.form)" value="구매확정">
-																<input type="hidden" id="memOrderSeqNum"
-																	name="memOrderSeqNum"
-																	value="${memOrderNum.memOrderSeqNum}" />
-															</form>
-														</c:when>
-														<c:when test="${memOrderNum.purchaseConfirm =='구매확정(완)'}">
-
-
-															<c:choose>
-																<c:when test="${memOrderNum.reviewConfirm == '리뷰작성(미)'}">
-																	<input type="button" name="reviewConfirm"
-																		style="font-size: 14px; width: 110px; background-color: #212529; margin-bottom: 5px; color: white;"
-																		id="pressbtn1" class="confirmation"
-																		onclick="location.href='${contextPath}/mypage/reviewWrite.do?productNum=${memOrderNum.productNum}&memOrderSeqNum=${memOrderNum.memOrderSeqNum}'"
-																		value="리뷰작성">
-																</c:when>
-																<c:when
-																	test="${memOrderNum.reviewConfirm == '리뷰작성(완)'}">
-																	<input type="button" name="reviewConfirm"
-																		style="font-size: 14px; width: 110px; background-color: #212529; margin-bottom: 5px; color: white;"
-																		id="pressbtn1" class="confirmation"
-																		onclick="reviewConfirmResult()" value="리뷰작성">
-																</c:when>
-															</c:choose>
-														</c:when>
-													</c:choose> <c:choose>
+													<form>
+														<input type="button" name="purchaseConfirm"
+															style="font-size: 14px; width: 110px; background-color: #212529; margin-bottom: 5px; color: white;"
+															class="confirmation"
+															onclick="confirmOrderConfirm(this.form)" value="구매확정">
+														<input type="hidden" id="memOrderSeqNum"
+															name="memOrderSeqNum"
+															value="${memOrderNum.memOrderSeqNum}" />
+													</form>
+													<c:choose>
 														<c:when test="${memOrderNum.returnConfirm == '반품신청(미)'}">
 															<input type="button"
 																style="font-size: 14px; width: 110px; background-color: #212529; margin-bottom: 5px; color: white;"
@@ -375,6 +353,27 @@ function returnConfirmResult() {
 																onclick="returnConfirmResult()" value="반품신청">
 														</c:when>
 													</c:choose>
+												</c:when>
+												<c:when test="${memOrderNum.purchaseConfirm =='구매확정(완)'}">
+
+
+													<c:choose>
+														<c:when test="${memOrderNum.reviewConfirm == '리뷰작성(미)'}">
+															<input type="button" name="reviewConfirm"
+																style="font-size: 14px; width: 110px; background-color: #212529; margin-bottom: 5px; color: white;"
+																id="pressbtn1" class="confirmation"
+																onclick="location.href='${contextPath}/mypage/reviewWrite.do?productNum=${memOrderNum.productNum}&memOrderSeqNum=${memOrderNum.memOrderSeqNum}'"
+																value="리뷰작성">
+														</c:when>
+														<c:when test="${memOrderNum.reviewConfirm == '리뷰작성(완)'}">
+															<input type="button" name="reviewConfirm"
+																style="font-size: 14px; width: 110px; background-color: #212529; margin-bottom: 5px; color: white;"
+																id="pressbtn1" class="confirmation"
+																onclick="reviewConfirmResult()" value="리뷰작성">
+														</c:when>
+													</c:choose>
+												</c:when>
+											</c:choose>
 									</tr>
 								</c:forEach>
 								<tr height="100">
@@ -412,7 +411,7 @@ function returnConfirmResult() {
 										<div style="font-size: 11px;">
 											<a>결제방법 :</a> <a>${memOrderSeqNum.memPaymentMethod}</a>
 										</div>
-										<div style="font-size: 11px; float:right; font-size:20px;">
+										<div style="font-size: 11px; float: right; font-size: 20px;">
 											<a>총결제금액 :</a> <a>${memOrderSeqNum.totalPrice}원</a>
 										</div>
 									</th>
@@ -422,7 +421,7 @@ function returnConfirmResult() {
 
 						<div align="center" id="btn_modify_reset"
 							style="padding-top: 10px">
-							<input type="button"  value="목 록"
+							<input type="button" value="목 록"
 								onclick="location.href='${contextPath}/mypage_04.do'"
 								style="width: 80px; background-color: #212529; color: white; margin-left: 400px; margin-top: 30px;">
 						</div>

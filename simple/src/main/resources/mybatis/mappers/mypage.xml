@@ -47,6 +47,30 @@
 		<result property="currentStatus" column="currentStatus" />
 	</resultMap>
 
+	<!-- inquiry 게시판 -->
+	<resultMap id="inquiryResult" type="articleVO">
+		<result property="memId" column="memId" />
+		<result property="inquiryNum" column="inquiryNum" />
+		<result property="inquiryType" column="inquiryType" />
+		<result property="inquiryDate" column="inquiryDate" />
+		<result property="inquiryTitle" column="inquiryTitle" />
+		<result property="inquiryContent" column="inquiryContent" />
+		<result property="inquiryFile" column="inquiryFile" />
+		<result property="inquiryAnswer" column="inquiryAnswer" />
+		<result property="inquiryReq" column="inquiryReq" />
+	</resultMap>
+
+	<!-- AS 센터 -->
+	<resultMap id="asCenterResult" type="articleVO">
+		<result property="asCenterNum" column="asCenterNum" />
+		<result property="memId" column="memId" />
+		<result property="asCenterTitle" column="asCenterTitle" />
+		<result property="asCenterDate" column="asCenterDate" />
+		<result property="asCenterContent" column="asCenterContent" />
+		<result property="asCenterStatus" column="asCenterStatus" />
+		<result property="asCenterPwd" column="asCenterPwd" />
+	</resultMap>
+
 	<!--마이페이지 주문/배송조회 -->
 	<select id="selectAllMyOrderInfoList"
 		resultMap="myOrderInfoResult">
@@ -134,7 +158,7 @@
 	<![CDATA[
 			
 
-		select memOrderNum, memOrderDate, o.memOrderSeqNum, productCnt, option1Name, option2Name, option1value, option2value, p.productImage, p.productPrice, p.productName
+		select memOrderNum, memOrderDate, o.memOrderSeqNum, productCnt, option1Name, option2Name, option1value, option2value, p.productImage, p.productPrice, p.productName,p.productNum
 		from memberOrder as o left join product as p on o.productNum=p.productNum 
 		join memdelivery as d on o.memOrderSeqNum=d.memOrderSeqNum  where o.memOrderSeqNum=#{memOrderSeqNum};
 			
@@ -335,6 +359,96 @@
 		memOrderSeqNum =
 		#{memOrderSeqNum};
 	</update>
+
+	<select id="selectOrderCount" resultType="int"
+		parameterType="int">
+	<![CDATA[
+			
+			select count(*)  from memberOrder where memId=#{memId};
+			
+	]]>
+	</select>
+
+	<select id="selectReturnCount" resultType="int"
+		parameterType="int">
+	<![CDATA[
+			
+			select count(*)  from returnhistory where memId=#{memId};
+			
+	]]>
+	</select>
+
+	<select id="selectCartCount" resultType="int"
+		parameterType="int">
+	<![CDATA[
+			
+			select count(*)  from memberCart where memId=#{memId};
+			
+	]]>
+	</select>
+
+
+
+	<select id="selectOrder_rc_Count" resultType="int"
+		parameterType="int">
+	<![CDATA[
+			
+			select count(*)  from memdelivery where memId=#{memId} and deliveryStatus='주문접수';
+			
+	]]>
+	</select>
+
+	<select id="selectPayment_cp_Count" resultType="int"
+		parameterType="int">
+	<![CDATA[
+			
+			select count(*)  from memdelivery where memId=#{memId} and deliveryStatus='결제완료';
+			
+	]]>
+	</select>
+
+	<select id="selectProduct_pp_Count" resultType="int"
+		parameterType="int">
+	<![CDATA[
+			
+			select count(*)  from memdelivery where memId=#{memId} and deliveryStatus='상품준비중';
+			
+	]]>
+	</select>
+
+	<select id="selectDeliveryCount" resultType="int"
+		parameterType="int">
+	<![CDATA[
+			
+			select count(*)  from memdelivery where memId=#{memId} and deliveryStatus='배송중';
+			
+	]]>
+	</select>
+
+	<select id="selectDeliver_cp_Count" resultType="int"
+		parameterType="int">
+	<![CDATA[
+			
+			select count(*)  from memdelivery where memId=#{memId} and deliveryStatus='배송완료';
+			
+	]]>
+	</select>
+
+	<select id="selectListInquiry" resultMap="inquiryResult">
+	<![CDATA[
+			
+		select * from inquiry where memId=#{memId} limit 1,2;
+			
+	]]>
+	</select>
+
+	<select id="selectListAsCenter" resultMap="asCenterResult">
+	<![CDATA[
+			
+		select * from asCenter where memId=#{memId} limit 1,2;
+			
+	]]>
+	</select>
 
 
 </mapper>

@@ -7,7 +7,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.stereotype.Controller;
@@ -24,7 +23,6 @@ import com.project.simple.mypage.dao.MypageDAO;
 import com.project.simple.product.vo.ProductVO;
 import com.project.simple.mypage.vo.MypageVO;
 import com.project.simple.page.Criteria;
-
 
 @Service("mypageService")
 
@@ -203,4 +201,65 @@ public class MypageServiceImpl implements MypageService{
 		mypageDAO.deleteReturn(returnMap);
 	}
 	
-}	
+	//마이페이지 공통 UI 주문내역 count
+	public int orderCount(String memId) throws Exception{
+		int orderCount = mypageDAO.selectOrderCount(memId);
+		return orderCount;
+	}
+	
+	//마이페이지 공통 UI 반품내역 count
+	public int returnCount(String memId) throws Exception{
+		int returnCount = mypageDAO.selectReturnCount(memId);
+		return returnCount;
+	}
+	
+	//마이페이지 공통 UI 장바구니 count
+	public int cartCount(String memId) throws Exception{
+		int cartCount = mypageDAO.selectCartCount(memId);
+		return cartCount;
+	}
+	
+	//마이페이지 주문접수 count
+	public int order_rc_Count(String memId) throws Exception{
+		int order_rc_Count = mypageDAO.selectOrder_rc_Count(memId);
+		return order_rc_Count;
+	}
+	
+	//마이페이지 결제완료 count
+	public int payment_cp_Count(String memId) throws Exception{
+		int payment_cp_Count = mypageDAO.selectPayment_cp_Count(memId);
+		return payment_cp_Count;
+	}
+	
+	//마이페이지 배송준비 count
+	public int product_pp_Count(String memId) throws Exception{
+		int product_pp_Count = mypageDAO.selectProduct_pp_Count(memId);
+		return product_pp_Count;
+	}
+	
+	//마이페이지 배송중 count
+	public int deliveryCount(String memId) throws Exception{
+		int deliveryCount = mypageDAO.selectDeliveryCount(memId);
+		return deliveryCount;
+	}
+	
+	//마이페이지 배송완료 count
+	public int deliver_cp_Count(String memId) throws Exception{
+		int deliver_cp_Count = mypageDAO.selectDeliver_cp_Count(memId);
+		return deliver_cp_Count;
+	}
+	
+	//마이페이지 1:1문의 내역
+	public List<ArticleVO> listInquiry(String memId) throws Exception{
+		List<ArticleVO> listInquiry = mypageDAO.selectListInquiry(memId);
+		return listInquiry;
+	}
+	
+	//마이페이지 as센터 내역
+	public List<ArticleVO> listAsCenter(String memId) throws Exception{
+		List<ArticleVO> listAsCenter = mypageDAO.selectListAsCenter(memId);
+		return listAsCenter;
+	}
+	
+	
+}

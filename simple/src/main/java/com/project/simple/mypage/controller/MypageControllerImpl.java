@@ -43,7 +43,7 @@ import com.project.simple.page.Criteria;
 @Controller("mypageController")
 public class MypageControllerImpl implements MypageController {
 	
-	private String ARTICLE_IMAGE_REPO_review;
+	private static final String ARTICLE_IMAGE_REPO_review = "C:\\spring\\review_image";
 
 
 	private static final Collection Integer = null;
@@ -59,7 +59,35 @@ public class MypageControllerImpl implements MypageController {
 
 	@Autowired
 	private MemberVO memberVO;
-
+	
+	
+	@RequestMapping(value = "/mypage_01.do", method = RequestMethod.GET)
+	private ModelAndView mypage_01(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String viewName = (String) request.getAttribute("viewName");
+		ModelAndView mav = new ModelAndView(viewName);
+		HttpSession session = request.getSession();
+		MemberVO memberVO = (MemberVO) session.getAttribute("member");
+		String memId = memberVO.getmemId();
+		Map<String, Object> myInfo = new HashMap<String, Object>();
+		myInfo.put("order",mypageService.orderCount(memId));
+		myInfo.put("orderReturn",mypageService.returnCount(memId));
+		myInfo.put("cart",mypageService.cartCount(memId));
+		myInfo.put("order_rc",mypageService.order_rc_Count(memId));
+		myInfo.put("payment_cp",mypageService.payment_cp_Count(memId));
+		myInfo.put("product_pp",mypageService.product_pp_Count(memId));
+		myInfo.put("delivery",mypageService.deliveryCount(memId));
+		myInfo.put("deliver_cp",mypageService.deliver_cp_Count(memId));
+		myInfo.put("deliver_cp",mypageService.deliver_cp_Count(memId));
+		myInfo.put("listInquiry",mypageService.listInquiry(memId));
+		myInfo.put("listAsCenter",mypageService.listAsCenter(memId));
+		
+		
+		session.setAttribute("myInfo", myInfo);
+		
+		return mav;
+	}
+	
+	
 	// 마이페이지 주문조회
 	@Override
 	@RequestMapping(value = "/mypage_04.do", method = { RequestMethod.GET, RequestMethod.POST })
@@ -276,7 +304,6 @@ public class MypageControllerImpl implements MypageController {
 
 		multipartRequest.setCharacterEncoding("utf-8");
 		
-		ARTICLE_IMAGE_REPO_review = multipartRequest.getSession().getServletContext().getRealPath("/resources/upload/review_image");
 
 		Map<String, Object> reviewMap = new HashMap<String, Object>();
 		Enumeration enu = multipartRequest.getParameterNames();

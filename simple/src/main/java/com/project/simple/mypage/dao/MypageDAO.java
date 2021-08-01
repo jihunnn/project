@@ -43,4 +43,16 @@ public interface MypageDAO {
 	public void updateReturn(Map returnMap) throws DataAccessException ;
 	public void deleteReturn(Map<String,Object> returnMap) throws DataAccessException ;
 	
+	public int selectOrderCount(String memId) throws DataAccessException ;
+	public int selectReturnCount(String memId) throws DataAccessException;
+	public int selectCartCount(String memId) throws DataAccessException;
+	public int selectOrder_rc_Count(String memId) throws DataAccessException;
+	public int selectPayment_cp_Count(String memId) throws DataAccessException ;
+	public int selectProduct_pp_Count(String memId) throws DataAccessException;
+	public int selectDeliveryCount(String memId) throws DataAccessException;
+	public int selectDeliver_cp_Count(String memId) throws DataAccessException;
+	
+	public List<ArticleVO> selectListInquiry(String memId) throws DataAccessException;
+	public List<ArticleVO> selectListAsCenter(String memId) throws DataAccessException ;
+	
 }

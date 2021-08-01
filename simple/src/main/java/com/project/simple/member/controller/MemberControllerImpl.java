@@ -126,9 +126,14 @@ public class MemberControllerImpl implements MemberController {
 			if (session.getAttribute("admin") != null) {
 				session.removeAttribute("admin");
 				session.removeAttribute("AdminisLogOn");
-				System.out.println("dkdkfjdkfdjkf");
+			}
+			
+			if (session.getAttribute("myInfo") != null) {
+				session.removeAttribute("myInfo");
+
 
 			}
+
 			session.removeAttribute("quickList");
 			session.removeAttribute("quickListNum");
 
@@ -282,13 +287,7 @@ public class MemberControllerImpl implements MemberController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/mypage_01.do", method = RequestMethod.GET)
-	private ModelAndView mypage_01(HttpServletRequest request, HttpServletResponse response) {
-		String viewName = (String) request.getAttribute("viewName");
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName(viewName);
-		return mav;
-	}
+
 
 	@RequestMapping(value = "/mypage_10.do", method = RequestMethod.GET)
 	private ModelAndView mypage_10(HttpServletRequest request, HttpServletResponse response) {

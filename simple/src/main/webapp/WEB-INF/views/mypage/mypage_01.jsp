@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html lang="en">
@@ -24,6 +25,15 @@
 
 		form.submit();
 	}
+	
+	//1:1문의내역 바로가기
+    function InquiryList() {
+        if (${isLogOn != true && member == null}) {
+        	location.href='${contextPath}/board/listInquiry.do'}
+        	 else{
+            alert("로그인이 필요합니다.");
+            location.href = '${contextPath}/login_01.do';}
+        }  
 
 	$(function() {
 		//input을 datepicker로 선언
@@ -197,7 +207,7 @@
 
 	<!-- 마이페이지 타이틀 -->
 	<section class="ftco-section"
-		style="padding-top: 50px; margin-bottom: 50px; padding-bottom: 0px; height: 700px; margin-top:30px;">
+		style="padding-top: 50px; margin-bottom: 50px; padding-bottom: 0px; height: 700px; margin-top: 30px;">
 		<div class="container">
 
 			<!-- 마이페이지 타이틀 끝 -->
@@ -231,42 +241,24 @@
 				flush="false" />
 			<!-- left Menu 끝-->
 			<!-- 마이페이지 상단 공통 ui -->
-			<div style="font-size:20px; font-weight:bold; margin-left:18px;padding-bottom:7px; ">마이페이지</div>
-			<div id="MyPage_top">
-				<table style="width: 1000px; height: 80px; margin-left: 80px; ">
-					<tbody id="MyPage_center1">
-						<tr height="45px;" style="border:1px solid #e3e3e3;">
-							<th
-								style="font-size: 14px; background-color: #eeeeee; color: black;"
-								colspan="3"><a style="font-size: 16px; padding-left: 10px;">${member.memName}</a>
-								<a>님 환영합니다.</a></th>
-						</tr>
-						<tr align="center"
-							style="padding-left: 10px; font-size: 14px; height: 60px; border:1px solid #e3e3e3;"
-							height="45%">
-							<th width="220" style="text-align: center; color:gray;">주문/배송<a
-								href="/MyPage-04" style="color: red;">4</a><a>건</a></th>
-							<th width="220" style="text-align: center; center; color:gray;">취소/반품<a
-								href="/MyPage-06" style="color: red;">2</a><a>건</a></th>
-							<th width="220" style="text-align: center; center; color:gray;">장바구니<a
-								href="/Cart" style="color: red;">1</a><a>건</a></th>
-						</tr>
-					</tbody>
-				</table>
-			</div>
+			<div
+				style="font-size: 20px; font-weight: bold; margin-left: 18px; padding-bottom: 7px;">마이페이지</div>
+			<jsp:include page="/WEB-INF/views/common/mypage_topmenu.jsp"
+				flush="false" />
 
 			<!-- 마이페이지 상단 공통 ui 끝-->
-			<div class="table_01" >
+			<div class="table_01">
 				<div id="MyPage_top" style="width: 1100px; margin-left: 170px;">
 					<table style="width: 1000px; height: 120px; align: center;">
 						<tbody id="MyPage_center2">
 							<tr height="30%">
 								<th
-									style="font-size:20px !importent; font-weight:bold; margin-left:18px; padding-top:20px;"
+									style="font-size: 20px!importent; font-weight: bold; margin-left: 18px; padding-top: 20px;"
 									colspan="4">주문/배송조회(최근 1개월)</th>
 								<th width="80"
 									style="text-align: right; font-size: 11px; padding-top: 40px;"><a
-									href="/MyPage-04" style="color: gray;">더보기 ></a></th>
+									href="${contextPath}/mypage_04.do"
+									style="color: gray; cursor: pointer;">더보기 ></a></th>
 							</tr>
 							<tr align="center"
 								style="padding-left: 10px; font-size: 14px; background-color: #c6c6c6; color: white;"
@@ -278,18 +270,23 @@
 								<th width="132" style="text-align: center;">배송완료</th>
 							</tr>
 							<tr align="center"
-								style="padding-left: 10px; font-size: 16px; background-color: #c6c6c6; "
+								style="padding-left: 10px; font-size: 16px; background-color: #c6c6c6;"
 								height="35%">
 								<th width="132" style="text-align: center;"><a
-									style="color: #7e9c8c;">0</a><a style="font-size:14px; color:gray;">건</a></th>
+									style="color: #7e9c8c;">${myInfo.order_rc}</a><a
+									style="font-size: 14px; color: gray;">건</a></th>
 								<th width="132" style="text-align: center;"><a
-									style="color: #7e9c8c">0</a><a style="font-size:14px; color:gray;">건</a></th>
+									style="color: #7e9c8c">${myInfo.payment_cp}</a><a
+									style="font-size: 14px; color: gray;">건</a></th>
 								<th width="132" style="text-align: center;"><a
-									style="color: #7e9c8c;">0</a><a style="font-size:14px; color:gray;">건</a></th>
+									style="color: #7e9c8c;">${myInfo.product_pp}</a><a
+									style="font-size: 14px; color: gray;">건</a></th>
 								<th width="132" style="text-align: center;"><a
-									style="color: #7e9c8c;">0</a><a style="font-size:14px; color:gray;">건</a></th>
+									style="color: #7e9c8c;">${myInfo.delivery}</a><a
+									style="font-size: 14px; color: gray;">건</a></th>
 								<th width="132" style="text-align: center;"><a
-									style="color: #7e9c8c;">1</a><a style="font-size:14px; color:gray;">건</a></th>
+									style="color: #7e9c8c;">${myInfo.deliver_cp}</a><a
+									style="font-size: 14px; color: gray;">건</a></th>
 							</tr>
 						</tbody>
 					</table>
@@ -297,38 +294,79 @@
 				<div id="MyPage_top" style="width: 1000px; margin-left: 265px;">
 					<table style="width: 1000px; height: 80px;">
 						<tr height="55%">
-							<th style="font-size:20px !importent; font-weight:bold; margin-left:18px; padding-top:40px;"
-									colspan="4"><a
-								style="padding-bottom: 10px;">1:1문의내역</a></th>
+							<th colspan="2"
+								style="font-size: 20px!importent; font-weight: bold; margin-left: 18px; padding-top: 40px;"
+								colspan="4"><a style="padding-bottom: 10px;">1:1문의내역</a></th>
 							<th width="80"
 								style="text-align: right; font-size: 11px; padding-top: 40px;"><a
-								href="/CS-04" style="color: gray;">더보기 ></a></th>
+								onclick="InquiryList()" style="color: gray; cursor: pointer;">더보기
+									></a></th>
+
 						</tr>
-						<tr align="left"
-							style="font-size: 14px; border: 1px solid #e3e3e3;"
-							height="50%">
-							<th width="660"  height="40" style=" padding-left:10px;">2021/06/04<a href="/CS-07"
-								style="color: gray; padding-left:10px; ">배송 언제 되나요?</a></th>
+						<tr align="center"
+							style="background-color: #eeeeee; border-top: 1px solid #7e9c8c; color: black; border-bottom: 1px solid #c6c8ca; font-size: 15px;">
+							<th>문의유형</th>
+							<th>제목</th>
+							<th>작성일</th>
 						</tr>
+						<c:choose>
+							<c:when test="${empty myInfo.listInquiry}">
+								<tr>
+									<td colspan="3">등록된 글이 없습니다.</td>
+								</tr>
+							</c:when>
+							<c:when test="${!empty myInfo.listInquiry}">
+								<c:forEach var="inquiry" items="${myInfo.listInquiry}">
+
+									<tr align="left"
+										style="font-size: 14px; border: 1px solid #e3e3e3; text-align: center;"
+										height="50%">
+										<th>${inquiry.inquiryType}</th>
+										<th><a
+											href="${contextPath}/board/viewInquiry.do?inquiryNum=${inquiry.inquiryNum}"
+											style="color: gray; padding-left: 10px; text-align: center;">${inquiry.inquiryTitle}</a></th>
+										<th><fmt:formatDate value="${inquiry.inquiryDate}" /></th>
+									</tr>
+								</c:forEach>
+							</c:when>
+						</c:choose>
 					</table>
 				</div>
 				<div id="MyPage_top1" style="padding-bottom: 50px;">
 					<table style="width: 1000px; height: 80px; align: center;">
 						<tr height="60%">
-							<th style="font-size:20px !importent; font-weight:bold; margin-left:18px; padding-top:20px;"
-									colspan="4">
-								<a>A/S 접수</a>
-							</th>
+							<th colspan="2"
+								style="font-size: 20px!importent; font-weight: bold; margin-left: 18px; padding-top: 20px;"
+								colspan="4"><a>A/S 접수</a></th>
 							<th width="80"
 								style="text-align: right; font-size: 11px; padding-top: 30px;"><a
-								href="/CS-08" style="color: gray;">더보기 ></a></th>
+								href="${contextPath}/board/listAsCenter.do" style="color: gray; cursor: pointer;">더보기 ></a></th>
 						</tr>
-						<tr align="left"
-							style="padding-left: 10px; font-size: 14px; border: 1px solid #e3e3e3;"
-							height="60%">
-							<th width="660" height="40px;"><a href="/CS-07"
-								style="padding-left: 10px; color: gray;">등록된 글이 없습니다.</a></th>
+						<tr align="center"
+							style="background-color: #eeeeee; border-top: 1px solid #7e9c8c; color: black; border-bottom: 1px solid #c6c8ca; font-size: 15px;">
+							<th>접수상태</th>
+							<th>제목</th>
+							<th>작성일</th>
 						</tr>
+						<c:choose>
+							<c:when test="${empty myInfo.listAsCenter}">
+								<tr>
+									<td colspan="3">등록된 글이 없습니다.</td>
+								</tr>
+							</c:when>
+							<c:when test="${!empty myInfo.listAsCenter}">
+								<c:forEach var="asCenter" items="${myInfo.listAsCenter}">
+									<tr align="left"
+										style="font-size: 14px; border: 1px solid #e3e3e3; text-align: center;"
+										height="50%">
+										<th>${asCenter.asCenterStatus}</th>
+										<th width="660" height="40px;"><a href="/CS-07"
+											style="padding-left: 10px; color: gray;">${asCenter.asCenterTitle}</a></th>
+										<th><fmt:formatDate value="${asCenter.asCenterDate}" /></th>
+									</tr>
+								</c:forEach>
+							</c:when>
+						</c:choose>
 					</table>
 				</div>
 				<button type="button" onclick="drop_out()" id="btn-remove-mypage"

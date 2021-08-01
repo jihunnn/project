@@ -276,7 +276,7 @@
 
 			<!-- left Menu -->
 
-			<div class="table_01"
+			<div 
 				style="padding-top: 30px; margin-top: 20px; margin-left: 50px;">
 				<div>
 					<table style="width: 1000px; height: 80px; margin-left: 80px;">
@@ -292,11 +292,11 @@
 								style="padding-left: 10px; font-size: 17px; height: 60px;"
 								height="45%">
 								<th width="220" style="text-align: center">주문/배송<a
-									href="/MyPage-04" style="color: red;">4</a><a>건</a></th>
+									href="${contextPath}/mypage_04.do" style="color: red;">${myInfo.order}</a><a>건</a></th>
 								<th width="220" style="text-align: center">취소/반품<a
-									href="/MyPage-06" style="color: red;">2</a><a>건</a></th>
+									href="${contextPath}/mypage_07.do" style="color: red;">${myInfo.orderReturn}</a><a>건</a></th>
 								<th width="220" style="text-align: center">장바구니<a
-									href="/Cart" style="color: red;">1</a><a>건</a></th>
+									href="${contextPath}/memcart.do" style="color: red;">${myInfo.cart}</a><a>건</a></th>
 							</tr>
 						</tbody>
 					</table>
@@ -317,11 +317,12 @@
 											<p style="float: left; width: 80px; margin-top: 30px;">작성기간</p>
 
 											<input type="text" id="datepicker1" name="search1"
+												autocomplete='off'
 												style="width: 120px; margin-right: 50px; margin-top: 30px; height: 30px; flaot: left; border: 1px solid #bebebe; border-radius: 2px; display: inline !important;">
 
 											<span class="glyphicon glyphicon-calendar" aria-hidden="true"
 												style="margin-left: -35px;"> </span> ~ <input type="text"
-												name="search2" id="datepicker2"
+												name="search2" id="datepicker2" autocomplete='off'
 												style="width: 120px; margin-right: 50px; height: 30px; flaot: left; border: 1px solid #bebebe; border-radius: 2px; display: inline !important;">
 
 											<span class="glyphicon glyphicon-calendar" aria-hidden="true"
@@ -335,15 +336,15 @@
 							</tbody>
 						</table>
 					</form>
-					<div id="MyPage_top" style="padding-top: 20px; height: 0px">
+					<div  style="padding-top: 20px; height: 0px">
 					</div>
 				</div>
 				<c:choose>
 					<c:when test="${!empty reviewSearchMap.search1}">
-						<div id="MyPage_top3" style="padding-left: 220px;">
+						<div  style="padding-left: 220px;">
 							<table border="1" class="table"
 								style="width: 980px; height: 300px; align: center;">
-								<tbody id="MyPage_center2">
+								<tbody >
 									<c:choose>
 										<c:when test="${empty reviewSearchMap.reviewSearchList}">
 											<tr style="background-color: white;">
@@ -450,10 +451,10 @@
 					</c:when>
 
 					<c:when test="${empty reviewSearchMap.search1}">
-						<div id="MyPage_top3" style="padding-left: 220px;">
+						<div  style="padding-left: 220px;">
 							<table border="1" class="table"
 								style="width: 980px; height: 300px; align: center;">
-								<tbody id="MyPage_center2">
+								<tbody >
 									<c:choose>
 										<c:when test="${empty mypageReviewMap.mypageReviewList}">
 											<tr style="background-color: white;">
@@ -479,9 +480,11 @@
 
 												<tr style="height: 120px">
 													<th
-														style="width: 130px; text-align: left; padding: 10px; flex-direction: row;"
-														><img src="" 
-														width="110" height="110"></th>
+														style="width: 130px; text-align: left; padding: 10px; flex-direction: row;">
+														<a
+														href="${contextPath}/product/viewProduct.do?productNum=${mypageReviewList.productNum}"><img
+															src="${contextPath}/download_product.do?productNum=${mypageReviewList.productNum}&productImage=${mypageReviewList.productImage}" width="110" height="110"></a>
+													</th>
 													<th style="padding: 10px; border-left: hidden;">
 														<div>
 															<div>
@@ -566,16 +569,6 @@
 			<!-- 내용 -->
 		</div>
 	</section>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
+
 </body>
 </html>

@@ -41,5 +41,17 @@ public interface MypageService {
 	public MypageVO viewReturn(int returnNum) throws Exception;
 	public void modReturn(Map returnMap) throws Exception ;
 	public void removeReturn(Map<String,Object> returnMap) throws Exception ;
+	
+	public int orderCount(String memId) throws Exception;
+	public int returnCount(String memId) throws Exception;
+	public int cartCount(String memId) throws Exception;
+	public int order_rc_Count(String memId) throws Exception;
+	public int payment_cp_Count(String memId) throws Exception;
+	public int product_pp_Count(String memId) throws Exception;
+	public int deliveryCount(String memId) throws Exception;
+	public int deliver_cp_Count(String memId) throws Exception;
+	
+	public List<ArticleVO> listInquiry(String memId) throws Exception;
+	public List<ArticleVO> listAsCenter(String memId) throws Exception;
 
 }

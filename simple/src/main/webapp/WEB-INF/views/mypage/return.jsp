@@ -232,31 +232,10 @@
 			<!-- left Menu 끝-->
 
 			<!-- 내용 -->
-
-			<div class="table_01" style="padding-top: 30px;">
-				<div id="MyPage_top">
-					<table style="width: 1000px; height: 80px; margin-left: 80px;">
-						<tbody id="MyPage_center1">
-							<tr height="60px;">
-								<th
-									style="font-size: 16px; background-color: #212529; color: white;"
-									colspan="3"><a
-									style="font-size: 16px; padding-left: 10px; font-size: 17px;">홍길동</a>
-									<a>님 환영합니다.</a></th>
-							</tr>
-							<tr align="center"
-								style="padding-left: 10px; font-size: 16px; height: 60px;"
-								height="45%">
-								<th width="220" style="text-align: center">주문/배송<a
-									href="/MyPage-04" style="color: red;">4</a><a>건</a></th>
-								<th width="220" style="text-align: center">취소/반품<a
-									href="/MyPage-06" style="color: red;">2</a><a>건</a></th>
-								<th width="220" style="text-align: center">장바구니<a
-									href="/Cart" style="color: red;">1</a><a>건</a></th>
-							</tr>
-						</tbody>
-					</table>
-				</div>
+			<div
+				style="font-size: 20px; font-weight: bold; margin-left: 18px; padding-bottom: 7px;">취소/반품내역</div>
+			<div class="table_01" >
+				<jsp:include page="/WEB-INF/views/common/mypage_topmenu.jsp" />
 				<div id="MyPage_top" style="padding-top: 40px;">
 					<form name="returnSearch"
 						action="${contextPath}/mypage/returnSearch.do" method="post">
@@ -276,11 +255,12 @@
 											<p style="float: left; width: 80px;">구매기간</p>
 
 											<input type="text" id="datepicker1" name="search1"
+												autocomplete='off'
 												style="width: 120px; margin-right: 50px; height: 30px; flaot: left; border: 1px solid #bebebe; border-radius: 2px; display: inline !important;">
 
 											<span class="glyphicon glyphicon-calendar" aria-hidden="true"
 												style="margin-left: -35px;"> </span> ~ <input type="text"
-												name="search2" id="datepicker2"
+												name="search2" id="datepicker2" autocomplete='off'
 												style="width: 120px; margin-right: 50px; height: 30px; flaot: left; border: 1px solid #bebebe; border-radius: 2px; display: inline !important;">
 
 											<span class="glyphicon glyphicon-calendar" aria-hidden="true"
@@ -331,9 +311,11 @@
 													<th style="padding: 10px; text-align: center;"
 														onClick="location.href='Product-02'">
 														<div>
+														<a href="${contextPath}/product/viewProduct.do?productNum=${returnSearchList.productNum}">
 															<img src="${contextPath}/resources/images/image_1.jpg"
-																width="110" height="110" style="float: left;"> <a
-																style="margin-left: 0px; padding-right: 10px;" href="${contextPath}/product/viewProduct.do?productNum=${returnSearchList.productNum}">${returnSearchList.productName}</a>
+																width="110" height="110" style="float: left;"></a> <a
+																style="margin-left: 0px; padding-right: 10px;"
+																href="${contextPath}/product/viewProduct.do?productNum=${returnSearchList.productNum}">${returnSearchList.productName}</a>
 															<c:if test="${returnSearchList.option1value != null}">
 																<p
 																	style="margin-left: 140px; font-size: 13px; width: 100px;">${returnSearchList.option1value}</p>
@@ -422,9 +404,11 @@
 													<th style="padding: 10px; text-align: center;"
 														onClick="location.href='Product-02'">
 														<div>
+														<a href="${contextPath}/product/viewProduct.do?productNum=${mypageReturnList.productNum}">
 															<img src="${contextPath}/resources/images/image_1.jpg"
-																width="110" height="110" style="float: left;"> <a
-																style="margin-left: 0px; padding-right: 10px;" href="${contextPath}/product/viewProduct.do?productNum=${mypageReturnList.productNum}">${mypageReturnList.productName}</a>
+																width="110" height="110" style="float: left;"></a> <a
+																style="margin-left: 0px; padding-right: 10px;"
+																href="${contextPath}/product/viewProduct.do?productNum=${mypageReturnList.productNum}">${mypageReturnList.productName}</a>
 															<c:if test="${mypageReturnList.option1value != null}">
 																<p
 																	style="margin-left: 140px; font-size: 13px; width: 100px;">${mypageReturnList.option1value}</p>

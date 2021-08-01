@@ -268,31 +268,12 @@
 				flush="false" />
 
 			<!-- left Menu -->
-
+			<jsp:include page="/WEB-INF/views/common/mypage_topmenu.jsp"
+				flush="false" />
 			<div class="table_01"
 				style="padding-top: 30px; margin-top: 20px; margin-left: 50px;">
+
 				<div>
-					<table style="width: 1000px; height: 80px; margin-left: 80px;">
-						<tbody id="MyPage_center1">
-							<tr height="60px;">
-								<th
-									style="font-size: 16px; background-color: #212529; color: white;"
-									colspan="3"><a
-									style="font-size: 16px; padding-left: 10px; font-size: 17px;">홍길동</a>
-									<a>님 환영합니다.</a></th>
-							</tr>
-							<tr align="center"
-								style="padding-left: 10px; font-size: 16px; height: 60px;"
-								height="45%">
-								<th width="220" style="text-align: center">주문/배송<a
-									href="/MyPage-04" style="color: red;">4</a><a>건</a></th>
-								<th width="220" style="text-align: center">취소/반품<a
-									href="/MyPage-06" style="color: red;">2</a><a>건</a></th>
-								<th width="220" style="text-align: center">장바구니<a
-									href="/Cart" style="color: red;">1</a><a>건</a></th>
-							</tr>
-						</tbody>
-					</table>
 					<table
 						style="width: 1000px; height: 80px; align: center; padding-top: 10px;">
 						<tbody id="MyPage_center3">

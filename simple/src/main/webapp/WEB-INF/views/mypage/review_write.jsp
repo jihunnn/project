@@ -372,7 +372,7 @@
 											<th style="text-align: center;"><fmt:formatDate
 													value="${mypageVO.memOrderDate}" /></th>
 											<th style="padding: 10px; text-align: left;"
-												onClick="location.href='Product-02'">
+												onClick="location.href='${contextPath}/product/viewProduct.do?productNum=${mypageVO.productNum}'">
 												<div>
 
 													<img
