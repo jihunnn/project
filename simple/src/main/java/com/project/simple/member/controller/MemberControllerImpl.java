@@ -64,7 +64,7 @@ public class MemberControllerImpl implements MemberController {
 			ModelAndView mav = new ModelAndView();
 			MemberVO memberVO = memberService.login(member);
 			boolean pwdMatch = pwdEncoder.matches(member.getmemPwd(), memberVO.getmemPwd());
-		
+				
 			if (memberVO !=null && pwdMatch == true) {
 				HttpSession session = request.getSession();
 				String admin=memberVO.getlogintype();
@@ -168,7 +168,6 @@ public class MemberControllerImpl implements MemberController {
 		request.setCharacterEncoding("utf-8");
 		int result = 0;
 		result = memberService.addMember_naver(member);
-
 		// 로그인작업
 		memberVO = memberService.login_naver(member);
 
@@ -198,29 +197,61 @@ public class MemberControllerImpl implements MemberController {
 		return mav;
 	}
 
-	// 회원탈퇴작업
+	// 회원탈퇴작업(일반회원)
 	@RequestMapping(value = "/removeMember.do", method = RequestMethod.POST)
 	public ModelAndView removeMember(@ModelAttribute("removemember") MemberVO removemember, HttpServletRequest request,
 			HttpServletResponse response, RedirectAttributes rAttr) throws Exception {
-		request.setCharacterEncoding("utf-8");
+		
+		ModelAndView mav = new ModelAndView();
 		HttpSession session = request.getSession();
 		MemberVO member = (MemberVO) session.getAttribute("member");
-		String sessionmemPwd = member.getmemPwd();
-		String memPwd = removemember.getmemPwd();
+		Boolean isLogOn = (Boolean) session.getAttribute("isLogOn");
+		String loginType = member.getlogintype();
+		String memId = member.getmemId();
+		String inputId = removemember.getmemId();
+		boolean pwdMatch = pwdEncoder.matches(removemember.getmemPwd(), member.getmemPwd());
 
-		if (!(sessionmemPwd.equals(memPwd))) {
-			rAttr.addAttribute("result", false);
-			ModelAndView mav = new ModelAndView("redirect:/deletemember.do");
-			return mav;
-		}
-
-		int result = memberService.removeMember(removemember);
-		session.removeAttribute("member");
-		session.removeAttribute("isLogOn");
-		ModelAndView mav = new ModelAndView("redirect:/drop_out.do");
-		return mav;
-
+		if (pwdMatch != true || !memId.equals(inputId) ) {
+			rAttr.addAttribute("result", false);			
+			mav.setViewName("redirect:/deletemember.do");
+			
+		} else if(pwdMatch == true && memId.equals(inputId)) {
+			String memPwd = member.getmemPwd();
+			removemember.setmemPwd(memPwd);
+			int result = memberService.removeMember(removemember);
+			session.removeAttribute("member");
+			session.removeAttribute("isLogOn");
+			mav.setViewName("redirect:/drop_out.do");
+		}	
+		return mav;	
 	}
+	
+	// 회원탈퇴작업(SNS회원)
+		@RequestMapping(value = "/removeMember_SNSmember.do", method = RequestMethod.POST)
+		public ModelAndView removeMember_SNSmember(@ModelAttribute("removemember") MemberVO removemember, HttpServletRequest request,
+				HttpServletResponse response, RedirectAttributes rAttr) throws Exception {
+			
+			ModelAndView mav = new ModelAndView();
+			HttpSession session = request.getSession();
+			MemberVO member = (MemberVO) session.getAttribute("member");			
+			String loginType = member.getlogintype();
+			String sns = removemember.getSNS();
+			String memId = member.getmemId();
+			String memPwd = member.getmemPwd();
+			if (!sns.equals("지금삭제")) {
+				rAttr.addAttribute("result", false);			
+				mav.setViewName("redirect:/deletemember.do");	
+			} else if(sns.equals("지금삭제") && !loginType.equals("일반")) {
+				removemember.setmemId(memId);
+				removemember.setmemPwd(memPwd);
+				int result = memberService.removeMember(removemember);
+				session.removeAttribute("member");
+				session.removeAttribute("isLogOn");
+				mav.setViewName("redirect:/drop_out.do");
+			}	
+			return mav;
+		
+		}
 
 	// 회원정보수정
 	@RequestMapping(value = "/modMember.do", method = RequestMethod.POST)
@@ -228,6 +259,9 @@ public class MemberControllerImpl implements MemberController {
 			HttpServletResponse response, RedirectAttributes rAttr) throws Exception {
 		HttpSession session = request.getSession();
 		request.setCharacterEncoding("utf-8");
+		String pwd = modmember.getmemPwd();
+		String memPwd = pwdEncoder.encode(pwd);
+		modmember.setmemPwd(memPwd);
 		int result = 0;
 		result = memberService.modMember(modmember);
 		session.removeAttribute("member");
@@ -243,10 +277,13 @@ public class MemberControllerImpl implements MemberController {
 		request.setCharacterEncoding("utf-8");
 		HttpSession session = request.getSession();
 		MemberVO member = (MemberVO) session.getAttribute("member");
-		String sessionmemPwd = member.getmemPwd();
-		String memPwd = confirmPwd.getmemPwd();
+		
+		boolean pwdMatch = pwdEncoder.matches( confirmPwd.getmemPwd(), member.getmemPwd());
+		
+		//String sessionmemPwd = member.getmemPwd();
+		//String memPwd = confirmPwd.getmemPwd();
 
-		if (!(sessionmemPwd.equals(memPwd))) {
+		if (pwdMatch !=true) {
 			rAttr.addAttribute("result", false);
 			ModelAndView mav = new ModelAndView("redirect:/mypage_02.do");
 			return mav;
@@ -273,10 +310,12 @@ public class MemberControllerImpl implements MemberController {
 	}
 
 	@RequestMapping(value = "/deletemember.do", method = RequestMethod.GET)
-	private ModelAndView deletemember(HttpServletRequest request, HttpServletResponse response) {
-		String viewName = (String) request.getAttribute("viewName");
+	private ModelAndView deletemember(HttpServletRequest request, HttpServletResponse response) {	
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName(viewName);
+		HttpSession session = request.getSession();
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		String loginType = member.getlogintype();
+		mav.addObject("loginType", loginType);
 		return mav;
 	}
 

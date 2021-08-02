@@ -48,11 +48,22 @@
 				flush="false" />
 			<!-- left Menu 끝-->
 
+			<c:choose>
+					
+				<c:when test="${loginType eq '일반'}">
+					<form action="${contextPath}/removeMember.do" method="POST">
+						아이디 :<input type="text" name="memId">비밀번호 :<input
+							type="password" name="memPwd"> <input type="submit"
+							value="탈퇴하기">
+					</form>
+				</c:when>
+				<c:otherwise>
+					<form action="${contextPath}/removeMember_SNSmember.do" method="POST">
+						회원탈퇴를 원하시면 "지금삭제"를 입력해주세요 <br><br><input type="text" name="SNS">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="탈퇴하기"/>
+					</form>
+				</c:otherwise>
+			</c:choose>
 
-			<form action="${contextPath}/removeMember.do" method="POST">
-				아이디 :<input type="text" name="memId">비밀번호 :<input type="password" name="memPwd"> <input
-					type="submit" value="탈퇴하기">
-			</form>
 		</div>
 	</section>
 

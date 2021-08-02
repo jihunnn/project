@@ -20,6 +20,7 @@ public class MemberVO{
 	private String logintype;
 	private String memRegdate;
 	private String Approval_key;
+	private String SNS;
 	
 	public MemberVO() {
 		
@@ -41,6 +42,16 @@ public class MemberVO{
 		this.memRegdate = memRegdate;
 	}
 	
+	
+	
+	public String getSNS() {
+		return SNS;
+	}
+
+	public void setSNS(String sNS) {
+		SNS = sNS;
+	}
+
 	public String getmemId() {
 		return memId;
 	}
