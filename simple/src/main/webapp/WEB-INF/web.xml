@@ -14,6 +14,7 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/spring/action-mybatis.xml</param-value>
+					
 	</context-param>
 
 	<!-- Processes application requests -->
@@ -23,7 +24,9 @@
 		</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>/WEB-INF/spring/appServlet/servlet-context.xml
+			<param-value>
+				/WEB-INF/spring/appServlet/servlet-context.xml
+				/WEB-INF/spring/spring-security.xml
 			</param-value>
 		</init-param>
 		<init-param>

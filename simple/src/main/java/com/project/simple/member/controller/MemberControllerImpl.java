@@ -18,11 +18,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.inject.Inject;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -42,6 +45,8 @@ public class MemberControllerImpl implements MemberController {
 	private MemberService memberService;
 	@Autowired
 	private MemberVO memberVO;
+	@Inject
+	BCryptPasswordEncoder pwdEncoder;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
@@ -54,13 +59,13 @@ public class MemberControllerImpl implements MemberController {
 		@RequestMapping(value = "/login.do", method = RequestMethod.POST)
 		public ModelAndView login(@ModelAttribute("member") MemberVO member, RedirectAttributes rAttr,
 				HttpServletRequest request, HttpServletResponse response) throws Exception {
-
-	                        response.setContentType("text/html;charset=utf-8");
+	        response.setContentType("text/html;charset=utf-8");
 			PrintWriter out = response.getWriter();
 			ModelAndView mav = new ModelAndView();
-			memberVO = memberService.login(member);
+			MemberVO memberVO = memberService.login(member);
+			boolean pwdMatch = pwdEncoder.matches(member.getmemPwd(), memberVO.getmemPwd());
 		
-			if (memberVO != null) {
+			if (memberVO !=null && pwdMatch == true) {
 				HttpSession session = request.getSession();
 				String admin=memberVO.getlogintype();
 				if (admin.equals("°ü¸®ÀÚ") ) {
@@ -145,6 +150,9 @@ public class MemberControllerImpl implements MemberController {
 	public ModelAndView addMember(@ModelAttribute("member") MemberVO member, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("utf-8");
+		String pwd = member.getmemPwd();
+		String memPwd = pwdEncoder.encode(pwd);
+		member.setmemPwd(memPwd);
 		int result = 0;
 		result = memberService.addMember(member);
 		ModelAndView mav = new ModelAndView("redirect:/join_02.do");

@@ -102,7 +102,7 @@
 		parameterType="memberVO">
 	<![CDATA[ 
 		select * from simple.member
-		where memId = #{memId} and memPwd = #{memPwd};
+		where memId = #{memId}
 	]]>
 	</select>
 
