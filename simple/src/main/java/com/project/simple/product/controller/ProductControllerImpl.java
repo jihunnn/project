@@ -51,25 +51,23 @@ public class ProductControllerImpl implements ProductController {
 	@Autowired
 	private ProductVO productVO;
 	private static final Logger logger = LoggerFactory.getLogger(ProductControllerImpl.class);
-	
-	
+
 	@Override // 메인 best상품 조회
 	@RequestMapping(value = "/main.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView main(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewName = (String) request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
-		Map<String ,List> BestProductMap= productService.BestProductList();
+		Map<String, List> BestProductMap = productService.BestProductList();
 		System.out.println(BestProductMap);
 		mav.addObject("BestProductMap", BestProductMap);
 		return mav;
 	}
 
-	
-
-	@Override //상품등록하기
-	@RequestMapping(value="product/addProduct.do", method=RequestMethod.POST)
+	@Override // 상품등록하기
+	@RequestMapping(value = "product/addProduct.do", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity addProduct(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)throws Exception{
+	public ResponseEntity addProduct(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)
+			throws Exception {
 		multipartRequest.setCharacterEncoding("utf-8");
 		Map<String, Object> productMap = new HashMap<String, Object>();
 		Enumeration enu = multipartRequest.getParameterNames();
@@ -78,9 +76,7 @@ public class ProductControllerImpl implements ProductController {
 			String value = multipartRequest.getParameter(name);
 			productMap.put(name, value);
 
-
 		}
-	
 
 		List<String> productImage1 = upload(multipartRequest);
 		String productImage = productImage1.get(0).toString();
@@ -88,14 +84,13 @@ public class ProductControllerImpl implements ProductController {
 		productMap.put("productImage", productImage);
 		productMap.put("productContentImage", productContentImage);
 
-		//HttpSession session = multipartRequest.getSession();
-		//MemberVO memberVO = (MemberVO) session.getAttribute("member");
-		//String memId = memberVO.getmemId();
-		
-		//inquiryMap.put("memId", memId);
+		// HttpSession session = multipartRequest.getSession();
+		// MemberVO memberVO = (MemberVO) session.getAttribute("member");
+		// String memId = memberVO.getmemId();
+
+		// inquiryMap.put("memId", memId);
 
 		String productNum = (String) productMap.get("productNum");
-
 
 		String message;
 		ResponseEntity resEnt = null;
@@ -105,19 +100,15 @@ public class ProductControllerImpl implements ProductController {
 
 			if (productImage1 != null && productImage1.size() != 0) {
 				Iterator<String> it = productImage1.iterator();
-				while(it.hasNext()) {
-					String productImg =it.next();
+				while (it.hasNext()) {
+					String productImg = it.next();
 					File srcFile = new File(ARTICLE_IMAGE_REPO + "\\" + "temp" + "\\" + productImg);
 					File destDir = new File(ARTICLE_IMAGE_REPO + "\\" + productNum);
 					FileUtils.moveFileToDirectory(srcFile, destDir, true);
-					
-			
+
 				}
 
-			productService.addProduct(productMap);	
-			
-			
-			
+				productService.addProduct(productMap);
 
 			}
 
@@ -129,13 +120,11 @@ public class ProductControllerImpl implements ProductController {
 
 		} catch (Exception e) {
 			Iterator<String> it = productImage1.iterator();
-			while(it.hasNext()) {
-				String productImg =it.next();
+			while (it.hasNext()) {
+				String productImg = it.next();
 				File srcFile = new File(ARTICLE_IMAGE_REPO + "\\" + "temp" + "\\" + productImg);
 				srcFile.delete();
 			}
-
-			
 
 			message = "<script>";
 			message += " alert('오류가 발생했습니다. 다시 시도해주세요');";
@@ -160,12 +149,13 @@ public class ProductControllerImpl implements ProductController {
 			if (mFile.getSize() != 0) {
 				if (!file.exists()) {
 					file.getParentFile().mkdirs();
-					mFile.transferTo(new File(ARTICLE_IMAGE_REPO + "\\" + "temp" + "\\" + productImage));// 임시로 저장되 multipartFile을 실제 파일로 전송
+					mFile.transferTo(new File(ARTICLE_IMAGE_REPO + "\\" + "temp" + "\\" + productImage));// 임시로 저장되
+																											// multipartFile을
+																											// 실제 파일로 전송
 					product.add(productImage);
-																							
+
 				}
-					
-				
+
 			}
 		}
 		return product;
@@ -183,7 +173,7 @@ public class ProductControllerImpl implements ProductController {
 
 	@Override // 상품목록 조회
 	@RequestMapping(value = "product/listProduct.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView listProduct(@RequestParam("sort") String sort, @RequestParam("subsort") String subsort,
+	public ModelAndView listProduct(@RequestParam("sort") String sort, @RequestParam("subsort") String subsort, @RequestParam("filter") String filter,
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		Map<String, Object> ProductMap = new HashMap<String, Object>();
@@ -191,66 +181,112 @@ public class ProductControllerImpl implements ProductController {
 		// -------------------------침대카테고리--------------------------------------
 		if ("침대".equals(sort)) {
 			if ("x".equals(subsort)) {
-				ProductMap.put("sort", sort);
-				ProductMap.put("subsort", subsort);
-				List<ProductVO> productList = productService.listProduct(ProductMap);
-				mav.addObject("productList", productList);
-				mav.setViewName("product/listProduct_bed");
-				return mav;
+				if("x".equals(filter)) {
+					ProductMap.put("sort", sort);
+					ProductMap.put("subsort", subsort);
+					ProductMap.put("filter", filter);
+					List<ProductVO> productList = productService.listProduct(ProductMap);
+					mav.addObject("productList", productList);
+					mav.setViewName("product/listProduct_bed");			
+				} 
+				else if (filter != null) {
+					ProductMap.put("sort", sort);
+					ProductMap.put("subsort", subsort);
+					ProductMap.put("filter", filter);
+					List<ProductVO> productList = productService.listProduct(ProductMap);
+					mav.addObject("productList", productList);
+					mav.setViewName("product/listProduct_bed");			
+					}
+				}
 			} else if (subsort != null) {
-				ProductMap.put("sort", sort);
-				ProductMap.put("subsort", subsort);
-				List<ProductVO> productList = productService.listProduct(ProductMap);
-				mav.addObject("productList", productList);
-				mav.setViewName("product/listProduct_bed");
-				return mav;
+				if("x".equals(filter)) {
+					ProductMap.put("sort", sort);
+					ProductMap.put("subsort", subsort);
+					List<ProductVO> productList = productService.listProduct(ProductMap);
+					mav.addObject("productList", productList);
+					mav.setViewName("product/listProduct_bed");
+				}
+				else if (filter != null) {
+					System.out.println(filter);
+					System.out.println(filter);
 			}
 
 			return mav;
 		}
 
-		// -------------------소파카테고리------------------------------------------------
-		if ("소파".equals(sort)) {
-			if ("x".equals(subsort)) {
-				ProductMap.put("sort", sort);
-				List<ProductVO> productList = productService.listProduct(ProductMap);
-				mav.addObject("productList", productList);
-				mav.setViewName("product/listProduct_sofa");
-				return mav;
-			}
-			if ("화장대/옷장/수납".equals(sort)) {
+	// -------------------소파카테고리------------------------------------------------
+	if("소파".equals(sort))
 
-				List<ProductVO> productList = productService.listProduct(ProductMap);
-
-				mav.addObject("productList", productList);
-				mav.setViewName("product/listProduct_wardrobe");
-				return mav;
-			}
-			if ("식탁/의자".equals(sort)) {
-
-				List<ProductVO> productList = productService.listProduct(ProductMap);
-
-				mav.addObject("productList", productList);
-				mav.setViewName("product/listProduct_table01");
-				return mav;
-			}
-			if ("테이블/책상/책장".equals(sort)) {
-
-				List<ProductVO> productList = productService.listProduct(ProductMap);
-
-				mav.addObject("productList", productList);
-				mav.setViewName("product/listProduct_table02");
-				return mav;
-			} else {
-				return mav;
-			}
+	{
+		if ("x".equals(subsort)) {
+			ProductMap.put("sort", sort);
+			List<ProductVO> productList = productService.listProduct(ProductMap);
+			mav.addObject("productList", productList);
+			mav.setViewName("product/listProduct_sofa");
+		} else if (subsort != null) {
+			ProductMap.put("sort", sort);
+			ProductMap.put("subsort", subsort);
+			List<ProductVO> productList = productService.listProduct(ProductMap);
+			mav.addObject("productList", productList);
+			mav.setViewName("product/listProduct_sofa");
 		}
-		return mav;
+	}
+	// -------------------화장대/옷장/수납 카테고리----------------------------
+
+	if("화장대/옷장/수납".equals(sort))
+	{
+		if ("x".equals(subsort)) {
+			ProductMap.put("sort", sort);
+			List<ProductVO> productList = productService.listProduct(ProductMap);
+			mav.addObject("productList", productList);
+			mav.setViewName("product/listProduct_wardrobe");
+		} else if (subsort != null) {
+			ProductMap.put("sort", sort);
+			ProductMap.put("subsort", subsort);
+			List<ProductVO> productList = productService.listProduct(ProductMap);
+			mav.addObject("productList", productList);
+			mav.setViewName("product/listProduct_wardrobe");
+		}
+	}
+	// -------------------식탁/의자 카테고리------------------------------------------------
+	if("식탁/의자".equals(sort))
+	{
+		if ("x".equals(subsort)) {
+			ProductMap.put("sort", sort);
+			List<ProductVO> productList = productService.listProduct(ProductMap);
+			mav.addObject("productList", productList);
+			mav.setViewName("product/listProduct_table01");
+		} else if (subsort != null) {
+			ProductMap.put("sort", sort);
+			ProductMap.put("subsort", subsort);
+			List<ProductVO> productList = productService.listProduct(ProductMap);
+			mav.addObject("productList", productList);
+			mav.setViewName("product/listProduct_table01");
+		}
+	}
+	// -------------------테이블/책상/책장
+	// 카테고리------------------------------------------------
+	if("테이블/책상/책장".equals(sort))
+	{
+		if ("x".equals(subsort)) {
+			ProductMap.put("sort", sort);
+			List<ProductVO> productList = productService.listProduct(ProductMap);
+			mav.addObject("productList", productList);
+			mav.setViewName("product/listProduct_table02");
+		} else if (subsort != null) {
+			ProductMap.put("sort", sort);
+			ProductMap.put("subsort", subsort);
+			List<ProductVO> productList = productService.listProduct(ProductMap);
+			mav.addObject("productList", productList);
+			mav.setViewName("product/listProduct_table02");
+		}
+	}return mav;
 	}
 
 	@Override // 관리자 상품목록 조회
 	@RequestMapping(value = "product/admin_listProduct.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView admin_listProduct(Criteria1 cri, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ModelAndView admin_listProduct(Criteria1 cri, HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
 		String viewName = (String) request.getAttribute("viewName");
 		List<ProductVO> admin_productList = productService.admin_listProduct(cri);
 		int productCount = productService.productCount();
@@ -259,18 +295,20 @@ public class ProductControllerImpl implements ProductController {
 		pageMaker1.setCri(cri);
 		pageMaker1.setTotalCount(productCount);
 		int pageNum = pageMaker1.getCri().getPage();
-		
+
 		mav.addObject("pageNum", pageNum);
 		mav.addObject("admin_productList", admin_productList);
 		mav.addObject("pageMaker1", pageMaker1);
-		
+
 		return mav;
 	}
 
 	@Override
-	@RequestMapping(value = "/product/admin_listProduct/productSearch.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView productSearch(@RequestParam("search") String search, @RequestParam("searchType") String searchType,
-			Criteria1 cri, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	@RequestMapping(value = "/product/admin_listProduct/productSearch.do", method = { RequestMethod.GET,
+			RequestMethod.POST })
+	public ModelAndView productSearch(@RequestParam("search") String search,
+			@RequestParam("searchType") String searchType, Criteria1 cri, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
 		String viewName = (String) request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
 
@@ -295,7 +333,7 @@ public class ProductControllerImpl implements ProductController {
 		mav.addObject("pageMaker1", pageMaker1);
 		mav.addObject("pageNum", pageNum);
 		System.out.println(productSearchMap);
-		
+
 		return mav;
 
 	}
@@ -314,7 +352,6 @@ public class ProductControllerImpl implements ProductController {
 		return mav;
 	}
 
-	
 	@RequestMapping(value = "/product/modNewProduct.do", method = { RequestMethod.GET, RequestMethod.POST })
 	@ResponseBody
 	public ResponseEntity modProduct(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)
@@ -328,21 +365,16 @@ public class ProductControllerImpl implements ProductController {
 			productMap.put(name, value);
 
 		}
-		
+
 		List<String> productImage = upload(multipartRequest);
 
-				
-
 		String productImage1 = productImage.get(0).toString();
-				
-		String productContentImage1 = productImage.get(1).toString();
-	
 
-		
+		String productContentImage1 = productImage.get(1).toString();
 
 		productMap.put("productImage1", productImage1);
 		productMap.put("productContentImage1", productContentImage1);
-		
+
 		String productNum = (String) productMap.get("productNum");
 		productMap.put("productNum", productNum);
 
@@ -351,26 +383,29 @@ public class ProductControllerImpl implements ProductController {
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
 		try {
-	
+
 			productService.modProduct(productMap);
 
 			if (productImage != null && productImage.size() != 0) {
 
 				String OrignProductImage = (String) productMap.get("OrignProductImage");
 				String OrignProductContentImage = (String) productMap.get("OrignProductContentImage");
-				
-				if(OrignProductImage !=null) {
-					File oldFile = new File(ARTICLE_IMAGE_REPO + "\\" + productNum + "\\" + OrignProductImage);
-					oldFile.delete();}
-				if (OrignProductContentImage != null){					
-					File oldFile1 = new File(ARTICLE_IMAGE_REPO + "\\" + productNum + "\\" + OrignProductContentImage);
-					oldFile1.delete();}
 
-				if(productImage1 !=null) {
-				File srcFile = new File(ARTICLE_IMAGE_REPO + "\\" + "temp" + "\\" + productImage1);
-				File destDir = new File(ARTICLE_IMAGE_REPO + "\\" + productNum);
-				FileUtils.moveFileToDirectory(srcFile, destDir, true); } 
-				if(productContentImage1 !=null){
+				if (OrignProductImage != null) {
+					File oldFile = new File(ARTICLE_IMAGE_REPO + "\\" + productNum + "\\" + OrignProductImage);
+					oldFile.delete();
+				}
+				if (OrignProductContentImage != null) {
+					File oldFile1 = new File(ARTICLE_IMAGE_REPO + "\\" + productNum + "\\" + OrignProductContentImage);
+					oldFile1.delete();
+				}
+
+				if (productImage1 != null) {
+					File srcFile = new File(ARTICLE_IMAGE_REPO + "\\" + "temp" + "\\" + productImage1);
+					File destDir = new File(ARTICLE_IMAGE_REPO + "\\" + productNum);
+					FileUtils.moveFileToDirectory(srcFile, destDir, true);
+				}
+				if (productContentImage1 != null) {
 					File srcFile1 = new File(ARTICLE_IMAGE_REPO + "\\" + "temp" + "\\" + productContentImage1);
 					File destDir1 = new File(ARTICLE_IMAGE_REPO + "\\" + productNum);
 					FileUtils.moveFileToDirectory(srcFile1, destDir1, true);
@@ -395,7 +430,6 @@ public class ProductControllerImpl implements ProductController {
 		}
 		return resEnt;
 	}
-			
 
 	@Override
 	@RequestMapping(value = "/product/removeProduct.do", method = RequestMethod.POST)
@@ -429,22 +463,23 @@ public class ProductControllerImpl implements ProductController {
 		}
 		return resEnt;
 	}
-           	@RequestMapping(value = "/product/viewProduct.do", method = RequestMethod.GET)
-	public ModelAndView viewProduct(@RequestParam("productNum") String productNum, Criteria cri,HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+
+	@RequestMapping(value = "/product/viewProduct.do", method = RequestMethod.GET)
+	public ModelAndView viewProduct(@RequestParam("productNum") String productNum, Criteria cri,
+			HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Map<String, Object> productMap = new HashMap();
 		String viewName = (String) request.getAttribute("viewName");
-		HttpSession session=request.getSession();
+		HttpSession session = request.getSession();
 		productVO = productService.viewProduct(productNum);
 		Map<String, Object> option = (Map<String, Object>) productService.viewOptionvalue(productNum);
 		ModelAndView mav = new ModelAndView();
-		
+
 		int pageStart = cri.getPageStart();
 		int perPageNum = cri.getPerPageNum();
 		productMap.put("pageStart", pageStart);
 		productMap.put("perPageNum", perPageNum);
 		productMap.put("productNum", productNum);
-		List<ProductVO> productReviewList= productService.listProductReview(productMap);
+		List<ProductVO> productReviewList = productService.listProductReview(productMap);
 		int productReviewCount = productService.productReviewCount(productNum);
 		List<ProductVO> productQuestionList = productService.listProductQuestion(productMap);
 		int productQuestionCount = productService.productQuestionCount(productNum);
@@ -452,9 +487,8 @@ public class ProductControllerImpl implements ProductController {
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(productReviewCount);
 		int pageNum = pageMaker.getCri().getPage();
-		
-		
-		addQuick(productNum,productVO,session);
+
+		addQuick(productNum, productVO, session);
 		mav.setViewName(viewName);
 		mav.addObject("option", option);
 		mav.addObject("product", productVO);
@@ -463,12 +497,9 @@ public class ProductControllerImpl implements ProductController {
 		mav.addObject("pageMaker", pageMaker);
 		mav.addObject("pageNum", pageNum);
 
-
 		return mav;
 
 	}
-
-
 
 	@RequestMapping(value = "product/admin_detailproduct.do", method = RequestMethod.GET)
 	public ModelAndView admin_detailproduct(@RequestParam("productNum") String productNum, HttpServletRequest request,
@@ -520,100 +551,97 @@ public class ProductControllerImpl implements ProductController {
 		return mav;
 
 	}
-	
-	//최근본 상품
-	private void addQuick(String productNum,ProductVO productVO,HttpSession session){
-		boolean already_existed=false;
-		List<ProductVO> quickList; //최근 본 상품 저장 ArrayList
+
+	// 최근본 상품
+	private void addQuick(String productNum, ProductVO productVO, HttpSession session) {
+		boolean already_existed = false;
+		List<ProductVO> quickList; // 최근 본 상품 저장 ArrayList
 		List<ProductVO> quickListAll;
-		
-		//MemberVO memberVO=(MemberVO)session.getAttribute("member");
-		//String memId=memberVO.getmemId();
-		
-		quickList=(ArrayList<ProductVO>)session.getAttribute("quickList");//세션에 저장된 최근 본 상품 목록을 가져옴
-		quickListAll=(ArrayList<ProductVO>)session.getAttribute("quickListAll");
-		
-		if(quickList!=null){//최근 본 상품이 있는 경우
-			if(quickList.size() < 2){ //미리본 상품 리스트에 상품개수가 2개 이하인 경우
-				for(int i=0; i<quickList.size();i++){
-					ProductVO productBean=(ProductVO)quickList.get(i);
-					if(productNum.equals(productBean.getproductNum())){
-						already_existed=true;
+
+		// MemberVO memberVO=(MemberVO)session.getAttribute("member");
+		// String memId=memberVO.getmemId();
+
+		quickList = (ArrayList<ProductVO>) session.getAttribute("quickList");// 세션에 저장된 최근 본 상품 목록을 가져옴
+		quickListAll = (ArrayList<ProductVO>) session.getAttribute("quickListAll");
+
+		if (quickList != null) {// 최근 본 상품이 있는 경우
+			if (quickList.size() < 2) { // 미리본 상품 리스트에 상품개수가 2개 이하인 경우
+				for (int i = 0; i < quickList.size(); i++) {
+					ProductVO productBean = (ProductVO) quickList.get(i);
+					if (productNum.equals(productBean.getproductNum())) {
+						already_existed = true;
 						break;
 					}
-				}//상품 목록을 가져와 이미 존재하는 상품인지 비교
-				if(already_existed==false){
+				} // 상품 목록을 가져와 이미 존재하는 상품인지 비교
+				if (already_existed == false) {
 					quickList.add(productVO);
-				}//already_existed가 false이면 상품 정보를 목록에 저장
+				} // already_existed가 false이면 상품 정보를 목록에 저장
 			}
-			
-		}else{
-			quickList =new ArrayList<ProductVO>();
+
+		} else {
+			quickList = new ArrayList<ProductVO>();
 			quickList.add(productVO);
-			
-		}//최근 본 상품 목록이 없으면 생성하여 상품 정보를 저장
-		
-		//quickList =new ArrayList<ProductVO>();
-		//quickList.add(productVO);
-		
-		session.setAttribute("quickList",quickList);//최근 본 상품 목록을 세션에 저장
-		session.setAttribute("quickListNum", quickList.size());//최근 본 상품 목록에 저장된 상품개수를 세션에 저장
-		
-		if(quickListAll!=null){//최근 본 상품이 있는 경우
-				for(int i=0; i<quickListAll.size();i++){
-					ProductVO productBean=(ProductVO)quickListAll.get(i);
-					if(productNum.equals(productBean.getproductNum())){
-						already_existed=true;
-						break;
-					}
-				}//상품 목록을 가져와 이미 존재하는 상품인지 비교
-				if(already_existed==false){
-					quickListAll.add(productVO);
-				}//already_existed가 false이면 상품 정보를 목록에 저장
-		
-		}else{
-			quickListAll =new ArrayList<ProductVO>();
+
+		} // 최근 본 상품 목록이 없으면 생성하여 상품 정보를 저장
+
+		// quickList =new ArrayList<ProductVO>();
+		// quickList.add(productVO);
+
+		session.setAttribute("quickList", quickList);// 최근 본 상품 목록을 세션에 저장
+		session.setAttribute("quickListNum", quickList.size());// 최근 본 상품 목록에 저장된 상품개수를 세션에 저장
+
+		if (quickListAll != null) {// 최근 본 상품이 있는 경우
+			for (int i = 0; i < quickListAll.size(); i++) {
+				ProductVO productBean = (ProductVO) quickListAll.get(i);
+				if (productNum.equals(productBean.getproductNum())) {
+					already_existed = true;
+					break;
+				}
+			} // 상품 목록을 가져와 이미 존재하는 상품인지 비교
+			if (already_existed == false) {
+				quickListAll.add(productVO);
+			} // already_existed가 false이면 상품 정보를 목록에 저장
+
+		} else {
+			quickListAll = new ArrayList<ProductVO>();
 			quickListAll.add(productVO);
-			
-		}//최근 본 상품 목록이 없으면 생성하여 상품 정보를 저장
-		session.setAttribute("quickListAll",quickListAll);//최근 본 상품 목록을 세션에 저장
-		session.setAttribute("quickListAllNum", quickListAll.size());//최근 본 상품 목록에 저장된 상품개수를 세션에 저장
 
-		
+		} // 최근 본 상품 목록이 없으면 생성하여 상품 정보를 저장
+		session.setAttribute("quickListAll", quickListAll);// 최근 본 상품 목록을 세션에 저장
+		session.setAttribute("quickListAllNum", quickListAll.size());// 최근 본 상품 목록에 저장된 상품개수를 세션에 저장
+
 	}
-	
-	@RequestMapping(value="/mypage_09.do" ,method = RequestMethod.GET)
-	public ModelAndView QuickMain(HttpServletRequest request, HttpServletResponse response)  throws Exception {
-		String viewName=(String)request.getAttribute("viewName");
-		ModelAndView mav = new ModelAndView(viewName);
-		HttpSession session=request.getSession();
-		List<ProductVO> quickListAll; //최근 본 상품 저장 ArrayList
-		quickListAll=(ArrayList<ProductVO>)session.getAttribute("quickListAll");//세션에 저장된 최근 본 상품 목록을 가져옴
-		session.setAttribute("quickListAll",quickListAll);//최근 본 상품 목록을 세션에 저장
-		session.setAttribute("quickListAllNum", quickListAll.size());//최근 본 상품 목록에 저장된 상품개수를 세션에 저장
-		System.out.println(quickListAll);
-		
-	
-		return mav;
-	}
-	/*@Override
-	@RequestMapping(value = "product/listProductReview.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView listProductReview(Criteria cri, HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
+
+	@RequestMapping(value = "/mypage_09.do", method = RequestMethod.GET)
+	public ModelAndView QuickMain(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewName = (String) request.getAttribute("viewName");
-		List<ProductVO> productReviewList = productService.listProductReview(cri);
-		int productReviewCount = productService.productReviewCount();
 		ModelAndView mav = new ModelAndView(viewName);
-		PageMaker pageMaker = new PageMaker();
-		pageMaker.setCri(cri);
-		pageMaker.setTotalCount(productReviewCount);
-		int pageNum = pageMaker.getCri().getPage();
-		mav.addObject("productReviewList", productReviewList);
-		mav.addObject("pageMaker", pageMaker);
-		mav.addObject("pageNum", pageNum);
-		
-		return mav;
-	}*/
+		HttpSession session = request.getSession();
+		List<ProductVO> quickListAll; // 최근 본 상품 저장 ArrayList
+		quickListAll = (ArrayList<ProductVO>) session.getAttribute("quickListAll");// 세션에 저장된 최근 본 상품 목록을 가져옴
+		session.setAttribute("quickListAll", quickListAll);// 최근 본 상품 목록을 세션에 저장
+		session.setAttribute("quickListAllNum", quickListAll.size());// 최근 본 상품 목록에 저장된 상품개수를 세션에 저장
+		System.out.println(quickListAll);
 
+		return mav;
+	}
+	/*
+	 * @Override
+	 * 
+	 * @RequestMapping(value = "product/listProductReview.do", method = {
+	 * RequestMethod.GET, RequestMethod.POST }) public ModelAndView
+	 * listProductReview(Criteria cri, HttpServletRequest request,
+	 * HttpServletResponse response) throws Exception { String viewName = (String)
+	 * request.getAttribute("viewName"); List<ProductVO> productReviewList =
+	 * productService.listProductReview(cri); int productReviewCount =
+	 * productService.productReviewCount(); ModelAndView mav = new
+	 * ModelAndView(viewName); PageMaker pageMaker = new PageMaker();
+	 * pageMaker.setCri(cri); pageMaker.setTotalCount(productReviewCount); int
+	 * pageNum = pageMaker.getCri().getPage(); mav.addObject("productReviewList",
+	 * productReviewList); mav.addObject("pageMaker", pageMaker);
+	 * mav.addObject("pageNum", pageNum);
+	 * 
+	 * return mav; }
+	 */
 
 }

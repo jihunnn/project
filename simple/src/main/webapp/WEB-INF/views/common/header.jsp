@@ -158,7 +158,7 @@ hr {
 
 			<div class="dropdown">
 				<button type="button" id="dropdownMenu1"
-					onclick="location.href = '${contextPath}/product/listProduct.do?sort=침대&subsort=x'"
+					onclick="location.href = '${contextPath}/product/listProduct.do?sort=침대&subsort=x&filter=x'"
 					data-toggle="dropdown" class="category"
 					style="margin-left: -950px; margin-bottom: 0px; font-size: 16px; cursor: pointer; margin-top: 40px; background-color:transparent; ">침대
 				</button>
@@ -187,7 +187,7 @@ hr {
 
 			<div class="dropdown">
 				<button type="button" id="dropdownMenu1"
-					onclick="location.href = '${contextPath}/product/listProduct.do?sort=소파&subsort=x'"
+					onclick="location.href = '${contextPath}/product/listProduct.do?sort=소파&subsort=x&filter=x'"
 					data-toggle="dropdown" aria-expanded="true" class="category"
 					style="margin-left: -850px; cursor: pointer; font-size: 16px; margin-top: 40px; background-color:transparent;">
 					소파</button>
@@ -214,7 +214,7 @@ hr {
 
 			<div class="dropdown">
 				<button type="button" id="dropdownMenu1"
-					onclick="location.href = '${contextPath}/product/listProduct.do?sort=화장대/옷장/수납'"
+					onclick="location.href = '${contextPath}/product/listProduct.do?sort=화장대/옷장/수납&subsort=x&filter=x'"
 					data-toggle="dropdown" aria-expanded="true" class="category"
 					style="margin-left: -760px; cursor: pointer; font-size: 16px; margin-top: 40px; background-color:transparent;">
 					화장대/옷장/수납</button>
@@ -240,7 +240,7 @@ hr {
 			</div>
 			<div class="dropdown">
 				<button type="button" id="dropdownMenu1"
-					onclick="location.href = '${contextPath}/product/listProduct.do?sort=식탁/의자'"
+					onclick="location.href = '${contextPath}/product/listProduct.do?sort=식탁/의자&subsort=x&filter=x'"
 					data-toggle="dropdown" aria-expanded="true" class="category"
 					style="margin-left: -570px; cursor: pointer; font-size: 16px; margin-top: 40px; background-color:transparent;">
 					식탁/의자</button>
@@ -267,7 +267,7 @@ hr {
 
 			<div class="dropdown">
 				<button type="button" id="dropdownMenu1"
-					onclick="location.href = '${contextPath}/product/listProduct.do?sort=테이블/책상/책장'"
+					onclick="location.href = '${contextPath}/product/listProduct.do?sort=테이블/책상/책장&subsort=x&filter=x'"
 					data-toggle="dropdown" aria-expanded="true" class="category"
 					style="margin-left: -435px; cursor: pointer; font-size: 16px; margin-top: 40px; background-color:transparent;">
 					테이블/책상/책장</button>

@@ -15,7 +15,7 @@ import com.project.simple.product.page.Criteria1;
 import com.project.simple.product.vo.ProductVO;
 
 public interface ProductController {
-	public ModelAndView listProduct(@RequestParam("sort") String sort, @RequestParam("subsort") String subsort, HttpServletRequest request, HttpServletResponse response)throws Exception;
+	public ModelAndView listProduct(@RequestParam("sort") String sort, @RequestParam("subsort") String subsort,@RequestParam("filter") String filter, HttpServletRequest request, HttpServletResponse response)throws Exception;
 	public ModelAndView admin_listProduct(Criteria1 cri,HttpServletRequest request, HttpServletResponse response) throws Exception;
 	
 	public ResponseEntity removeProduct(@RequestParam("productNum") String productNum, HttpServletRequest request, HttpServletResponse response)

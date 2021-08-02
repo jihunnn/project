@@ -184,14 +184,14 @@
 			<hr style="margin-bottom: 0px;">
 			<div class="btn-group" role="group" aria-label="..."
 				style="margin-bottom: 25px; margin-top: 10px;">
-				<button type="button" class="btn btn-default"
+				<button type="button" class="btn btn-default" 
 					style="border: 0; outline: 0; border-radius: 1px; background-color: white; font-size: 13px;">인기순</button>
 				<button type="button" class="btn btn-default"
 					style="border: 0; outline: 0; background-color: white; font-size: 13px;">낮은가격순</button>
-				<button type="button" class="btn btn-default"
+				<button type="button" class="btn btn-default" onclick='location.href="${contextPath}/product/listProduct.do?sort=${param.sort}&subsort=${param.subsort}&filter=highprice"'
 					style="border: 0; outline: 0; background-color: white; font-size: 13px;">높은가격순</button>
 				<button type="button" class="btn btn-default"
-					style="border: 0; outline: 0; border-radius: 1px; background-color: white; font-size: 13px;">상품평순</button>
+					style="border: 0; outline: 0; border-radius: 1px; background-color: white; font-size: 13px;">최신등록순</button>
 			</div>
 			<hr style="margin-top: -15px; margin-bottom: 30px;">
 
