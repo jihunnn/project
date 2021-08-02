@@ -155,36 +155,36 @@
 
 			<ul class="snip1284" style="margin-bottom: 30px; font-weight:bold;">
 				<li class="current"><a
-					onclick="location.href ='${contextPath}/product/listProduct.do?sort=테이블/책상/책장&subsort=소파테이블'"
+					onclick="location.href ='${contextPath}/product/listProduct.do?sort=테이블/책상/책장&subsort=소파테이블&filter=x'"
 					data-hover="싱글"
 					style="font-size: 17px; border: none; color: #5a5a5a; margin-right: 110px; cursor: pointer; background-color: white; padding-bottom: 0px;">소파테이블</a></li>
 
 
 				<li><a
-					onclick="location.href ='${contextPath}/product/listProduct.do?sort=테이블/책상/책장&subsort=좌식테이블'"
+					onclick="location.href ='${contextPath}/product/listProduct.do?sort=테이블/책상/책장&subsort=좌식테이블&filter=x'"
 					data-hover="킹"
 					style="font-size: 17px; border: none; color: #5a5a5a; margin-right: 110px; cursor: pointer; background-color: white; padding-bottom: 0px;">좌식테이블</a></li>
 
 
 				<li><a
-					onclick="location.href ='${contextPath}/product/listProduct.do?sort=테이블/책상/책장&subsort=원목테이블'"
+					onclick="location.href ='${contextPath}/product/listProduct.do?sort=테이블/책상/책장&subsort=원목테이블&filter=x'"
 					data-hover="이층침대"
 					style="font-size: 17px; border: none; color: #5a5a5a; margin-right: 110px; cursor: pointer; background-color: white; padding-bottom: 0px;">원목테이블</a></li>
 
 
 				<li><a
-					onclick="location.href ='${contextPath}/product/listProduct.do?sort=테이블/책상/책장&subsort=다용도테이블'"
+					onclick="location.href ='${contextPath}/product/listProduct.do?sort=테이블/책상/책장&subsort=다용도테이블&filter=x'"
 					data-hover="패밀리"
 					style="font-size: 17px; border: none; color: #5a5a5a; background-color: white; cursor: pointer; padding-bottom: 0px; margin-right: 100px;">다용도테이블</a></li>
 				<li><a
-					onclick="location.href ='${contextPath}/product/listProduct.do?sort=테이블/책상/책장&subsort=책상/책장'"
+					onclick="location.href ='${contextPath}/product/listProduct.do?sort=테이블/책상/책장&subsort=책상/책장&filter=x'"
 					data-hover="패밀리"
 					style="font-size: 17px; border: none; color: #5a5a5a; background-color: white; cursor: pointer; padding-bottom: 0px;">책상/책장</a></li>
 			</ul>
 			<hr style="margin-bottom: 0px;">
 			<jsp:include page="/WEB-INF/views/common/productfilter.jsp"
 				flush="false" />
-				flush="false" />
+				
 			<hr style="margin-top: -15px; margin-bottom: 30px;">
 
 

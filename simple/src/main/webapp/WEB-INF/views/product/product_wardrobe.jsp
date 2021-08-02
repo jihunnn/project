@@ -155,29 +155,29 @@
 
 			<ul class="snip1284" style="margin-bottom: 30px; font-weight:bold;">
 				<li class="current"><a
-					onclick="location.href ='${contextPath}/product/listProduct.do?sort=화장대/옷장/수납&subsort=거실장'"
+					onclick="location.href ='${contextPath}/product/listProduct.do?sort=화장대/옷장/수납&subsort=거실장&filter=x'"
 					data-hover="싱글"
 					style="font-size: 17px; border: none; color: #5a5a5a; margin-right: 130px; cursor: pointer; background-color: white; padding-bottom: 0px;">거실장</a></li>
 
 
 				<li><a
-					onclick="location.href ='${contextPath}/product/listProduct.do?sort=화장대/옷장/수납&subsort=거실장'"
+					onclick="location.href ='${contextPath}/product/listProduct.do?sort=화장대/옷장/수납&subsort=장식장&filter=x'"
 					data-hover="킹"
 					style="font-size: 17px; border: none; color: #5a5a5a; margin-right: 130px; cursor: pointer; background-color: white; padding-bottom: 0px;">장식장</a></li>
 
 
 				<li><a
-					onclick="location.href ='${contextPath}/product/listProduct.do?sort=화장대/옷장/수납&subsort=거실장'"
+					onclick="location.href ='${contextPath}/product/listProduct.do?sort=화장대/옷장/수납&subsort=화장대/콘솔&filter=x'"
 					data-hover="이층침대"
 					style="font-size: 17px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">화장대/콘솔</a></li>
 
 
 				<li><a
-					onclick="location.href ='${contextPath}/product/listProduct.do?sort=화장대/옷장/수납&subsort=거실장'"
+					onclick="location.href ='${contextPath}/product/listProduct.do?sort=화장대/옷장/수납&subsort=옷장&filter=x'"
 					data-hover="패밀리"
 					style="font-size: 17px; border: none; color: #5a5a5a; background-color: white; cursor: pointer; padding-bottom: 0px; margin-right: 150px;">옷장</a></li>
 				<li><a
-					onclick="location.href ='${contextPath}/product/listProduct.do?sort=화장대/옷장/수납&subsort=거실장'"
+					onclick="location.href ='${contextPath}/product/listProduct.do?sort=화장대/옷장/수납&subsort=서랍장&filter=x'"
 					data-hover="패밀리"
 					style="font-size: 17px; border: none; color: #5a5a5a; background-color: white; cursor: pointer; padding-bottom: 0px;">서랍장</a></li>
 			</ul>

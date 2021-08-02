@@ -155,29 +155,29 @@
 
 			<ul class="snip1284" style="margin-bottom: 30px; font-weight: bold;">
 				<li class="current"><a
-					onclick="location.href ='${contextPath}/product/listProduct.do?sort=식탁/의자&subsort=2인이상'"
+					onclick="location.href ='${contextPath}/product/listProduct.do?sort=식탁/의자&subsort=2인이상&filter=x'"
 					data-hover="싱글"
 					style="font-size: 17px; border: none; color: #5a5a5a; margin-right: 130px; cursor: pointer; background-color: white; padding-bottom: 0px;">2인이상</a></li>
 
 
 				<li><a
-					onclick="location.href ='${contextPath}/product/listProduct.do?sort=식탁/의자&subsort=4인이상'"
+					onclick="location.href ='${contextPath}/product/listProduct.do?sort=식탁/의자&subsort=4인이상&filter=x'"
 					data-hover="킹"
 					style="font-size: 17px; border: none; color: #5a5a5a; margin-right: 130px; cursor: pointer; background-color: white; padding-bottom: 0px;">4인이상</a></li>
 
 
 				<li><a
-					onclick="location.href ='${contextPath}/product/listProduct.do?sort=식탁/의자&subsort=4/6인'"
+					onclick="location.href ='${contextPath}/product/listProduct.do?sort=식탁/의자&subsort=8인이상&filter=x'"
 					data-hover="이층침대"
 					style="font-size: 17px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">8인이상</a></li>
 
 
 				<li><a
-					onclick="location.href ='${contextPath}/product/listProduct.do?sort=식탁/의자&subsort=패브릭'"
+					onclick="location.href ='${contextPath}/product/listProduct.do?sort=식탁/의자&subsort=식탁의자&filter=x'"
 					data-hover="패밀리"
 					style="font-size: 17px; border: none; color: #5a5a5a; background-color: white; cursor: pointer; padding-bottom: 0px; margin-right: 150px;">식탁의자</a></li>
 				<li><a
-					onclick="location.href ='${contextPath}/product/listProduct.do?sort=식탁/의자&subsort=리클라이너'"
+					onclick="location.href ='${contextPath}/product/listProduct.do?sort=식탁/의자&subsort=테이블의자&filter=x'"
 					data-hover="패밀리"
 					style="font-size: 17px; border: none; color: #5a5a5a; background-color: white; cursor: pointer; padding-bottom: 0px;">테이블의자</a></li>
 			</ul>
