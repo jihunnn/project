@@ -77,12 +77,31 @@
 		</if>
 			
 		<if test='subsort == "x" and filter == "highprice"'>
-			select * from simple.product where category = #{sort} order by productPrice desc;
+			select * from simple.product where category = #{sort} order by cast(productPrice as unsigned) desc;
 		</if>
 		
-		<if test='subsort != "x"'>
-			select * from simple.product where category = #{sort} and
-			subCategory = #{subsort}
+		<if test='subsort == "x" and filter == "lowprice"'>
+			select * from simple.product where category = #{sort} order by cast(productPrice as unsigned) asc;
+		</if>
+		
+		<if test='subsort == "x" and filter == "date"'>
+			select * from simple.product where category = #{sort} order by productDate desc;
+		</if>
+		
+		<if test='subsort != "x" and filter == "x" '>
+			select * from simple.product where category = #{sort} and subcategory = #{subsort} 
+		</if>
+	
+		<if test='subsort != "x" and filter == "highprice" '>
+			select * from simple.product where category = #{sort} and subcategory = #{subsort} order by cast(productPrice as unsigned) desc;
+		</if>
+		
+		<if test='subsort != "x" and filter == "lowprice" '>
+			select * from simple.product where category = #{sort} and subcategory = #{subsort} order by cast(productPrice as unsigned) asc;
+		</if>
+		
+		<if test='subsort != "x" and filter == "date" '>
+			select * from simple.product where category = #{sort} and subcategory = #{subsort} order by productDate desc;
 		</if>
 
 

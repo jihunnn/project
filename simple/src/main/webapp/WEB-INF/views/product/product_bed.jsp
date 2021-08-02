@@ -155,44 +155,37 @@
 
 			<ul class="snip1284" style="margin-bottom: 30px; font-weight:bold;">
 				<li class="current"><a
-					onclick="location.href ='${contextPath}/product/listProduct.do?sort=침대&subsort=싱글'"
+					onclick="location.href = '${contextPath}/product/listProduct.do?sort=침대&subsort=싱글&filter=x'"
 					data-hover="싱글"
 					style="font-size: 17px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">싱글</a></li>
 
 
 				<li><a
-					onclick="location.href ='${contextPath}/product/listProduct.do?sort=침대&subsort=킹'"
+					onclick="location.href ='${contextPath}/product/listProduct.do?sort=침대&subsort=킹&filter=x'"
 					data-hover="킹"
 					style="font-size: 17px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">킹</a></li>
 
 
 				<li><a
-					onclick="location.href ='${contextPath}/product/listProduct.do?sort=침대&subsort=이층침대'"
+					onclick="location.href ='${contextPath}/product/listProduct.do?sort=침대&subsort=이층침대&filter=x'"
 					data-hover="이층침대"
 					style="font-size: 17px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">이층침대</a></li>
 
 
 				<li><a
-					onclick="location.href ='${contextPath}/product/listProduct.do?sort=침대&subsort=패밀리'"
+					onclick="location.href ='${contextPath}/product/listProduct.do?sort=침대&subsort=패밀리&filter=x'"
 					data-hover="패밀리"
 					style="font-size: 17px; border: none; color: #5a5a5a; background-color: white; cursor: pointer; padding-bottom: 0px; margin-right: 150px;">패밀리</a></li>
 				<li><a
-					onclick="location.href ='${contextPath}/product/listProduct.do?sort=침대&subsort=퀸'"
+					onclick="location.href ='${contextPath}/product/listProduct.do?sort=침대&subsort=퀸&filter=x'"
 					data-hover="패밀리"
 					style="font-size: 17px; border: none; color: #5a5a5a; background-color: white; cursor: pointer; padding-bottom: 0px;">퀸</a></li>
 			</ul>
 			<hr style="margin-bottom: 0px;">
-			<div class="btn-group" role="group" aria-label="..."
-				style="margin-bottom: 25px; margin-top: 10px;">
-				<button type="button" class="btn btn-default" 
-					style="border: 0; outline: 0; border-radius: 1px; background-color: white; font-size: 13px;">인기순</button>
-				<button type="button" class="btn btn-default"
-					style="border: 0; outline: 0; background-color: white; font-size: 13px;">낮은가격순</button>
-				<button type="button" class="btn btn-default" onclick='location.href="${contextPath}/product/listProduct.do?sort=${param.sort}&subsort=${param.subsort}&filter=highprice"'
-					style="border: 0; outline: 0; background-color: white; font-size: 13px;">높은가격순</button>
-				<button type="button" class="btn btn-default"
-					style="border: 0; outline: 0; border-radius: 1px; background-color: white; font-size: 13px;">최신등록순</button>
-			</div>
+			
+			<jsp:include page="/WEB-INF/views/common/productfilter.jsp"
+				flush="false" />
+			
 			<hr style="margin-top: -15px; margin-bottom: 30px;">
 
 

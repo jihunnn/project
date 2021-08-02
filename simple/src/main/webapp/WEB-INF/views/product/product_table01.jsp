@@ -147,13 +147,13 @@
 	<section class="ftco-section" style="padding-top: 30px;">
 		<div class="container">
 
-				<img src="${contextPath}/resources/images/product/selina.jpg" width=100%
-		height=350px style="margin-bottom:30px;">
+			<img src="${contextPath}/resources/images/product/selina.jpg"
+				width=100% height=350px style="margin-bottom: 30px;">
 			<!-- 최근 본 상품 -->
 
 			<!-- 최근 본 상품 끝 -->
 
-			<ul class="snip1284" style="margin-bottom: 30px; font-weight:bold;">
+			<ul class="snip1284" style="margin-bottom: 30px; font-weight: bold;">
 				<li class="current"><a
 					onclick="location.href ='${contextPath}/product/listProduct.do?sort=식탁/의자&subsort=2인이상'"
 					data-hover="싱글"
@@ -182,17 +182,8 @@
 					style="font-size: 17px; border: none; color: #5a5a5a; background-color: white; cursor: pointer; padding-bottom: 0px;">테이블의자</a></li>
 			</ul>
 			<hr style="margin-bottom: 0px;">
-			<div class="btn-group" role="group" aria-label="..."
-				style="margin-bottom: 25px; margin-top: 10px;">
-				<button type="button" class="btn btn-default"
-					style="border: 0; outline: 0; border-radius: 1px; background-color: white; font-size: 13px;">인기순</button>
-				<button type="button" class="btn btn-default"
-					style="border: 0; outline: 0; background-color: white; font-size: 13px;">낮은가격순</button>
-				<button type="button" class="btn btn-default"
-					style="border: 0; outline: 0; background-color: white; font-size: 13px;">높은가격순</button>
-				<button type="button" class="btn btn-default"
-					style="border: 0; outline: 0; border-radius: 1px; background-color: white; font-size: 13px;">상품평순</button>
-			</div>
+			<jsp:include page="/WEB-INF/views/common/productfilter.jsp"
+				flush="false" />
 			<hr style="margin-top: -15px; margin-bottom: 30px;">
 
 
@@ -225,15 +216,15 @@
 									<div class="text d-flex py-1">
 										<div class="desc pl-2">
 											<h3 class="heading">
-												<a style="font-size:15px;"
+												<a style="font-size: 15px;"
 													href="${contextPath}/product/viewProduct.do?productNum=${product.productNum}">${product.productName}</a>
 											</h3>
-											<hr style="margin-top: 15px; margin-bottom:10px;">
-												<h3 class="heading"
-													style="float: right; white-space: nowrap; margin-bottom: 10px;">
-													<a href="#" style="font-size: 16px;"><fmt:formatNumber
-															pattern="###,###,###" value="${product.productPrice}" />원</a>
-												</h3>
+											<hr style="margin-top: 15px; margin-bottom: 10px;">
+											<h3 class="heading"
+												style="float: right; white-space: nowrap; margin-bottom: 10px;">
+												<a href="#" style="font-size: 16px;"><fmt:formatNumber
+														pattern="###,###,###" value="${product.productPrice}" />원</a>
+											</h3>
 										</div>
 									</div>
 								</div>

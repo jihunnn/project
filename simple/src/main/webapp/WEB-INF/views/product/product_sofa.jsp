@@ -155,44 +155,35 @@
 
 			<ul class="snip1284" style="margin-bottom: 30px; font-weight:bold;">
 				<li class="current"><a
-					onclick="location.href ='${contextPath}/product/listProduct.do?sort=소파&subsort=코너형'"
+					onclick="location.href ='${contextPath}/product/listProduct.do?sort=소파&subsort=코너형&filter=x'"
 					data-hover="싱글"
 					style="font-size: 17px; border: none; color: #5a5a5a; margin-right: 130px; cursor: pointer; background-color: white; padding-bottom: 0px;">코너형</a></li>
 
 
 				<li><a
-					onclick="location.href ='${contextPath}/product/listProduct.do?sort=소파&subsort=1인/웜체어'"
+					onclick="location.href ='${contextPath}/product/listProduct.do?sort=소파&subsort=1인/웜체어&filter=x'"
 					data-hover="킹"
 					style="font-size: 17px; border: none; color: #5a5a5a; margin-right: 130px; cursor: pointer; background-color: white; padding-bottom: 0px;">1인/웜체어</a></li>
 
 
 				<li><a
-					onclick="location.href ='${contextPath}/product/listProduct.do?sort=소파&subsort=4/6인'"
+					onclick="location.href ='${contextPath}/product/listProduct.do?sort=소파&subsort=4/6인&filter=x'"
 					data-hover="이층침대"
 					style="font-size: 17px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">4/6인</a></li>
 
 
 				<li><a
-					onclick="location.href ='${contextPath}/product/listProduct.do?sort=소파&subsort=패브릭'"
+					onclick="location.href ='${contextPath}/product/listProduct.do?sort=소파&subsort=패브릭&filter=x'"
 					data-hover="패밀리"
 					style="font-size: 17px; border: none; color: #5a5a5a; background-color: white; cursor: pointer; padding-bottom: 0px; margin-right: 150px;">패브릭</a></li>
 				<li><a
-					onclick="location.href ='${contextPath}/product/listProduct.do?sort=소파&subsort=리클라이너'"
+					onclick="location.href ='${contextPath}/product/listProduct.do?sort=소파&subsort=리클라이너&filter=x'"
 					data-hover="패밀리"
 					style="font-size: 17px; border: none; color: #5a5a5a; background-color: white; cursor: pointer; padding-bottom: 0px;">리클라이너</a></li>
 			</ul>
 			<hr style="margin-bottom: 0px;">
-			<div class="btn-group" role="group" aria-label="..."
-				style="margin-bottom: 25px; margin-top: 10px;">
-				<button type="button" class="btn btn-default"
-					style="border: 0; outline: 0; border-radius: 1px; background-color: white; font-size: 13px;">인기순</button>
-				<button type="button" class="btn btn-default"
-					style="border: 0; outline: 0; background-color: white; font-size: 13px;">낮은가격순</button>
-				<button type="button" class="btn btn-default"
-					style="border: 0; outline: 0; background-color: white; font-size: 13px;">높은가격순</button>
-				<button type="button" class="btn btn-default"
-					style="border: 0; outline: 0; border-radius: 1px; background-color: white; font-size: 13px;">상품평순</button>
-			</div>
+			<jsp:include page="/WEB-INF/views/common/productfilter.jsp"
+				flush="false" />
 			<hr style="margin-top: -15px; margin-bottom: 30px;">
 
 

@@ -182,17 +182,8 @@
 					style="font-size: 17px; border: none; color: #5a5a5a; background-color: white; cursor: pointer; padding-bottom: 0px;">서랍장</a></li>
 			</ul>
 			<hr style="margin-bottom: 0px;">
-			<div class="btn-group" role="group" aria-label="..."
-				style="margin-bottom: 25px; margin-top: 10px;">
-				<button type="button" class="btn btn-default"
-					style="border: 0; outline: 0; border-radius: 1px; background-color: white; font-size: 13px;">인기순</button>
-				<button type="button" class="btn btn-default"
-					style="border: 0; outline: 0; background-color: white; font-size: 13px;">낮은가격순</button>
-				<button type="button" class="btn btn-default"
-					style="border: 0; outline: 0; background-color: white; font-size: 13px;">높은가격순</button>
-				<button type="button" class="btn btn-default"
-					style="border: 0; outline: 0; border-radius: 1px; background-color: white; font-size: 13px;">상품평순</button>
-			</div>
+			<jsp:include page="/WEB-INF/views/common/productfilter.jsp"
+				flush="false" />
 			<hr style="margin-top: -15px; margin-bottom: 30px;">
 
 
