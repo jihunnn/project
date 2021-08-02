@@ -28,6 +28,7 @@ public class ProductVO {
 	private int option2price;	//惑前 可记2 啊拜
 	private String option1value; //可记1 格废
 	private String option2value; //可记2 格废
+	private int favoriteCount;
 	
 	//惑前 府轰
 	private int reviewNum;
@@ -278,6 +279,13 @@ public class ProductVO {
 	}
 	public void setProductAnswerContent(String productAnswerContent) {
 		this.productAnswerContent = productAnswerContent;
+	}
+	
+	public int getFavoriteCount() {
+		return favoriteCount;
+	}
+	public void setFavoriteCount(int productAnswerContent) {
+		this.favoriteCount = favoriteCount;
 	}
 	
 	

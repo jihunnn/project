@@ -204,8 +204,7 @@ function addCartBtn() {
 }
 
 function add_favorite(productNum) {
-	if(confirm("관심상품에 등록하시겠습니까?"))
-	{
+
 		if(${isLogOn != true}){
 		      alert("로그인이 필요합니다.");
 		}else{
@@ -221,13 +220,13 @@ function add_favorite(productNum) {
 	        		//alert(data);
 	            	//	$('#message').append(data);
 	        		if(data.trim()=='add_success'){
-	        			alert("관심상품에 등록되었습니다.");	
 	        			
-	        			document.getElementById('favorite').style.display = 'none';
-	        			document.getElementById('favorite_add').style.display = 'block';
+	        			$("#favoriteHeart").attr("src", "${contextPath}/resources/images/heartfull.jpg");
+
 	        			
 	        		}else if(data.trim()=='already_existed'){
-		    	    	alert("이미 관심상품에 등록된 상품입니다.");	
+		    	    	
+		    	    	$("#favoriteHeart").attr("src", "${contextPath}/resources/images/heart.jpg");
 		        	}
 	     		
 	        	},
@@ -239,11 +238,47 @@ function add_favorite(productNum) {
     	    	}
         	}); //end ajax	
 		}
-	}else{
-		return false;
-	}
+	
 	
 }
+
+
+$(document).ready(function(){ 
+	
+	var productNum = document.getElementById('productNum').value;
+
+	
+	if(${isLogOn != true}){
+		
+		document.getElementById('favoriteHeart').style.display = 'inline';
+		
+	}else{
+		
+	      $.ajax({
+	             
+	            type : "GET",
+	            url : "${contextPath}/favoriteInquiry.do",
+	            data:{
+	            	productNum:productNum
+	            },	
+	            dataType : "text",
+	            error : function(data){
+	            	alert("에러가 발생했습니다."+data);
+	            },
+	            success : function(data){
+	            	if(data.trim()=='already_existed'){
+	            	document.getElementById('favoriteHeart').style.display = 'inline';
+	            	$("#favoriteHeart").attr("src", "${contextPath}/resources/images/heartfull.jpg");	}
+	            	else{
+	            		document.getElementById('favoriteHeart').style.display = 'inline';}
+	            }
+	             
+	        });
+
+		}
+
+		});
+
 
 
 	
@@ -261,8 +296,8 @@ function add_favorite(productNum) {
 		style="padding-top: 20px; margin-bottom: 200px; margin-top: 80px;">
 		<div class="container">
 			<form name="form1" method="GET" id="addCartForm">
-				<input type="hidden" name="productNum" value="${product.productNum}" />
-				<input type="hidden" name="productName"
+				<input type="hidden" name="productNum" value="${product.productNum}"
+					id="productNum" /> <input type="hidden" name="productName"
 					value="${product.productName}" /> <input type="hidden"
 					name="option1name" value="${option1[1].option1Name}" /> <input
 					type="hidden" name="option2name" value="${option2[1].option2Name}" />
@@ -278,21 +313,24 @@ function add_favorite(productNum) {
 							<div class="blog-entry">
 								<a><img
 									src="${contextPath}/download_product.do?productNum=${product.productNum}&productImage=${product.productImage}"
-									style="border:1px solid gray; width: 600px; height:409.68px;  margin-left: -15px; float: left;">
+									style="border: 1px solid gray; width: 600px; height: 409.68px; margin-left: -15px; float: left;">
 								</a> <br>
 							</div>
 						</div>
 					</section>
-					<input type="hidden" name="productImage"value="${product.productImage}"/>
+					<input type="hidden" name="productImage"
+						value="${product.productImage}" />
 
 					<div style="width: 685px; height: 480px;">
-					
-						<h1
-							style="font-weight:bold; font-size: 20px; color: #7e9c8c; float: left; margin-left: 50px; margin-top: 5px;">${product.productName}</h1>
 
-						<a  href="javascript:add_favorite('${product.productNum }')"
-							style="all: none; font-size: 15px; color: #7e9c8c; margin-left: 430px; margin-top: 5px;">관심상품</a>
-						<hr style="width: 600px;">
+						<h1
+							style="font-weight: bold; font-size: 20px; color: #7e9c8c; float: left; margin-left: 50px; margin-top: 5px;">${product.productName}</h1>
+							<a
+							href="javascript:add_favorite('${product.productNum }')"
+							style="all: none; font-size: 15px; color: #7e9c8c; float:right; margin-top: 10px; margin-right:50px;  ">
+						<img src="${contextPath}/resources/images/heart.jpg"
+							id="favoriteHeart" style="width:17px; height:17px; display:none; margin-bottom:3px;"/><span style="padding-top:7px;">관심상품</span></a>  
+						<hr style="width: 600px; margin-top:45px;">
 						<h3 class="heading">
 							<a
 								style="position: absolute; white-space: nowrap; margin-top: 5px; margin-left: 50px; float: left; font-size: 14px; color: #5f5f5f;">판매가ㅤㅤ
@@ -500,8 +538,8 @@ function add_favorite(productNum) {
 													</div>
 													<div class="modal-body">
 														<p>${productReview.productContent}</p>
-														<img style="width: 300px; height:300px;"
-							src="${contextPath}/download_review.do?reviewNum=${productReview.reviewNum}&reviewFile=${productReview.reviewFile}">
+														<img style="width: 300px; height: 300px;"
+															src="${contextPath}/download_review.do?reviewNum=${productReview.reviewNum}&reviewFile=${productReview.reviewFile}">
 													</div>
 
 													<img src="" />

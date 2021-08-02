@@ -194,7 +194,7 @@ public class ProductControllerImpl implements ProductController {
 				ProductMap.put("sort", sort);
 				ProductMap.put("subsort", subsort);
 				List<ProductVO> productList = productService.listProduct(ProductMap);
-				mav.addObject("productList", productList);
+				mav.addObject("productList", productList);				
 				mav.setViewName("product/listProduct_bed");
 				return mav;
 			} else if (subsort != null) {

@@ -18,7 +18,10 @@ public interface FavoriteDAO {
 	public void insertProductInFavorite(FavoriteVO favoriteVO) throws DataAccessException;
 
 	public void deleteFavoriteProduct(String productNum)throws DataAccessException;
-
+	
+	public void deleteRemoveFavorite(FavoriteVO favoriteVO) throws DataAccessException;
+	
+	public int selectFavoriteCount(String productNum) throws DataAccessException;
 
 
 }

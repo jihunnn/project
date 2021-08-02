@@ -48,5 +48,17 @@ public class FavoriteServiceImpl implements FavoriteService{
 		favoriteDAO.deleteFavoriteProduct(productNum);
 		
 	}
-
+	
+	@Override
+	public void removeFavorite(FavoriteVO favoriteVO) throws Exception {
+		favoriteDAO.deleteRemoveFavorite(favoriteVO);
+	}//상품상세페이지에서 찜 취소
+	
+	
+	@Override
+	public int favoriteCount(String productNum) throws Exception {
+		int favoriteCount = favoriteDAO.selectFavoriteCount(productNum);
+		
+		return favoriteCount;
+	}//관심상품 count
 }

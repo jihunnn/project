@@ -73,7 +73,8 @@
 		parameterType="java.util.Map">
 
 		<if test='subsort == "x"'>
-			select * from simple.product where category = #{sort}
+			select productName, p.productNum, productPrice, productImage, f.count(*) as favoriteCount 
+			from simple.product as p left join favoriteproduct as f on p.productNum=f.productNum where category = #{sort} 
 		</if>
 		<if test='subsort != "x"'>
 			select * from simple.product where category = #{sort} and

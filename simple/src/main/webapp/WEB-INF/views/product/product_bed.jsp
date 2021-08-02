@@ -137,7 +137,36 @@
 }
 </style>
 
+<script>
 
+$(document).ready(function(){ 
+
+var productNum = document.getElementById('productNum').value;
+
+
+	
+      $.ajax({
+             
+            type : "GET",
+            url : "${contextPath}/favoriteCount.do",
+            data:{
+            	productNum:productNum
+            },	
+            dataType : "text",
+            error : function(data){
+            	alert("에러가 발생했습니다."+data);
+            },
+            success : function(data){
+     
+            	$(".favoriteText").text(data);
+            }
+             
+        });
+
+
+
+	});
+</script>
 </head>
 <body>
 
@@ -147,13 +176,13 @@
 	<section class="ftco-section" style="padding-top: 30px;">
 		<div class="container">
 
-				<img src="${contextPath}/resources/images/product/selina.jpg" width=100%
-		height=350px style="margin-bottom:30px;">
+			<img src="${contextPath}/resources/images/product/selina.jpg"
+				width=100% height=350px style="margin-bottom: 30px;">
 			<!-- 최근 본 상품 -->
 
 			<!-- 최근 본 상품 끝 -->
 
-			<ul class="snip1284" style="margin-bottom: 30px; font-weight:bold;">
+			<ul class="snip1284" style="margin-bottom: 30px; font-weight: bold;">
 				<li class="current"><a
 					onclick="location.href ='${contextPath}/product/listProduct.do?sort=침대&subsort=싱글'"
 					data-hover="싱글"
@@ -225,15 +254,21 @@
 									<div class="text d-flex py-1">
 										<div class="desc pl-2">
 											<h3 class="heading">
-												<a style="font-size:15px;"
+												<a style="font-size: 15px;"
 													href="${contextPath}/product/viewProduct.do?productNum=${product.productNum}">${product.productName}</a>
+												<a style="fontsize: 10px; margin-top: 7px;"><span class="favoriteText"
+													style="color: #7e9c8c; margin-top: 5px; font-size: 15px; float: right;">1111</span><img
+													src="${contextPath}/resources/images/heartfull.jpg"
+													id="favoritHeart"
+													style="width: 17px; height: 17px; margin-top: 7px; margin-bottom: 3px; float: right;" /></a>
 											</h3>
-											<hr style="margin-top: 15px; margin-bottom:10px;">
-												<h3 class="heading"
-													style="float: right; white-space: nowrap; margin-bottom: 10px;">
-													<a href="#" style="font-size: 16px;"><fmt:formatNumber
-															pattern="###,###,###" value="${product.productPrice}" />원</a>
-												</h3>
+											<input type="hidden" name="productNum" id="productNum" value="${product.productNum}"/>
+											<hr style="margin-top: 15px; margin-bottom: 10px;">
+											<h3 class="heading"
+												style="float: right; white-space: nowrap; margin-bottom: 10px;">
+												<a href="#" style="font-size: 16px;"><fmt:formatNumber
+														pattern="###,###,###" value="${product.productPrice}" />원</a>
+											</h3>
 										</div>
 									</div>
 								</div>
