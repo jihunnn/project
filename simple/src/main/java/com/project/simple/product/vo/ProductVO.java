@@ -284,7 +284,7 @@ public class ProductVO {
 	public int getFavoriteCount() {
 		return favoriteCount;
 	}
-	public void setFavoriteCount(int productAnswerContent) {
+	public void setFavoriteCount(int favoriteCount) {
 		this.favoriteCount = favoriteCount;
 	}
 	

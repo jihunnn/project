@@ -22,6 +22,7 @@ public class ProductDAOImpl implements ProductDAO{
 	public List<ProductVO> selectAllProductList(Map<String, Object>ProductMap) throws DataAccessException{
 		
 		List<ProductVO> productList = sqlSession.selectList("mapper.product.selectAllProductList", ProductMap);
+		System.out.println(productList);
 		return productList;
 	}
 	@Override

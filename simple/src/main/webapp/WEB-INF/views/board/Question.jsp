@@ -243,7 +243,10 @@ style
 	<section class="ftco-section"
 		style="padding-top: 70px; margin-top: 30px;">
 		<div class="container">
-
+			<c:if test="${AdminisLogOn == true && admin != null}">
+				<jsp:include page="/WEB-INF/views/common/admin_topmenu.jsp"
+					flush="false" />
+			</c:if>
 
 			<ul class="snip1284" style="margin-bottom: 30px; padding-left: 0px;">
 				<li><a
@@ -304,59 +307,60 @@ style
 			<!--  최근 본 상품 끝 -->
 
 			<!-- 내용 -->
-			<button type="button" class="btn btn-dark" id="btnSearch" 
-				style="margin-top: 21px; float: right; padding-top: 4px; height: 34px; font-size: 14px; padding-top: 4px; background-color:#7e9c8c; border:none; border-radius:2px;">검색</button>
+			<button type="button" class="btn btn-dark" id="btnSearch"
+				style="margin-top: 21px; float: right; padding-top: 4px; height: 34px; font-size: 14px; padding-top: 4px; background-color: #7e9c8c; border: none; border-radius: 2px;">검색</button>
 			<input type="text" class="form-control" class="btn btn-dark"
-				style="margin-top: 21px; float: right; height:34px; border: 1px solid #dcdcdc; font-size:14px; margin-right: 5px; width:159px;"
+				style="margin-top: 21px; float: right; height: 34px; border: 1px solid #dcdcdc; font-size: 14px; margin-right: 5px; width: 159px;"
 				name="search" id="search">
 
-		
 
 
 
-		<div>
 
-			<table class="table"
-				style="margin-bottom: 50px; width: 1275px; height: 25px; font-size: 14px;">
-				<thead class="table-dark" align=center>
-					<tr align="center" style="background-color: #eeeeee; border-top:1px solid #7e9c8c;color:black; border-bottom: 1px solid #c6c8ca; font-size:15px;">
-						<td scope="col" width="100">번호</td>
-						<td scope="col" width="500">내용</td>
+			<div>
 
-					</tr>
-					<c:set var="num"
-						value="${pageMaker.totalCount - ((pageNum-1) * 10) }" />
-					<c:forEach var="question" items="${questionList}"
-						varStatus="questionNum">
-						<tr 
-							style="border-bottom: 1px solid #c6c8ca !important; background-color: white; color: black;">
+				<table class="table"
+					style="margin-bottom: 50px; width: 1275px; height: 25px; font-size: 14px;">
+					<thead class="table-dark" align=center>
+						<tr align="center"
+							style="background-color: #eeeeee; border-top: 1px solid #7e9c8c; color: black; border-bottom: 1px solid #c6c8ca; font-size: 15px;">
+							<td scope="col" width="100">번호</td>
+							<td scope="col" width="500">내용</td>
 
-							<td scope="col" width="50" style="padding-top: 12px;">${num}</td>
-							<td align="left" scope="col" width="500"
-								style="padding-top: 15px; padding-bottom: 0px;">
-								<div>
-									<div id="section1b" class="label">
-										<p
-											style="color: black; text-align: left; cursor: pointer; font-weight: normal;">
-											<span style="color: red">Q</span>. ${question.questionTitle }
-										</p>
-									</div>
-									<div id="section1b" class="elements">
-										<hr style="margin-bottom: 20px; margin-top: 0px;">
-										<p style="color: black; text-align: left; cursor: pointer;">
-											<span style="color: green;">A</span>.
-											${question.questionContent }
-										</p>
-									</div>
-								</div>
-							</td>
 						</tr>
-						<c:set var="num" value="${num-1}"></c:set>
-					</c:forEach>
-				</thead>
-			</table>
-			<!-- -아코디언메뉴 -->
-			<script type="text/javascript">
+						<c:set var="num"
+							value="${pageMaker.totalCount - ((pageNum-1) * 10) }" />
+						<c:forEach var="question" items="${questionList}"
+							varStatus="questionNum">
+							<tr
+								style="border-bottom: 1px solid #c6c8ca !important; background-color: white; color: black;">
+
+								<td scope="col" width="50" style="padding-top: 12px;">${num}</td>
+								<td align="left" scope="col" width="500"
+									style="padding-top: 15px; padding-bottom: 0px;">
+									<div>
+										<div id="section1b" class="label">
+											<p
+												style="color: black; text-align: left; cursor: pointer; font-weight: normal;">
+												<span style="color: red">Q</span>. ${question.questionTitle }
+											</p>
+										</div>
+										<div id="section1b" class="elements">
+											<hr style="margin-bottom: 20px; margin-top: 0px;">
+											<p style="color: black; text-align: left; cursor: pointer;">
+												<span style="color: green;">A</span>.
+												${question.questionContent }
+											</p>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<c:set var="num" value="${num-1}"></c:set>
+						</c:forEach>
+					</thead>
+				</table>
+				<!-- -아코디언메뉴 -->
+				<script type="text/javascript">
 				var elements = document.getElementsByTagName("div");
 
 				// 모든 영역 접기
@@ -382,71 +386,74 @@ style
 					return false;
 				}
 			</script>
-		</div>
-		<!-- 내용 끝 -->
-		<!-- 페이징 글번호 -->
-		<c:choose>
-			<c:when test="${questionSearchMap ==null}">
-				<div class="page_wrap" style="margin-left: 80px; margin-top: 60px;">
-					<div class="page_nation">
+			</div>
+			<!-- 내용 끝 -->
+			<!-- 페이징 글번호 -->
+			<c:choose>
+				<c:when test="${questionSearchMap ==null}">
+					<div class="page_wrap" style="margin-left: 80px; margin-top: 60px;">
+						<div class="page_nation">
 
-						<c:if test="${pageMaker.prev}">
+							<c:if test="${pageMaker.prev}">
 
-							<a class="arrow prev" style="border: none; color:black; margin-right:0px; margin-left:0px;"
-								href='<c:url value="/board/listQuestion?page=${pageMaker.startPage-1 }"/>'><i
-								class="fa fa-chevron-left"></i></a>
+								<a class="arrow prev"
+									style="border: none; color: black; margin-right: 0px; margin-left: 0px;"
+									href='<c:url value="/board/listQuestion?page=${pageMaker.startPage-1 }"/>'><i
+									class="fa fa-chevron-left"></i></a>
 
-						</c:if>
-						<c:forEach begin="${pageMaker.startPage }"
-							end="${pageMaker.endPage }" var="pageNum">
+							</c:if>
+							<c:forEach begin="${pageMaker.startPage }"
+								end="${pageMaker.endPage }" var="pageNum">
 
-							<a style="border: none; color:black; margin-right:0px; margin-left:0px;"
-								href='<c:url value="/board/listQuestion.do?page=${pageNum }"/>'><i
-								class="fa">${pageNum }</i></a>
+								<a
+									style="border: none; color: black; margin-right: 0px; margin-left: 0px;"
+									href='<c:url value="/board/listQuestion.do?page=${pageNum }"/>'><i
+									class="fa">${pageNum }</i></a>
 
-						</c:forEach>
-						<c:if test="${pageMaker.next && pageMaker.endPage >0 }">
+							</c:forEach>
+							<c:if test="${pageMaker.next && pageMaker.endPage >0 }">
 
-							<a class="arrow next" style="border: none; color:black; margin-right:0px; margin-left:0px;"
-								href='<c:url value="/board/listQuestion?page=${pageMaker.endPage+1 }"/>'><i
-								class="fa fa-chevron-right"></i></a>
+								<a class="arrow next"
+									style="border: none; color: black; margin-right: 0px; margin-left: 0px;"
+									href='<c:url value="/board/listQuestion?page=${pageMaker.endPage+1 }"/>'><i
+									class="fa fa-chevron-right"></i></a>
 
-						</c:if>
+							</c:if>
 
+						</div>
 					</div>
-				</div>
-			</c:when>
-			<c:when test="${questionSearchMap !=null}">
-				<div class="page_wrap" style="margin-left: 80px; margin-top: 50px;">
-					<div class="page_nation">
+				</c:when>
+				<c:when test="${questionSearchMap !=null}">
+					<div class="page_wrap" style="margin-left: 80px; margin-top: 50px;">
+						<div class="page_nation">
 
-						<c:if test="${pageMaker.prev}">
+							<c:if test="${pageMaker.prev}">
 
-							<a class="arrow prev"
-								href='<c:url value="/board/questionSearch.do?search=${questionSearchMap.search}&page=${pageMaker.startPage-1 }"/>'><i
-								class="fa fa-chevron-left"></i></a>
+								<a class="arrow prev"
+									href='<c:url value="/board/questionSearch.do?search=${questionSearchMap.search}&page=${pageMaker.startPage-1 }"/>'><i
+									class="fa fa-chevron-left"></i></a>
 
-						</c:if>
-						<c:forEach begin="${pageMaker.startPage }"
-							end="${pageMaker.endPage }" var="pageNum">
+							</c:if>
+							<c:forEach begin="${pageMaker.startPage }"
+								end="${pageMaker.endPage }" var="pageNum">
 
-							<a
-								href='<c:url value="/board/questionSearch.do?search=${questionSearchMap.search}&page=${pageNum }"/>'><i
-								class="fa">${pageNum }</i></a>
+								<a
+									href='<c:url value="/board/questionSearch.do?search=${questionSearchMap.search}&page=${pageNum }"/>'><i
+									class="fa">${pageNum }</i></a>
 
-						</c:forEach>
-						<c:if test="${pageMaker.next && pageMaker.endPage >0 }">
+							</c:forEach>
+							<c:if test="${pageMaker.next && pageMaker.endPage >0 }">
 
-							<a class="arrow next"
-								href='<c:url value="/board/questionSearch.do?search=${questionSearchMap.search}&page=${pageMaker.endPage+1 }"/>'><i
-								class="fa fa-chevron-right"></i></a>
+								<a class="arrow next"
+									href='<c:url value="/board/questionSearch.do?search=${questionSearchMap.search}&page=${pageMaker.endPage+1 }"/>'><i
+									class="fa fa-chevron-right"></i></a>
 
-						</c:if>
+							</c:if>
 
+						</div>
 					</div>
-				</div>
-			</c:when>
-		</c:choose>
+				</c:when>
+			</c:choose>
 		</div>
 	</section>
 </body>

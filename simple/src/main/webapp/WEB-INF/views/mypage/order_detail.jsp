@@ -398,7 +398,7 @@
 
 										<div style="font-size: 11px;">
 											<a>연락처 :</a> <a>${memOrderSeqNum.memSpPhoneNum1}</a>
-											<c:if test="${memOrderSeqNum.memSpPhoneNum2 !=null}">
+											<c:if test="${memOrderSeqNum.memSpPhoneNum2 !='--'}">
 												<a>/ ${memOrderSeqNum.memSpPhoneNum2}</a>
 											</c:if>
 										</div>

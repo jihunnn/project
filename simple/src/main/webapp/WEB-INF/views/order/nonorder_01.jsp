@@ -318,7 +318,7 @@ h4 {
 								<tr class="tr1"
 									style="border-bottom: 1px solid rgba(0, 0, 0, 0.1);">
 									<th scope="col" style="vertical-align: middle;"><img
-										src="${contextPath}/resources/images/sofa01.jpg" width=80
+										src="${contextPath}/download_product.do?productNum=${orderlist.productNum}&productImage=${orderlist.productImage}" width=80
 										height=80></th>
 									<th scope="col" style="vertical-align: middle;">${orderlist.productName}</th>
 									<th scope="col"

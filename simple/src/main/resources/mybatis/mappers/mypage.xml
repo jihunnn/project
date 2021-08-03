@@ -92,6 +92,8 @@
 	]]>
 	</select>
 
+
+	<!-- 주문 상품 정보 -->
 	<select id="selectMyOrderInfo" resultType="mypageVO"
 		parameterType="int"> 
 	<![CDATA[
@@ -105,13 +107,13 @@
 
 	]]>
 	</select>
-
+	<!-- 주문자, 배송지 정보 -->
 	<select id="selectMyOrderInfoMem" resultType="mypageVO"
 		parameterType="int"> 
 	<![CDATA[
 			
 
-		select m.memName, memAdr, memPhoneNum, memSpName, memSpPhoneNum1, memSpPhoneNum2, memSpAdr,memOrderMsg, memDepositorName, memPaymentMethod, totalPrice
+		select m.memName, replace(memAdr,'-','') as memAdr, memPhoneNum, memSpName, memSpPhoneNum1, memSpPhoneNum2, replace(memSpAdr,'-','') as memSpAdr,memOrderMsg, memDepositorName, memPaymentMethod, totalPrice
 		from memberOrder as o left join member as m on o.memId=m.memId 
 			where memOrderSeqNum = #{memOrderSeqNum} order by memOrderSeqNum desc;
 			

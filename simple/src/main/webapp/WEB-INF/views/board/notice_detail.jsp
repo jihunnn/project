@@ -91,6 +91,10 @@
 	<section class="ftco-section"
 		style="padding-top: 50px; margin-top: 30px; padding-bottom: 130px;">
 		<div class="container">
+			<c:if  test="${AdminisLogOn == true && admin != null}">
+				<jsp:include page="/WEB-INF/views/common/admin_topmenu.jsp"
+					flush="false" />
+			</c:if>
 			<jsp:include page="/WEB-INF/views/common/csMenu.jsp" flush="false" />
 			<div>
 				<h2 style="font-size: 25px; margin-top: 15px; float: left;">공지사항</h2>
@@ -159,11 +163,11 @@
 				</table>
 				<c:if test="${AdminisLogOn == true && admin != null}">
 					<button type="submit" class="btn btn-dark " id="buttonmy"
-						style="float:right; margin-top: 30px; border-radius: 2px; background-color: #7e9c8c; color: white; border: none; border-radius: 2px; width: 120px; height: 40px; padding-top: 10px; padding-top: 4px; float: left;">수정</button>
+						style="float: right; margin-top: 30px; border-radius: 2px; background-color: #7e9c8c; color: white; border: none; border-radius: 2px; width: 120px; height: 40px; padding-top: 10px; padding-top: 4px; float: left;">수정</button>
 					<button type="button"
 						onclick="location.href='${contextPath}/board/listNotice.do'"
 						id="buttonmy" class="btn btn-dark"
-						style="float:right; margin-top: 30px; border-radius: 2px; background-color: white; color: gray; border: 1px solid #7e9c8c; border-radius: 2px; width: 120px; height: 40px; padding-top: 10px; padding-top: 4px; float: left;">삭제</button>
+						style="float: right; margin-top: 30px; border-radius: 2px; background-color: white; color: gray; border: 1px solid #7e9c8c; border-radius: 2px; width: 120px; height: 40px; padding-top: 10px; padding-top: 4px; float: left;">삭제</button>
 				</c:if>
 				<button type="button"
 					onclick="location.href='${contextPath}/board/listNotice.do'"

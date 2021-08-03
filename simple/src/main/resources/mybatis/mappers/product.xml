@@ -34,10 +34,14 @@
 	</resultMap>
 
 	<resultMap id="productQuestionResult" type="productVO">
-		<result property="productQuestionTitle" column="productQuestionTitle" />
-		<result property="productQuestionContent" column="productQuestionContent" />
-		<result property="productQuestionDate" column="productQuestionDate" />
-		<result property="productAnswerContent" column="productAnswerContent" />
+		<result property="productQuestionTitle"
+			column="productQuestionTitle" />
+		<result property="productQuestionContent"
+			column="productQuestionContent" />
+		<result property="productQuestionDate"
+			column="productQuestionDate" />
+		<result property="productAnswerContent"
+			column="productAnswerContent" />
 	</resultMap>
 
 
@@ -54,38 +58,49 @@
         group by productNum limit 3;
 	]]>
 	</select>
-	<select id="selectProductList" resultMap="proResult" parameterType="java.util.Map">
+	<select id="selectProductList" resultMap="proResult"
+		parameterType="java.util.Map">
       <![CDATA[
           select *
           from simple.product
           where productNum in
           
       ]]>
-      <foreach item="item" collection="list" open="(" separator="," close=")">
+		<foreach item="item" collection="list" open="(" separator=","
+			close=")">
 			#{item.productNum}
 		</foreach>
-		
+
 	</select>
-	
+
 	<!-- 상품 조회 -->
 
 	<select id="selectAllProductList" resultMap="proResult"
 		parameterType="java.util.Map">
 
 		<if test='subsort == "x"'>
-			select productName, p.productNum, productPrice, productImage, f.count(*) as favoriteCount 
-			from simple.product as p left join favoriteproduct as f on p.productNum=f.productNum where category = #{sort} 
+			select p.productNum, productName, productPrice, productImage,
+			count(f.productNum) as favoriteCount
+			from simple.product as p left join favoriteproduct as f on
+			p.productNum=f.productNum where category=#{sort} group by
+			p.productNum ;
+
 		</if>
 		<if test='subsort != "x"'>
-			select * from simple.product where category = #{sort} and
-			subCategory = #{subsort}
+			select p.productNum, productName, productPrice, productImage,
+			count(f.productNum) as favoriteCount
+			from simple.product as p left join favoriteproduct as f on
+			p.productNum=f.productNum where category=#{sort} and subCategory=
+			#{subsort} group by p.productNum ;
+
 		</if>
 
 
 	</select>
 
 	<!-- 옵션조회 -->
-	<select id="selectOptionList1" resultMap="proResult" parameterType="string"> 
+	<select id="selectOptionList1" resultMap="proResult"
+		parameterType="string"> 
 
 	<![CDATA[
 			
@@ -93,8 +108,9 @@
 		
 	]]>
 	</select>
-	
-	<select id="selectOptionList2" resultMap="proResult" parameterType="string"> 
+
+	<select id="selectOptionList2" resultMap="proResult"
+		parameterType="string"> 
 	<![CDATA[
 			
 			select option2name, option2value, option2price from detailoption where productNum = #{productNum} group by option2name, option2value, option2price;
@@ -102,19 +118,19 @@
 
 	]]>
 	</select>
-	
-	
 
 
-	  <!-- 관리자 상품 조회 -->
+
+
+	<!-- 관리자 상품 조회 -->
 	<select id="admin_selectAllProductList" resultMap="proResult">
 	<![CDATA[
-		select * from simple.product
+		select * from simple.product order by productDate desc
 		limit #{pageStart}, #{perPageNum};
 	]]>
 	</select>
 
-		<select id="selectProductCount" resultType="int"
+	<select id="selectProductCount" resultType="int"
 		parameterType="int">
 	<![CDATA[
 			
@@ -253,75 +269,83 @@
 	]]>
 	</select>
 	<select id="productSearchList" resultMap="proResult">
-			
-			select *
-			from simple.product
-			where
-			<if test="searchType=='productName' and search != null and search != '' ">
 
-				productName like CONCAT('%', #{search}, '%')
-			
+		select *
+		from simple.product
+		where
+		<if
+			test="searchType=='productName' and search != null and search != '' ">
 
-			</if>
+			productName like CONCAT('%', #{search}, '%')
 
-			<if test="searchType=='productNum' and search != null and search != '' ">
 
-				productNum like CONCAT('%', #{search}, '%')
+		</if>
 
-			</if>
+		<if
+			test="searchType=='productNum' and search != null and search != '' ">
 
-			<if test="searchType=='category' and search != null and search != '' ">
+			productNum like CONCAT('%', #{search}, '%')
 
-				category like CONCAT('%', #{search}, '%')
+		</if>
 
-			</if>	
-			<if test="searchType=='subcategory' and search != null and search != '' ">
+		<if
+			test="searchType=='category' and search != null and search != '' ">
 
-				subcategory like CONCAT('%', #{search}, '%')
+			category like CONCAT('%', #{search}, '%')
 
-			</if>	
+		</if>
+		<if
+			test="searchType=='subcategory' and search != null and search != '' ">
 
-			limit #{pageStart}, #{perPageNum};
-			
-			
-	
-			
-			
+			subcategory like CONCAT('%', #{search}, '%')
 
-	
+		</if>
+
+		limit #{pageStart}, #{perPageNum};
+
+
+
+
+
+
+
 	</select>
-	
-		<select id="productSearchCount" resultType="int"
+
+	<select id="productSearchCount" resultType="int"
 		parameterType="java.util.Map">
 
-			
-			select count(*) 
-			from simple.product 
-			where
-			<if test="searchType=='productName' and search != null and search != '' ">
 
-				productName like CONCAT('%', #{search}, '%')
-			
+		select count(*)
+		from simple.product
+		where
+		<if
+			test="searchType=='productName' and search != null and search != '' ">
 
-			</if>
+			productName like CONCAT('%', #{search}, '%')
 
-			<if test="searchType=='productNum' and search != null and search != '' ">
 
-				productNum like CONCAT('%', #{search}, '%')
+		</if>
 
-			</if>
+		<if
+			test="searchType=='productNum' and search != null and search != '' ">
 
-			<if test="searchType=='category' and search != null and search != '' ">
+			productNum like CONCAT('%', #{search}, '%')
 
-				category like CONCAT('%', #{search}, '%')
+		</if>
 
-			</if>	
-			<if test="searchType=='subcategory' and search != null and search != '' ">
+		<if
+			test="searchType=='category' and search != null and search != '' ">
 
-				subcategory like CONCAT('%', #{search}, '%')
+			category like CONCAT('%', #{search}, '%')
 
-			</if>	
-			
+		</if>
+		<if
+			test="searchType=='subcategory' and search != null and search != '' ">
+
+			subcategory like CONCAT('%', #{search}, '%')
+
+		</if>
+
 
 
 	</select>

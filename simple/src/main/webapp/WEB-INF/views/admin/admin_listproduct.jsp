@@ -14,66 +14,6 @@
 <head>
 
 <style>
-@import url(https://fonts.googleapis.com/css?family=Raleway:500);
-
-.snip1284 {
-	font-family: 'Raleway', Arial, sans-serif;
-	text-align: center;
-	text-transform: uppercase;
-	font-weight: 500;
-	letter-spacing: 1px;
-}
-
-.snip1284 * {
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
-	-webkit-transition: all 0.35s ease;
-	transition: all 0.35s ease;
-}
-
-.snip1284 li {
-	display: inline-block;
-	list-style: outside none none;
-	margin: 0.5em 1.2em;
-	padding: 0;
-}
-
-.snip1284 a {
-	padding: 0 0.6em;
-	color: rgba(255, 255, 255, 0.5);
-	position: relative;
-	text-decoration: none;
-}
-
-.snip1284 a:before, .snip1284 a:after {
-	width: 3px;
-	height: 0;
-	position: absolute;
-	content: '';
-	-webkit-transition: all 0.35s ease;
-	transition: all 0.35s ease;
-	background-color: #7e9c8c;
-}
-
-.snip1284 a:before {
-	top: 0;
-	right: 0;
-}
-
-.snip1284 a:after {
-	bottom: 0;
-	left: 0;
-}
-
-.snip1284 a:hover, .snip1284 .current a {
-	color: #ffffff;
-}
-
-.snip1284 a:hover:before, .snip1284 .current a:before, .snip1284 a:hover:after,
-	.snip1284 .current a:after {
-	height: 100%;
-}
-
 .page_wrap {
 	text-align: center;
 	font-size: 0;
@@ -155,145 +95,148 @@
 	<section class="ftco-section testimony-section"
 		style="padding-top: 100px;">
 		<div class="container">
-			<ul class="snip1284" style="padding-left: 0px; margin-bottom: 30px;">
-				<li  class="current"><a
-					onclick="location.href='${contextPath}/product/admin_listProduct.do'"
-					data-hover="상품관리"
-					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 100px; cursor: pointer; background-color: white; margin-left: 20px; padding-bottom: 0px;">상품관리</a></li>
-
-
-				<li><a
-					onclick="location.href='${contextPath}/product/add_product.do'"
-					data-hover="상품등록"
-					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 100px; cursor: pointer; background-color: white; padding-bottom: 0px;">상품등록</a></li>
-
-
-				<li><a
-					onclick="location.href='${contextPath}/admin_listmember.do'"
-					data-hover="회원관리"
-					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 100px; cursor: pointer; background-color: white; padding-bottom: 0px;">회원관리</a></li>
-
-
-				<li><a
-					onclick="location.href='${contextPath}/board/listNotice.do'"
-					data-hover="게시판관리"
-					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 100px; background-color: white; cursor: pointer; padding-bottom: 0px;">게시판관리</a></li>
-				<li><a
-					onclick="location.href='${contextPath}/admin_listorder.do'"
-					data-hover="주문관리"
-					style="font-size: 20px; border: none; color: #5a5a5a; background-color: white; cursor: pointer; padding-bottom: 0px;">주문관리</a></li>
-			</ul>
-
-
+			<jsp:include page="/WEB-INF/views/common/admin_topmenu.jsp"
+				flush="false" />
 
 			<form name="productSearch"
 				action="${contextPath}/product/admin_listProduct/productSearch.do"
 				method="post">
 				<div style="margin-bottom: 10px;">
-					<select name="searchType"
-						style="margin-left: 850px; float: left; width: 120px; height: 31px; border: 1px solid #b3b5b6;">
+					<button type="submit" id="buttonmy" class="btn btn-dark"
+						style="margin-top: 21px; float: right; padding-top: 4px; height: 34px; font-size: 13px; padding-top: 4px; background-color: #7e9c8c; border: none;">조회</button>
+					<input type="text"
+						style="margin-top: 21px; float: right; height: 34px; border: 1px solid #dcdcdc; font-size: 13px; margin-right: 5px;"
+						name="search"> <select name="searchType"
+						style="font-size: 13px; margin-bottom: 10px; margin-right: 5px; float: right; width: 80px; height: 34px; border: 1px solid #dcdcdc; margin-top: 21px;">
 						<option value="productName">상품이름</option>
 						<option value="productNum">상품번호</option>
 						<option value="category">카테고리</option>
 						<option value="subcategory">하위카테고리</option>
-					</select> <input type="text" class="form-control" id="inputbox"
-						style="margin-top: 10px; margin-left: 980px;" name="search">
-					<button type="submit" id="buttonmy" class="btn btn-dark"
-						style="margin-top: -33px; margin-left: 1190px; padding-top: 4px; height: 33px;">조회</button>
+					</select>
 				</div>
 			</form>
+<div style="font-size:25px; font-weight:bold; margin-left:18px; padding-top:13px;"><a style="color:#7e9c8c;">상품조회</a></div>
 
+			<table class="table" style="font-size: 13px;">
+				<thead class="table-dark" align=center>
+					<tr
+						style="background-color: #fbfbfb; color: black; border-top: 1px solid #7e9c8c; border-bottom: 1px solid #eeeeee; font-size: 14px;">
+						<td scope="col" style="width: 120px;">상품번호</td>
+						<td scope="col" style="width: 120px;">상품이미지</td>
+						<td scope="col" style="width: 200px;">상품이름</td>
 
-			<hr style="margin-top: 15px;">
+						<td scope="col" style="width: 100px;">상품가격</td>
+						<td scope="col">카테고리</td>
+						<td scope="col" style="width: 150px;">서브카테고리</td>
+						<td scope="col">제조사</td>
+						<td scope="col" style="width: 100px;">원산지</td>
+						<td scope="col">상품등록일</td>
+					</tr>
+					<c:choose>
+						<c:when test="${!empty productSearchMap.search}">
+							<c:choose>
+								<c:when test="${empty productSearchMap.productSearchList}">
+									<tr height="200">
+										<td colspan="5"
+											style="background-color: white; padding-top: 100px;">
+											<p align="center">
+												<b><span style="color: black;">등록된 상품이 없습니다.</span></b>
+											</p>
+										</td>
+									</tr>
+								</c:when>
+								<c:otherwise>
+									<c:forEach var="productSearch" items="${productSearchList}"
+										varStatus="productNum">
+										<tr
+											style="border-bottom: 1px solid #eeeeee; background-color: white; color: black; height: 100px;">
+											<td scope="col"
+												style="height: 70px; display: table-cell; vertical-align: middle;">${productSearch.productNum}</td>
+											<td scope="col"
+												style="height: 70px; display: table-cell; vertical-align: middle;"><a
+												href="${contextPath}/product/admin_detailproduct.do?productNum=${productSearch.productNum}">
+													<img class="block-20" style="width: 90px; height: 90px;"
+													src="${contextPath}/download_product.do?productNum=${productSearch.productNum}&productImage=${productSearch.productImage}"
+													id="preview" />
+											</a></td>
+											<td scope="col"
+												style="height: 70px; display: table-cell; vertical-align: middle; text-align: left;"><a
+												href="${contextPath}/product/admin_detailproduct.do?productNum=${productSearch.productNum}">${productSearch.productName}</a></td>
+											<td scope="col"
+												style="height: 70px; display: table-cell; vertical-align: middle;">${productSearch.productPrice}</td>
+											<td scope="col"
+												style="height: 70px; display: table-cell; vertical-align: middle;">${productSearch.category}</td>
+											<td scope="col"
+												style="height: 70px; display: table-cell; vertical-align: middle;">${productSearch.subcategory}</td>
+											<td scope="col"
+												style="height: 70px; display: table-cell; vertical-align: middle;">${productSearch.productManufacturer}</td>
+											<td scope="col"
+												style="height: 70px; display: table-cell; vertical-align: middle;">${productSearch.productOrigin}</td>
+											<td scope="col"
+												style="height: 70px; display: table-cell; vertical-align: middle;"><fmt:formatDate
+													value="${productSearch.productDate}" /></td>
+										</tr>
+									</c:forEach>
+								</c:otherwise>
+							</c:choose>
+						</c:when>
+						<c:when test="${empty productSearchMap.search}">
+							<c:choose>
+								<c:when test="${empty admin_productList}">
+									<tr height="200">
+										<td colspan="5"
+											style="background-color: white; padding-top: 100px;">
+											<p align="center">
+												<b><span style="color: black;">등록된 상품이 없습니다.</span></b>
+											</p>
+										</td>
+									</tr>
+								</c:when>
+								<c:otherwise>
+									<c:forEach var="product" items="${admin_productList}"
+										varStatus="productNum">
 
+										<tr
+											style="border-bottom: 1px solid #eeeeee; background-color: white; color: black; height: 100px;">
+											<td scope="col"
+												style="height: 70px; display: table-cell; vertical-align: middle;">${product.productNum}</td>
+											<td scope="col"
+												style="height: 70px; display: table-cell; vertical-align: middle;"><a
+												href="${contextPath}/product/admin_detailproduct.do?productNum=${product.productNum}">
+													<img class="block-20" style="width: 90px; height: 90px;"
+													src="${contextPath}/download_product.do?productNum=${product.productNum}&productImage=${product.productImage}"
+													id="preview" />
+											</a></td>
 
-			<div class="row">
-				<c:choose>
-					<c:when test="${!empty productSearchMap.search}">
-						<c:choose>
-							<c:when test="${empty productSearchMap.productSearchList}">
-								<b><span style="color: black;">등록된 상품이 없습니다.</span></b>
-							</c:when>
-							<c:otherwise>
-								<c:forEach var="productSearch" items="${productSearchList}"
-									varStatus="productNum">
-									<div class="col-md-4 ftco-animate">
-										<div class="blog-entry">
-											<c:choose>
-												<c:when
-													test="${not empty productSearch.productImage && productSearch.productImage != 'null'}">
-													<input type="hidden" name="OrignProductFile"
-														value="${productSearch.productImage}" class="block-20" />
-													<a
-														href="${contextPath}/product/viewProduct.do?productNum=${productSearch.productNum}">
-														<img class="block-20" style="width: 400px;"
-														src="${contextPath}/download_product.do?productNum=${productSearch.productNum}&productImage=${productSearch.productImage}"
-														id="preview" />
-													</a>
-													<br>
-												</c:when>
-											</c:choose>
-											<div class="text d-flex py-1">
-												<div class="desc pl-2">
-													<h3 class="heading">
-														<a style="font-size: 15px;"
-															href="${contextPath}/product/admin_detailproduct.do?productNum=${productSearch.productNum}">${productSearch.productName}</a>
-													</h3>
-													<hr style="margin-top: 25px;">
+											<td scope="col"
+												style="height: 70px; display: table-cell; vertical-align: middle; text-align: left;"><a
+												href="${contextPath}/product/admin_detailproduct.do?productNum=${product.productNum}">${product.productName}</a></td>
+											<td scope="col"
+												style="height: 70px; display: table-cell; vertical-align: middle;">${product.productPrice}</td>
+											<td scope="col"
+												style="height: 70px; display: table-cell; vertical-align: middle;">${product.category}</td>
+											<td scope="col"
+												style="height: 70px; display: table-cell; vertical-align: middle;">${product.subcategory}</td>
+											<td scope="col"
+												style="height: 70px; display: table-cell; vertical-align: middle;">${product.productManufacturer}</td>
+											<td scope="col"
+												style="height: 70px; display: table-cell; vertical-align: middle;">${product.productOrigin}</td>
+											<td scope="col"
+												style="height: 70px; display: table-cell; vertical-align: middle;"><fmt:formatDate
+													value="${product.productDate}" /></td>
+										</tr>
 
-												</div>
-											</div>
-										</div>
-									</div>
-								</c:forEach>
-							</c:otherwise>
-						</c:choose>
-					</c:when>
-					<c:when test="${empty productSearchMap.search}">
-						<c:choose>
-							<c:when test="${empty admin_productList}">
-								<b><span style="color: black;">등록된 상품이 없습니다.</span></b>
-							</c:when>
-							<c:otherwise>
-								<c:forEach var="product" items="${admin_productList}"
-									varStatus="productNum">
-									<div class="col-md-4 ftco-animate">
-										<div class="blog-entry">
-											<c:choose>
-												<c:when
-													test="${not empty product.productImage && product.productImage != 'null'}">
-													<input type="hidden" name="OrignProductFile"
-														value="${product.productImage}" class="block-20" />
-													<a
-														href="${contextPath}/product/admin_detailproduct.do?productNum=${product.productNum}">
-														<img class="block-20" style="width: 400px;"
-														src="${contextPath}/download_product.do?productNum=${product.productNum}&productImage=${product.productImage}"
-														id="preview" />
-													</a>
-													<br>
-												</c:when>
-											</c:choose>
-											<div class="text d-flex py-1">
-												<div class="desc pl-2">
-													<h3 class="heading">
-														<a style="font-size: 15px;"
-															href="${contextPath}/product/admin_detailproduct.do?productNum=${product.productNum}">${product.productName}</a>
-													</h3>
-													<hr style="margin-top: 25px;">
+									</c:forEach>
 
-												</div>
-											</div>
-										</div>
-									</div>
-								</c:forEach>
-							</c:otherwise>
-						</c:choose>
-					</c:when>
-				</c:choose>
+								</c:otherwise>
+							</c:choose>
+						</c:when>
+					</c:choose>
 
-
-			</div>
+				</thead>
+			</table>
 		</div>
+		<!-- 내용 끝 -->
 
 		<!-- 페이징 글번호 -->
 		<div class="page_wrap" style="margin-left: 80px; margin-top: 60px;">
@@ -301,7 +244,7 @@
 
 				<c:if test="${pageMaker1.prev}">
 
-					<a class="arrow prev"
+					<a class="arrow prev" style="border: 1px solid #7e9c8c; color:#7e9c8c; margin-right:0px; margin-left:2px;"
 						href='<c:url value="/product/admin_listProduct.do?page=${pageMaker1.startPage-1 }"/>'><i
 						class="fa fa-chevron-left"></i></a>
 
@@ -309,14 +252,14 @@
 				<c:forEach begin="${pageMaker1.startPage }"
 					end="${pageMaker1.endPage }" var="pageNum">
 
-					<a
+					<a style="border: 1px solid #7e9c8c; color:#7e9c8c; margin-right:0px; margin-left:2px;"
 						href='<c:url value="/product/admin_listProduct.do?page=${pageNum }"/>'><i
 						class="fa">${pageNum }</i></a>
 
 				</c:forEach>
 				<c:if test="${pageMaker1.next && pageMaker1.endPage >0 }">
 
-					<a class="arrow next"
+					<a class="arrow next" style="border: 1px solid #7e9c8c; color:#7e9c8c; margin-right:0px; margin-left:2px;"
 						href='<c:url value="/product/admin_listProduct.do?page=${pageMaker1.endPage+1 }"/>'><i
 						class="fa fa-chevron-right"></i></a>
 
@@ -328,7 +271,5 @@
 
 
 	</section>
-
-
 </body>
 </html>

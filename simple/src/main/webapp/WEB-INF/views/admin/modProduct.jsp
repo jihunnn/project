@@ -9,66 +9,6 @@
 
 <style>
 
-@import url(https://fonts.googleapis.com/css?family=Raleway:500);
-
-.snip1284 {
-	font-family: 'Raleway', Arial, sans-serif;
-	text-align: center;
-	text-transform: uppercase;
-	font-weight: 500;
-	letter-spacing: 1px;
-}
-
-.snip1284 * {
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
-	-webkit-transition: all 0.35s ease;
-	transition: all 0.35s ease;
-}
-
-.snip1284 li {
-	display: inline-block;
-	list-style: outside none none;
-	margin: 0.5em 1.2em;
-	padding: 0;
-}
-
-.snip1284 a {
-	padding: 0 0.6em;
-	color: rgba(255, 255, 255, 0.5);
-	position: relative;
-	text-decoration: none;
-}
-
-.snip1284 a:before, .snip1284 a:after {
-	width: 3px;
-	height: 0;
-	position: absolute;
-	content: '';
-	-webkit-transition: all 0.35s ease;
-	transition: all 0.35s ease;
-	background-color: #7e9c8c;
-}
-
-.snip1284 a:before {
-	top: 0;
-	right: 0;
-}
-
-.snip1284 a:after {
-	bottom: 0;
-	left: 0;
-}
-
-.snip1284 a:hover, .snip1284 .current a {
-	color: #ffffff;
-}
-
-.snip1284 a:hover:before, .snip1284 .current a:before, .snip1284 a:hover:after,
-	.snip1284 .current a:after {
-	height: 100%;
-}
-
 #main_box { /*아이디 선택자*/
 	display: flex;
 	flex-direction: column;
@@ -260,30 +200,6 @@
 		style="padding-top: 100px;">
 		<div class="container">
 
-			<ul class="snip1284" style="padding-left: 0px; margin-bottom: 30px;">
-				<li><a
-					onclick="location.href='${contextPath}/product/admin_listProduct.do'"
-					data-hover="상품관리"
-					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; margin-left: 20px; padding-bottom: 0px;">상품관리</a></li>
-
-
-				<li class="current"><a
-					data-hover="상품수정"
-					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">상품수정</a></li>
-
-
-				<li><a
-					onclick="location.href='${contextPath}/admin_listmember.do'"
-					data-hover="회원관리"
-					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">회원관리</a></li>
-
-
-				<li><a
-					onclick="location.href='location.href='${contextPath}/board/listNotice.do'"
-					data-hover="게시판관리"
-					style="font-size: 20px; border: none; color: #5a5a5a; background-color: white; cursor: pointer; padding-bottom: 0px;">게시판관리</a></li>
-			</ul>
-			
 			<hr style="margin-top: -10px;">
 
 			<section class="ftco-section testimony-section"

@@ -2,6 +2,7 @@ package com.project.simple.product.controller;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -533,17 +534,25 @@ public class ProductControllerImpl implements ProductController {
 		quickListAll=(ArrayList<ProductVO>)session.getAttribute("quickListAll");
 		
 		if(quickList!=null){//최근 본 상품이 있는 경우
+			
 			if(quickList.size() < 2){ //미리본 상품 리스트에 상품개수가 2개 이하인 경우
 				for(int i=0; i<quickList.size();i++){
 					ProductVO productBean=(ProductVO)quickList.get(i);
-					if(productNum.equals(productBean.getproductNum())){
+					if(productNum.equals(productBean.getproductNum())){					
 						already_existed=true;
 						break;
 					}
 				}//상품 목록을 가져와 이미 존재하는 상품인지 비교
 				if(already_existed==false){
 					quickList.add(productVO);
+					
 				}//already_existed가 false이면 상품 정보를 목록에 저장
+			}
+			else {
+				for(int i=0; i<2;i++) {
+					Collections.reverse(quickList);
+				quickList.set(i,productVO);}
+			
 			}
 			
 		}else{
@@ -568,7 +577,10 @@ public class ProductControllerImpl implements ProductController {
 				}//상품 목록을 가져와 이미 존재하는 상품인지 비교
 				if(already_existed==false){
 					quickListAll.add(productVO);
+					Collections.reverse(quickList);
+					
 				}//already_existed가 false이면 상품 정보를 목록에 저장
+			
 		
 		}else{
 			quickListAll =new ArrayList<ProductVO>();

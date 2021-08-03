@@ -89,8 +89,15 @@ request.setCharacterEncoding("utf-8");
 	<section class="ftco-section"
 		style="padding-top: 70px; margin-top: 30px;">
 		<div class="container">
-			<jsp:include page="/WEB-INF/views/common/csMenu.jsp" flush="false" />
-
+			<c:choose>
+				<c:when test="${AdminisLogOn == true && admin != null}">
+					<jsp:include page="/WEB-INF/views/common/admin_topmenu.jsp"
+						flush="false" />
+				</c:when>
+				<c:otherwise>
+					<jsp:include page="/WEB-INF/views/common/csMenu.jsp" flush="false" />
+				</c:otherwise>
+			</c:choose>
 			<div>
 				<h2 style="font-size: 25px; margin-top: 15px; float: left;">공지사항</h2>
 				<h5
@@ -174,7 +181,8 @@ request.setCharacterEncoding("utf-8");
 				</thead>
 			</table>
 			<c:if test="${AdminisLogOn== true &&admin !=null}">
-				<a id="buttonmy" class="btn btn-dark" onClick="location.href='${contextPath}/admin/noticeForm.do'"
+				<a id="buttonmy" class="btn btn-dark"
+					onClick="location.href='${contextPath}/admin/noticeForm.do'"
 					style="float: right; margin-top: 25px; border-radius: 2px; background-color: #7e9c8c; color: white; border: none; border-radius: 2px; width: 120px; height: 40px; padding-top: 10px; font-size: 14px;">글쓰기</a>
 			</c:if>
 		</div>

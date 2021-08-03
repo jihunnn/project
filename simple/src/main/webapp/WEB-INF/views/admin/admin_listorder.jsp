@@ -83,66 +83,6 @@
 	border-radius: 2px;
 	padding-top: 1.8px;
 }
-
-@import url(https://fonts.googleapis.com/css?family=Raleway:500);
-
-.snip1284 {
-	font-family: 'Raleway', Arial, sans-serif;
-	text-align: center;
-	text-transform: uppercase;
-	font-weight: 500;
-	letter-spacing: 1px;
-}
-
-.snip1284 * {
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
-	-webkit-transition: all 0.35s ease;
-	transition: all 0.35s ease;
-}
-
-.snip1284 li {
-	display: inline-block;
-	list-style: outside none none;
-	margin: 0.5em 1.2em;
-	padding: 0;
-}
-
-.snip1284 a {
-	padding: 0 0.6em;
-	color: rgba(255, 255, 255, 0.5);
-	position: relative;
-	text-decoration: none;
-}
-
-.snip1284 a:before, .snip1284 a:after {
-	width: 3px;
-	height: 0;
-	position: absolute;
-	content: '';
-	-webkit-transition: all 0.35s ease;
-	transition: all 0.35s ease;
-	background-color: #7e9c8c;
-}
-
-.snip1284 a:before {
-	top: 0;
-	right: 0;
-}
-
-.snip1284 a:after {
-	bottom: 0;
-	left: 0;
-}
-
-.snip1284 a:hover, .snip1284 .current a {
-	color: #ffffff;
-}
-
-.snip1284 a:hover:before, .snip1284 .current a:before, .snip1284 a:hover:after,
-	.snip1284 .current a:after {
-	height: 100%;
-}
 </style>
 
 
@@ -154,36 +94,8 @@
 		style="padding-top: 100px;">
 
 		<div class="container">
-			<ul class="snip1284" style="padding-left: 0px; margin-bottom: 30px;">
-				<li><a
-					onclick="location.href='${contextPath}/product/admin_listProduct.do'"
-					data-hover="상품관리"
-					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 100px; cursor: pointer; background-color: white; margin-left: 20px; padding-bottom: 0px;">상품관리</a></li>
-
-
-				<li><a
-					onclick="location.href='${contextPath}/product/add_product.do'"
-					data-hover="상품등록"
-					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 100px; cursor: pointer; background-color: white; padding-bottom: 0px;">상품등록</a></li>
-
-
-				<li ><a
-					onclick="location.href='${contextPath}/admin_listmember.do'"
-					data-hover="회원관리"
-					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 100px; cursor: pointer; background-color: white; padding-bottom: 0px;">회원관리</a></li>
-
-
-				<li><a
-					onclick="location.href='${contextPath}/board/listNotice.do'"
-					data-hover="게시판관리"
-					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 100px; background-color: white; cursor: pointer; padding-bottom: 0px;">게시판관리</a></li>
-				<li class="current"><a
-					onclick="location.href='${contextPath}/admin_listorder.do'"
-					data-hover="주문관리"
-					style="font-size: 20px; border: none; color: #5a5a5a; background-color: white; cursor: pointer; padding-bottom: 0px;">주문관리</a></li>
-			</ul>
-
-
+			<jsp:include page="/WEB-INF/views/common/admin_topmenu.jsp"
+				flush="false" />
 			<form name="memberSearch"
 				action="${contextPath}/admin_listorder/orderSearch.do" method="post">
 				<div style="margin-bottom: 10px;">
@@ -198,24 +110,25 @@
 						<option value="productName">상품명</option>
 						<option value="memSpPhoneNum1">전화번호</option>
 					</select>
+					<div
+						style="font-size: 25px; font-weight: bold; margin-left: 18px; padding-top: 13px; float: left;">
+						<a style="color: #7e9c8c;">주문조회</a>
+					</div>
 					<button type="button" onclick="deleteValue02();"
-						style="float: left; border-radius: 2px; margin-bottom: 3px; margin-top: 25px; background-color: white; color: gray; border: 1px solid #eeeeee; border-radius: 2px; width: 70px; height: 30px; font-size: 14px;"
-						class="btn-secondary btn-xs">선택삭제</button>
-					<button type="button" onclick="deleteValue02();"
-						style="float: left; border-radius: 2px; margin-bottom: 3px; margin-left: 700px; margin-top: 25px; background-color: white; color: gray; border: 1px solid #eeeeee; border-radius: 2px; width: 70px; height: 30px; font-size: 14px;"
+						style="float: left; border-radius: 2px; margin-bottom: 3px; margin-right:5px; margin-left:5px; margin-top: 22px; background-color: white; color: gray; border: 1px solid #eeeeee; border-radius: 2px; width: 70px; height: 30px; font-size: 14px;"
 						class="btn-secondary btn-xs">회원</button>
 					<button type="button" onclick="deleteValue02();"
-						style="float: left; border-radius: 2px; margin-bottom: 3px; margin-left: 10px; margin-top: 25px; background-color: white; color: gray; border: 1px solid #eeeeee; border-radius: 2px; width: 70px; height: 30px; font-size: 14px;"
+						style="float: left; border-radius: 2px; margin-bottom: 3px; margin-top: 22px; background-color: white; color: gray; border: 1px solid #eeeeee; border-radius: 2px; width: 70px; height: 30px; font-size: 14px;"
 						class="btn-secondary btn-xs">비회원</button>
 
 				</div>
 			</form>
 
 
-			<table class="table" style="font-size: 14px;">
+			<table class="table" style="font-size: 13px;">
 				<thead class="table-dark" align=center>
 					<tr align="center"
-						style="background-color: #eeeeee; color: black; border-top: 1px solid #7e9c8c; border-bottom: 1px solid #c6c8ca; font-size: 15px;">
+						style="background-color: #eeeeee; color: black; border-top: 1px solid #7e9c8c; border-bottom: 1px solid #c6c8ca; font-size: 14px;">
 						<td scope="col" style="width: 50px;">선택</td>
 						<td scope="col" style="width: 60px;">주문번호</td>
 						<td scope="col" style="width: 60px;">아이디</td>
@@ -244,7 +157,7 @@
 
 									<c:forEach var="orderSearch" items="${orderSearchList}">
 										<tr
-											style="border-bottom: 1px solid #c6c8ca; background-color: white; color: black;">
+											style="border-bottom: 1px solid #c6c8ca; background-color: white; color: black; ">
 											<th scope="col" style="vertical-align: middle;"><input
 												type="checkbox" name="chk" value=""></th>
 											<th scope="col" style="vertical-align: middle;">${orderSearch.memOrderNum}</th>
@@ -318,6 +231,9 @@
 
 				</thead>
 			</table>
+			<button type="button" onclick="deleteValue02();"
+				style="float: right; border-radius: 2px; margin-bottom: 3px; background-color: white; color: gray; border: 1px solid #eeeeee; border-radius: 2px; width: 70px; height: 30px; font-size: 14px;"
+				class="btn-secondary btn-xs">선택삭제</button>
 		</div>
 		<!-- 내용 끝 -->
 
