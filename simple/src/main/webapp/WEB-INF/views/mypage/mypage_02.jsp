@@ -24,6 +24,7 @@
 	font-size: 10px;
 }
 
+
 .my_row {
 	flex-direction: row;
 }
