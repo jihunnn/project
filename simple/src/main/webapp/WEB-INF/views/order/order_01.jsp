@@ -174,74 +174,59 @@ h4 {
 
 
 	<script>
-		//유효성검사 후 주문결제진행
-		//PG사 연동(결제시스템 IMPORT)
-		function iamport() {
-			var IMP = window.IMP;
-			var form = document.CheckOrder;
-
-			if (form.memSpName.value == "") {
-				alert("주문자정보의 이름을 입력하지 않았습니다.")
-				form.user_name.focus();
-				return false;
-			}
-			
-			//가맹점 식별코드
-			IMP.init('imp44341689');
-			IMP.request_pay({
-				pg : 'inicis',
-				pay_method : 'card',
-				merchant_uid : 'merchant_' + new Date().getTime(),
-				name : '(주)SIMPLE', //결제창에서 보여질 이름
-				amount : ${totalPrice}, //실제 결제되는 가격
-				buyer_email : '<%=memEmail[0]%>@<%=memEmail[1]%>',
-				buyer_name : '${member.memName}',
-				buyer_tel : '<%=memPhoneNum[0]%>-<%=memPhoneNum[1]%>-<%=memPhoneNum[2]%>',
-				buyer_addr : '<%=memAdr[1]%> <%=memAdr[2]%>	',
-				buyer_postcode : '<%=memAdr[0]%>'
-
-			}, function(rsp) {
-				console.log(rsp);
-				if (rsp.success) {
-					var msg = '결제가 완료되었습니다.';
-					msg += '고유ID : ' + rsp.imp_uid;
-					msg += '상점 거래ID : ' + rsp.merchant_uid;
-					msg += '결제 금액 : ' + rsp.paid_amount;
-					msg += '카드 승인번호 : ' + rsp.apply_num;
-					let orderVO = {
-							totalPrice : ${totalPrice},
-							memName : '${member.memName}'
-					}
-					$.ajax({
-						url : "addorderlist.do",
-						type : "POST",
-						data : orderVo,
-						dataType : "text",
-						success : function(result){
-							if(result == "y") {
-								alert(msg);
-								location.href = "order_03.do"; 
-							}else{
-								alert("디비입력실패");
-								return false;
-							}
-						},
-						error : function(a,b,c){}
-					});
-				} else {
-					var msg = '결제에 실패하였습니다.';
-					msg += '에러내용 : ' + rsp.error_msg;
-				}
-				alert(msg);
-			});
+	//유효성검사 후 주문결제진행
+	//PG사 연동(결제시스템 IMPORT)
+	function iamport() {
+		var IMP = window.IMP;
+		var form = document.CheckOrder;
+		if (form.memSpName.value == "") {
+			alert("주문자정보의 이름을 입력하지 않았습니다.")
+			form.user_name.focus();
+			return false;
 		}
-	</script>
+		
+		//가맹점 식별코드
+		IMP.init('imp44341689');
+		IMP.request_pay({
+			pg : 'inicis',
+			pay_method : 'card',
+			merchant_uid : 'merchant_' + new Date().getTime(),
+			name : '(주)SIMPLE', //결제창에서 보여질 이름
+			amount : ${totalPrice}, //실제 결제되는 가격
+			buyer_email : '<%=memEmail[0]%>@<%=memEmail[1]%>',
+			buyer_name : '${member.memName}',
+			buyer_tel : '<%=memPhoneNum[0]%>-<%=memPhoneNum[1]%>-<%=memPhoneNum[2]%>',
+			buyer_addr : '<%=memAdr[1]%> <%=memAdr[2]%>	',
+			buyer_postcode : '<%=memAdr[0]%>'
+		}, function(rsp) {
+			console.log(rsp);
+			if (rsp.success) {
+				var msg = '결제가 완료되었습니다.';
+				msg += '고유ID : ' + rsp.imp_uid;
+				msg += '상점 거래ID : ' + rsp.merchant_uid;
+				msg += '결제 금액 : ' + rsp.paid_amount;
+				msg += '카드 승인번호 : ' + rsp.apply_num;
+				var param = $("form[name=CheckOrder]").serialize();
+				$.ajax({
+					url : "addorderlist.do",
+					type : "POST",	
+					data : param
+				}).done(function(data){					
+				})
+			} else {
+				var msg = '결제에 실패하였습니다.';
+				msg += '에러내용 : ' + rsp.error_msg;
+			}
+			alert(msg);
+		});
+	}
+</script>
 	<!-- 타이틀 -->
 
 	<section class="ftco-section" style="padding-top: 100px;">
 
 		<div class="container">
-			<form name="CheckOrder" action="${contextPath}/addorderlist.do"
+			<form name="CheckOrder"  action="${contextPath}/addorderlist.do"
 				method="post">
 				<input type="hidden" name="totalPrice" value="${totalPrice}" />
 				<!-- 타이틀 끝 -->
