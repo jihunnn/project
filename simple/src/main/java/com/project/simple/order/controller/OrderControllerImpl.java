@@ -118,7 +118,7 @@ public class OrderControllerImpl implements OrderController {
 
 	}
 
-	// 주문내역 DB 저장(주문완료)
+	// 주문완료(주문내역DB저장)
 	@RequestMapping(value = "/addorderlist.do", method = RequestMethod.POST)
 	private ModelAndView addorderlist(@ModelAttribute("orderVO") OrderVO orderVO, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {

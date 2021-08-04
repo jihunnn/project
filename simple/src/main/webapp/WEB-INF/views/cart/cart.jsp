@@ -322,7 +322,7 @@
 									<td></td>
 									<td colspan="3" align=right
 										style="font-size: 18px; color: #7e9c8c; font-weight: bold;">총
-										금액 : <input type="hidden" value="3000000" id="totalPrice"/>3,000,000원</td>
+										금액 : <input type="hidden" value="100" id="totalPrice"/>100원</td>
 								</tr>
 							</tfoot>
 						</table>

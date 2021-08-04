@@ -11,9 +11,6 @@
 
 
 
-
-
-
 <style type="text/css">
 .table-light {
 	background: #F7F7F7;
@@ -29,21 +26,8 @@ h4 {
 }
 </style>
 <script type="text/javascript">
-	//주문자
-	function Check_Order() {
-		var form = document.CheckOrder;
-
-		if (form.memSpName.value == "") {
-			alert("주문자정보의 이름을 입력하지 않았습니다.")
-			form.user_name.focus();
-			return false;
-		}
-			form.submit();
-		
-		}
-
 	
-
+	
 	
 
 	function sameInfo(f) {
@@ -60,48 +44,13 @@ h4 {
 		$(this).prop("checked", true);
 		$("form").submit();
 	})
-	
 </script>
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script type="text/javascript"
+	src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-<script>
-
-
-//PG사 연동(결제시스템 IMPORT)
-function iamport(){
-	//가맹점 식별코드
-	IMP.init('imp44341689');
-	IMP.request_pay({
-	    pg : 'inicis',
-	    pay_method : 'card',
-	    merchant_uid : 'merchant_' + new Date().getTime(),
-	    name : '주문명:결제테스트' , //결제창에서 보여질 이름
-	    amount : 1, //실제 결제되는 가격
-	    buyer_email : 'gwf31@naver.com.do',
-	    buyer_name : '문지훈	',
-	    buyer_tel : '010-7927-3303',
-	    buyer_addr : '대전광역시 둔산3동	',
-	    buyer_postcode : '123-456'
-	    m_redirect_url: 'https://www.yourdomain.com/payments/complete'
-
-	    	
-	}, function(rsp) {
-		console.log(rsp);
-	    if ( rsp.success ) {
-	    	var msg = '결제가 완료되었습니다.';
-	        msg += '고유ID : ' + rsp.imp_uid;
-	        msg += '상점 거래ID : ' + rsp.merchant_uid;
-	        msg += '결제 금액 : ' + rsp.paid_amount;
-	        msg += '카드 승인번호 : ' + rsp.apply_num;
-	    } else {
-	    	 var msg = '결제에 실패하였습니다.';
-	         msg += '에러내용 : ' + rsp.error_msg;
-	    }
-	    alert(msg);
-	});
-}
-
+<script type="text/javascript">
 	//비회원 주문자 우편번호
 	function sample6_execDaumPostcode() {
 		new daum.Postcode(
@@ -223,6 +172,70 @@ function iamport(){
 	}
 	%>
 
+
+	<script>
+		//유효성검사 후 주문결제진행
+		//PG사 연동(결제시스템 IMPORT)
+		function iamport() {
+			var IMP = window.IMP;
+			var form = document.CheckOrder;
+
+			if (form.memSpName.value == "") {
+				alert("주문자정보의 이름을 입력하지 않았습니다.")
+				form.user_name.focus();
+				return false;
+			}
+			
+			//가맹점 식별코드
+			IMP.init('imp44341689');
+			IMP.request_pay({
+				pg : 'inicis',
+				pay_method : 'card',
+				merchant_uid : 'merchant_' + new Date().getTime(),
+				name : '(주)SIMPLE', //결제창에서 보여질 이름
+				amount : ${totalPrice}, //실제 결제되는 가격
+				buyer_email : '<%=memEmail[0]%>@<%=memEmail[1]%>',
+				buyer_name : '${member.memName}',
+				buyer_tel : '<%=memPhoneNum[0]%>-<%=memPhoneNum[1]%>-<%=memPhoneNum[2]%>',
+				buyer_addr : '<%=memAdr[1]%> <%=memAdr[2]%>	',
+				buyer_postcode : '<%=memAdr[0]%>'
+
+			}, function(rsp) {
+				console.log(rsp);
+				if (rsp.success) {
+					var msg = '결제가 완료되었습니다.';
+					msg += '고유ID : ' + rsp.imp_uid;
+					msg += '상점 거래ID : ' + rsp.merchant_uid;
+					msg += '결제 금액 : ' + rsp.paid_amount;
+					msg += '카드 승인번호 : ' + rsp.apply_num;
+					let orderVO = {
+							totalPrice : ${totalPrice},
+							memName : '${member.memName}'
+					}
+					$.ajax({
+						url : "addorderlist.do",
+						type : "POST",
+						data : orderVo,
+						dataType : "text",
+						success : function(result){
+							if(result == "y") {
+								alert(msg);
+								location.href = "order_03.do"; 
+							}else{
+								alert("디비입력실패");
+								return false;
+							}
+						},
+						error : function(a,b,c){}
+					});
+				} else {
+					var msg = '결제에 실패하였습니다.';
+					msg += '에러내용 : ' + rsp.error_msg;
+				}
+				alert(msg);
+			});
+		}
+	</script>
 	<!-- 타이틀 -->
 
 	<section class="ftco-section" style="padding-top: 100px;">
@@ -512,10 +525,10 @@ function iamport(){
 					</table>
 				</div>
 				<br> <br>
-			
-			<div style="text-align: center">
+
+				<div style="text-align: center">
 					<input type="button" class="btn btn-secondary" value="결제하기"
-						onclick="Check_Order iamport()"
+						onclick="iamport();"
 						style="padding-left: 10px; margin-left: 40px; background-color: #7e9c8c; color: white; border: none; border-radius: 2px; width: 130px; height: 45px;">
 					&nbsp;&nbsp;
 					<button type="submit" class="btn btn-secondary"
