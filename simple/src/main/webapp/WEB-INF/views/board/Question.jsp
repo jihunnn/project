@@ -11,16 +11,16 @@
 
 <head>
 <script>
-	$(document).on('click', '#btnSearch', function(object) {
-		if()
-		object.preventDefault();
-		var url = "${contextPath}/board/questionSearch.do";
-		url = url + "?search=" + $('#search').val();
-		location.href = url;
-		console.log(url);
+$(document).on('click', '#btnSearch', function(object) {
 
-	});
-	
+	object.preventDefault();
+	var url = "${contextPath}/board/questionSearch.do";
+	url = url + "?search=" + $('#search').val();
+	location.href = url;
+	console.log(url);
+
+});
+
 	
     function InquiryList() {
         if (${isLogOn != true && member == null}) {

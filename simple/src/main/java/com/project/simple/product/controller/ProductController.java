@@ -33,4 +33,8 @@ public interface ProductController {
 	public ModelAndView viewProduct(@RequestParam("productNum") String productNum, Criteria cri,HttpServletRequest request,
 			HttpServletResponse response) throws Exception;
 	public ModelAndView main(HttpServletRequest request, HttpServletResponse response) throws Exception;
+	
+	public ResponseEntity addNewRetrun(@ModelAttribute("question") ProductVO question, HttpServletRequest request, HttpServletResponse response)throws Exception;
+	public ResponseEntity removeQuestion(@RequestParam("productNum") String productNum, @RequestParam("productQuestionNum") int productQuestionNum, HttpServletRequest request,
+			HttpServletResponse response) throws Exception;
 }

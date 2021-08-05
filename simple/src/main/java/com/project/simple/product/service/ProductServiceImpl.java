@@ -130,6 +130,23 @@ public class ProductServiceImpl implements ProductService{
 		BestProductMap.put("myProductList", myProductList);
 		return BestProductMap;
 	}
+	
+	//상품상세페이지 상품문의 글쓰기
+	@Override
+	public void addNewQuestion(ProductVO question) throws Exception{
+		productDAO.insertNewQuestion(question);
+	}
+	
+	@Override
+	public void removeQuestion(int productQuestionNum) throws Exception {
+		productDAO.deleteQuestion(productQuestionNum);
+	}
+	
+	@Override
+	public void modQuestion(ProductVO question) throws Exception {
+		productDAO.updateQuestion(question);
+	}
+	
 
 
 	

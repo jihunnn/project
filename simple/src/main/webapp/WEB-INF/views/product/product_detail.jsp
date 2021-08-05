@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <c:set var="option1" value="${option.optionList1}" />
 <c:set var="option2" value="${option.optionList2}" />
@@ -280,6 +281,33 @@ $(document).ready(function(){
 		});
 
 
+function questionWrite() {
+    if (${isLogOn != true && member == null}) {
+        alert("로그인이 필요합니다.");
+        location.href = '${contextPath}/login_01.do';
+    } else{
+    	return false;
+    }
+    	
+    	
+    
+}
+
+function fn1() {
+
+	if (confirm("삭제하시겠습니까??") == true) { //확인
+	return true
+	} else { //취소
+		return false;
+
+	}
+    	
+  
+}
+
+
+
+
 
 	
 </script>
@@ -306,6 +334,7 @@ $(document).ready(function(){
 
 
 
+
 				<!-- 내용 -->
 				<div class="row">
 					<section>
@@ -325,12 +354,14 @@ $(document).ready(function(){
 
 						<h1
 							style="font-weight: bold; font-size: 20px; color: #7e9c8c; float: left; margin-left: 50px; margin-top: 5px;">${product.productName}</h1>
-							<a
-							href="javascript:add_favorite('${product.productNum }')"
-							style="all: none; font-size: 15px; color: #7e9c8c; float:right; margin-top: 10px; margin-right:50px;  ">
-						<img src="${contextPath}/resources/images/heart.jpg"
-							id="favoriteHeart" style="width:17px; height:17px; display:none; margin-bottom:3px;"/><span style="padding-top:7px;">관심상품</span></a>  
-						<hr style="width: 600px; margin-top:45px;">
+						<a href="javascript:add_favorite('${product.productNum }')"
+							style="all: none; font-size: 15px; color: #7e9c8c; float: right; margin-top: 10px; margin-right: 50px;">
+							<img src="${contextPath}/resources/images/heart.jpg"
+							id="favoriteHeart"
+							style="width: 17px; height: 17px; display: none; margin-bottom: 3px;" /><span
+							style="padding-top: 7px;">관심상품</span>
+						</a>
+						<hr style="width: 600px; margin-top: 45px;">
 						<h3 class="heading">
 							<a
 								style="position: absolute; white-space: nowrap; margin-top: 5px; margin-left: 50px; float: left; font-size: 14px; color: #5f5f5f;">판매가ㅤㅤ
@@ -472,6 +503,7 @@ $(document).ready(function(){
 				</c:otherwise>
 			</c:choose>
 			<!-- 탭메뉴 영역 -->
+			<!-- 레이어 팝업창 -->
 
 
 
@@ -525,8 +557,6 @@ $(document).ready(function(){
 
 								<c:when test="${!empty productReviewList}">
 									<c:forEach var="productReview" items="${productReviewList}">
-
-										<!-- 레이어 팝업창 -->
 										<div id="tallModal" class="modal modal-wide fade">
 											<div class="modal-dialog">
 												<div class="modal-content"
@@ -616,48 +646,237 @@ $(document).ready(function(){
 					<div id="tab4" class="tab_content"
 						style="margin-left: 0px; margin-right: 170px;">
 						<!--Content-->
-
+						<c:choose>
+							<c:when test="${isLogOn == true && member != null}">
+								<a id="buttonmy" class="btn btn-dark" data-toggle="modal"
+									href="#tallModal1"
+									style="float: right; margin-top: 25px; border-radius: 2px; background-color: #7e9c8c; color: white; border: none; border-radius: 2px; width: 120px; height: 40px; padding-top: 10px; font-size: 14px; margin-bottom: 5px;">상품문의하기</a>
+							</c:when>
+							<c:when test="${isLogOn != true && member == null}">
+								<a onclick="questionWrite()" id="buttonmy" class="btn btn-dark"
+									data-toggle="modal"
+									style="float: right; margin-top: 25px; border-radius: 2px; background-color: #7e9c8c; color: white; border: none; border-radius: 2px; width: 120px; height: 40px; padding-top: 10px; font-size: 14px; margin-bottom: 5px;">상품문의하기</a>
+							</c:when>
+						</c:choose>
 
 						<table class="table"
-							style="margin-top: 60px; text-align: center; width: 1000px; margin-left: 70px;">
+							style="margin-top: 60px; text-align: center; width: 1200px;">
 
 							<tr
-								style="bakground-color: grey; background-color: #dcdcdc; border-bottom: 1px solid grey;">
-								<td
-									style="width: 100px; background-color: #212529; color: white;">번호</td>
-								<td
-									style="width: 200px; background-color: #212529; color: white;">작성자</td>
-								<td
-									style="width: 500px; background-color: #212529; color: white;">내용</td>
-								<td
-									style="width: 200px; background-color: #212529; color: white;">작성일자</td>
+								style="background-color: #eeeeee; border-top: 1px solid #7e9c8c; border-bottom: 1px solid #c6c8ca;">
+								<td style="width: 100px;">번호</td>
+								<td style="width: 200px;">작성자</td>
+								<td style="width: 500px;">내용</td>
+								<td style="width: 200px;">작성일자</td>
+								<td style="width: 200px;">답변</td>
 							</tr>
-							<tr style="border-bottom: 1px solid grey;">
-								<td style="width: 100px;">1</td>
-								<td style="width: 200px;">홍두깨</td>
-								<td style="width: 500px;"><a href="#" style="color: black;">이거
-										그레이색 언제 재입고 되나요</a></td>
-								<td style="width: 200px;">2021-06-12</td>
-							</tr>
-							<tr style="border-bottom: 1px solid grey;">
-								<td style="width: 100px;">2</td>
-								<td style="width: 200px;">나애리</td>
-								<td style="width: 500px;"><a href="#" style="color: black;">
-										언제와요</a></td>
-								<td style="width: 200px;">2021-06-12</td>
-							</tr>
+							<c:choose>
+								<c:when test="${empty productQuestionList}">
+									<tr style="backgroundcolor: white; width: 1000px;">
+
+										<td colspan="4" style="padding-top: 100px;">등록 된 상품 문의가
+											없습니다.</td>
+									</tr>
+								</c:when>
+								<c:when test="${!empty productQuestionList}">
+									<c:forEach var="questionList" items="${productQuestionList}">
+										<div id="tallModal1" class="modal modal-wide fade">
+											<div class="modal-dialog">
+												<div class="modal-content"
+													style="width: 700px; height: 600px;">
+													<div class="modal-header" style="text-align: center;">
+														<h4 class="modal-title" style="font-size: 17px;">글쓰기</h4>
+														<button type="button" class="close" data-dismiss="modal"
+															aria-hidden="true">&times;</button>
+													</div>
+													<form
+														action="${contextPath}/addNewQuestion.do?productNum=${product.productNum}"
+														method="post">
+														<div class="modal-body">
+															<p style="float: left;">작성자 :</p>
+															<input type="text" name="memName"
+																value="${member.memName}" disabled
+																style="border: 1px solid #dcdcdc;" />
+															<hr>
+															<p style="float: left;">제 목 :</p>
+															<input type="text" name="productQuestionTitle"
+																style="border: 1px solid #dcdcdc;" />
+															<hr>
+															<p style="float: left;">내 용 :</p>
+															<textarea name="productQuestionContent"
+																style="border: 1px solid #dcdcdc; width: 585px; height: 300px; background-color: white;"></textarea>
+
+
+														</div>
+
+														<img src="" />
+														<div class="modal-footer">
+															<button type="button" class="close" data-dismiss="modal"
+																aria-hidden="true"
+																style="width: 56px; height: 38px; border: 1px solid #7e9c8c; font-size: 14px;">취소</button>
+															<button type="submit" class="btn btn-primary"
+																style="float: right; border-radius: 2px;">등록</button>
+														</div>
+													</form>
+												</div>
+												<!-- /.modal-content -->
+											</div>
+											<!-- /.modal-dialog -->
+										</div>
+										
+										<!-- 상품문의 수정하기 -->
+										<div id="tallModal2" class="modal modal-wide fade">
+																	<div class="modal-dialog">
+																		<div class="modal-content"
+																			style="width: 700px; height: 600px;">
+																			<div class="modal-header" style="text-align: center;">
+																				<h4 class="modal-title" style="font-size: 17px;">글수정하기</h4>
+																				<button type="button" class="close"
+																					data-dismiss="modal" aria-hidden="true">&times;</button>
+																			</div>
+																			<form
+																				action="${contextPath}/modNewQuestion.do?productNum=${product.productNum}&productQuestionNum=${questionList.productQuestionNum}"
+																				method="post">
+																				<div class="modal-body">
+																					<p style="float: left;">작성자 :</p>
+																					<input type="text" name="memName"
+																						value="${member.memName}" disabled
+																						style="border: 1px solid #dcdcdc;" />
+																					<hr>
+																					<p style="float: left;">제 목 :</p>
+																					<input type="text" name="productQuestionTitle"
+																						style="border: 1px solid #dcdcdc;" value="${questionList.productQuestionTitle}" />
+																					<hr>
+																					<p style="float: left;">내 용 :</p>
+																					<textarea name="productQuestionContent"
+																						style="border: 1px solid #dcdcdc; width: 585px; height: 300px; background-color: white;">${questionList.productQuestionContent}</textarea>
+
+
+																				</div>
+
+																				<img src="" />
+																				<div class="modal-footer">
+																					<button type="button" class="close"
+																						data-dismiss="modal" aria-hidden="true"
+																						style="width: 56px; height: 38px; border: 1px solid #7e9c8c; font-size: 14px;">취소</button>
+																					<button type="submit" class="btn btn-primary"
+																						style="float: right; border-radius: 2px;">수정</button>
+																				</div>
+																			</form>
+																		</div>
+																		<!-- /.modal-content -->
+																	</div>
+																	<!-- /.modal-dialog -->
+																</div>
+
+										<tr style="border-bottom: 1px solid grey;">
+
+											<td style="width: 100px;">${questionList.productQuestionNum}</td>
+											<td style="width: 200px;">${questionList.memName}</td>
+											<td style="width: 500px;"><input type="hidden"
+												name="productQuestionNum" id="productQuestionNum"
+												value="${questionList.productQuestionNum}" />
+												<div>
+													<div id="section1b" class="label">
+														<p
+															style="text-align: left; cursor: pointer; font-weight: normal; margin-bottom: 0px;">
+
+															${questionList.productQuestionTitle}</p>
+													</div>
+													<div id="section1b" class="elements">
+														<hr style="margin-bottom: 20px; margin-top: 0px;">
+														<p style="text-align: left; margin-bottom: 0px;">
+															${questionList.productQuestionContent}
+															<c:if test="${questionList.memId == member.memId}">
+																<button type="button"
+																	onclick="javascript:fn1();location.href='${contextPath}/removeQuestion.do?productNum=${product.productNum}&productQuestionNum=${questionList.productQuestionNum}'"
+																	style="float: right; border-radius: 2px; margin-bottom: 3px; background-color: white; color: gray; border: 1px solid #eeeeee; border-radius: 2px; width: 70px; height: 30px; font-size: 14px;"
+																	class="btn-secondary btn-xs">삭제</button>
+																<a data-toggle="modal" href="#tallModal2"
+																	style="float: right; border-radius: 2px; margin-bottom: 3px; text-align:center; background-color: white; color: gray; border: 1px solid #eeeeee; border-radius: 2px; width: 70px; height: 30px; font-size: 14px;"
+																	class="btn-secondary btn-xs">수정</a>
+																
+
+															</c:if>
+														</p>
+
+														<c:if test="${!empty questionList.productAnswerContent}">
+															<hr style="margin-bottom: 20px; margin-top: 0px;">
+
+															<p style="text-align: left;">[답변]</p>
+															<p style="text-align: left;">
+
+																${questionList.productAnswerContent}</p>
+														</c:if>
+													</div>
+												</div></td>
+
+											<td style="width: 200px;"><fmt:formatDate
+													value="${questionList.productQuestionDate}" /></td>
+											<td style="width: 200px;">${questionList.answerWhether}</td>
+										</tr>
+
+									</c:forEach>
+								</c:when>
+							</c:choose>
 						</table>
-						<table class="table"
-							style="margin-top: 20px; text-align: center; width: 1000px; margin-left: 70px; margin-bottom: 1px;">
-							<tr>
-								<td style="border: 1px solid grey; padding-top: 100px;"><button
-										type="submit" class="btn btn-default"
-										style="background-color: #dcdcdc; margin-left: 860px; margin-top: -85px; width: 100px; height: 100px; border-radius: 2px;">등록</button>
-									<input type="text" placeholder="글을 입력해주세요^^"
-									style="margin-top: -105px; width: 850px; height: 100px; float: left;" />
-								</td>
-							</tr>
-						</table>
+				<div class="page_wrap"
+							style="margin-top: 50px; margin-left: -80px;" align="center">
+							<div class="page_nation">
+								<c:if test="${pageMaker.prev}">
+
+									<a class="arrow prev"
+										style="border: 1px solid #7e9c8c; color: #7e9c8c; margin-right: 0px; margin-left: 2px; padding-left: 6px; padding-right: 7px;"
+										href='<c:url value="/product/viewProduct.do?productNum=${product.productNum}&&page=${pageMaker.startPage-1 }"/>'><i
+										class="fa fa-chevron-left"></i></a>
+
+								</c:if>
+								<c:forEach begin="${pageMaker.startPage }"
+									end="${pageMaker.endPage }" var="pageNum">
+
+									<a
+										style="border: 1px solid #7e9c8c; color: #7e9c8c; margin-right: 0px; margin-left: 2px; padding-left: 6px; padding-right: 7px;"
+										href='<c:url value="/product/viewProduct.do?productNum=${product.productNum}&page=${pageNum }"/>'><i
+										class="fa">${pageNum }</i></a>
+
+								</c:forEach>
+								<c:if test="${pageMaker.next && pageMaker.endPage >0 }">
+
+									<a class="arrow next"
+										style="border: 1px solid #7e9c8c; color: #7e9c8c; margin-right: 0px; margin-left: 2px; padding-left: 6px; padding-right: 7px;"
+										href='<c:url value="/product/viewProduct.do?productNum=${product.productNum}&page=${pageMaker.endPage+1 }"/>'><i
+										class="fa fa-chevron-right"></i></a>
+
+								</c:if>
+							</div>
+						</div>
+						<!-- -아코디언메뉴 -->
+						<script type="text/javascript">
+				var elements = document.getElementsByTagName("div");
+
+				// 모든 영역 접기
+				for (var i = 0; i < elements.length; i++) {
+					if (elements[i].className == "elements") {
+						elements[i].style.display = "none";
+					} else if (elements[i].className == "label") {
+						elements[i].onclick = switchDisplay;
+					}
+				}
+
+				// 상태에 따라 접거나 펼치기
+				function switchDisplay() {
+
+					var parent = this.parentNode;
+					var target = parent.getElementsByTagName("div")[1];
+
+					if (target.style.display == "none") {
+						target.style.display = "block";
+					} else {
+						target.style.display = "none";
+					}
+					return false;
+				}
+			</script>
 					</div>
 				</div>
 

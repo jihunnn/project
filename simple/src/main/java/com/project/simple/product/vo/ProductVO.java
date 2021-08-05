@@ -41,11 +41,12 @@ public class ProductVO {
 	private String reviewFile;
 	
 	//상품 문의
+	private int productQuestionNum;
 	private String productQuestionTitle;
 	private String productQuestionContent;
 	private Date productQuestionDate;
 	private String productAnswerContent;
-	
+	private String answerWhether;
 	
 	public ProductVO() {
 
@@ -253,6 +254,13 @@ public class ProductVO {
 	}
 	
 	//상품 문의
+	public int getProductQuestionNum() {
+		return productQuestionNum;
+	}
+	public void setProductQuestionNum(int productQuestionNum) {
+		this.productQuestionNum = productQuestionNum;
+	}
+	
 	public String getProductQuestionTitle() {
 		return productQuestionTitle;
 	}
@@ -288,7 +296,13 @@ public class ProductVO {
 		this.favoriteCount = favoriteCount;
 	}
 	
-	
+	public String getAnswerWhether() {
+		return answerWhether;
+	}
+	public void setAnswerWhether(String answerWhether) {
+		this.answerWhether = answerWhether;
+	}
+
 
 
 }

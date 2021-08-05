@@ -34,6 +34,7 @@
 	</resultMap>
 
 	<resultMap id="productQuestionResult" type="productVO">
+		<result property="memId" column="memId" />
 		<result property="productQuestionTitle"
 			column="productQuestionTitle" />
 		<result property="productQuestionContent"
@@ -42,6 +43,8 @@
 			column="productQuestionDate" />
 		<result property="productAnswerContent"
 			column="productAnswerContent" />
+		<result property="answerWhether" column="answerWhether" />
+
 	</resultMap>
 
 
@@ -79,18 +82,24 @@
 		parameterType="java.util.Map">
 
 		<if test='subsort == "x"'>
-			select p.productNum, productName, productPrice, productImage,
+			select p.productNum, productName, productPrice,
+			productImage,
 			count(f.productNum) as favoriteCount
-			from simple.product as p left join favoriteproduct as f on
-			p.productNum=f.productNum where category=#{sort} group by
+			from simple.product
+			as p left join favoriteproduct as f on
+			p.productNum=f.productNum where
+			category=#{sort} group by
 			p.productNum ;
 
 		</if>
 		<if test='subsort != "x"'>
-			select p.productNum, productName, productPrice, productImage,
+			select p.productNum, productName, productPrice,
+			productImage,
 			count(f.productNum) as favoriteCount
-			from simple.product as p left join favoriteproduct as f on
-			p.productNum=f.productNum where category=#{sort} and subCategory=
+			from simple.product
+			as p left join favoriteproduct as f on
+			p.productNum=f.productNum where
+			category=#{sort} and subCategory=
 			#{subsort} group by p.productNum ;
 
 		</if>
@@ -255,7 +264,8 @@
 	<select id="selectAllProductQuestionList"
 		resultMap="productQuestionResult">
 	<![CDATA[
-			select * from simple.productQuestion where productNum=#{productNum}
+			select productQuestionNum, answerWhether, productNum, p.memId, productQuestionTitle, productQuestionContent, productQuestionDate, productAnswerContent, m.memName
+			from simple.productQuestion as p left join member as m on p.memId=m.memId where productNum=#{productNum} order by productQuestionNum desc
 			limit #{pageStart}, #{perPageNum};
 			
 	]]>
@@ -349,5 +359,29 @@
 
 
 	</select>
+
+	<insert id="insertNewQuestion" parameterType="productVO">
+		<![CDATA[
+			insert into productQuestion(productNum, memId, productQuestionTitle, productQuestionContent)
+			values(#{productNum},#{memId}, #{productQuestionTitle}, #{productQuestionContent});
+		]]>
+
+	</insert>
+
+	<update id="deleteQuestion" parameterType="int">
+
+		delete from
+		simple.productQuestion
+		where productQuestionNum=#{productQuestionNum};
+
+	</update>
+
+	<update id="updateQuestion" parameterType="productVO">
+		update simple.productQuestion
+		set productQuestionTitle = #{productQuestionTitle},
+		productQuestionContent =
+		#{productQuestionContent}
+		where productQuestionNum=#{productQuestionNum}
+	</update>
 
 </mapper>
