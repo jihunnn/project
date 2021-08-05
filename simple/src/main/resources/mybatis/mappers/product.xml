@@ -266,7 +266,7 @@
 	<![CDATA[
 			select productQuestionNum, answerWhether, productNum, p.memId, productQuestionTitle, productQuestionContent, productQuestionDate, productAnswerContent, m.memName
 			from simple.productQuestion as p left join member as m on p.memId=m.memId where productNum=#{productNum} order by productQuestionNum desc
-			limit #{pageStart}, #{perPageNum};
+			limit #{pageStart2}, #{perPageNum2};
 			
 	]]>
 	</select>
@@ -274,7 +274,7 @@
 		parameterType="int">
 	<![CDATA[
 			
-			select count(*)  from simple.productQuestion where memId=#{memId};
+			select count(*)  from simple.productQuestion;
 			
 	]]>
 	</select>

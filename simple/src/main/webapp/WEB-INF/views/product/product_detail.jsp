@@ -480,6 +480,31 @@ function fn1() {
 						});
 					</script>
 				</c:when>
+				<c:when test="${pageNum2 != 1}">
+					<script type="text/javascript"
+						src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+					<script type="text/javascript">
+						$(document).ready(function() {
+							//When page loads...
+							$(".tab_content").hide(); //Hide all content
+							$("ul.tabs li:nth(2)").addClass("active").show(); //Activate first tab
+							$(".tab_content:nth(2)").show(); //Show first tab content
+							//On Click Event
+							$("ul.tabs li").click(function() {
+								$("ul.tabs li").removeClass("active"); //Remove any "active" class
+								$(this).addClass("active"); //Add "active" class to selected tab
+								$(".tab_content").hide(); //Hide all tab content
+								var activeTab = $(this).find("a").attr("href"); //Find the href attribute value to identify the active tab + content
+								$(activeTab).fadeIn(); //Fade in the active ID content
+								return false;
+
+							});
+
+							window.scrollBy(200, 600);
+
+						});
+					</script>
+				</c:when>
 				<c:otherwise>
 					<script type="text/javascript"
 						src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
@@ -723,51 +748,52 @@ function fn1() {
 											</div>
 											<!-- /.modal-dialog -->
 										</div>
-										
+
 										<!-- 상품문의 수정하기 -->
 										<div id="tallModal2" class="modal modal-wide fade">
-																	<div class="modal-dialog">
-																		<div class="modal-content"
-																			style="width: 700px; height: 600px;">
-																			<div class="modal-header" style="text-align: center;">
-																				<h4 class="modal-title" style="font-size: 17px;">글수정하기</h4>
-																				<button type="button" class="close"
-																					data-dismiss="modal" aria-hidden="true">&times;</button>
-																			</div>
-																			<form
-																				action="${contextPath}/modNewQuestion.do?productNum=${product.productNum}&productQuestionNum=${questionList.productQuestionNum}"
-																				method="post">
-																				<div class="modal-body">
-																					<p style="float: left;">작성자 :</p>
-																					<input type="text" name="memName"
-																						value="${member.memName}" disabled
-																						style="border: 1px solid #dcdcdc;" />
-																					<hr>
-																					<p style="float: left;">제 목 :</p>
-																					<input type="text" name="productQuestionTitle"
-																						style="border: 1px solid #dcdcdc;" value="${questionList.productQuestionTitle}" />
-																					<hr>
-																					<p style="float: left;">내 용 :</p>
-																					<textarea name="productQuestionContent"
-																						style="border: 1px solid #dcdcdc; width: 585px; height: 300px; background-color: white;">${questionList.productQuestionContent}</textarea>
+											<div class="modal-dialog">
+												<div class="modal-content"
+													style="width: 700px; height: 600px;">
+													<div class="modal-header" style="text-align: center;">
+														<h4 class="modal-title" style="font-size: 17px;">글수정하기</h4>
+														<button type="button" class="close" data-dismiss="modal"
+															aria-hidden="true">&times;</button>
+													</div>
+													<form
+														action="${contextPath}/modNewQuestion.do?productNum=${product.productNum}&productQuestionNum=${questionList.productQuestionNum}"
+														method="post">
+														<div class="modal-body">
+															<p style="float: left;">작성자 :</p>
+															<input type="text" name="memName"
+																value="${member.memName}" disabled
+																style="border: 1px solid #dcdcdc;" />
+															<hr>
+															<p style="float: left;">제 목 :</p>
+															<input type="text" name="productQuestionTitle"
+																style="border: 1px solid #dcdcdc;"
+																value="${questionList.productQuestionTitle}" />
+															<hr>
+															<p style="float: left;">내 용 :</p>
+															<textarea name="productQuestionContent"
+																style="border: 1px solid #dcdcdc; width: 585px; height: 300px; background-color: white;">${questionList.productQuestionContent}</textarea>
 
 
-																				</div>
+														</div>
 
-																				<img src="" />
-																				<div class="modal-footer">
-																					<button type="button" class="close"
-																						data-dismiss="modal" aria-hidden="true"
-																						style="width: 56px; height: 38px; border: 1px solid #7e9c8c; font-size: 14px;">취소</button>
-																					<button type="submit" class="btn btn-primary"
-																						style="float: right; border-radius: 2px;">수정</button>
-																				</div>
-																			</form>
-																		</div>
-																		<!-- /.modal-content -->
-																	</div>
-																	<!-- /.modal-dialog -->
-																</div>
+														<img src="" />
+														<div class="modal-footer">
+															<button type="button" class="close" data-dismiss="modal"
+																aria-hidden="true"
+																style="width: 56px; height: 38px; border: 1px solid #7e9c8c; font-size: 14px;">취소</button>
+															<button type="submit" class="btn btn-primary"
+																style="float: right; border-radius: 2px;">수정</button>
+														</div>
+													</form>
+												</div>
+												<!-- /.modal-content -->
+											</div>
+											<!-- /.modal-dialog -->
+										</div>
 
 										<tr style="border-bottom: 1px solid grey;">
 
@@ -793,9 +819,9 @@ function fn1() {
 																	style="float: right; border-radius: 2px; margin-bottom: 3px; background-color: white; color: gray; border: 1px solid #eeeeee; border-radius: 2px; width: 70px; height: 30px; font-size: 14px;"
 																	class="btn-secondary btn-xs">삭제</button>
 																<a data-toggle="modal" href="#tallModal2"
-																	style="float: right; border-radius: 2px; margin-bottom: 3px; text-align:center; background-color: white; color: gray; border: 1px solid #eeeeee; border-radius: 2px; width: 70px; height: 30px; font-size: 14px;"
+																	style="float: right; border-radius: 2px; margin-bottom: 3px; text-align: center; background-color: white; color: gray; border: 1px solid #eeeeee; border-radius: 2px; width: 70px; height: 30px; font-size: 14px;"
 																	class="btn-secondary btn-xs">수정</a>
-																
+
 
 															</c:if>
 														</p>
@@ -820,31 +846,31 @@ function fn1() {
 								</c:when>
 							</c:choose>
 						</table>
-				<div class="page_wrap"
+						<div class="page_wrap"
 							style="margin-top: 50px; margin-left: -80px;" align="center">
 							<div class="page_nation">
-								<c:if test="${pageMaker.prev}">
+								<c:if test="${pageMaker2.prev}">
 
 									<a class="arrow prev"
 										style="border: 1px solid #7e9c8c; color: #7e9c8c; margin-right: 0px; margin-left: 2px; padding-left: 6px; padding-right: 7px;"
-										href='<c:url value="/product/viewProduct.do?productNum=${product.productNum}&&page=${pageMaker.startPage-1 }"/>'><i
+										href='<c:url value="/product/viewProduct.do?productNum=${product.productNum}&&page2=${pageMaker2.startPage-1 }"/>'><i
 										class="fa fa-chevron-left"></i></a>
 
 								</c:if>
-								<c:forEach begin="${pageMaker.startPage }"
-									end="${pageMaker.endPage }" var="pageNum">
+								<c:forEach begin="${pageMaker2.startPage }"
+									end="${pageMaker2.endPage }" var="pageNum">
 
 									<a
 										style="border: 1px solid #7e9c8c; color: #7e9c8c; margin-right: 0px; margin-left: 2px; padding-left: 6px; padding-right: 7px;"
-										href='<c:url value="/product/viewProduct.do?productNum=${product.productNum}&page=${pageNum }"/>'><i
+										href='<c:url value="/product/viewProduct.do?productNum=${product.productNum}&page2=${pageNum }"/>'><i
 										class="fa">${pageNum }</i></a>
 
 								</c:forEach>
-								<c:if test="${pageMaker.next && pageMaker.endPage >0 }">
+								<c:if test="${pageMaker2.next && pageMaker2.endPage >0 }">
 
 									<a class="arrow next"
 										style="border: 1px solid #7e9c8c; color: #7e9c8c; margin-right: 0px; margin-left: 2px; padding-left: 6px; padding-right: 7px;"
-										href='<c:url value="/product/viewProduct.do?productNum=${product.productNum}&page=${pageMaker.endPage+1 }"/>'><i
+										href='<c:url value="/product/viewProduct.do?productNum=${product.productNum}&page2=${pageMaker2.endPage+1 }"/>'><i
 										class="fa fa-chevron-right"></i></a>
 
 								</c:if>

@@ -38,7 +38,9 @@ import com.project.simple.member.vo.MemberVO;
 import com.project.simple.page.Criteria;
 import com.project.simple.page.PageMaker;
 import com.project.simple.product.page.Criteria1;
+import com.project.simple.product.page.Criteria2;
 import com.project.simple.product.page.PageMaker1;
+import com.project.simple.product.page.PageMaker2;
 import com.project.simple.product.service.ProductService;
 import com.project.simple.product.vo.ProductVO;
 
@@ -431,7 +433,7 @@ public class ProductControllerImpl implements ProductController {
 		return resEnt;
 	}
            	@RequestMapping(value = "/product/viewProduct.do", method = RequestMethod.GET)
-	public ModelAndView viewProduct(@RequestParam("productNum") String productNum, Criteria cri,HttpServletRequest request,
+	public ModelAndView viewProduct(@RequestParam("productNum") String productNum, Criteria cri,Criteria2 cri2, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		Map<String, Object> productMap = new HashMap();
 		String viewName = (String) request.getAttribute("viewName");
@@ -442,8 +444,12 @@ public class ProductControllerImpl implements ProductController {
 		
 		int pageStart = cri.getPageStart();
 		int perPageNum = cri.getPerPageNum();
+		int pageStart2 = cri2.getPageStart();
+		int perPageNum2 = cri2.getPerPageNum();
 		productMap.put("pageStart", pageStart);
 		productMap.put("perPageNum", perPageNum);
+		productMap.put("pageStart2", pageStart2);
+		productMap.put("perPageNum2", perPageNum2);
 		productMap.put("productNum", productNum);
 		List<ProductVO> productReviewList= productService.listProductReview(productMap);
 		int productReviewCount = productService.productReviewCount(productNum);
@@ -453,6 +459,11 @@ public class ProductControllerImpl implements ProductController {
 		pageMaker.setCri(cri);
 		pageMaker.setTotalCount(productReviewCount);
 		int pageNum = pageMaker.getCri().getPage();
+		
+		PageMaker2 pageMaker2 = new PageMaker2();
+		pageMaker2.setCri2(cri2);
+		pageMaker2.setTotalCount(productQuestionCount);
+		int pageNum2 = pageMaker2.getCri2().getPage();
 
 		addQuick(productNum,productVO,session);
 		mav.setViewName(viewName);
@@ -462,6 +473,8 @@ public class ProductControllerImpl implements ProductController {
 		mav.addObject("productQuestionList", productQuestionList);
 		mav.addObject("pageMaker", pageMaker);
 		mav.addObject("pageNum", pageNum);
+		mav.addObject("pageMaker2", pageMaker2);
+		mav.addObject("pageNum2", pageNum2);
 
 
 		return mav;
