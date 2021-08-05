@@ -143,7 +143,8 @@ h4 {
 	    $("form").submit();
 	})
 </script>
-<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<script type="text/javascript"
+	src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
 
@@ -241,6 +242,167 @@ h4 {
 
 	
 
+	function iamport() {
+		var IMP = window.IMP;
+		var form = document.CheckOrder;
+
+		if (form.nonmemName.value == "") {
+			alert("주문자정보의 이름을 입력하지 않았습니다.")
+			form.nonmemName.focus();
+			return false;
+		}
+
+		if (form.nonmemAdr.value == "") {
+			alert("주문자정보의 주소를 입력하지 않았습니다.")
+			form.nonmemAdr.focus();
+			return false;
+		}
+		if (form.nonmemAdr1.value == "") {
+			alert("주문자정보의 주소를 입력하지 않았습니다.")
+			form.nonmemAdr1.focus();
+			return false;
+		}
+		if (form.nonmemAdr2.value == "") {
+			alert("주문자정보의 주소를 입력하지 않았습니다.")
+			form.nonmemAdr2.focus();
+			return false;
+		}
+		
+		
+		if (form.nonmemPhoneNum.value == "") {
+			alert("주문자정보의 연락처를 입력하지 않았습니다.")
+			form.nonmemPhoneNum.focus();
+			return false;
+		}
+
+		if (form.nonmemPhoneNum1.value == "") {
+			alert("주문자정보의 연락처를 입력하지 않았습니다.")
+			form.nonmemPhoneNum1.focus();
+			return false;
+		}
+		
+		if (form.nonmemPhoneNum2.value == "") {
+			alert("주문자정보의 연락처를 입력하지 않았습니다.")
+			form.nonmemPhoneNum2.focus();
+			return false;
+		}
+
+		for (var i = 0; i < form.nonmemPhoneNum1.value.length; i++) {
+			ch = form.nonmemPhoneNum1.value.charAt(i)
+			if (!(ch >= '0' && ch <= '9')) {
+				alert("주문자정보의 연락처는 숫자만 입력가능합니다.")
+				form.nonmemPhoneNum1.focus();
+				form.nonmemPhoneNum1.select();
+				return false;
+			}
+		}
+		for (var i = 0; i < form.nonmemPhoneNum2.value.length; i++) {
+			ch = form.nonmemPhoneNum2.value.charAt(i)
+			if (!(ch >= '0' && ch <= '9')) {
+				alert("주문자정보의 연락처는 숫자만 입력가능합니다.")
+				form.nonmemPhoneNum2.focus();
+				form.nonmemPhoneNum2.select();
+				return false;
+			}
+		}
+		
+		
+		if (form.nonmemSpName.value == "") {
+			alert("배송정보의 이름을 입력하지 않았습니다.")
+			form.nonmemSpName.focus();
+			return false;
+		}
+
+		if (form.nonmemSpAdr.value == "") {
+			alert("배송정보의 주소를 입력하지 않았습니다.")
+			form.nonmemSpAdr.focus();
+			return false;
+		}
+		if (form.nonmemSpAdr1.value == "") {
+			alert("배송정보의 주소 입력하지 않았습니다.")
+			form.nonmemSpAdr1.focus();
+			return false;
+		}
+		if (form.nonmemSpAdr2.value == "") {
+			alert("배송정보의 주소 입력하지 않았습니다.")
+			form.nonmemSpAdr2.focus();
+			return false;
+		}
+
+		for (var i = 0; i < form.nonmemSpPhoneNum1_1.value.length; i++) {
+			ch = form.nonmemSpPhoneNum1_1.value.charAt(i)
+			if (!(ch >= '0' && ch <= '9')) {
+				alert("배송정보의 연락처는 숫자만 입력가능합니다.")
+				form.nonmemSpPhoneNum1_1.focus();
+				form.nonmemSpPhoneNum1_1.select();
+				return false;
+			}
+		}
+		
+		for (var i = 0; i < form.nonmemSpPhoneNum1_2.value.length; i++) {
+			ch = form.nonmemSpPhoneNum1_2.value.charAt(i)
+			if (!(ch >= '0' && ch <= '9')) {
+				alert("배송정보의 연락처1은 숫자만 입력가능합니다.")
+				form.nonmemSpPhoneNum1_2.focus();
+				form.nonmemSpPhoneNum1_2.select();
+				return false;
+			}
+		}
+		
+		if (form.nonmemSpPhoneNum1_0.value == "") {
+			alert("배송정보의 연락처1을 입력하지 않았습니다.")
+			form.nonmemSpPhoneNum1_0.focus();
+			return false;
+		}
+		
+		if (form.nonmemSpPhoneNum1_1.value == "") {
+			alert("배송정보의 연락처1을 입력하지 않았습니다.")
+			form.nonmemSpPhoneNum1_1.focus();
+			return false;
+		}
+		if (form.nonmemSpPhoneNum1_2.value == "") {
+			alert("배송정보의 연락처1을 입력하지 않았습니다.")
+			form.nonmemSpPhoneNum1_2.focus();
+			return false;
+		}
+		
+
+		
+		//가맹점 식별코드
+		IMP.init('imp44341689');
+		IMP.request_pay({
+			pg : 'inicis',
+			pay_method : 'card',
+			merchant_uid : 'merchant_' + new Date().getTime(),
+			name : '(주)SIMPLE', //결제창에서 보여질 이름
+			amount : ${totalPrice}, //실제 결제되는 가격		
+			buyer_name : $('input[name=nonmemName]').val()
+		
+		
+		}, function(rsp) {
+			console.log(rsp);
+			if (rsp.success) {
+				var msg = '결제가 완료되었습니다.';
+				msg += '고유ID : ' + rsp.imp_uid;
+				msg += '상점 거래ID : ' + rsp.merchant_uid;
+				msg += '결제 금액 : ' + rsp.paid_amount;
+				msg += '카드 승인번호 : ' + rsp.apply_num;
+				var param = $("form[name=CheckOrder]").serialize();
+				$.ajax({
+					url : "addorderlist.do",
+					type : "POST",	
+					data : param
+				}).done(function(data){		
+					location.replace("${contextPath}/nonMemberOrderResult.do");
+				})
+			} else {
+				var msg = '결제에 실패하였습니다.';
+				msg += '에러내용 : ' + rsp.error_msg;
+			}
+			alert(msg);
+		});
+	}
+	
 </script>
 </head>
 <title>주문결제창</title>
@@ -255,45 +417,46 @@ h4 {
 	<section class="ftco-section" style="padding-top: 100px;">
 
 		<div class="container">
-		
-<form name="CheckOrder" action="${contextPath}/addorderlist.do" method="post">
-<input type="hidden" name="totalPrice" value="${totalPrice}" />
-			<!-- 타이틀 끝 -->
+
+			<form name="CheckOrder" action="${contextPath}/addorderlist.do"
+				method="post">
+				<input type="hidden" name="totalPrice" value="${totalPrice}" />
+				<!-- 타이틀 끝 -->
 
 
 
-			<div style="font-size: 25px; font-weight: bold;">
-				<a style="color: #7e9c8c;">주문리스트</a>
-			</div>
+				<div style="font-size: 25px; font-weight: bold;">
+					<a style="color: #7e9c8c;">주문리스트</a>
+				</div>
 
-			<!-- 최근 본 상품 -->
-			<div id="recentlyProduct"
-				style="position: absolute; width: 120px; height: 310px; margin-left: 1370px; border: 1px solid #d2d2d2; margin-top: 0px;">
-				<ul
-					style="list-style: none; margin-top: 10px; padding-left: 20px; margin-bottom: 10px;">
-					<li><a href="#"
-						style="padding-left: -10px; padding-bottom: 1px; color: black;">최근본상품</a></li>
-				</ul>
-				<hr style="margin-top: 0px; margin-bottom: 0px; color: #d2d2d2;">
-				<ul style="list-style: none; padding-top: 5px;">
-					<li><a href="#"><img
-							src="${contextPath}/resources/images/image_1.jpg"
-							style="width: 100px; height: 100px; padding-top: 10px; margin-left: -30px;"></a></li>
-					<li><a href="#"><img
-							src="${contextPath}/resources/images/image_2.jpg"
-							style="width: 100px; height: 100px; padding-top: 10px; padding-top: 10px; margin-left: -30px;"></a></li>
-				</ul>
-				<hr style="margin-top: 0px; margin-bottom: 0px; color: #d2d2d2;">
-				<ul
-					style="list-style: none; padding-left: 30px; margin-bottom: 10px; margin-top: 8px;">
-					<li><a href="#"
-						style="color: black; text-align: center; margin-top: 8px; padding-top: 30px;">더보기▼</a></li>
-				</ul>
-			</div>
-			<!-- 최근본상품끝 -->
+				<!-- 최근 본 상품 -->
+				<div id="recentlyProduct"
+					style="position: absolute; width: 120px; height: 310px; margin-left: 1370px; border: 1px solid #d2d2d2; margin-top: 0px;">
+					<ul
+						style="list-style: none; margin-top: 10px; padding-left: 20px; margin-bottom: 10px;">
+						<li><a href="#"
+							style="padding-left: -10px; padding-bottom: 1px; color: black;">최근본상품</a></li>
+					</ul>
+					<hr style="margin-top: 0px; margin-bottom: 0px; color: #d2d2d2;">
+					<ul style="list-style: none; padding-top: 5px;">
+						<li><a href="#"><img
+								src="${contextPath}/resources/images/image_1.jpg"
+								style="width: 100px; height: 100px; padding-top: 10px; margin-left: -30px;"></a></li>
+						<li><a href="#"><img
+								src="${contextPath}/resources/images/image_2.jpg"
+								style="width: 100px; height: 100px; padding-top: 10px; padding-top: 10px; margin-left: -30px;"></a></li>
+					</ul>
+					<hr style="margin-top: 0px; margin-bottom: 0px; color: #d2d2d2;">
+					<ul
+						style="list-style: none; padding-left: 30px; margin-bottom: 10px; margin-top: 8px;">
+						<li><a href="#"
+							style="color: black; text-align: center; margin-top: 8px; padding-top: 30px;">더보기▼</a></li>
+					</ul>
+				</div>
+				<!-- 최근본상품끝 -->
 
 
-			
+
 
 
 
@@ -346,61 +509,61 @@ h4 {
 				<div style="font-size: 25px; font-weight: bold; margin-top: 70px;">
 					<a style="color: #7e9c8c; margin-top: 40px;">주문자정보</a>
 				</div>
-						<div class="order_list">
-							<table class="table">
-								<colgroup>
-									<col width="20%" />
-								</colgroup>
-								<tbody>
-									<tr
-										style="border-bottom: 1px solid #eeeeee; border-top: 1px solid rgba(0, 0, 0, 0.1);">
-										<th scope="col"><a
-											style="color: red; padding-right: 5px; write-space: nowrap;">*</a>이름</th>
-										<th scope="col"><input type="text" name="nonmemName"
-											value=""
-											style="font-size: 14px; border: 1px solid #dcdcdc; width: 326px; height: 36px;"></th>
-									</tr>
-									<tr style="border-bottom: 1px solid #eeeeee;">
-										<th scope="col"><a
-											style="color: red; padding-right: 5px; write-space: nowrap;">*</a>주소</th>
-										<th scope="col"><input type="text" name="nonmemAdr" value=""
-											id="sample6_postcode_nonmember"
-											style="font-size: 14px; border: 1px solid #dcdcdc; width: 211px; height: 36px;">&nbsp;&nbsp;&nbsp;&nbsp;<input
-											type="button" onclick="sample6_execDaumPostcode()"
-											value="우편번호 찾기"
-											style="font-size: 14px; border: none; background-color: #c6c6c6; color: white; width: 100px; height: 37px;">
-											&nbsp;&nbsp;&nbsp;
+				<div class="order_list">
+					<table class="table">
+						<colgroup>
+							<col width="20%" />
+						</colgroup>
+						<tbody>
+							<tr
+								style="border-bottom: 1px solid #eeeeee; border-top: 1px solid rgba(0, 0, 0, 0.1);">
+								<th scope="col"><a
+									style="color: red; padding-right: 5px; write-space: nowrap;">*</a>이름</th>
+								<th scope="col"><input type="text" name="nonmemName"
+									value=""
+									style="font-size: 14px; border: 1px solid #dcdcdc; width: 326px; height: 36px;"></th>
+							</tr>
+							<tr style="border-bottom: 1px solid #eeeeee;">
+								<th scope="col"><a
+									style="color: red; padding-right: 5px; write-space: nowrap;">*</a>주소</th>
+								<th scope="col"><input type="text" name="nonmemAdr"
+									value="" id="sample6_postcode_nonmember"
+									style="font-size: 14px; border: 1px solid #dcdcdc; width: 211px; height: 36px;">&nbsp;&nbsp;&nbsp;&nbsp;<input
+									type="button" onclick="sample6_execDaumPostcode()"
+									value="우편번호 찾기"
+									style="font-size: 14px; border: none; background-color: #c6c6c6; color: white; width: 100px; height: 37px;">
+									&nbsp;&nbsp;&nbsp;
 
-											<p>
-												<br> <input type="text" name="nonmemAdr1" value=""
-													id="sample6_address_nonmember"
-													style="font-size: 14px; border: 1px solid #dcdcdc; width: 326px; height: 36px;">
-											</p>
-											<p>
-												<input type="text" name="nonmemAdr2" id="sample6_address2_nonmember"
-													value=""
-													style="font-size: 14px; border: 1px solid #dcdcdc; width: 326px; height: 36px;">
-											</p></th>
-									</tr>
-									<tr style="border-bottom: 1px solid rgba(0, 0, 0, 0.1);">
-										<th scope="col"><a
-											style="color: red; padding-right: 5px; write-space: nowrap;">*</a>연락처</th>
-										<th scope="col"><select name="nonmemPhoneNum"
-											style="width: 80px; font-size: 14px; border: 1px solid #dcdcdc; height: 36px;">
-												<option value="">선택</option>
-												<option value="011">011</option>
-												<option value="016">016</option>
-												<option value="017">017</option>
-												<option value="019">019</option>
-												<option value="010">010</option>
-										</select> - <input type="text" name="nonmemPhoneNum1" value=""
-											style="width: 109px; font-size: 14px; border: 1px solid #dcdcdc; height: 36px;">
-											- <input type="text" name="nonmemPhoneNum2" value=""
-											style="width: 109px; font-size: 14px; border: 1px solid #dcdcdc; height: 36px;"></th>
-									</tr>
-								</tbody>
-							</table>
-						</div>
+									<p>
+										<br> <input type="text" name="nonmemAdr1" value=""
+											id="sample6_address_nonmember"
+											style="font-size: 14px; border: 1px solid #dcdcdc; width: 326px; height: 36px;">
+									</p>
+									<p>
+										<input type="text" name="nonmemAdr2"
+											id="sample6_address2_nonmember" value=""
+											style="font-size: 14px; border: 1px solid #dcdcdc; width: 326px; height: 36px;">
+									</p></th>
+							</tr>
+							<tr style="border-bottom: 1px solid rgba(0, 0, 0, 0.1);">
+								<th scope="col"><a
+									style="color: red; padding-right: 5px; write-space: nowrap;">*</a>연락처</th>
+								<th scope="col"><select name="nonmemPhoneNum"
+									style="width: 80px; font-size: 14px; border: 1px solid #dcdcdc; height: 36px;">
+										<option value="">선택</option>
+										<option value="011">011</option>
+										<option value="016">016</option>
+										<option value="017">017</option>
+										<option value="019">019</option>
+										<option value="010">010</option>
+								</select> - <input type="text" name="nonmemPhoneNum1" value=""
+									style="width: 109px; font-size: 14px; border: 1px solid #dcdcdc; height: 36px;">
+									- <input type="text" name="nonmemPhoneNum2" value=""
+									style="width: 109px; font-size: 14px; border: 1px solid #dcdcdc; height: 36px;"></th>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 				<div style="font-size: 25px; margin-top: 40px; font-weight: bold;">
 					<a style="color: #7e9c8c;">배송정보</a>
 				</div>
@@ -423,8 +586,8 @@ h4 {
 							<tr style="border-bottom: 1px solid #eeeeee;">
 								<th scope="col"><a
 									style="color: red; padding-right: 5px; write-space: nowrap;">*</a>주소</th>
-								<th scope="col"><input type="text" name="nonmemSpAdr" value=""
-									id="sample6_postcode1" readonly
+								<th scope="col"><input type="text" name="nonmemSpAdr"
+									value="" id="sample6_postcode1" readonly
 									style="font-size: 14px; width: 211px; border: 1px solid #dcdcdc; height: 36px;">&nbsp;&nbsp;&nbsp;
 									<input type="button" onclick="sample6_execDaumPostcode2()"
 									value="우편번호 찾기"
@@ -481,10 +644,11 @@ h4 {
 							</tr>
 							<tr style="border-bottom: 1px solid rgba(0, 0, 0, 0.1);">
 								<th scope="col" style="padding-left: 23px;">무통장 입금자명</th>
-								<th scope="col"><input name="nonmemDepositorName" type="text"
-									value=""
+								<th scope="col"><input name="nonmemDepositorName"
+									type="text" value=""
 									style="font-size: 14px; border: 1px solid #dcdcdc; height: 36px; width: 326px;"><a
-									style="font-size: 14px; color: color:#b3b3b3;">ㅤ(무통장 입금 시 입력)</a></th>
+									style="font-size: 14px; color: color:#b3b3b3;">ㅤ(무통장 입금 시
+										입력)</a></th>
 							</tr>
 						</tbody>
 					</table>
@@ -503,9 +667,9 @@ h4 {
 								style="border-top: 1px solid rgba(0, 0, 0, 0.1); border-bottom: 1px solid #eeeeee;">
 								<th scope="col"><a
 									style="color: red; padding-right: 5px; write-space: nowrap;">*</a>결제방법</th>
-								<th scope="col"><input type="radio" name="nonmemPaymentMethod"
-									value="카드결제">신용/체크카드&nbsp;&nbsp;&nbsp; <input
-									type="radio" name="nonmemPaymentMethod" value="무통장입금">무통장입금&nbsp;&nbsp;&nbsp;&nbsp;
+								<th scope="col"><input type="radio"
+									name="nonmemPaymentMethod" value="카드결제">신용/체크카드&nbsp;&nbsp;&nbsp;
+									<input type="radio" name="nonmemPaymentMethod" value="무통장입금">무통장입금&nbsp;&nbsp;&nbsp;&nbsp;
 									<input type="radio" name="nonmemPaymentMethod" value="휴대폰결제">휴대폰결제</th>
 							</tr>
 							<tr style="border-bottom: 1px solid rgba(0, 0, 0, 0.1);">
@@ -517,7 +681,8 @@ h4 {
 										<option value="농협카드">농협카드</option>
 										<option value="비씨카드">BC카드</option>
 										<option value="우리카드">우리카드</option>
-										<option value="신한카드">신한카드</option></select></th>
+										<option value="신한카드">신한카드</option>
+								</select></th>
 
 							</tr>
 
@@ -525,17 +690,17 @@ h4 {
 					</table>
 				</div>
 				<br> <br>
-			
-			<div style="text-align: center">
-				<button type="submit" class="btn btn-secondary"
-					onclick="Check_Order()"
-					style="padding-left: 10px; margin-left: 40px; background-color: #7e9c8c; color: white; border: none; border-radius: 2px; width: 130px; height: 45px;">결제하기</button>
-				&nbsp;&nbsp;
-				<button type="button" class="btn btn-secondary"
-					onclick="location.href='/cart'"
-					style="padding-left: 10px; background-color: white; color: #7e9c8c; border: 1px solid #7e9c8c; border-radius: 2px; width: 130px; height: 45px;">취소하기</button>
-			</div>
-			<br> <br>
+
+				<div style="text-align: center">
+					<input type="button" class="btn btn-secondary" onclick="iamport();"
+						value="결제하기"
+						style="padding-left: 10px; margin-left: 40px; background-color: #7e9c8c; color: white; border: none; border-radius: 2px; width: 130px; height: 45px;">
+					&nbsp;&nbsp;
+					<button type="button" class="btn btn-secondary"
+						onclick="location.href='/cart'"
+						style="padding-left: 10px; background-color: white; color: #7e9c8c; border: 1px solid #7e9c8c; border-radius: 2px; width: 130px; height: 45px;">취소하기</button>
+				</div>
+				<br> <br>
 			</form>
 		</div>
 	</section>

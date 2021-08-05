@@ -211,7 +211,8 @@ h4 {
 					url : "addorderlist.do",
 					type : "POST",	
 					data : param
-				}).done(function(data){					
+				}).done(function(data){		
+					location.replace("${contextPath}/memberOrderResult.do");
 				})
 			} else {
 				var msg = '결제에 실패하였습니다.';

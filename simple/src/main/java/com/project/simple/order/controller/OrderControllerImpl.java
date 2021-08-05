@@ -89,8 +89,7 @@ public class OrderControllerImpl implements OrderController {
 			for (int i = 0; i < size; i++) {
 				orderlist.add(orderService.selectcartlist(ajaxMsg[i]));
 			}
-			
-			
+
 			session.setAttribute("memCartId", ajaxMsg);
 			session.setAttribute("totalPrice", totalPrice);
 			session.setAttribute("orderlist", orderlist);
@@ -119,10 +118,21 @@ public class OrderControllerImpl implements OrderController {
 
 	}
 
+	// 주문결과페이지이동(회원)
+	@RequestMapping(value = "/memberOrderResult.do", method = RequestMethod.GET)
+	private ModelAndView order_03(@RequestParam("Price") String price, @RequestParam("point") String point, @RequestParam("memPaymentMethod") String memPaymentMethod, @RequestParam(" memOrderNum") String  memOrderNum,  HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("order_03");
+		return mav;
+
+	}
+
 	// 주문완료(주문내역DB저장)
 	@RequestMapping(value = "/addorderlist.do", method = RequestMethod.POST)
 	@ResponseBody
-	private ModelAndView addorderlist(@ModelAttribute("orderVO") OrderVO orderVO, HttpServletRequest request,
+	private ModelAndView addorderlist(@ModelAttribute("orderVO") OrderVO orderVO,RedirectAttributes re, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		HttpSession session = request.getSession();
@@ -132,7 +142,7 @@ public class OrderControllerImpl implements OrderController {
 		if (isLogOn == null) {
 			ArrayList<CartVO> orderlist = (ArrayList) session.getAttribute("orderlist");
 			int size = orderlist.size();
-				
+
 			String randomnumber = numberGen(9, 1);
 			int nonmemOrderNum = Integer.parseInt(randomnumber);
 			String nonmemPaymentMethod = orderVO.getNonmemPaymentMethod();
@@ -214,13 +224,12 @@ public class OrderControllerImpl implements OrderController {
 
 				orderService.addNewOrder(orderVO); // 마이바티스에서 분기
 			}
-			
-			
+
 			String[] memCartId = (String[]) session.getAttribute("memCartId");
-			for(int i=0; i<size; i++) {
+			for (int i = 0; i < size; i++) {
 				cartService.removeCompleteCartlist(memCartId[i]);
 			}
-			
+
 			session.removeAttribute("memCartId");
 			mav.addObject("point", point);
 			mav.addObject("Price", Price);
