@@ -487,8 +487,8 @@ function fn1() {
 						$(document).ready(function() {
 							//When page loads...
 							$(".tab_content").hide(); //Hide all content
-							$("ul.tabs li:nth(2)").addClass("active").show(); //Activate first tab
-							$(".tab_content:nth(2)").show(); //Show first tab content
+							$("ul.tabs li:nth(3)").addClass("active").show(); //Activate first tab
+							$(".tab_content:nth(3)").show(); //Show first tab content
 							//On Click Event
 							$("ul.tabs li").click(function() {
 								$("ul.tabs li").removeClass("active"); //Remove any "active" class
@@ -849,28 +849,28 @@ function fn1() {
 						<div class="page_wrap"
 							style="margin-top: 50px; margin-left: -80px;" align="center">
 							<div class="page_nation">
-								<c:if test="${pageMaker2.prev}">
+								<c:if test="${pageMaker2.prev2}">
 
 									<a class="arrow prev"
 										style="border: 1px solid #7e9c8c; color: #7e9c8c; margin-right: 0px; margin-left: 2px; padding-left: 6px; padding-right: 7px;"
-										href='<c:url value="/product/viewProduct.do?productNum=${product.productNum}&&page2=${pageMaker2.startPage-1 }"/>'><i
+										href='<c:url value="/product/viewProduct.do?productNum=${product.productNum}&&page2=${pageMaker2.startPage2-1 }"/>'><i
 										class="fa fa-chevron-left"></i></a>
 
 								</c:if>
-								<c:forEach begin="${pageMaker2.startPage }"
-									end="${pageMaker2.endPage }" var="pageNum">
+								<c:forEach begin="${pageMaker2.startPage2 }"
+									end="${pageMaker2.endPage }" var="pageNum2">
 
 									<a
 										style="border: 1px solid #7e9c8c; color: #7e9c8c; margin-right: 0px; margin-left: 2px; padding-left: 6px; padding-right: 7px;"
-										href='<c:url value="/product/viewProduct.do?productNum=${product.productNum}&page2=${pageNum }"/>'><i
-										class="fa">${pageNum }</i></a>
+										href='<c:url value="/product/viewProduct.do?productNum=${product.productNum}&page2=${pageNum2}"/>'><i
+										class="fa">${pageNum2}</i></a>
 
 								</c:forEach>
-								<c:if test="${pageMaker2.next && pageMaker2.endPage >0 }">
+								<c:if test="${pageMaker2.next2 && pageMaker2.endPage2 >0 }">
 
 									<a class="arrow next"
 										style="border: 1px solid #7e9c8c; color: #7e9c8c; margin-right: 0px; margin-left: 2px; padding-left: 6px; padding-right: 7px;"
-										href='<c:url value="/product/viewProduct.do?productNum=${product.productNum}&page2=${pageMaker2.endPage+1 }"/>'><i
+										href='<c:url value="/product/viewProduct.do?productNum=${product.productNum}&page2=${pageMaker2.endPage2+1 }"/>'><i
 										class="fa fa-chevron-right"></i></a>
 
 								</c:if>

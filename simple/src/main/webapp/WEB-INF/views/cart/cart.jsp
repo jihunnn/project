@@ -3,7 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.project.simple.cart.vo.CartVO"%>
-
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+	integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
+	crossorigin="anonymous">
 
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
@@ -134,7 +137,8 @@
 					type : 'POST', //POST방식
 					traditional : true,
 					data : {
-						valueArr : valueArr, totalPrice : totalPrice
+						valueArr : valueArr,
+						totalPrice : totalPrice
 					//보내고자 하는 data 변수 설정
 					},
 					success : function(jdata) {
@@ -171,7 +175,8 @@
 					type : 'POST', //POST방식
 					traditional : true,
 					data : {
-						valueArr : valueArr, totalPrice : totalPrice
+						valueArr : valueArr,
+						totalPrice : totalPrice
 					//보내고자 하는 data 변수 설정
 					},
 					success : function(jdata) {
@@ -188,9 +193,324 @@
 			}
 		}
 	}
+	
+	function check(chk, idx) {
+		var item = (document.getElementsByName('cart'))[idx];
+		var totalPrice = parseInt($('#totalPrice').val());
+		var productPrice = parseInt(item.productPrice.value);
+		if(item.chk.checked == true){
+			totalPrice=totalPrice+productPrice;
+		} else {
+			totalPrice=totalPrice-productPrice;
+		}
+		
+		document.getElementById('totalPrice').value=totalPrice;
+	}
+	
+	let basket = {
+	
+
+		changePNum : function(change_type, idx) {
+
+			
+			var item = (document.getElementsByName('cart'))[idx];
+			var p_num = parseInt(item.p_num1.value);
+			var totalPrice = parseInt($('#totalPrice').val());
+
+			var newval = event.target.classList.contains('up') ? p_num + 1
+					: event.target.classList.contains('down') ? p_num - 1
+							: event.target.value;
+
+			if (parseInt(newval) < 1 || parseInt(newval) > 99) {
+				return false;
+			}
+
+			item.p_num1.setAttribute('value', newval);
+			item.p_num1.value = newval;
+
+			var price = parseInt(item.p_price.value);
+		
+			
+			productPrice = (newval * price);
+	
+			item.productPrice.value = productPrice;
+			
+			if(item.chk.checked == true){
+				if(event.target.classList.contains('up')){
+					totalPrice = price+totalPrice;
+				} else if(event.target.classList.contains('down')){
+					totalPrice = totalPrice-price;
+				}
+
+				document.getElementById('totalPrice').value=totalPrice;
+			} 
+
+			
+			//AJAX 업데이트 전송
+
+		
+		}
+	
+	}
+
+	// 숫자 3자리 콤마찍기
+	Number.prototype.formatNumber = function() {
+		if (this == 0)
+			return 0;
+		let regex = /(^[+-]?\d+)(\d{3})/;
+		let nstr = (this + '');
+		while (regex.test(nstr))
+			nstr = nstr.replace(regex, '$1' + ',' + '$2');
+		return nstr;
+	};
+	
+	
 </script>
 
+<style>
+.basketdiv {
+	width: 100%;
+	border-top: 1px solid #e0e0e0;
+	float: left;
+	font-size: 0.9375em;
+	margin-bottom: 20px;
+}
 
+.basketdiv .row.head {
+	border-bottom: 2px solid #888;
+	box-sizing: border-box;
+	background-color: #f4f4f4;
+	font-weight: 500;
+}
+
+.basketdiv .data {
+	border-bottom: 1px dashed #888;
+	box-sizing: border-box;
+	cursor: pointer;
+	float: left;
+	width: 100%;
+}
+
+.basketdiv .data .empty {
+	text-align: center;
+	padding: 12px 0;
+}
+
+.basketdiv .row.head .subdiv {
+	background-color: #f4f4f4;
+}
+
+.basketdiv .row>.subdiv {
+	display: block;
+	float: left;
+}
+
+.basketdiv .row>.subdiv:nth-child(1) {
+	width: 50%;
+}
+
+.basketdiv .row>.subdiv:nth-child(2) {
+	width: 40%;
+}
+
+.basketdiv .row>.subdiv:nth-child(3) {
+	width: 10%;
+}
+
+.basketdiv2 .row>.subdiv:nth-child(1) {
+	width: 60%;
+}
+
+.basketdiv2 .row>.subdiv:nth-child(2) {
+	width: 40%;
+}
+
+.basketdiv .row>div>div {
+	display: block;
+	float: left;
+	text-align: center;
+	margin: 0;
+	padding: 12px 0;
+}
+
+.basketdiv .row.data>div>div {
+	height: 60px;
+	line-height: 60px;
+}
+
+.basketdiv .data .num .updown {
+	color: #0075ff;
+	font-size: 2em;
+	letter-spacing: -5px;
+}
+
+.basketdiv .check {
+	width: 10%;
+}
+
+.basketdiv .check input[type=checkbox] {
+	transform: scale(1.5);
+}
+
+.basketdiv .img {
+	width: 20%;
+}
+
+.basketdiv .pname {
+	width: 70%;
+}
+
+.basketdiv2 .pname {
+	width: 80%;
+}
+
+.basketdiv .basketprice {
+	width: 33%;
+}
+
+.basketdiv .num {
+	width: 33%;
+	min-width: 105px;
+}
+
+.basketdiv .sum {
+	width: 34%;
+	max-width: 80px;
+	color: #0000aa;
+}
+
+.basketdiv .point {
+	width: 50%;
+}
+
+.basketdiv2 .basketprice {
+	width: 25%;
+}
+
+.basketdiv2 .num {
+	width: 25%;
+}
+
+.basketdiv2 .sum {
+	width: 25%;
+	color: #0000aa;
+}
+
+.basketdiv2 .point {
+	width: 25%;
+}
+
+.basketdiv .basketcmd {
+	width: 100%;
+}
+
+.basketdiv .data .pname {
+	text-align: left !important;
+	line-height: 1.2 !important;
+}
+
+.basketdiv .data .price, .basketdiv .data .sum, .basketdiv .data .point
+	{
+	text-align: right;
+}
+
+.baseform>tbody>tr>td:first-child {
+	width: 100px;
+}
+
+.buttongroup {
+	padding: 11px 0;
+	margin: 50px 0;
+}
+
+.narrowbuttongroup {
+	margin: 15px 0;
+}
+
+.buttongroup.center {
+	text-align: center;
+}
+
+.buttongroup input[type=text], .buttongroup input[type=password] {
+	height: 30px;
+}
+
+.buttongroup button, .buttongroup a {
+	margin-right: 5px;
+}
+
+.buttongroup button:last-child, .buttongroup a:last-child {
+	margin-right: 0;
+}
+
+.abutton, .abutton:link, .abutton:visited, .abutton:active, input[type=button]
+	{
+	background-color: #383838;
+	border: 1px solid #888888;
+	color: #ffffff;
+	cursor: pointer;
+	letter-spacing: -1px;
+	padding: 3px 5px;
+	margin: 2px 3px;
+	width: auto;
+	word-break: keep-all;
+	border-radius: 5px;
+	text-decoration: none;
+	font-size: 0.9375em;
+}
+
+.abutton-alt {
+	background-color: #d3e2c6;
+}
+
+.red {
+	color: #b00;
+}
+
+.blue {
+	color: #0075ff;
+}
+
+.basketrowcmd, .sumcount, .summoney {
+	text-align: right;
+	margin-bottom: 10px;
+}
+
+.sumcount, .summoney {
+	font-size: 1.25em;
+	font-weight: bold;
+}
+
+.buttongroup {
+	text-align: center;
+}
+
+.buttongroup a {
+	text-decoration: none;
+}
+
+.cmd a, .cmd span {
+	padding: 12px 30px;
+	box-sizing: border-box;
+	margin-top: 10px;
+	font-size: 1.2em;
+	color: #000;
+	background-color: #f4f4f4;
+	border: 1px solid #e0e0e0;
+	text-align: center;
+}
+
+.cmd.small a, .cmd.small span {
+	padding: 6px 20px;
+	font-size: 0.8125em;
+}
+
+.orderform .p_num {
+	text-align: right;
+	width: 40px;
+	font-size: 1em;
+}
+</style>
 
 </head>
 <title>주문결제창</title>
@@ -284,23 +604,22 @@
 									<td scope="col" width="80">가격</td>
 								</tr>
 							</thead>
-							
+
 							<c:forEach items="${cartlist}" var="cartlist">
 								<tbody>
 
 									<tr class="tr1" align="center"
-									style="border-bottom: 1px solid rgba(0, 0, 0, 0.1);">
-										<th scope="col"style="vertical-align: middle; align:center;"><input
+										style="border-bottom: 1px solid rgba(0, 0, 0, 0.1);">
+										<th scope="col" style="vertical-align: middle; align: center;"><input
 											type="checkbox" name="chk" value="${cartlist.memCartId}"></th>
 										<td scope="col"><img
-											src="${contextPath}/download_product.do?productNum=${cartlist.productNum}&productImage=${cartlist.productImage}" width=80
-											height=80></td>
+											src="${contextPath}/download_product.do?productNum=${cartlist.productNum}&productImage=${cartlist.productImage}"
+											width=80 height=80></td>
 										<td scope="col" align=left style="padding-top: 25px;">${cartlist.productName}<br>${cartlist.option1name}
 											: ${cartlist.option1value} <br>${cartlist.option2name} :
 											${cartlist.option2value}
 										</td>
-										<td scope="col" align=center> <select
-											name="number"
+										<td scope="col" align=center><select name="number"
 											style="height: 25px; border: 1px solid #dcdcdc;">
 												<option value="1개">1개</option>
 												<option value="2개">2개</option>
@@ -322,7 +641,8 @@
 									<td></td>
 									<td colspan="3" align=right
 										style="font-size: 18px; color: #7e9c8c; font-weight: bold;">총
-										금액 : <input type="hidden" value="3000000" id="totalPrice"/>3,000,000원</td>
+										금액 : <input type="hidden" value="3000000" id="totalPrice" />3,000,000원
+									</td>
 								</tr>
 							</tfoot>
 						</table>
@@ -351,45 +671,58 @@
 									style="background-color: #eeeeee; border-top: 1px solid #7e9c8c; color: black; border-bottom: 1px solid #c6c8ca; font-size: 15px;">
 									<td scope="col" width="100">선택</td>
 									<td scope="col" width="150"></td>
-									<td scope="col" width="500" align=left>상품명</td>
+									<td scope="col" width="400" align=left>상품명</td>
 									<td scope="col" width="80">수량</td>
 									<td scope="col" width="80">배송비</td>
 									<td scope="col" width="80">가격</td>
+									<td scope="col" width="100">합계</td>
 								</tr>
 							</thead>
 							<c:forEach items="${cartlist}" var="cartlist" varStatus="status">
+								<form name="cart">
 								<tbody>
 									<tr style="font-size: 14px; border-bottom: 1px solid #c6c8ca;">
 										<td scope="col" height="100" align=center><br> <br>
-											<input type="checkbox" name="chk" value="${status.index}"></td>
+											<input type="checkbox" name="chk" value="${status.index}" onclick="check(this,${status.index})"></td>
 										<td scope="col"><img
-											src="${contextPath}/download_product.do?productNum=${cartlist.productNum}&productImage=${cartlist.productImage}" width=80
-											height=80></td>
+											src="${contextPath}/download_product.do?productNum=${cartlist.productNum}&productImage=${cartlist.productImage}"
+											width=80 height=80></td>
 										<td scope="col" align=left style="padding-top: 25px;">${cartlist.productName}<br>${cartlist.option1name}
 											: ${cartlist.option1value} <br>${cartlist.option2name} :
 											${cartlist.option2value}
 										</td>
-										<td scope="col" align=center><br> <br> <select
-											name="number"
-											style="height: 25px; border: 1px solid #dcdcdc;">
-												<option value="1개">1개</option>
-												<option value="2개">2개</option>
-												<option value="3개">3개</option>
-												<option value="4개">4개</option>
-												<option value="5개">5개</option>
-										</select></td>
+										<td scope="col" align=center><br> <br>
+
+											<div class="num">
+												<div class="updown">
+													<span
+														onclick="javascript:basket.changePNum(1,'${status.index}');"><i
+														class="fas fa-arrow-alt-circle-up up"></i></span> <input
+														type="text" name="p_num1" id="p_num1" size="2"
+														maxlength="4" class="p_num" value="1"
+														onkeyup="javascript:basket.changePNum(1,'${status.index}');">
+													<span
+														onclick="javascript:basket.changePNum(1,'${status.index}');"><i
+														class="fas fa-arrow-alt-circle-down down"></i></span>
+												</div>
+											</div></td>
 										<td scope="col" align=center><br> <br>${cartlist.deliverycharge}</td>
-										<td scope="col" align=center><br> <br>${cartlist.productPrice}</td>
+										<td scope="col" align=center><br><input type="hidden" name="p_price" id="p_price2" class="p_price" value="${cartlist.productPrice}"> <br>${cartlist.productPrice}
+										</td>
+										<td scope="col" align=center><br> <br>
+										<input name="productPrice" style="border:none; color: #666666; background-color:transparent; font-weight:lighter; width:80px;" value="${cartlist.productPrice}" disabled/></td>
 									</tr>
 								</tbody>
+								</form>
 							</c:forEach>
 							<tfoot>
 								<tr>
 									<td></td>
 									<td></td>
 									<td></td>
-									<td colspan="3" align=right
-										style="font-size: 18px; color: #7e9c8c; font-weight: bold;"><input type="hidden" value="3000000" id="totalPrice"/>3,000,000원</td>
+									<td colspan="4" align=right
+										style="font-size: 18px; color: #7e9c8c; font-weight: bold;">총 합계<input
+										type="text"  id="totalPrice" name="totalPrice" value="0" style="border:none; width:100px; text-align:right; font-size: 18px; color: #7e9c8c; font-weight: bold;"/>원</td>
 								</tr>
 							</tfoot>
 						</table>

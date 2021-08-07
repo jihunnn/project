@@ -444,8 +444,8 @@ public class ProductControllerImpl implements ProductController {
 		
 		int pageStart = cri.getPageStart();
 		int perPageNum = cri.getPerPageNum();
-		int pageStart2 = cri2.getPageStart();
-		int perPageNum2 = cri2.getPerPageNum();
+		int pageStart2 = cri2.getPageStart2();
+		int perPageNum2 = cri2.getPerPageNum2();
 		productMap.put("pageStart", pageStart);
 		productMap.put("perPageNum", perPageNum);
 		productMap.put("pageStart2", pageStart2);
@@ -462,8 +462,8 @@ public class ProductControllerImpl implements ProductController {
 		
 		PageMaker2 pageMaker2 = new PageMaker2();
 		pageMaker2.setCri2(cri2);
-		pageMaker2.setTotalCount(productQuestionCount);
-		int pageNum2 = pageMaker2.getCri2().getPage();
+		pageMaker2.setTotalCount2(productQuestionCount);
+		int pageNum2 = pageMaker2.getCri2().getPage2();
 
 		addQuick(productNum,productVO,session);
 		mav.setViewName(viewName);

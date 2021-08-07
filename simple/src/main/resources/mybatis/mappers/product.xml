@@ -274,7 +274,7 @@
 		parameterType="int">
 	<![CDATA[
 			
-			select count(*)  from simple.productQuestion;
+			select count(*)  from simple.productQuestion where productNum=#{productNum};
 			
 	]]>
 	</select>
