@@ -10,6 +10,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+	integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
+	crossorigin="anonymous">
 <style type="text/css">
 #pdcategory {
 	font-size: 17px;
@@ -125,7 +129,252 @@ textarea {
 	transform: scale(1.0);
 	transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
 }
+
+
+.basketdiv {
+	width: 100%;
+	border-top: 1px solid #e0e0e0;
+	float: left;
+	font-size: 0.9375em;
+	margin-bottom: 20px;
+}
+
+.basketdiv .row.head {
+	border-bottom: 2px solid #888;
+	box-sizing: border-box;
+	background-color: #f4f4f4;
+	font-weight: 500;
+}
+
+.basketdiv .data {
+	border-bottom: 1px dashed #888;
+	box-sizing: border-box;
+	cursor: pointer;
+	float: left;
+	width: 100%;
+}
+
+.basketdiv .data .empty {
+	text-align: center;
+	padding: 12px 0;
+}
+
+.basketdiv .row.head .subdiv {
+	background-color: #f4f4f4;
+}
+
+.basketdiv .row>.subdiv {
+	display: block;
+	float: left;
+}
+
+.basketdiv .row>.subdiv:nth-child(1) {
+	width: 50%;
+}
+
+.basketdiv .row>.subdiv:nth-child(2) {
+	width: 40%;
+}
+
+.basketdiv .row>.subdiv:nth-child(3) {
+	width: 10%;
+}
+
+.basketdiv2 .row>.subdiv:nth-child(1) {
+	width: 60%;
+}
+
+.basketdiv2 .row>.subdiv:nth-child(2) {
+	width: 40%;
+}
+
+.basketdiv .row>div>div {
+	display: block;
+	float: left;
+	text-align: center;
+	margin: 0;
+	padding: 12px 0;
+}
+
+.basketdiv .row.data>div>div {
+	height: 60px;
+	line-height: 60px;
+}
+
+.basketdiv .data .num .updown {
+	color: #0075ff;
+	font-size: 2em;
+	letter-spacing: -5px;
+}
+
+.basketdiv .check {
+	width: 10%;
+}
+
+.basketdiv .check input[type=checkbox] {
+	transform: scale(1.5);
+}
+
+.basketdiv .img {
+	width: 20%;
+}
+
+.basketdiv .pname {
+	width: 70%;
+}
+
+.basketdiv2 .pname {
+	width: 80%;
+}
+
+.basketdiv .basketprice {
+	width: 33%;
+}
+
+.basketdiv .num {
+	width: 33%;
+	min-width: 105px;
+}
+
+.basketdiv .sum {
+	width: 34%;
+	max-width: 80px;
+	color: #0000aa;
+}
+
+.basketdiv .point {
+	width: 50%;
+}
+
+.basketdiv2 .basketprice {
+	width: 25%;
+}
+
+.basketdiv2 .num {
+	width: 25%;
+}
+
+.basketdiv2 .sum {
+	width: 25%;
+	color: #0000aa;
+}
+
+.basketdiv2 .point {
+	width: 25%;
+}
+
+.basketdiv .basketcmd {
+	width: 100%;
+}
+
+.basketdiv .data .pname {
+	text-align: left !important;
+	line-height: 1.2 !important;
+}
+
+.basketdiv .data .price, .basketdiv .data .sum, .basketdiv .data .point
+	{
+	text-align: right;
+}
+
+.baseform>tbody>tr>td:first-child {
+	width: 100px;
+}
+
+.buttongroup {
+	padding: 11px 0;
+	margin: 50px 0;
+}
+
+.narrowbuttongroup {
+	margin: 15px 0;
+}
+
+.buttongroup.center {
+	text-align: center;
+}
+
+.buttongroup input[type=text], .buttongroup input[type=password] {
+	height: 30px;
+}
+
+.buttongroup button, .buttongroup a {
+	margin-right: 5px;
+}
+
+.buttongroup button:last-child, .buttongroup a:last-child {
+	margin-right: 0;
+}
+
+.abutton, .abutton:link, .abutton:visited, .abutton:active, input[type=button]
+	{
+	background-color: #383838;
+	border: 1px solid #888888;
+	color: #ffffff;
+	cursor: pointer;
+	letter-spacing: -1px;
+	padding: 3px 5px;
+	margin: 2px 3px;
+	width: auto;
+	word-break: keep-all;
+	border-radius: 5px;
+	text-decoration: none;
+	font-size: 0.9375em;
+}
+
+.abutton-alt {
+	background-color: #d3e2c6;
+}
+
+.red {
+	color: #b00;
+}
+
+.blue {
+	color: #0075ff;
+}
+
+.basketrowcmd, .sumcount, .summoney {
+	text-align: right;
+	margin-bottom: 10px;
+}
+
+.sumcount, .summoney {
+	font-size: 1.25em;
+	font-weight: bold;
+}
+
+.buttongroup {
+	text-align: center;
+}
+
+.buttongroup a {
+	text-decoration: none;
+}
+
+.cmd a, .cmd span {
+	padding: 12px 30px;
+	box-sizing: border-box;
+	margin-top: 10px;
+	font-size: 1.2em;
+	color: #000;
+	background-color: #f4f4f4;
+	border: 1px solid #e0e0e0;
+	text-align: center;
+}
+
+.cmd.small a, .cmd.small span {
+	padding: 6px 20px;
+	font-size: 0.8125em;
+}
+
+.orderform .p_num {
+	text-align: right;
+	width: 40px;
+	font-size: 1em;
+}
 </style>
+
 <script type="text/javascript">
 
 
@@ -139,20 +388,7 @@ function getSelectValue2(frm)
 	frm.option2value.value = frm.option2.options[frm.option2.selectedIndex].text;
 }
 
-<!--옵션 + 수량 총 합계금액 -->
 
-var fo;
-window.onload = function() {
-	fo = document.forms["form1"];
-	fo['productPrice'].value = fo['price'].value;
-}
-
-
-function checkPrice() {
-	fo['productPrice'].value= Number(fo['price'].value) + Number(fo['option1'].value) + Number(fo['option2'].value);
-}
-	
-	
 <!-- 옵션선택 유효성 검사 -->
 
 function checkbuy() {
@@ -174,7 +410,7 @@ function checkbuy() {
 	} else { //취소
 		return false;
 	}
-	form.action="${contextPath}/order.do"
+	form.action="${contextPath}/orderNow.do"
 	form.submit();
 
 }
@@ -305,9 +541,77 @@ function fn1() {
   
 }
 
+<!--옵션 수량에 따른 가격-->
+let basket = {
+		
+
+		changePNum : function(idx, change_type) {
+			var item = document.querySelector('input[name=productCnt]');
+			var p_num = parseInt(document.getElementById('productCnt').value);
+			var price = parseInt(document.getElementById('totalPrice').value);
+			var price1 = parseInt(document.getElementById('productPrice').value);
+			
+			var newval = event.target.classList.contains('up') ? p_num + 1
+					: event.target.classList.contains('down') ? p_num - 1
+							: event.target.value;
+
+			if (parseInt(newval) < 1 || parseInt(newval) > 99) {
+				return false;
+			}
+
+			item.setAttribute('value', newval);
+			item.value = newval;
+			
+			
+			
+			productPrice = (newval * price1);
+			
+
+			document.getElementById('totalPrice').value = productPrice;
+			
+
+
+			
+			
+	}
+	
+	}
+
+<!--옵션 선택에 따른 상품 금액-->
+function optionSelect(option) {
+	if($('#selectTable tr').length>0){
+		$('#selectTable tr').remove();
+	
+	}
+	var i = $('#selectTable>tr').length +1;
+	 var table = document.getElementById("selectTable");
+
+	 var productName = document.getElementById('productName').value
+
+	 var row = table.insertRow(0); //새로운 행추가
+	 var option1Name = document.getElementById('option1name').value
+
+	 var option2Name = document.getElementById('option2name').value
+	 
+	 var option1ValueName = $("#option1 option:selected").text(); // 선택된 옵션  select text 가져오기
+	 var option2ValueName = $("#option2 option:selected").text();
+	 
+	 var option1value = parseInt($("#option1 option:selected").val()); // 선택된 옵션  select value 가져오기
+	 var option2value = parseInt($("#option2 option:selected").val());
+	 var price = parseInt(document.getElementById('price').value);
+
+	 document.getElementById('totalPrice').value = price+option1value+option2value;
+	 document.getElementById('productPrice').value = price+option1value+option2value;
+	 var productPrice =  document.getElementById('productPrice').value
+	
+	 //행추가내용
+	 row.innerHTML = "<td style='width:150px; '><div class='updown'><span onclick='javascript:basket.changePNum(1,i);'><i class='fas fa-arrow-alt-circle-up up'></i></span> <input type='text' name='productCnt' id='productCnt' size='2' maxlength='4' class='p_num' value='1' onkeyup='javascript:basket.changePNum(1,i);''><span onclick='javascript:basket.changePNum(1,i);''><i class='fas fa-arrow-alt-circle-down down'></i></span></div></td><td style='width:200px;'>"+productName+"</td><td style='width:200px; '>"+option1Name+":"+option1ValueName+"<br>"+option2Name+":"+option2ValueName+"</td><td>"+productPrice+"</td>";
 
 
 
+}
+
+//number 콤마
 
 	
 </script>
@@ -323,12 +627,12 @@ function fn1() {
 	<section class="ftco-section"
 		style="padding-top: 20px; margin-bottom: 200px; margin-top: 80px;">
 		<div class="container">
-			<form name="form1" method="GET" id="addCartForm">
+			<form name="form1" method="post" id="addCartForm">
 				<input type="hidden" name="productNum" value="${product.productNum}"
-					id="productNum" /> <input type="hidden" name="productName"
+					id="productNum" /> <input type="hidden" name="productName" id="productName"
 					value="${product.productName}" /> <input type="hidden"
-					name="option1name" value="${option1[1].option1Name}" /> <input
-					type="hidden" name="option2name" value="${option2[1].option2Name}" />
+					name="option1name" id="option1name" value="${option1[1].option1Name}" /> <input
+					type="hidden" name="option2name" id="option2name" value="${option2[1].option2Name}" />
 				<input type="hidden" name="deliverycharge" value="무료배송" />
 
 
@@ -366,8 +670,9 @@ function fn1() {
 							<a
 								style="position: absolute; white-space: nowrap; margin-top: 5px; margin-left: 50px; float: left; font-size: 14px; color: #5f5f5f;">판매가ㅤㅤ
 								ㅤ</a><a
-								style="position: absolute; white-space: nowrap; margin-top: 5px; margin-left: 180px; font-size: 14px; color: #5f5f5f;">${product.productPrice}원</a><input
-								type="hidden" name="price" value="${product.productPrice}">
+								style="position: absolute; white-space: nowrap; margin-top: 5px; margin-left: 180px; font-size: 14px; color: #5f5f5f;"><fmt:formatNumber
+														pattern="###,###,###" value="${product.productPrice}" />원</a><input
+								type="hidden" name="price" id="price" value="${product.productPrice}" >
 						</h3>
 
 						<h3 class="heading">
@@ -398,7 +703,7 @@ function fn1() {
 							</c:forEach>
 						</h3>
 						<select id="option1" name="option1"
-							onchange="checkPrice();getSelectValue1(this.form);"
+							onchange="getSelectValue1(this.form);"
 							style="margin-left: 180px; margin-top: 70px; left: 675px; font-size: 14px; border: 1px solid #dcdcdc; width: 326px; height: 32px;">
 							<option value="">옵션 선택</option>
 							<c:forEach items="${option1}" var="option1">
@@ -415,7 +720,7 @@ function fn1() {
 
 						</h3>
 						<select name="option2" id="option2"
-							onchange="checkPrice();getSelectValue2(this.form);"
+							onchange="getSelectValue2(this.form); optionSelect(this);"
 							style="margin-left: 180px; margin-top: 20px; float: left !important; font-size: 14px; border: 1px solid #dcdcdc; width: 326px; height: 32px;">
 							<option value="">옵션 선택</option>
 							<c:forEach items="${option2}" var="option2">
@@ -423,30 +728,24 @@ function fn1() {
 									+ (${option2.option2price}원)</option>
 							</c:forEach>
 						</select> <br> <input type="hidden" name="option2value">
-
 						<button type="button" class="btn btn-default" onclick="checkbuy()"
 							style="background-color: #7e9c8c; float: left; margin-left: 50px; margin-top: 37px; width: 280px; height: 50px; border-radius: 2px; font-size: 14px; color: white;">바로구매</button>
 						<button type="button" class="btn btn-default"
 							onclick="addCartBtn()"
 							style="background-color: #eeeeee; float: left; margin-left: 350px; margin-top: -50px; width: 280px; height: 50px; border-radius: 2px; font-size: 14px;">장바구니</button>
-
-						<input type="button" name="up" onclick="up()" value=" + " size="3"
-							style="width: 27px; height: 28px; white-space: nowrap; float: left; color: #5f5f5f; margin-left: 50px; font-size: 18px; border: none; margin-top: 30px;">
-
-						<input type="text" name="productCnt" id="quantity" value="1"
-							readonly="readonly"
-							style="white-space: nowrap; float: left; font-size: 14px; width: 50px; height: 28px; text-align: center; margin-top: 30px; border: 1px solid #eeeeee;" />
-
-						<input type="button" name="down" onclick="down()" value=" - "
-							size="3"
-							style="width: 27px; height: 28px; white-space: nowrap; color: #5f5f5f; float: left; font-size: 18px; border: none; margin-top: 30px;">
+						
+						<table id="selectTable" style="float:left; font-size:14px; margin-top:10px;">
+						
+						</table>
+						<hr style="margin-top:115px; width:600px;">
+						<input type="hidden" value="0" name="productPrice" id="productPrice"/>
 						<h2
-							style="margin-top: 200px; font-size: 18px; test-align: right; width: 400px; margin-left: 380px;">
-							총 상품 금액ㅤ<input type="text" name="productPrice" value="0"
+							style="margin-top: 20px; font-size: 18px; test-align: right; width: 400px; margin-left: 380px;">
+							총 상품 금액ㅤ<input type="text" name="totalPrice" id="totalPrice" value="0"
 								style="border: none; text-align: right; font-size: 20px; width: 98px; margin-left: 18px;"
 								readonly />원
 						</h2>
-
+					
 					</div>
 
 				</div>

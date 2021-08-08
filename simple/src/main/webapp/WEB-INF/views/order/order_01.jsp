@@ -143,7 +143,6 @@ h4 {
 		$(this).prop("checked", true);
 		$("form").submit();
 	})
-	
 </script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
@@ -214,6 +213,7 @@ h4 {
 							fullAddr = data.jibunAddress;
 						}
 
+						
 						// 사용자가 선택한 주소가 도로명 타입일때 조합한다.
 						if (data.userSelectedType === 'R') {
 							//법정동명이 있을 경우 추가한다.
@@ -275,7 +275,7 @@ h4 {
 		<div class="container">
 			<form name="CheckOrder" action="${contextPath}/addorderlist.do"
 				method="post">
-				<input type="hidden" name="totalPrice" value="${totalPrice}" />
+				
 				<!-- 타이틀 끝 -->
 
 
@@ -334,32 +334,69 @@ h4 {
 								<th scope="col" width="150">가격</th>
 							</tr>
 						</thead>
-						
-						<c:forEach items="${orderlist}" var="orderlist" varStatus="status">
-							<tbody>
-								<tr class="tr1"
-									style="border-bottom: 1px solid rgba(0, 0, 0, 0.1);">
-									<th scope="col" style="vertical-align: middle;"><img
-										src="${contextPath}/download_product.do?productNum=${orderlist.productNum}&productImage=${orderlist.productImage}" width=80
-										height=80></th>
-									<th scope="col" style="vertical-align: middle;">${orderlist.productName}</th>
-									<th scope="col"
-										style="text-align: left; vertical-align: middle;">${orderlist.option1name}
-										: ${orderlist.option1value}<br>${orderlist.option2name} :
-										${orderlist.option2value}
-									</th>
-									<th scope="col" style="vertical-align: middle;">${orderlist.productCnt}개</th>
-									<th scope="col" style="vertical-align: middle;">${orderlist.deliverycharge}</th>
-									<th scope="col" style="vertical-align: middle;">${orderlist.productPrice}원</th>
-								</tr>
-							</tbody>
-						</c:forEach>
+						<c:choose>
+							<c:when test="${memOrder == null}">
+								<c:forEach items="${orderlist}" var="orderlist"
+									varStatus="status">
+									<tbody>
+										<tr class="tr1"
+											style="border-bottom: 1px solid rgba(0, 0, 0, 0.1);">
+											<th scope="col" style="vertical-align: middle;"><img
+												src="${contextPath}/download_product.do?productNum=${orderlist.productNum}&productImage=${orderlist.productImage}"
+												width=80 height=80></th>
+											<th scope="col" style="vertical-align: middle;">${orderlist.productName}</th>
+											<th scope="col"
+												style="text-align: left; vertical-align: middle;">${orderlist.option1name}
+												: ${orderlist.option1value}<br>${orderlist.option2name}
+												: ${orderlist.option2value}
+											</th>
+											<th scope="col" style="vertical-align: middle;">${orderlist.productCnt}개</th>
+											<th scope="col" style="vertical-align: middle;">${orderlist.deliverycharge}</th>
+											<th scope="col" style="vertical-align: middle;">${orderlist.productPrice}원</th>
+										</tr>
+									</tbody>
+								</c:forEach>
+							</c:when>
+							<c:otherwise>
+								<tbody>
+									<tr class="tr1"
+										style="border-bottom: 1px solid rgba(0, 0, 0, 0.1);">
+										<th scope="col" style="vertical-align: middle;"><img
+											src="${contextPath}/download_product.do?productNum=${memOrder.productNum}&productImage=${memOrder.productImage}"
+											width=80 height=80></th>
+										<th scope="col" style="vertical-align: middle;">${memOrder.productName}</th>
+										<th scope="col"
+											style="text-align: left; vertical-align: middle;">${memOrder.option1name}
+											: ${memOrder.option1value}<br>${memOrder.option2name} :
+											${memOrder.option2value}
+										</th>
+										<th scope="col" style="vertical-align: middle;">${memOrder.productCnt}개</th>
+										<th scope="col" style="vertical-align: middle;">${memOrder.deliverycharge}</th>
+										<th scope="col" style="vertical-align: middle;">${memOrder.productPrice}원</th>
+									</tr>
+								</tbody>
+							</c:otherwise>
+
+						</c:choose>
 					</table>
+					<c:choose>
+						<c:when test="${memOrder == null}">
+							<div style="font-size: 18px; float: right;">
+								<span>총금액ㅤ</span><a style="color: #7e9c8c; font-weight: bold;">${totalPrice}원</a>
+								<input type="hidden" name="totalPrice" value="${totalPrice}" />
+							
+								
+							</div>
+						</c:when>
+						<c:otherwise>
+							<div style="font-size: 18px; float: right;">
+								<span>총금액ㅤ</span><a style="color: #7e9c8c; font-weight: bold;">${memOrder.totalPrice}원</a>
+								<input type="hidden" name="totalPrice" value="${memOrder.totalPrice}" />
+								<input type="hidden" name="productNum" value="${memOrder.productNum}" />
 
-					<div style="font-size: 18px; float: right;">
-						<span>총금액ㅤ</span><a style="color: #7e9c8c; font-weight: bold;">${totalPrice}원</a>
-					</div>
-
+							</div>
+						</c:otherwise>
+					</c:choose>
 				</div>
 
 

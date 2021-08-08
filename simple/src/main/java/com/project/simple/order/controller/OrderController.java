@@ -19,4 +19,5 @@ public interface OrderController {
 			Criteria cri, HttpServletRequest request, HttpServletResponse response) throws Exception ;
 	//public ModelAndView orderAllCartGoods(@RequestParam  String[] cart_goods_qty,HttpServletRequest request, HttpServletResponse response)  throws Exception;
 	//public ModelAndView payToOrderGoods(@RequestParam Map<String, String> orderMap,HttpServletRequest request, HttpServletResponse response)  throws Exception;
+	public ModelAndView orderNow(@ModelAttribute("orderVO") OrderVO orderVO, HttpServletRequest request,HttpServletResponse response) throws Exception;
 }

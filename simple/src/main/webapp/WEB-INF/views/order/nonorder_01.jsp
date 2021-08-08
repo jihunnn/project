@@ -137,15 +137,14 @@ h4 {
 		f.nonmemSpPhoneNum1_1.value = f.nonmemPhoneNum1.value;
 		f.nonmemSpPhoneNum1_2.value = f.nonmemPhoneNum2.value;
 	}
-	
-	$("input[type=radio]").click(function(){
-	    $(this).prop("checked", true);
-	    $("form").submit();
+
+	$("input[type=radio]").click(function() {
+		$(this).prop("checked", true);
+		$("form").submit();
 	})
 </script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
-
 	//비회원 주문자 우편번호
 	function sample6_execDaumPostcode() {
 		new daum.Postcode(
@@ -187,11 +186,12 @@ h4 {
 						document.getElementById('sample6_address_nonmember').value = fullAddr;
 
 						// 커서를 상세주소 필드로 이동한다.
-						document.getElementById('sample6_address2_nonmember').focus();
+						document.getElementById('sample6_address2_nonmember')
+								.focus();
 					}
 				}).open();
 	}
-	
+
 	//배송지 우편번호
 	function sample6_execDaumPostcode2() {
 		new daum.Postcode(
@@ -237,9 +237,6 @@ h4 {
 					}
 				}).open();
 	}
-
-	
-
 </script>
 </head>
 <title>주문결제창</title>
@@ -254,45 +251,46 @@ h4 {
 	<section class="ftco-section" style="padding-top: 100px;">
 
 		<div class="container">
-		
-<form name="CheckOrder" action="${contextPath}/addorderlist.do" method="post">
-<input type="hidden" name="totalPrice" value="${totalPrice}" />
-			<!-- 타이틀 끝 -->
+
+			<form name="CheckOrder" action="${contextPath}/addorderlist.do"
+				method="post">
+
+				<!-- 타이틀 끝 -->
 
 
 
-			<div style="font-size: 25px; font-weight: bold;">
-				<a style="color: #7e9c8c;">주문리스트</a>
-			</div>
+				<div style="font-size: 25px; font-weight: bold;">
+					<a style="color: #7e9c8c;">주문리스트</a>
+				</div>
 
-			<!-- 최근 본 상품 -->
-			<div id="recentlyProduct"
-				style="position: absolute; width: 120px; height: 310px; margin-left: 1370px; border: 1px solid #d2d2d2; margin-top: 0px;">
-				<ul
-					style="list-style: none; margin-top: 10px; padding-left: 20px; margin-bottom: 10px;">
-					<li><a href="#"
-						style="padding-left: -10px; padding-bottom: 1px; color: black;">최근본상품</a></li>
-				</ul>
-				<hr style="margin-top: 0px; margin-bottom: 0px; color: #d2d2d2;">
-				<ul style="list-style: none; padding-top: 5px;">
-					<li><a href="#"><img
-							src="${contextPath}/resources/images/image_1.jpg"
-							style="width: 100px; height: 100px; padding-top: 10px; margin-left: -30px;"></a></li>
-					<li><a href="#"><img
-							src="${contextPath}/resources/images/image_2.jpg"
-							style="width: 100px; height: 100px; padding-top: 10px; padding-top: 10px; margin-left: -30px;"></a></li>
-				</ul>
-				<hr style="margin-top: 0px; margin-bottom: 0px; color: #d2d2d2;">
-				<ul
-					style="list-style: none; padding-left: 30px; margin-bottom: 10px; margin-top: 8px;">
-					<li><a href="#"
-						style="color: black; text-align: center; margin-top: 8px; padding-top: 30px;">더보기▼</a></li>
-				</ul>
-			</div>
-			<!-- 최근본상품끝 -->
+				<!-- 최근 본 상품 -->
+				<div id="recentlyProduct"
+					style="position: absolute; width: 120px; height: 310px; margin-left: 1370px; border: 1px solid #d2d2d2; margin-top: 0px;">
+					<ul
+						style="list-style: none; margin-top: 10px; padding-left: 20px; margin-bottom: 10px;">
+						<li><a href="#"
+							style="padding-left: -10px; padding-bottom: 1px; color: black;">최근본상품</a></li>
+					</ul>
+					<hr style="margin-top: 0px; margin-bottom: 0px; color: #d2d2d2;">
+					<ul style="list-style: none; padding-top: 5px;">
+						<li><a href="#"><img
+								src="${contextPath}/resources/images/image_1.jpg"
+								style="width: 100px; height: 100px; padding-top: 10px; margin-left: -30px;"></a></li>
+						<li><a href="#"><img
+								src="${contextPath}/resources/images/image_2.jpg"
+								style="width: 100px; height: 100px; padding-top: 10px; padding-top: 10px; margin-left: -30px;"></a></li>
+					</ul>
+					<hr style="margin-top: 0px; margin-bottom: 0px; color: #d2d2d2;">
+					<ul
+						style="list-style: none; padding-left: 30px; margin-bottom: 10px; margin-top: 8px;">
+						<li><a href="#"
+							style="color: black; text-align: center; margin-top: 8px; padding-top: 30px;">더보기▼</a></li>
+					</ul>
+				</div>
+				<!-- 최근본상품끝 -->
 
 
-			
+
 
 
 
@@ -313,31 +311,66 @@ h4 {
 								<th scope="col" width="150">가격</th>
 							</tr>
 						</thead>
-						<c:forEach items="${orderlist}" var="orderlist" varStatus="status">
-							<tbody>
-								<tr class="tr1"
-									style="border-bottom: 1px solid rgba(0, 0, 0, 0.1);">
-									<th scope="col" style="vertical-align: middle;"><img
-										src="${contextPath}/download_product.do?productNum=${orderlist.productNum}&productImage=${orderlist.productImage}" width=80
-										height=80></th>
-									<th scope="col" style="vertical-align: middle;">${orderlist.productName}</th>
-									<th scope="col"
-										style="text-align: left; vertical-align: middle;">${orderlist.option1name}
-										: ${orderlist.option1value}<br>${orderlist.option2name} :
-										${orderlist.option2value}
-									</th>
-									<th scope="col" style="vertical-align: middle;">${orderlist.productCnt}개</th>
-									<th scope="col" style="vertical-align: middle;">${orderlist.deliverycharge}</th>
-									<th scope="col" style="vertical-align: middle;">${orderlist.productPrice}원</th>
-								</tr>
-							</tbody>
-						</c:forEach>
+						<c:choose>
+							<c:when test="${nonMemOrder == null}">
+								<c:forEach items="${orderlist}" var="orderlist"
+									varStatus="status">
+									<tbody>
+										<tr class="tr1"
+											style="border-bottom: 1px solid rgba(0, 0, 0, 0.1);">
+											<th scope="col" style="vertical-align: middle;"><img
+												src="${contextPath}/download_product.do?productNum=${orderlist.productNum}&productImage=${orderlist.productImage}"
+												width=80 height=80></th>
+											<th scope="col" style="vertical-align: middle;">${orderlist.productName}</th>
+											<th scope="col"
+												style="text-align: left; vertical-align: middle;">${orderlist.option1name}
+												: ${orderlist.option1value}<br>${orderlist.option2name}
+												: ${orderlist.option2value}
+											</th>
+											<th scope="col" style="vertical-align: middle;">${orderlist.productCnt}개</th>
+											<th scope="col" style="vertical-align: middle;">${orderlist.deliverycharge}</th>
+											<th scope="col" style="vertical-align: middle;">${orderlist.productPrice}원</th>
+										</tr>
+									</tbody>
+								</c:forEach>
+							</c:when>
+							<c:otherwise>
+								<tbody>
+									<tr class="tr1"
+										style="border-bottom: 1px solid rgba(0, 0, 0, 0.1);">
+										<th scope="col" style="vertical-align: middle;"><img
+											src="${contextPath}/download_product.do?productNum=${nonMemOrder.productNum}&productImage=${nonMemOrder.productImage}"
+											width=80 height=80></th>
+										<th scope="col" style="vertical-align: middle;">${nonMemOrder.productName}</th>
+										<th scope="col"
+											style="text-align: left; vertical-align: middle;">${nonMemOrder.option1name}
+											: ${nonMemOrder.option1value}<br>${nonMemOrder.option2name}
+											: ${nonMemOrder.option2value}
+										</th>
+										<th scope="col" style="vertical-align: middle;">${nonMemOrder.productCnt}개</th>
+										<th scope="col" style="vertical-align: middle;">${nonMemOrder.deliverycharge}</th>
+										<th scope="col" style="vertical-align: middle;">${nonMemOrder.productPrice}원</th>
+									</tr>
+								</tbody>
+							</c:otherwise>
+						</c:choose>
 					</table>
-
-					<div style="font-size: 18px; float: right;">
-						<span>총금액ㅤ</span><a style="color: #7e9c8c; font-weight: bold;">${totalPrice}원</a>
-					</div>
-
+					<c:choose>
+						<c:when test="${nonMemOrder == null}">
+							<div style="font-size: 18px; float: right;">
+								<span>총금액ㅤ</span><a style="color: #7e9c8c; font-weight: bold;">${totalPrice}원</a>
+												<input type="hidden" name="totalPrice" value="${totalPrice}" />
+							</div>
+						</c:when>
+						<c:otherwise>
+							<div style="font-size: 18px; float: right;">
+								<span>총금액ㅤ</span><a style="color: #7e9c8c; font-weight: bold;">${nonMemOrder.totalPrice}원</a>
+												<input type="hidden" name="totalPrice" value="${nonMemOrder.totalPrice}" />
+												
+		
+							</div>
+						</c:otherwise>
+					</c:choose>
 				</div>
 
 
@@ -345,61 +378,61 @@ h4 {
 				<div style="font-size: 25px; font-weight: bold; margin-top: 70px;">
 					<a style="color: #7e9c8c; margin-top: 40px;">주문자정보</a>
 				</div>
-						<div class="order_list">
-							<table class="table">
-								<colgroup>
-									<col width="20%" />
-								</colgroup>
-								<tbody>
-									<tr
-										style="border-bottom: 1px solid #eeeeee; border-top: 1px solid rgba(0, 0, 0, 0.1);">
-										<th scope="col"><a
-											style="color: red; padding-right: 5px; write-space: nowrap;">*</a>이름</th>
-										<th scope="col"><input type="text" name="nonmemName"
-											value=""
-											style="font-size: 14px; border: 1px solid #dcdcdc; width: 326px; height: 36px;"></th>
-									</tr>
-									<tr style="border-bottom: 1px solid #eeeeee;">
-										<th scope="col"><a
-											style="color: red; padding-right: 5px; write-space: nowrap;">*</a>주소</th>
-										<th scope="col"><input type="text" name="nonmemAdr" value=""
-											id="sample6_postcode_nonmember"
-											style="font-size: 14px; border: 1px solid #dcdcdc; width: 211px; height: 36px;">&nbsp;&nbsp;&nbsp;&nbsp;<input
-											type="button" onclick="sample6_execDaumPostcode()"
-											value="우편번호 찾기"
-											style="font-size: 14px; border: none; background-color: #c6c6c6; color: white; width: 100px; height: 37px;">
-											&nbsp;&nbsp;&nbsp;
+				<div class="order_list">
+					<table class="table">
+						<colgroup>
+							<col width="20%" />
+						</colgroup>
+						<tbody>
+							<tr
+								style="border-bottom: 1px solid #eeeeee; border-top: 1px solid rgba(0, 0, 0, 0.1);">
+								<th scope="col"><a
+									style="color: red; padding-right: 5px; write-space: nowrap;">*</a>이름</th>
+								<th scope="col"><input type="text" name="nonmemName"
+									value=""
+									style="font-size: 14px; border: 1px solid #dcdcdc; width: 326px; height: 36px;"></th>
+							</tr>
+							<tr style="border-bottom: 1px solid #eeeeee;">
+								<th scope="col"><a
+									style="color: red; padding-right: 5px; write-space: nowrap;">*</a>주소</th>
+								<th scope="col"><input type="text" name="nonmemAdr"
+									value="" id="sample6_postcode_nonmember"
+									style="font-size: 14px; border: 1px solid #dcdcdc; width: 211px; height: 36px;">&nbsp;&nbsp;&nbsp;&nbsp;<input
+									type="button" onclick="sample6_execDaumPostcode()"
+									value="우편번호 찾기"
+									style="font-size: 14px; border: none; background-color: #c6c6c6; color: white; width: 100px; height: 37px;">
+									&nbsp;&nbsp;&nbsp;
 
-											<p>
-												<br> <input type="text" name="nonmemAdr1" value=""
-													id="sample6_address_nonmember"
-													style="font-size: 14px; border: 1px solid #dcdcdc; width: 326px; height: 36px;">
-											</p>
-											<p>
-												<input type="text" name="nonmemAdr2" id="sample6_address2_nonmember"
-													value=""
-													style="font-size: 14px; border: 1px solid #dcdcdc; width: 326px; height: 36px;">
-											</p></th>
-									</tr>
-									<tr style="border-bottom: 1px solid rgba(0, 0, 0, 0.1);">
-										<th scope="col"><a
-											style="color: red; padding-right: 5px; write-space: nowrap;">*</a>연락처</th>
-										<th scope="col"><select name="nonmemPhoneNum"
-											style="width: 80px; font-size: 14px; border: 1px solid #dcdcdc; height: 36px;">
-												<option value="">선택</option>
-												<option value="011">011</option>
-												<option value="016">016</option>
-												<option value="017">017</option>
-												<option value="019">019</option>
-												<option value="010">010</option>
-										</select> - <input type="text" name="nonmemPhoneNum1" value=""
-											style="width: 109px; font-size: 14px; border: 1px solid #dcdcdc; height: 36px;">
-											- <input type="text" name="nonmemPhoneNum2" value=""
-											style="width: 109px; font-size: 14px; border: 1px solid #dcdcdc; height: 36px;"></th>
-									</tr>
-								</tbody>
-							</table>
-						</div>
+									<p>
+										<br> <input type="text" name="nonmemAdr1" value=""
+											id="sample6_address_nonmember"
+											style="font-size: 14px; border: 1px solid #dcdcdc; width: 326px; height: 36px;">
+									</p>
+									<p>
+										<input type="text" name="nonmemAdr2"
+											id="sample6_address2_nonmember" value=""
+											style="font-size: 14px; border: 1px solid #dcdcdc; width: 326px; height: 36px;">
+									</p></th>
+							</tr>
+							<tr style="border-bottom: 1px solid rgba(0, 0, 0, 0.1);">
+								<th scope="col"><a
+									style="color: red; padding-right: 5px; write-space: nowrap;">*</a>연락처</th>
+								<th scope="col"><select name="nonmemPhoneNum"
+									style="width: 80px; font-size: 14px; border: 1px solid #dcdcdc; height: 36px;">
+										<option value="">선택</option>
+										<option value="011">011</option>
+										<option value="016">016</option>
+										<option value="017">017</option>
+										<option value="019">019</option>
+										<option value="010">010</option>
+								</select> - <input type="text" name="nonmemPhoneNum1" value=""
+									style="width: 109px; font-size: 14px; border: 1px solid #dcdcdc; height: 36px;">
+									- <input type="text" name="nonmemPhoneNum2" value=""
+									style="width: 109px; font-size: 14px; border: 1px solid #dcdcdc; height: 36px;"></th>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 				<div style="font-size: 25px; margin-top: 40px; font-weight: bold;">
 					<a style="color: #7e9c8c;">배송정보</a>
 				</div>
@@ -422,8 +455,8 @@ h4 {
 							<tr style="border-bottom: 1px solid #eeeeee;">
 								<th scope="col"><a
 									style="color: red; padding-right: 5px; write-space: nowrap;">*</a>주소</th>
-								<th scope="col"><input type="text" name="nonmemSpAdr" value=""
-									id="sample6_postcode1" readonly
+								<th scope="col"><input type="text" name="nonmemSpAdr"
+									value="" id="sample6_postcode1" readonly
 									style="font-size: 14px; width: 211px; border: 1px solid #dcdcdc; height: 36px;">&nbsp;&nbsp;&nbsp;
 									<input type="button" onclick="sample6_execDaumPostcode2()"
 									value="우편번호 찾기"
@@ -480,10 +513,11 @@ h4 {
 							</tr>
 							<tr style="border-bottom: 1px solid rgba(0, 0, 0, 0.1);">
 								<th scope="col" style="padding-left: 23px;">무통장 입금자명</th>
-								<th scope="col"><input name="nonmemDepositorName" type="text"
-									value=""
+								<th scope="col"><input name="nonmemDepositorName"
+									type="text" value=""
 									style="font-size: 14px; border: 1px solid #dcdcdc; height: 36px; width: 326px;"><a
-									style="font-size: 14px; color: color:#b3b3b3;">ㅤ(무통장 입금 시 입력)</a></th>
+									style="font-size: 14px; color: color:#b3b3b3;">ㅤ(무통장 입금 시
+										입력)</a></th>
 							</tr>
 						</tbody>
 					</table>
@@ -502,9 +536,9 @@ h4 {
 								style="border-top: 1px solid rgba(0, 0, 0, 0.1); border-bottom: 1px solid #eeeeee;">
 								<th scope="col"><a
 									style="color: red; padding-right: 5px; write-space: nowrap;">*</a>결제방법</th>
-								<th scope="col"><input type="radio" name="nonmemPaymentMethod"
-									value="카드결제">신용/체크카드&nbsp;&nbsp;&nbsp; <input
-									type="radio" name="nonmemPaymentMethod" value="무통장입금">무통장입금&nbsp;&nbsp;&nbsp;&nbsp;
+								<th scope="col"><input type="radio"
+									name="nonmemPaymentMethod" value="카드결제">신용/체크카드&nbsp;&nbsp;&nbsp;
+									<input type="radio" name="nonmemPaymentMethod" value="무통장입금">무통장입금&nbsp;&nbsp;&nbsp;&nbsp;
 									<input type="radio" name="nonmemPaymentMethod" value="휴대폰결제">휴대폰결제</th>
 							</tr>
 							<tr style="border-bottom: 1px solid rgba(0, 0, 0, 0.1);">
@@ -516,7 +550,8 @@ h4 {
 										<option value="농협카드">농협카드</option>
 										<option value="비씨카드">BC카드</option>
 										<option value="우리카드">우리카드</option>
-										<option value="신한카드">신한카드</option></select></th>
+										<option value="신한카드">신한카드</option>
+								</select></th>
 
 							</tr>
 
@@ -524,17 +559,17 @@ h4 {
 					</table>
 				</div>
 				<br> <br>
-			
-			<div style="text-align: center">
-				<button type="submit" class="btn btn-secondary"
-					onclick="Check_Order()"
-					style="padding-left: 10px; margin-left: 40px; background-color: #7e9c8c; color: white; border: none; border-radius: 2px; width: 130px; height: 45px;">결제하기</button>
-				&nbsp;&nbsp;
-				<button type="button" class="btn btn-secondary"
-					onclick="location.href='/cart'"
-					style="padding-left: 10px; background-color: white; color: #7e9c8c; border: 1px solid #7e9c8c; border-radius: 2px; width: 130px; height: 45px;">취소하기</button>
-			</div>
-			<br> <br>
+
+				<div style="text-align: center">
+					<button type="submit" class="btn btn-secondary"
+						onclick="Check_Order()"
+						style="padding-left: 10px; margin-left: 40px; background-color: #7e9c8c; color: white; border: none; border-radius: 2px; width: 130px; height: 45px;">결제하기</button>
+					&nbsp;&nbsp;
+					<button type="button" class="btn btn-secondary"
+						onclick="location.href='/cart'"
+						style="padding-left: 10px; background-color: white; color: #7e9c8c; border: 1px solid #7e9c8c; border-radius: 2px; width: 130px; height: 45px;">취소하기</button>
+				</div>
+				<br> <br>
 			</form>
 		</div>
 	</section>
