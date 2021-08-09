@@ -41,4 +41,6 @@ public interface BoardDAO{
 	public void deleteAsCenter(int asCenterNum) throws DataAccessException;
 	public List<ArticleVO> asCenterSearchList(Map<String ,Object> asCenterSearchMap) throws DataAccessException;
 	public int asCenterSeachCount(Map<String, Object> search) throws DataAccessException;
+	
+	
 }

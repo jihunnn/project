@@ -84,6 +84,16 @@
 	padding-top: 1.8px;
 }
 </style>
+<script>
+	function removeNotice(obj) {
+		if (confirm("삭제하시겠습니까??")) {
+			obj.action = "${contextPath}/admin/removeNotice.do?noticeNum=${notice.noticeNum}";
+		} else {
+			return false;
+		}
+		obj.submit();
+	}
+</script>
 </head>
 <body>
 	<!--  타이틀 -->
@@ -91,7 +101,7 @@
 	<section class="ftco-section"
 		style="padding-top: 50px; margin-top: 30px; padding-bottom: 130px;">
 		<div class="container">
-			<c:if  test="${AdminisLogOn == true && admin != null}">
+			<c:if test="${AdminisLogOn == true && admin != null}">
 				<jsp:include page="/WEB-INF/views/common/admin_topmenu.jsp"
 					flush="false" />
 			</c:if>
@@ -152,20 +162,30 @@
 							<td scope="col" width="80"
 								style="background-color: white; color: black;">${notice.noticeHit}</td>
 						</tr>
-
 						<tr
 							style="border-bottom: 1px solid #c6c8ca !important; background-color: white; color: black;">
-
 							<td colspan="6" align="left" scope="col" width="500" height="500"><a
-								href="#" style="color: black; padding-left: 30px;">${notice.noticeContent }</a></td>
+								href="#" style="color: black; padding-left: 30px;">${notice.noticeContent }</a><br>
+								<c:if
+									test="${!empty notice.noticeImg && notice.noticeImg != null}">
+
+									<input type="hidden" name="OrignNoticeImg"
+										value="${notice.noticeImg}" />
+									<img width="300" height="300"
+										src="${contextPath}/download_notice.do?noticeNum=${notice.noticeNum}&noticeImg=${notice.noticeImg}"
+										id="preview" />
+
+								</c:if></td>
 						</tr>
+
+
 					</thead>
 				</table>
 				<c:if test="${AdminisLogOn == true && admin != null}">
 					<button type="submit" class="btn btn-dark " id="buttonmy"
 						style="float: right; margin-top: 30px; border-radius: 2px; background-color: #7e9c8c; color: white; border: none; border-radius: 2px; width: 120px; height: 40px; padding-top: 10px; padding-top: 4px; float: left;">수정</button>
 					<button type="button"
-						onclick="location.href='${contextPath}/board/listNotice.do'"
+						onclick="removeNotice(this.form)"
 						id="buttonmy" class="btn btn-dark"
 						style="float: right; margin-top: 30px; border-radius: 2px; background-color: white; color: gray; border: 1px solid #7e9c8c; border-radius: 2px; width: 120px; height: 40px; padding-top: 10px; padding-top: 4px; float: left;">삭제</button>
 				</c:if>

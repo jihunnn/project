@@ -2,6 +2,7 @@ package com.project.simple.admin.dao;
 
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,10 +46,47 @@ public class AdminDAOImpl implements AdminDAO {
 		return inquiryCount;
 	}
 	
-	// notice 수정하기
+	@Override
+	public int insertNewNotice(Map noticeMap) throws DataAccessException {
+		int noticeNum = selectNewNoticeNum();
+		noticeMap.put("noticeNum", noticeNum);
+		sqlSession.insert("mapper.admin.insertNewNotice", noticeMap);
+		return noticeNum;
+	}
+	
+	private int selectNewNoticeNum() throws DataAccessException {
+		return sqlSession.selectOne("mapper.admin.selectNewNoticeNum");
+		
+	}
+	
+	// notice 수정하기폼
 	@Override
 	public ArticleVO selectNotice(int noticeNum) throws DataAccessException {
 		return sqlSession.selectOne("mapper.admin.selectNotice", noticeNum);
+	}
+	
+	//notice 수정하기
+	@Override
+	public void updateNotice(Map noticeMap) throws DataAccessException {
+		sqlSession.update("mapper.admin.updateNotice", noticeMap);
+	}
+	
+	//공지사항 삭제하기
+	@Override
+	public void deleteNotice(int noticeNum) throws DataAccessException {
+		sqlSession.delete("mapper.admin.deleteNotice", noticeNum);
+	}
+
+	@Override
+	public int updateAdminMember(MemberVO modmember) throws DataAccessException {
+		int result = sqlSession.update("mapper.admin.updateAdminMember", modmember);
+		return result;
+	}
+
+	@Override
+	public void deleteSelectRemoveMember(String memId) throws DataAccessException {
+		sqlSession.delete("mapper.admin.deleteSelectRemoveMember",memId);
+		
 	}
 
 }

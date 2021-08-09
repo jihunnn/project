@@ -99,5 +99,41 @@
 	]]>
 	</select>
 
+	<insert id="insertNewNotice" parameterType="java.util.Map">
+		<![CDATA[
+			insert into notice(noticeNum, noticeTitle, noticeWriter, noticeContent, noticeImg)
+			values(#{noticeNum}, #{noticeTitle},  #{noticeWriter}, #{noticeContent}, #{noticeImg});
+		]]>
+
+	</insert>
+
+	<select id="selectNewNoticeNum" resultType="int">
+	<![CDATA[
+			
+			select max(noticeNum)+1 from notice;
+	
+
+	]]>
+	</select>
+
+	<update id="updateNotice" parameterType="java.util.Map">
+		update simple.notice
+		set noticeTitle = #{noticeTitle},
+		noticeContent =
+		#{noticeContent}
+		<if test="noticeImg!='' and noticeImg!=null">
+			, noticeImg=#{noticeImg}
+		</if>
+		where noticeNum=#{noticeNum}
+	</update>
+
+	<update id="deleteNotice" parameterType="java.util.Map">
+
+		delete from
+		simple.notice
+		where noticeNum=#{noticeNum};
+
+	</update>
+
 
 </mapper>

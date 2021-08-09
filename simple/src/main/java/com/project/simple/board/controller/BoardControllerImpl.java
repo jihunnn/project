@@ -76,6 +76,7 @@ public class BoardControllerImpl implements BoardController {
 			HttpServletResponse response) throws Exception {
 		String viewName = (String) request.getAttribute("viewName");
 		articleVO = boardService.viewNotice(noticeNum);
+
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(viewName);
 		mav.addObject("notice", articleVO);

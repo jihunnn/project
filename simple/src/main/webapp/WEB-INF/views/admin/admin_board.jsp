@@ -9,27 +9,40 @@
 <script type="text/javascript">
 <!--글쓰기 유효형 검사-->
 	function notice_write() {
-		var form = document.inquiryForm;
+		var form = document.noticeForm;
 
-		if (form.inquiryType.value == "") {
-			alert("문의유형을 선택해주세요")
-			form.inquiryType.focus();
-			return false;
-		}
-
-		if (form.inquiryTitle.value == "") {
+		if (form.noticeTitle.value == "") {
 			alert("글 제목을 입력해주세요")
-			document.form.inquiryTitle.focus();
+			form.noticeTitle.focus();
 			return false;
 		}
 
-		if (form.inquiryContent.value == "") {
+		if (form.noticeContent.value == "") {
 			alert("글 내용을 입력해주세요")
-			document.form.inquiryContent.focus();
+			document.form.noticeContent.focus();
 			return false;
 		}
 
 		form.submit();
+	}
+	
+	function modNotice(obj) {
+		var form = document.noticeForm;
+
+		if (form.noticeTitle.value == "") {
+			alert("글 제목을 입력해주세요")
+			form.noticeTitle.focus();
+			return false;
+		}
+
+		if (form.noticeContent.value == "") {
+			alert("글 내용을 입력해주세요")
+			document.form.noticeContent.focus();
+			return false;
+		}
+		obj.action = "${contextPath}/admin/modNewNotice.do?noticeNum=${noticeNum.noticeNum}";
+		obj.submit();
+
 	}
 
 
@@ -42,6 +55,16 @@
         	location.href='${contextPath}/board/listInquiry.do'
         }
     }
+    
+	function readURL(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				$('#preview').attr('src', e.target.result);
+			}
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
 </script>
 
 
@@ -122,30 +145,8 @@
 	<section class="ftco-section"
 		style="padding-top: 50px; margin-bottom: 50px; margin-top: 30px;">
 		<div class="container">
-			<ul class="snip1284">
-				<li><a
-					onclick="location.href='${contextPath}/board/listNotice.do'"
-					data-hover="공지사항"
-					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; margin-left: 20px; padding-bottom: 0px;">공지사항</a></li>
-
-
-				<li><a
-					onclick="location.href='${contextPath}/board/listQuestion.do'"
-					data-hover="자주 묻는 질문"
-					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">자주
-						묻는 질문</a></li>
-
-
-				<li class="current"><a onclick="InquiryList()"
-					data-hover="1:1문의"
-					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">1:1문의</a></li>
-
-
-				<li><a
-					onclick="location.href='${contextPath}/board/listAsCenter.do'"
-					data-hover="A/S센터"
-					style="font-size: 20px; border: none; color: #5a5a5a; background-color: white; cursor: pointer; padding-bottom: 0px;">A/S센터</a></li>
-			</ul>
+		<jsp:include page="/WEB-INF/views/common/admin_topmenu.jsp"
+						flush="false" />
 			<div>
 				<h2 style="font-size: 25px; margin-top: 15px; float: left;">공지사항</h2>
 				<h5
@@ -183,8 +184,8 @@
 
 			<!-- 내용 -->
 
-			<form name="inquiryForm"
-				action="${contextPath}/board/addNewNotice.do" method="post"
+			<form name="noticeForm"
+				action="${contextPath}/admin/addNewNotice.do" method="post"
 				enctype="multipart/form-data">
 				<table class=table
 					style="padding-top: 50px; border-top: #212529; height: 25px; font-size: 14px;">
@@ -225,7 +226,7 @@
 									style="padding-left: 95px; font-weight: bold; padding-top: 17px;">파일첨부</td>
 								<td style="background-color: white;">기존파일:
 									${noticeNum.noticeImg}<input type="hidden"
-									name="OrignNoticeFile" value="${noticeNum.noticeImg}" /><br>
+									name="OrignNoticeImg" value="${noticeNum.noticeImg}" /><br>
 									<input type="file" style="padding-top: 5px; font-size: 14px;"
 									name="noticeImg" onchange="readURL(this);">
 								</td>
@@ -253,22 +254,22 @@
 									style="padding-left: 95px; font-weight: bold; padding-top: 17px;">제목</td>
 								<td colspan="2"
 									style="padding-top: 17px; background-color: white;"><input
-									type=text name="inquiryTitle" size=60 value=""
+									type=text name="noticeTitle" size=60 value=""
 									style="height: 28px; border: 1px solid #d2d2d2; border-radius: 3px;"></td>
 							</tr>
 							<tr style="border-bottom: 1px solid #dcdcdc;">
 								<td
 									style="padding-left: 95px; font-weight: bold; padding-top: 20px;">내용</td>
 								<td colspan="2"
-									style="padding-top: 17px; background-color: white; height: 300px;"><input
-									type="text" name="inquiryContent" value=""
-									style="width: 725px; height: 300px; padding-top: 17px; border: 1px solid #d2d2d2;"></td>
+									style="padding-top: 17px; background-color: white; height: 300px;"><textarea
+									type="text" name="noticeContent" value=""
+									style="width: 725px; height: 300px; padding-top: 17px; border: 1px solid #d2d2d2;"></textarea></td>
 							</tr>
 							<tr >
 								<td
 									style="padding-left: 95px; font-weight: bold; padding-top: 17px;">파일첨부</td>
 								<td style="background-color: white;"><input type="file"
-									style="padding-top: 5px; font-size: 14px;" name="inquiryFile"
+									style="padding-top: 5px; font-size: 14px;" name="noticeImg"
 									onchange="readURL(this);"></td>
 								<td><img id="preview"
 									src="${contextPath}/resources/images/simpleLogo.jpg"
