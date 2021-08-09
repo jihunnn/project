@@ -28,6 +28,9 @@ public interface AdminService {
 	public ArticleVO questionForm(int questionNum) throws Exception;
 	public void modQuestion(ArticleVO question) throws Exception;
 	public void removeQuestion(int questionNum) throws Exception;
+	
+	public ArticleVO inquiryAnswerForm(int inquiryNum) throws Exception;
+	public void addNewInquiryAnswer(ArticleVO inquiry) throws Exception;
 
 	public int admin_modMember(MemberVO modmember) throws DataAccessException;
 

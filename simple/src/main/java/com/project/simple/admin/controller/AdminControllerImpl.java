@@ -430,6 +430,54 @@ public class AdminControllerImpl implements AdminController {
 
 	}
 	
+	//1:1문의 답변 폼
+	@RequestMapping(value = "/admin/inquiryAnswerForm.do", method = RequestMethod.POST)
+	public ModelAndView inquiryAnswerForm(@RequestParam("inquiryNum") int inquiryNum,
+			MultipartHttpServletRequest multipartRequest, HttpServletResponse response) throws Exception {
+
+		String viewName = (String) multipartRequest.getAttribute("viewName");
+		articleVO = adminService.inquiryAnswerForm(inquiryNum);
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName(viewName);
+		mav.addObject("inquiry", articleVO);
+
+		return mav;
+	}
+	
+	//자주묻는 질문 등록
+	@Override
+	@RequestMapping(value = "/admin/addNewInquiryAnswer.do", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity addNewInquiryAnswer(@ModelAttribute("inquiry") ArticleVO inquiry, HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+
+		request.setCharacterEncoding("utf-8");
+
+		String message;
+		ResponseEntity resEnt = null;
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
+		try {
+			adminService.addNewInquiryAnswer(inquiry);
+
+			message = "<script>";
+			message += " alert('글 등록을 완료하였습니다.');";
+			message += "  location.href='" + request.getContextPath() + "/admin/listAllInquiry.do';";
+			message += " </script>";
+			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
+
+		} catch (Exception e) {
+
+			message = "<script>";
+			message += " alert('오류가 발생했습니다. 다시 시도해주세요');";
+			message += "  location.href='" + request.getContextPath() + "/admin/listAllInquiry.do';";
+			message += " </script>";
+			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
+			e.printStackTrace();
+		}
+		return resEnt;
+	}
+	
 	// 회원상세보기
 	@RequestMapping(value = "/admin/viewMember.do",  method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView viewMember(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -496,6 +544,8 @@ public class AdminControllerImpl implements AdminController {
 		mav.setViewName("redirect:/admin_listmember.do");
 		return mav;
 	}
+	
+
 	
 	
 

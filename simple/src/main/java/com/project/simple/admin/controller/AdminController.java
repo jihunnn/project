@@ -28,5 +28,7 @@ public interface AdminController {
 
 	public ResponseEntity removeQuestion(@RequestParam("questionNum") int questionNum, HttpServletRequest request,
 			HttpServletResponse response) throws Exception;
-
+	
+	public ResponseEntity addNewInquiryAnswer(@ModelAttribute("inquiry") ArticleVO inquiry, HttpServletRequest request, HttpServletResponse response)
+			throws Exception;
 }

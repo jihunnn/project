@@ -172,7 +172,7 @@
 		where
 		questionNum=#{questionNum}
 	</update>
-	
+
 	<update id="deleteQuestion" parameterType="int">
 
 		delete from
@@ -180,6 +180,25 @@
 		where questionNum=#{questionNum};
 
 	</update>
+
+	<!-- 1:1문의 -->
+	<select id="selectInquiryAnswer" resultType="articleVO"
+		parameterType="int"> 
+	<![CDATA[
+			
+			select * from inquiry
+			where inquiryNum = #{inquiryNum};
+			
+
+	]]>
+	</select>
+	<insert id="insertNewInquiryAnswer" parameterType="ArticleVO">
+		<![CDATA[
+			update simple.inquiry set inquiryAnswer=#{inquiryAnswer}
+			where inquiryNum=#{inquiryNum};
+		]]>
+
+	</insert>
 
 	<!-- 회원정보수정 -->
 	<update id="updateAdminMember" parameterType="memberVO">

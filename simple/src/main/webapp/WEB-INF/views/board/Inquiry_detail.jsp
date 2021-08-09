@@ -19,6 +19,12 @@ request.setCharacterEncoding("UTF-8");
 		obj.submit();
 	}
 	
+	function answer(obj) {
+		
+	obj.action = "${contextPath}/admin/inquiryAnswerForm.do?inquiryNum=${inquiry.inquiryNum}";
+	obj.submit();
+	}
+	
     function InquiryList() {
         if (${isLogOn != true && member == null}) {
             alert("로그인이 필요합니다.");
@@ -181,7 +187,7 @@ request.setCharacterEncoding("UTF-8");
 				</table>
 				<c:choose>
 					<c:when test="${AdminisLogOn == true && admin != null}">
-						<button type="submit" class="btn btn-dark" id="buttonmy"
+						<button type="button" class="btn btn-dark" id="buttonmy" onclick="answer(this.form)"
 							style="float: left; margin-left: 1100px; margin-top: -30px; font-size: 14px; background-color: #212529; padding-top: 4px;">답글</button>
 						<button type="button" class="btn btn-dark" id="buttonmy"
 							style="float: left; margin-left: 1190px; margin-top: -30px; font-size: 14px; background-color: #212529; padding-top: 4px;"

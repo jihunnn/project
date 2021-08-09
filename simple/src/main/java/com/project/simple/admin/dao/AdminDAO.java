@@ -32,6 +32,9 @@ public interface AdminDAO {
 	public void updateQuestion(ArticleVO question) throws DataAccessException ;
 	public void deleteQuestion(int questionNum) throws DataAccessException;
 	
+	public ArticleVO selectInquiryAnswer(int inquiryNum) throws DataAccessException ;
+	public void insertNewInquiryAnswer(ArticleVO inquiry) throws DataAccessException;
+	
 	public int updateAdminMember(MemberVO modmember) throws DataAccessException;
 
 	public void deleteSelectRemoveMember(String memId) throws DataAccessException;

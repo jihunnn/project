@@ -85,5 +85,11 @@
 		<put-attribute name="body"
 			value="/WEB-INF/views/admin/admin_question.jsp" />
 	</definition>
+	<definition name="admin/inquiryAnswerForm" extends="baseLayout">
+		<put-attribute name="title" value="1:1문의답변폼" />
+		<put-attribute name="body"
+			value="/WEB-INF/views/admin/admin_Answer.jsp" />
+	</definition>
+	
 
 </tiles-definitions>	

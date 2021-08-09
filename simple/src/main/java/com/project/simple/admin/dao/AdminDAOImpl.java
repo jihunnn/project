@@ -102,6 +102,19 @@ public class AdminDAOImpl implements AdminDAO {
 	public void deleteQuestion(int questionNum) throws DataAccessException {
 		sqlSession.delete("mapper.admin.deleteQuestion",questionNum);
 	}
+	
+	//1:1문의 답변 등록 폼
+	@Override
+	public ArticleVO selectInquiryAnswer(int inquiryNum) throws DataAccessException {
+		return sqlSession.selectOne("mapper.admin.selectInquiryAnswer", inquiryNum);
+	}
+	
+	//1:1문의 답변 등록
+	@Override
+	public void insertNewInquiryAnswer(ArticleVO inquiry) throws DataAccessException {
+		sqlSession.update("mapper.admin.insertNewInquiryAnswer", inquiry);
+
+	}
 
 
 	@Override

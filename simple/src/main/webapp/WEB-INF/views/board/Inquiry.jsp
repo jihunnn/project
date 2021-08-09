@@ -106,7 +106,6 @@
 
 
 <style>
-
 @import url(https://fonts.googleapis.com/css?family=Raleway:500);
 
 .snip1284 {
@@ -242,10 +241,6 @@
 	border-radius: 2px;
 	padding-top: 1.8px;
 }
-
-
-
-
 </style>
 
 
@@ -253,9 +248,10 @@
 <body>
 
 	<!-- 타이틀 -->
-	<section class="ftco-section" style="padding-top: 50px; margin-top:50px;">
+	<section class="ftco-section"
+		style="padding-top: 50px; margin-top: 50px;">
 		<div class="container">
-				<c:choose>
+			<c:choose>
 				<c:when test="${AdminisLogOn == true && admin != null}">
 					<jsp:include page="/WEB-INF/views/common/admin_topmenu.jsp"
 						flush="false" />
@@ -268,37 +264,42 @@
 			<div>
 				<h2 style="font-size: 25px; margin-top: 15px; float: left;">1:1문의</h2>
 				<h5
-					style="color: #828282; float: left; font-size: 15px; margin-left: 20px; margin-top: 25px;">빠르게 답변해 드리겠습니다.</h5>
+					style="color: #828282; float: left; font-size: 15px; margin-left: 20px; margin-top: 25px;">빠르게
+					답변해 드리겠습니다.</h5>
 			</div>
 			<!-- 타이틀 끝 -->
 
 			<!-- 최근 본 상품 -->
-		
+
 			<!-- 최근 본 상품 끝 -->
 			<!-- 내용 -->
 			<form name="inquirySearch"
 				action="${contextPath}/board/inquirySearch.do" method="post">
 				<div style="display: inline !important;">
-					<p style="float: left; width: 70px; margin-top: 25px; margin-left:529px; font-size:14px; , margin-bottom:10px;">작성기간</p>
+					<p
+						style="float: left; width: 70px; margin-top: 25px; margin-left: 529px; font-size: 14px; , margin-bottom: 10px;">작성기간</p>
 
-					<input type="text" id="datepicker1" name="search1" autocomplete='off'
-						style="width: 120px; margin-right: 50px; margin-top: 25px;height:30px; border: 1px solid #dcdcdc; flaot: left; border: 1px solid #bebebe; border-radius: 2px; display: inline !important;">
+					<input type="text" id="datepicker1" name="search1"
+						autocomplete='off'
+						style="width: 120px; margin-right: 50px; margin-top: 25px; height: 30px; border: 1px solid #dcdcdc; flaot: left; border: 1px solid #bebebe; border-radius: 2px; display: inline !important;">
 
 					<span class="glyphicon glyphicon-calendar" aria-hidden="true"
-						style="margin-left: -35px;"></span>~ㅤ<input type="text" autocomplete='off'
-						name="search2" id="datepicker2"
-						style="width: 120px; margin-right: 40px; height:30px; border: 1px solid #dcdcdc; flaot: left; border: 1px solid #bebebe; border-radius: 2px; display: inline !important;">
+						style="margin-left: -35px;"></span>~ㅤ<input type="text"
+						autocomplete='off' name="search2" id="datepicker2"
+						style="width: 120px; margin-right: 40px; height: 30px; border: 1px solid #dcdcdc; flaot: left; border: 1px solid #bebebe; border-radius: 2px; display: inline !important;">
 
 					<span class="glyphicon glyphicon-calendar" aria-hidden="true"
 						style="margin-left: -35px;"> </span>
 
-					<button type="button" onclick="inquiry()"class="btn btn-default"
-						style="background-color: #dcdcdc; font-size:14px; fmargin-left: 380px; margin-top: 0px; margin-bottom:3px; width: 80px; height: 34px; font-size: 14px; display: inline !important;  background-color:#7e9c8c; border:none; color: white; border-radius: 2px; height: 30px;  padding-top: 3px;">조회</button>
+					<button type="button" onclick="inquiry()" class="btn btn-default"
+						style="background-color: #dcdcdc; font-size: 14px; fmargin-left: 380px; margin-top: 0px; margin-bottom: 3px; width: 80px; height: 34px; font-size: 14px; display: inline !important; background-color: #7e9c8c; border: none; color: white; border-radius: 2px; height: 30px; padding-top: 3px;">조회</button>
 				</div>
 			</form>
-			<table class="table" style="height: 30px; height: 25px; font-size: 14px;">
+			<table class="table"
+				style="height: 30px; height: 25px; font-size: 14px;">
 				<thead class="table-dark" align=center>
-					<tr align="center" style="background-color: #eeeeee; border-top:1px solid #7e9c8c;color:black; border-bottom: 1px solid #c6c8ca; font-size:15px;">
+					<tr align="center"
+						style="background-color: #eeeeee; border-top: 1px solid #7e9c8c; color: black; border-bottom: 1px solid #c6c8ca; font-size: 15px;">
 						<td scope="col" width="100">번호</td>
 						<td scope="col" width="150">문의유형</td>
 						<td scope="col" width="500"><p style="margin-bottom: 0px;">제목</p></td>
@@ -308,8 +309,9 @@
 						<c:when test="${!empty inquirySearchMap.search1}">
 							<c:choose>
 								<c:when test="${empty inquirySearchMap.inquirySearchList}">
-									<tr >
-										<td style="backgroundcolor: white; width: 300px;" colspan="5">찾으시는 결과가 없습니다.</td>
+									<tr>
+										<td style="backgroundcolor: white; width: 300px;" colspan="5">찾으시는
+											결과가 없습니다.</td>
 									</tr>
 								</c:when>
 								<c:when test="${!empty inquirySearchMap.inquirySearchList}">
@@ -367,76 +369,121 @@
 				</thead>
 			</table>
 			<c:if test="${isLogOn== true &&member !=null}">
-			<a id="buttonmy" class="btn btn-dark"
-				href="${contextPath}/board/inquiryForm.do"
-				style="float: right; margin-top: 25px; border-radius: 2px;  background-color: #7e9c8c; color: white; border:none; border-radius: 2px; width: 120px; height: 40px; padding-top:10px; font-size:14px;">글쓰기</a>
+				<a id="buttonmy" class="btn btn-dark"
+					href="${contextPath}/board/inquiryForm.do"
+					style="float: right; margin-top: 25px; border-radius: 2px; background-color: #7e9c8c; color: white; border: none; border-radius: 2px; width: 120px; height: 40px; padding-top: 10px; font-size: 14px;">글쓰기</a>
 			</c:if>
-		<!-- 내용 끝 -->
-		<!-- 페이징 글번호 -->
-		<c:choose>
+			<!-- 내용 끝 -->
+			<!-- 페이징 글번호 -->
+			<c:choose>
 
-			<c:when test="${!empty inquirySearchMap.search1}">
-				<div class="page_wrap"
-					style="margin-left: 80px; margin-top: 60px; width: 1300px;">
-					<div class="page_nation">
+				<c:when test="${!empty inquirySearchMap.search1}">
+					<div class="page_wrap"
+						style="margin-left: 80px; margin-top: 60px; width: 1300px;">
+						<div class="page_nation">
 
-						<c:if test="${pageMaker.prev}">
+							<c:if test="${pageMaker.prev}">
 
-							<a class="arrow prev"  style="border: 1px solid #7e9c8c; color:#7e9c8c; margin-right:0px; margin-left:2px;"
-								href='<c:url value="/board/inquirySearch.do?search1=${inquirySearchMap.search1}&search2=${inquirySearchMap.search2}&page=${pageMaker.startPage-1 }"/>'><i
-								class="fa fa-chevron-left"></i></a>
+								<a class="arrow prev"
+									style="border: 1px solid #7e9c8c; color: #7e9c8c; margin-right: 0px; margin-left: 2px;"
+									href='<c:url value="/board/inquirySearch.do?search1=${inquirySearchMap.search1}&search2=${inquirySearchMap.search2}&page=${pageMaker.startPage-1 }"/>'><i
+									class="fa fa-chevron-left"></i></a>
 
-						</c:if>
-						<c:forEach begin="${pageMaker.startPage }"
-							end="${pageMaker.endPage }" var="pageNum">
+							</c:if>
+							<c:forEach begin="${pageMaker.startPage }"
+								end="${pageMaker.endPage }" var="pageNum">
 
-							<a  style="border: 1px solid #7e9c8c; color:#7e9c8c; margin-right:0px; margin-left:2px;"
-								href='<c:url value="/board/inquirySearch.do?search1=${inquirySearchMap.search1}&search2=${inquirySearchMap.search2}&page=${pageNum }"/>'><i
-								class="fa">${pageNum }</i></a>
+								<a
+									style="border: 1px solid #7e9c8c; color: #7e9c8c; margin-right: 0px; margin-left: 2px;"
+									href='<c:url value="/board/inquirySearch.do?search1=${inquirySearchMap.search1}&search2=${inquirySearchMap.search2}&page=${pageNum }"/>'><i
+									class="fa">${pageNum }</i></a>
 
-						</c:forEach>
-						<c:if test="${pageMaker.next && pageMaker.endPage >0 }">
+							</c:forEach>
+							<c:if test="${pageMaker.next && pageMaker.endPage >0 }">
 
-							<a class="arrow next"  style="border: 1px solid #7e9c8c; color:#7e9c8c; margin-right:0px; margin-left:2px;"
-								href='<c:url value="/board/inquirySearch.do?search1=${inquirySearchMap.search1}&search2=${inquirySearchMap.search2}&page=${pageMaker.endPage+1 }"/>'><i
-								class="fa fa-chevron-right"></i></a>
+								<a class="arrow next"
+									style="border: 1px solid #7e9c8c; color: #7e9c8c; margin-right: 0px; margin-left: 2px;"
+									href='<c:url value="/board/inquirySearch.do?search1=${inquirySearchMap.search1}&search2=${inquirySearchMap.search2}&page=${pageMaker.endPage+1 }"/>'><i
+									class="fa fa-chevron-right"></i></a>
 
-						</c:if>
+							</c:if>
 
+						</div>
 					</div>
-				</div>
-			</c:when>
-			<c:when test="${empty inquirySearchMap.search1}">
-				<div class="page_wrap"
-					style="margin-left: 80px; margin-top: 50px; width: 1300px;">
-					<div class="page_nation">
+				</c:when>
+				<c:when test="${empty inquirySearchMap.search1}">
+					<c:choose>
+						<c:when test="${AdminisLogOn == true && admin != null}">
+							<div class="page_wrap"
+								style="margin-left: 80px; margin-top: 50px; width: 1300px;">
+								<div class="page_nation">
 
-						<c:if test="${pageMaker.prev}">
+									<c:if test="${pageMaker.prev}">
 
-							<a class="arrow prev"  style="border: 1px solid #7e9c8c; color:#7e9c8c; margin-right:0px; margin-left:2px;"
-								href='<c:url value="/board/listInquiry.do?page=${pageMaker.startPage-1 }"/>'><i
-								class="fa fa-chevron-left"></i></a>
+										<a class="arrow prev"
+											style="border: 1px solid #7e9c8c; color: #7e9c8c; margin-right: 0px; margin-left: 2px;"
+											href='<c:url value="/admin/listAllInquiry.do?page=${pageMaker.startPage-1 }"/>'><i
+											class="fa fa-chevron-left"></i></a>
 
-						</c:if>
-						<c:forEach begin="${pageMaker.startPage }"
-							end="${pageMaker.endPage }" var="pageNum">
+									</c:if>
+									<c:forEach begin="${pageMaker.startPage }"
+										end="${pageMaker.endPage }" var="pageNum">
 
-							<a  style="border: 1px solid #7e9c8c; color:#7e9c8c; margin-right:0px; margin-left:2px;" href='<c:url value="/board/listInquiry.do?page=${pageNum }"/>'><i
-								class="fa" >${pageNum }</i></a>
+										<a
+											style="border: 1px solid #7e9c8c; color: #7e9c8c; margin-right: 0px; margin-left: 2px;"
+											href='<c:url value="/admin/listAllInquiry.do?page=${pageNum }"/>'><i
+											class="fa">${pageNum }</i></a>
 
-						</c:forEach>
-						<c:if test="${pageMaker.next && pageMaker.endPage >0 }">
+									</c:forEach>
+									<c:if test="${pageMaker.next && pageMaker.endPage >0 }">
 
-							<a class="arrow next"  style="border: 1px solid #7e9c8c; color:#7e9c8c; margin-right:0px; margin-left:2px;"
-								href='<c:url value="/board/listInquiry.do?page=${pageMaker.endPage+1 }"/>'><i
-								class="fa fa-chevron-right"></i></a>
+										<a class="arrow next"
+											style="border: 1px solid #7e9c8c; color: #7e9c8c; margin-right: 0px; margin-left: 2px;"
+											href='<c:url value="/admin/listAllInquiry.do?page=${pageMaker.endPage+1 }"/>'><i
+											class="fa fa-chevron-right"></i></a>
 
-						</c:if>
+									</c:if>
 
-					</div>
-				</div>
-			</c:when>
-		</c:choose>
+								</div>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<div class="page_wrap"
+								style="margin-left: 80px; margin-top: 50px; width: 1300px;">
+								<div class="page_nation">
+
+									<c:if test="${pageMaker.prev}">
+
+										<a class="arrow prev"
+											style="border: 1px solid #7e9c8c; color: #7e9c8c; margin-right: 0px; margin-left: 2px;"
+											href='<c:url value="/board/listInquiry.do?page=${pageMaker.startPage-1 }"/>'><i
+											class="fa fa-chevron-left"></i></a>
+
+									</c:if>
+									<c:forEach begin="${pageMaker.startPage }"
+										end="${pageMaker.endPage }" var="pageNum">
+
+										<a
+											style="border: 1px solid #7e9c8c; color: #7e9c8c; margin-right: 0px; margin-left: 2px;"
+											href='<c:url value="/board/listInquiry.do?page=${pageNum }"/>'><i
+											class="fa">${pageNum }</i></a>
+
+									</c:forEach>
+									<c:if test="${pageMaker.next && pageMaker.endPage >0 }">
+
+										<a class="arrow next"
+											style="border: 1px solid #7e9c8c; color: #7e9c8c; margin-right: 0px; margin-left: 2px;"
+											href='<c:url value="/board/listInquiry.do?page=${pageMaker.endPage+1 }"/>'><i
+											class="fa fa-chevron-right"></i></a>
+
+									</c:if>
+
+								</div>
+							</div>
+						</c:otherwise>
+					</c:choose>
+				</c:when>
+			</c:choose>
 		</div>
 	</section>
 	<br>

@@ -101,6 +101,19 @@ public class AdminServiceImpl implements AdminService {
 		adminDAO.deleteQuestion(questionNum);
 	}
 	
+	//1:1문의 답변 폼
+	@Override
+	public ArticleVO inquiryAnswerForm(int inquiryNum) throws Exception {
+		ArticleVO articleVO = adminDAO.selectInquiryAnswer(inquiryNum);
+		return articleVO;
+	}
+	
+	//1:1문의 답변 등록
+	@Override
+	public void addNewInquiryAnswer(ArticleVO inquiry) throws Exception{
+		adminDAO.insertNewInquiryAnswer(inquiry);
+	}
+	
 
 	@Override
 	public int admin_modMember(MemberVO modmember) throws DataAccessException {
