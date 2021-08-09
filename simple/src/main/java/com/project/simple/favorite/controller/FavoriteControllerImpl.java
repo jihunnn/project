@@ -72,11 +72,19 @@ public class FavoriteControllerImpl implements FavoriteController {
 	@RequestMapping(value = "/removeFavoriteProduct.do", method = RequestMethod.POST)
 	public ModelAndView removeFavoriteProduct(HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
+		HttpSession session = request.getSession();
+		MemberVO memberVO = (MemberVO) session.getAttribute("member");
+		String memId = memberVO.getmemId();
+		Map<String,Object> map = new HashMap();
+	
+				
 		ModelAndView mav = new ModelAndView();
 		String[] ajaxMsg = request.getParameterValues("valueArr");
 		int size = ajaxMsg.length;
 		for (int i = 0; i < size; i++) {
-			favoriteService.removeFavoriteProduct(ajaxMsg[i]);
+			map.put("productNum", ajaxMsg[i]);
+			map.put("memId", memId);
+			favoriteService.removeFavoriteProduct(map);
 		}
 
 		mav.setViewName("redirect:/mypage_08.do");
@@ -102,7 +110,6 @@ public class FavoriteControllerImpl implements FavoriteController {
 			return "not_existed";
 		}
 	}
-	
 	@RequestMapping(value = "/favoriteCount.do", method = RequestMethod.GET, produces = "application/text; charset=utf8")
 	public @ResponseBody String favoriteCount(@RequestParam("productNum") String productNum,
 			HttpServletRequest request, HttpServletResponse response) throws Exception {

@@ -255,29 +255,15 @@
 	<!-- 타이틀 -->
 	<section class="ftco-section" style="padding-top: 50px; margin-top:50px;">
 		<div class="container">
-			<ul class="snip1284" style="margin-bottom:30px; padding-left:0px;">
-				<li><a
-					onclick="location.href='${contextPath}/board/listNotice.do'"
-					data-hover="공지사항"
-					style="font-size: 19px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; margin-left: 20px; padding-bottom: 0px;">공지사항</a></li>
-
-
-				<li ><a
-					onclick="location.href='${contextPath}/board/listQuestion.do'"
-					data-hover="자주 묻는 질문"
-					style="font-size: 19px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">자주
-						묻는 질문</a></li>
-
-
-				<li  class="current"><a onclick="InquiryList()" data-hover="1:1문의"
-					style="font-size: 19px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">1:1문의</a></li>
-
-
-				<li><a
-					onclick="location.href='${contextPath}/board/listAsCenter.do'"
-					data-hover="A/S센터"
-					style="font-size: 19px; border: none; color: #5a5a5a; background-color: white; cursor: pointer; padding-bottom: 0px;">A/S센터</a></li>
-			</ul>
+				<c:choose>
+				<c:when test="${AdminisLogOn == true && admin != null}">
+					<jsp:include page="/WEB-INF/views/common/admin_topmenu.jsp"
+						flush="false" />
+				</c:when>
+				<c:otherwise>
+					<jsp:include page="/WEB-INF/views/common/csMenu.jsp" flush="false" />
+				</c:otherwise>
+			</c:choose>
 
 			<div>
 				<h2 style="font-size: 25px; margin-top: 15px; float: left;">1:1문의</h2>
@@ -287,29 +273,7 @@
 			<!-- 타이틀 끝 -->
 
 			<!-- 최근 본 상품 -->
-			<div id="recentlyProduct"
-				style="position: absolute; width: 120px; height: 310px; margin-left: 1370px; border: 1px solid #d2d2d2; margin-top: -100px;">
-				<ul
-					style="list-style: none; margin-top: 10px; padding-left: 20px; margin-bottom: 10px;">
-					<li><a href="#"
-						style="padding-left: -10px; padding-bottom: 1px; color: black;">최근본상품</a></li>
-				</ul>
-				<hr style="margin-top: 0px; margin-bottom: 0px; color: #d2d2d2;">
-				<ul style="list-style: none; padding-top: 5px;">
-					<li><a href="#"><img
-							src="${contextPath}/resources/images/image_1.jpg"
-							style="width: 100px; height: 100px; padding-top: 10px; margin-left: -30px;"></a></li>
-					<li><a href="#"><img
-							src="${contextPath}/resources/images/image_2.jpg"
-							style="width: 100px; height: 100px; padding-top: 10px; padding-top: 10px; margin-left: -30px;"></a></li>
-				</ul>
-				<hr style="margin-top: 0px; margin-bottom: 0px; color: #d2d2d2;">
-				<ul
-					style="list-style: none; padding-left: 30px; margin-bottom: 10px; margin-top: 8px;">
-					<li><a href="#"
-						style="color: black; text-align: center; margin-top: 8px; padding-top: 30px;">더보기▼</a></li>
-				</ul>
-			</div>
+		
 			<!-- 최근 본 상품 끝 -->
 			<!-- 내용 -->
 			<form name="inquirySearch"

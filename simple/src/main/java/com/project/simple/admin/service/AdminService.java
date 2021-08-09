@@ -9,6 +9,7 @@ import com.project.simple.admin.vo.AdminVO;
 import com.project.simple.board.vo.ArticleVO;
 import com.project.simple.member.vo.MemberVO;
 import com.project.simple.page.Criteria;
+import com.project.simple.product.vo.ProductVO;
 
 public interface AdminService {
 	public AdminVO login(AdminVO adminVO) throws Exception;
@@ -20,13 +21,18 @@ public interface AdminService {
 	
 	public int addNewNotice(Map noticeMap) throws Exception;
 	public ArticleVO noticeForm(int noticeNum) throws Exception;
-	
 	public void modNotice(Map noticeMap) throws Exception;
 	public void removeNotice(int noticeNum) throws Exception;
+	
+	public void addNewQuestion(ArticleVO question) throws Exception;
+	public ArticleVO questionForm(int questionNum) throws Exception;
+	public void modQuestion(ArticleVO question) throws Exception;
+	public void removeQuestion(int questionNum) throws Exception;
 
 	public int admin_modMember(MemberVO modmember) throws DataAccessException;
 
 	public void admin_selectremoveMember(String memId) throws Exception ;
+	
 
 
 }

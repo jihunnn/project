@@ -3,6 +3,7 @@ package com.project.simple.member.service;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.dao.DataAccessException;
@@ -39,11 +40,29 @@ public interface MemberService{
 
 	public void send_mail(MemberVO memberVO, String div) throws Exception;
 
-	public void find_pw(HttpServletResponse response, MemberVO memberVO) throws Exception;
+	public void find_pw(HttpServletRequest request,HttpServletResponse response, MemberVO memberVO) throws Exception;
 
 	public void check_id(String memId, HttpServletResponse response) throws Exception;
 
 	public MemberVO email_confirm(String approval_key)throws Exception;
+
+	public int newPassWord(MemberVO member) throws  DataAccessException ;
+
+	public MemberVO login_kakao(MemberVO memberVO)throws Exception;
+
+	public int addMember_kakao(MemberVO memberVO) throws DataAccessException;
+
+	public void certifiedPhoneNumber(String phoneNumber, String approval_key)throws Exception;
+
+	public int check_id(String memId)throws Exception;
+
+	public MemberVO check_phone(String memId)throws Exception;
+
+	public void update_pw(MemberVO memberVO)throws Exception;
+
+
+
+	
 
 	
 	

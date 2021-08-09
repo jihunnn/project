@@ -121,4 +121,32 @@ public class MemberDAOImpl implements MemberDAO{
 		MemberVO result =  sqlSession.selectOne("mapper.member.EmailConfirm",approval_key);
 		return result;
 	}
+
+	@Override
+	public int updatenewPassWord(MemberVO member) throws DataAccessException {
+		System.out.println(member);
+		int result = sqlSession.update("mapper.member.updatenewPassWord", member);
+	
+		return result;
+	}
+
+	@Override
+	public MemberVO loginBykakao(MemberVO memberVO) throws DataAccessException {
+		MemberVO vo = sqlSession.selectOne("mapper.member.loginBykakao", memberVO);
+		return vo;
+	}
+
+	@Override
+	public int insertMember_kakao(MemberVO memberVO) throws DataAccessException {
+		int result=sqlSession.insert("mapper.member.insertMember_kakao", memberVO);
+		return result;
+	}
+
+	@Override
+	public MemberVO check_phone(String memId) throws Exception {
+		return sqlSession.selectOne("mapper.member.check_phone", memId);
+	}
+
+
+
 }

@@ -63,49 +63,53 @@
 	function new_password() {
 		var form = document.NewPassWord;
 		//비밀번호 입력여부 체크
-		if (form.user_password1.value == "") {
+		//비밀번호 입력여부 체크
+		if (form.memPwd.value == "") {
 			alert("비밀번호를 입력하지 않았습니다.")
-			form.user_password1.focus();
-			return;
+			form.memPwd.focus();
+			return false;
 
 		}
+	
 		//비밀번호 길이 체크(10자이상 허용)
-		if (form.user_password1.value.length < 9) {
+		if (form.memPwd.value.length < 10) {
 			alert("비밀번호를 10자이상 입력해주세요.")
-			form.user_password1.focus();
-			form.user_password1.select();
+			form.memPwd.focus();
+			form.memPwd.select();
 			return false;
 		}
+		if (form.memPwd1.value == "") {
+			alert("비밀번호를 입력하지 않았습니다.")
+			form.memPwd1.focus();
+			return false;
+
+		}
 		//비밀번호 유효성 검사 (영문소문자, 숫자만 허용)
-		for (var i = 0; i < form.user_password1.value.length; i++) {
-			ch = form.user_password1.value.charAt(i)
+		for (var i = 0; i < form.memPwd.value.length; i++) {
+			ch = form.memPwd.value.charAt(i)
 			if (!(ch >= '0' && ch <= '9') && !(ch >= 'a' && ch <= 'z')
 					&& !(ch >= 'A' && ch <= 'Z')) {
 				alert("비밀번호는 영문 대소문자, 숫자만 입력가능합니다.")
-				form.user_password1.focus();
-				form.user_password1.select();
+				form.memPwd.focus();
+				form.memPwd.select();
 				return false;
 			}
 		}
 		//비밀번호와 비밀번호 확인 일치여부 체크
-		if (form.user_password1.value != form.user_password2.value) {
+		if (form.memPwd.value != form.memPwd1.value) {
 			alert("비밀번호가 일치하지 않습니다")
-			form.user_password2.value = ""
-			form.user_password2.focus();
+			form.memPwd1.value = ""
+			form.memPwd1.focus();
 			return false;
 		}
-		if (form.email1.value == "") {
-			alert("이메일을 입력하지 않았습니다.")
-			form.email1.focus();
-			return false;
-		}
+	
 
 		form.submit();
 
 	}
 </script>
 </head>
-<title>주문결제창</title>
+<title>새비밀번호등록창</title>
 <body>
 
 	<section class="ftco-section testimony-section"
@@ -151,23 +155,25 @@
 							입력해주세요.</h4>
 					</div>
 					<div class="pass_input_confirm">
-						<form name="NewPassWord" action="Login-06.jsp" method="post">
+						<form name="NewPassWord" action="${contextPath}/newPassWord.do" method="post">
 							<div id="user_password1" style="padding-bottom: 10px">
-								<input type="password" name="user_password1" size="37"
+								<input type="password" name="memPwd" size="37" value=""
 									placeholder="비밀번호를 입력해주세요">
 							</div>
 							<div id="user_password2" style="padding-bottom: 20px">
-								<input type="password" name="user_password2" size="37"
+								<input type="password" name="memPwd1" size="37" value=""
 									placeholder="비밀번호 확인">
 							</div>
-							<div>
+						</form>
+						
+						<div>
 								<button onclick="new_password()"
 									style="width: 310px; background-color: #212529; color: white;">
 									<i class="go_login-06"></i><span>확인</span>
 								</button>
-							</div>
+						</div>
+						
 
-						</form>
 					</div>
 
 				</div>

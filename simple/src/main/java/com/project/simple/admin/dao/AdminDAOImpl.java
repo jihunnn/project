@@ -13,6 +13,7 @@ import com.project.simple.admin.vo.AdminVO;
 import com.project.simple.board.vo.ArticleVO;
 import com.project.simple.member.vo.MemberVO;
 import com.project.simple.page.Criteria;
+import com.project.simple.product.vo.ProductVO;
 
 @Repository("adminDAO")
 public class AdminDAOImpl implements AdminDAO {
@@ -76,6 +77,32 @@ public class AdminDAOImpl implements AdminDAO {
 	public void deleteNotice(int noticeNum) throws DataAccessException {
 		sqlSession.delete("mapper.admin.deleteNotice", noticeNum);
 	}
+	
+	//자주묻는 질문 글쓰기
+	@Override
+	public void insertNewQuestion(ArticleVO question) throws DataAccessException {
+		sqlSession.insert("mapper.admin.insertNewQuestion", question);
+
+	}
+	
+	// 자주묻는 질문 수정하기폼
+	@Override
+	public ArticleVO selectQuestion(int questionNum) throws DataAccessException {
+		return sqlSession.selectOne("mapper.admin.selectQuestion", questionNum);
+	}
+	
+	//자주묻는 질문 수정하기
+	@Override
+	public void updateQuestion(ArticleVO question) throws DataAccessException {
+		sqlSession.update("mapper.admin.updateQuestion", question);
+	}
+	
+	//자주묻는 질문 삭제하기
+	@Override
+	public void deleteQuestion(int questionNum) throws DataAccessException {
+		sqlSession.delete("mapper.admin.deleteQuestion",questionNum);
+	}
+
 
 	@Override
 	public int updateAdminMember(MemberVO modmember) throws DataAccessException {

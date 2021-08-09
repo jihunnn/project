@@ -107,7 +107,7 @@ h3 {
 }
 </style>
 </head>
-<title>주문결제창</title>
+<title>회원가입완료창</title>
 <body>
 
 
@@ -131,7 +131,7 @@ h3 {
 				</div>
 				<div>
 					<div style="padding-right: 15px">
-						<button onclick="location.href='${contextPath}/login_01.do'"
+						<button onclick="location.href='${contextPath}/main.do'"
 							style="width: 262px; margin-right:20px;background-color: white; color: gray; border: none; border-radius: 2px; width: 130px; height: 45px; border: 1px solid #eeeeee;">
 							<i class="go_login-06"></i><span>홈으로</span>
 						</button>

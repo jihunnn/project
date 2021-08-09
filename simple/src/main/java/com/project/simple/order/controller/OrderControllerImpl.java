@@ -175,7 +175,7 @@ public class OrderControllerImpl implements OrderController {
 
 			else {
 				OrderVO order = (OrderVO) session.getAttribute("nonMemOrder");
-				
+
 				String productNum = order.getProductNum();
 				String productName = order.getProductName();
 				String option1name = order.getOption1name();
@@ -198,7 +198,7 @@ public class OrderControllerImpl implements OrderController {
 				orderVO.setProductPrice(productPrice);
 				orderVO.setTotalPrice(totalPrice);
 				orderVO.setProductImage(productImage);
-				
+
 				String randomnumber = numberGen(9, 1);
 				int nonmemOrderNum = Integer.parseInt(randomnumber);
 				orderVO.setNonmemOrderNum(nonmemOrderNum);
@@ -216,60 +216,60 @@ public class OrderControllerImpl implements OrderController {
 
 		else if (isLogOn == true) {
 			if (session.getAttribute("orderlist") != null) {
-			ArrayList<OrderVO> orderlist = (ArrayList) session.getAttribute("orderlist");
-			int size = orderlist.size();
-			System.out.println("오오오오오오오오오");
-			
-			String randomnumber = numberGen(9, 1);
-			int memOrderNum = Integer.parseInt(randomnumber);
-			String memPaymentMethod = orderVO.getMemPaymentMethod();
-			String Price = orderVO.getTotalPrice();
-			int point = Integer.parseInt(Price) / 10;
+				ArrayList<OrderVO> orderlist = (ArrayList) session.getAttribute("orderlist");
+				int size = orderlist.size();
+				System.out.println("오오오오오오오오오");
 
-			for (int i = 0; i < size; i++) {
-				OrderVO vo = orderlist.get(i);
-				String productNum = vo.getProductNum();
-				String productName = vo.getProductName();
-				String option1name = vo.getOption1name();
-				String option1value = vo.getOption1value();
-				String option2name = vo.getOption2name();
-				String option2value = vo.getOption2value();
-				String deliverycharge = vo.getDeliverycharge();
-				int productCnt = vo.getProductCnt();
-				String productPrice = vo.getProductPrice();
-				String totalPrice = orderVO.getTotalPrice();
-				String productImage = vo.getProductImage();
-				orderVO.setProductNum(productNum);
-				orderVO.setProductName(productName);
-				orderVO.setOption1name(option1name);
-				orderVO.setOption1value(option1value);
-				orderVO.setOption2name(option2name);
-				orderVO.setOption2value(option2value);
-				orderVO.setDeliverycharge(deliverycharge);
-				orderVO.setMemOrderNum(memOrderNum);
-				orderVO.setProductCnt(productCnt);
-				orderVO.setProductPrice(productPrice);
-				orderVO.setTotalPrice(totalPrice);
-				orderVO.setProductImage(productImage);
+				String randomnumber = numberGen(9, 1);
+				int memOrderNum = Integer.parseInt(randomnumber);
+				String memPaymentMethod = orderVO.getMemPaymentMethod();
+				String Price = orderVO.getTotalPrice();
+				int point = Integer.parseInt(Price) / 10;
 
-				orderService.addNewOrder(orderVO); // 마이바티스에서 분기
-			}
+				for (int i = 0; i < size; i++) {
+					OrderVO vo = orderlist.get(i);
+					String productNum = vo.getProductNum();
+					String productName = vo.getProductName();
+					String option1name = vo.getOption1name();
+					String option1value = vo.getOption1value();
+					String option2name = vo.getOption2name();
+					String option2value = vo.getOption2value();
+					String deliverycharge = vo.getDeliverycharge();
+					int productCnt = vo.getProductCnt();
+					String productPrice = vo.getProductPrice();
+					String totalPrice = orderVO.getTotalPrice();
+					String productImage = vo.getProductImage();
+					orderVO.setProductNum(productNum);
+					orderVO.setProductName(productName);
+					orderVO.setOption1name(option1name);
+					orderVO.setOption1value(option1value);
+					orderVO.setOption2name(option2name);
+					orderVO.setOption2value(option2value);
+					orderVO.setDeliverycharge(deliverycharge);
+					orderVO.setMemOrderNum(memOrderNum);
+					orderVO.setProductCnt(productCnt);
+					orderVO.setProductPrice(productPrice);
+					orderVO.setTotalPrice(totalPrice);
+					orderVO.setProductImage(productImage);
 
-			String[] memCartId = (String[]) session.getAttribute("memCartId");
-			for (int i = 0; i < size; i++) {
-				cartService.removeCompleteCartlist(memCartId[i]);
-			}
+					orderService.addNewOrder(orderVO); // 마이바티스에서 분기
+				}
 
-			session.removeAttribute("memCartId");
-			mav.addObject("point", point);
-			mav.addObject("Price", Price);
-			mav.addObject("memPaymentMethod", memPaymentMethod);
-			mav.addObject("memOrderNum", randomnumber);
-			mav.setViewName("order_03");}
-			else {
-				
+				String[] memCartId = (String[]) session.getAttribute("memCartId");
+				for (int i = 0; i < size; i++) {
+					cartService.removeCompleteCartlist(memCartId[i]);
+				}
+
+				session.removeAttribute("memCartId");
+				mav.addObject("point", point);
+				mav.addObject("Price", Price);
+				mav.addObject("memPaymentMethod", memPaymentMethod);
+				mav.addObject("memOrderNum", randomnumber);
+				mav.setViewName("order_03");
+			} else {
+
 				OrderVO order = (OrderVO) session.getAttribute("memOrder");
-				
+
 				String productNum = order.getProductNum();
 				String productName = order.getProductName();
 				String option1name = order.getOption1name();
@@ -292,7 +292,7 @@ public class OrderControllerImpl implements OrderController {
 				orderVO.setProductPrice(productPrice);
 				orderVO.setTotalPrice(totalPrice);
 				orderVO.setProductImage(productImage);
-				
+
 				String randomnumber = numberGen(9, 1);
 				int memOrderNum = Integer.parseInt(randomnumber);
 				String Price = orderVO.getTotalPrice();
@@ -331,6 +331,18 @@ public class OrderControllerImpl implements OrderController {
 			}
 		}
 		return numStr;
+	}
+
+	// 주문결과페이지이동(회원)
+	@RequestMapping(value = "/memberOrderResult.do", method = RequestMethod.GET)
+	private ModelAndView order_03(@RequestParam("Price") String price, @RequestParam("point") String point,
+			 String memPaymentMethod, @RequestParam(" memOrderNum") String memOrderNum,
+			HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("order_03");
+		return mav;
+
 	}
 
 	// 관리자 주문조회

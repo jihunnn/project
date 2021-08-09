@@ -160,14 +160,14 @@
 											style="border-bottom: 1px solid #c6c8ca; background-color: white; color: black; ">
 											<th scope="col" style="vertical-align: middle;"><input
 												type="checkbox" name="chk" value=""></th>
-											<th scope="col" style="vertical-align: middle;">${orderSearch.memOrderNum}</th>
-											<th scope="col" style="vertical-align: middle;">${orderSearch.memId}</th>
-											<th scope="col" style="vertical-align: middle;">${orderSearch.productName}</th>
-											<th scope="col" style="vertical-align: middle;">${orderSearch.option1name}:${orderSearch.option1value}<br>${orderSearch.option2name}:${orderSearch.option2value}</th>
-											<th scope="col" style="vertical-align: middle;">${orderSearch.totalPrice}원</th>
-											<th scope="col" style="vertical-align: middle;">${orderSearch.memSpPhoneNum1}</th>
-											<th scope="col" style="vertical-align: middle;">${orderSearch.memSpAdr}</th>
-											<th scope="col" style="vertical-align: middle;">${orderSearch.memOrderDate}</th>
+											<th scope="col" style="vertical-align: middle; font-weight: normal;">${orderSearch.memOrderNum}</th>
+											<th scope="col" style="vertical-align: middle; font-weight: normal;">${orderSearch.memId}</th>
+											<th scope="col" style="vertical-align: middle; font-weight: normal;">${orderSearch.productName}</th>
+											<th scope="col" style="vertical-align: middle; font-weight: normal;">${orderSearch.option1name}:${orderSearch.option1value}<br>${orderSearch.option2name}:${orderSearch.option2value}</th>
+											<th scope="col" style="vertical-align: middle; font-weight: normal;">${orderSearch.totalPrice}원</th>
+											<th scope="col" style="vertical-align: middle; font-weight: normal;">${orderSearch.memSpPhoneNum1}</th>
+											<th scope="col" style="vertical-align: middle; font-weight: normal;">${orderSearch.memSpAdr}</th>
+											<th scope="col" style="vertical-align: middle; font-weight: normal;">${orderSearch.memOrderDate}</th>
 											<th scope="col" style="vertical-align: middle;"><input
 												type="hidden" value="${orderSearch.memId}" name="memId" />
 												<button type="submit" class="btn btn-dark"
@@ -202,15 +202,15 @@
 												style="border-bottom: 1px solid #c6c8ca; background-color: white; color: black;">
 												<th scope="col" style="vertical-align: middle;"><input
 													type="checkbox" name="chk" value=""></th>
-												<th scope="col" style="vertical-align: middle;">${ordersList.memOrderNum}</th>
-												<th scope="col" style="vertical-align: middle;">${ordersList.memId}</th>
-												<th scope="col" style="vertical-align: middle;">${ordersList.productName}</th>
-												<th scope="col" style="vertical-align: middle;">${ordersList.option1name}:${ordersList.option1value}<br>${ordersList.option2name}:${ordersList.option2value}</th>
-												<th scope="col" style="vertical-align: middle;">${ordersList.totalPrice}원</th>
-												<th scope="col" style="vertical-align: middle;">${ordersList.memSpPhoneNum1}</th>
-												<th scope="col" style="vertical-align: middle;">${ordersList.memSpAdr}</th>
-												<th scope="col" style="vertical-align: middle;">${ordersList.memOrderDate}</th>
-												<th scope="col" style="vertical-align: middle;"><input
+												<th scope="col" style="vertical-align: middle; font-weight: normal;">${ordersList.memOrderNum}</th>
+												<th scope="col" style="vertical-align: middle; font-weight: normal;">${ordersList.memId}</th>
+												<th scope="col" style="vertical-align: middle; font-weight: normal;">${ordersList.productName}</th>
+												<th scope="col" style="vertical-align: middle; font-weight: normal;">${ordersList.option1name}:${ordersList.option1value}<br>${ordersList.option2name}:${ordersList.option2value}</th>
+												<th scope="col" style="vertical-align: middle; font-weight: normal;">${ordersList.totalPrice}원</th>
+												<th scope="col" style="vertical-align: middle; font-weight: normal;">${ordersList.memSpPhoneNum1}</th>
+												<th scope="col" style="vertical-align: middle; font-weight: normal;">${ordersList.memSpAdr}</th>
+												<th scope="col" style="vertical-align: middle; font-weight: normal;">${ordersList.memOrderDate}</th>
+												<th scope="col" style="vertical-align: middle; font-weight: normal;"><input
 													type="hidden" value="${member.memId}" name="memId" />
 													<button type="submit" class="btn btn-dark"
 														style="border-radius: 2px; margin-bottom: 3px; background-color: white; color: gray; border: 1px solid #7e9c8c; border-radius: 2px; width: 70px; height: 30px; font-size: 14px;">수정</button>

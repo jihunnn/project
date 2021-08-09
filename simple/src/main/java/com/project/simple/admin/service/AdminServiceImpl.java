@@ -16,6 +16,7 @@ import com.project.simple.admin.vo.AdminVO;
 import com.project.simple.board.vo.ArticleVO;
 import com.project.simple.member.vo.MemberVO;
 import com.project.simple.page.Criteria;
+import com.project.simple.product.vo.ProductVO;
 
 @Service("adminService")
 @Transactional(propagation = Propagation.REQUIRED)
@@ -74,6 +75,32 @@ public class AdminServiceImpl implements AdminService {
 	public void removeNotice(int noticeNum) throws Exception {
 		adminDAO.deleteNotice(noticeNum);
 	}
+	
+	//자주묻는 질문 글쓰기
+	@Override
+	public void addNewQuestion(ArticleVO question) throws Exception{
+		adminDAO.insertNewQuestion(question);
+	}
+	
+	//자주묻는질문 수정하기폼
+	@Override
+	public ArticleVO questionForm(int questionNum) throws Exception {
+		ArticleVO articleVO = adminDAO.selectQuestion(questionNum);
+		return articleVO;
+	}
+	
+	//자주묻는질문수정하기
+	@Override
+	public void modQuestion(ArticleVO question) throws Exception {
+		adminDAO.updateQuestion(question);
+	}
+	
+	//자주묻는질문삭제하기
+	@Override
+	public void removeQuestion(int questionNum) throws Exception {
+		adminDAO.deleteQuestion(questionNum);
+	}
+	
 
 	@Override
 	public int admin_modMember(MemberVO modmember) throws DataAccessException {

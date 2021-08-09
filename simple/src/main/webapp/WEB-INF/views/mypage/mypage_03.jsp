@@ -9,6 +9,15 @@
 <head>
 
 <script type="text/javascript">
+var check = 1;
+function div_show(selectList) {
+    var obj1 = document.getElementById("phone_con"); // 핸드폰
+
+    if( selectList == "0" ) { // 핸드폰
+        obj1.style.display = "block";   
+        check = 0;
+    } 
+}
 <!--폼 입력 유효성 검사-->
 	function Check_Join() {
 		var form = document.Checkmodify;
@@ -71,7 +80,7 @@
 			return false;
 		}
 		//비밀번호 길이 체크(10자이상 허용)
-		if (form.memPwd.value.length < 9) {
+		if (form.memPwd.value.length < 10) {
 			alert("비밀번호를 10자이상 입력해주세요.")
 			form.memPwd.focus();
 			form.memPwd.select();
@@ -151,20 +160,77 @@
 			form.memAdr.focus();
 			return false;
 		}
-		form.submit();
+		if (form.memAdr1.value == "") {
+			alert("상세주소를 입력하지 않았습니다.")
+			form.memAdr1.focus();
+			return false;
+		}
+		if (form.memAdr2.value == "") {
+			alert("상세주소를 입력하지 않았습니다.")
+			form.memAdr2.focus();
+			return false;
+		}if(check==0){
+            alert("핸드폰인증을 확인해주세요");
+            return false;
+        }if(confirm("정보를 수정하시겠습니까?")){
+       
+            form.submit();
+        }
 	}
+	
+	//핸드폰 인증 팝업창
+	$(function(){
+		$("#BtnPhoneConf").click(function(){
+			var phone1 = jQuery("#phone1").val();
+			var phone2 = jQuery("#phone2").val();
+			var phone3 = jQuery("#phone3").val();
+			var memPhoneNum4 = "";
+			memPhoneNum4 = phone1 +"-"+ phone2 +"-"+ phone3;
+			
+			$.ajax({
+				url : "${contextPath}/join/check/sendSMS",
+				type : "POST",
+				data : {
+					memPhoneNum : memPhoneNum4
+				},
+				success : function(result) {
+					alert(result);
+				},
+			})
+		});
+	})
+	//비밀번호 찾기_핸드폰_인증번호_확인	
+	$(function(){
+		$("#findBtnPhone").click(function(){
+			var Approval_key=$("#Approval_key").val();
+			$.ajax({
+				url : "${contextPath}/phone_confirm.do",
+				type : "POST",
+				data : {
+					Approval_key : Approval_key
+				},
+				success : function(data,textStatus) {
+					 if(data=='false'){
+				       	    alert("핸드폰 인증이 완료되었습니다.");
+				       	    check = 1;
+				       	   
+				          }else{
+				        	  check = 0;
+				        	  alert("인증번호가 일치하지 않습니다.");
+				          }
+				},
+				error:function(data,textStatus){
+			          alert("에러가 발생했습니다.");ㅣ
+			       },
+			       complete:function(data,textStatus){
+			         // alert("작업을완료 했습니다");
+			       }
+		    });  //end ajax	 
+		 }
+		)}
+	)
 
 	
-
-	//핸드폰 인증 팝업창
-	function phone_check() {
-		window.open("phone_check.jsp", "phonewin", "width=400, height=350");
-	}
-
-	//주소검색 팝업창
-	function search_address() {
-		window.open("", "b", "width-600, height=300,left=200, top=100");
-	}
 </script>
 
 
@@ -390,8 +456,9 @@
 	color: white;
 }
 </style>
+
 </head>
-<title>주문결제창</title>
+<title>회원정보수정창</title>
 <body>
 
 
@@ -432,29 +499,7 @@
 			</div>
 			<!-- 마이페이지 상단메뉴 끝 -->
 			<!-- 최근 본 상품 -->
-			<div id="recentlyProduct"
-				style="position: absolute; width: 120px; height: 310px; margin-left: 1370px; border: 1px solid #d2d2d2; margin-top: -100px;">
-				<ul
-					style="list-style: none; margin-top: 10px; padding-left: 20px; margin-bottom: 10px;">
-					<li><a href="#"
-						style="padding-left: -10px; padding-bottom: 1px; color: black;">최근본상품</a></li>
-				</ul>
-				<hr style="margin-top: 0px; margin-bottom: 0px; color: #d2d2d2;">
-				<ul style="list-style: none; padding-top: 5px;">
-					<li><a href="#"><img
-							src="${contextPath}/resources/images/image_1.jpg"
-							style="width: 100px; height: 100px; padding-top: 10px; margin-left: -30px;"></a></li>
-					<li><a href="#"><img
-							src="${contextPath}/resources/images/image_2.jpg"
-							style="width: 100px; height: 100px; padding-top: 10px; padding-top: 10px; margin-left: -30px;"></a></li>
-				</ul>
-				<hr style="margin-top: 0px; margin-bottom: 0px; color: #d2d2d2;">
-				<ul
-					style="list-style: none; padding-left: 30px; margin-bottom: 10px; margin-top: 8px;">
-					<li><a href="#"
-						style="color: black; text-align: center; margin-top: 8px; padding-top: 30px;">더보기▼</a></li>
-				</ul>
-			</div>
+			<jsp:include page="/WEB-INF/views/common/quick.jsp" flush="false" />
 			<!-- 최근 본 상품 끝 -->
 
 
@@ -502,7 +547,7 @@
 								style="background-color: #212529; border-bottom: 1px solid white;"
 								class="user_password1">
 								<div align="center" style="color: white;">
-									<a style="color: red; padding-right: 5px;">*</a>비밀번호
+									<a style="color: red; padding-right: 5px;margin-top: 5px;">*</a>비밀번호
 								</div>
 							</td>
 							<td colspan="3" class="user_password1"
@@ -514,7 +559,7 @@
 								style="background-color: #212529; border-bottom: 1px solid white;"
 								class="user_password2">
 								<div align="center" style="color: white;">
-									<a style="color: red; padding-right: 5px;">*</a>비밀번호 재확인
+									<a style="color: red; padding-right: 5px;margin-top: 5px;">*</a>비밀번호 재확인
 								</div>
 							</td>
 							<td colspan="3" class="user_password2"
@@ -529,8 +574,8 @@
 									<a style="color: red; padding-right: 5px;">*</a>이메일
 								</div>
 							</td>
-							<td colspan="3" class="email" style="padding-left: 10px;"><input
-								type="text" name="memEmail" placeholder=""
+							<td colspan="3" class="email" style="padding-left: 10px;">
+							<input type="text" name="memEmail" placeholder=""
 								value=<%=memEmail[0]%> size="20"> @ <select
 								name="memEmail1" id="selcet1"
 								style="height: 35px; width: 200px;">
@@ -550,8 +595,9 @@
 									<a style="color: red; padding-right: 5px;">*</a>핸드폰
 								</div>
 							</td>
-							<td colspan="3" class="phone" style="padding-left: 10px;"><select
-								name="memPhoneNum" id="selcet1"
+							<td colspan="3" class="phone" style="padding-left: 10px;">
+							<input type="hidden" id="memPhoneNum4" />
+							<select name="memPhoneNum" id="phone1"
 								style="height: 35px; width: 80px;">
 									<option value=<%=memPhoneNum[0]%>><%=memPhoneNum[0]%></option>
 									<option value="010">010</option>
@@ -560,10 +606,20 @@
 									<option value="017">017</option>
 									<option value="019">019</option>
 									<option value="010">010</option>
-							</select>- <input type="text" name="memPhoneNum1"
-								value=<%=memPhoneNum[1]%> size="5">- <input type="text"
+							</select>- <input type="text" name="memPhoneNum1" id="phone2"
+								value=<%=memPhoneNum[1]%> size="5">- <input type="text" id="phone3"
 								name="memPhoneNum2" value=<%=memPhoneNum[2]%> size="5">
-								<input type="button" name="phone_certification" value="핸드폰인증"></td>
+								<button type="button" name="phone_certification" id="BtnPhoneConf" onclick="div_show('0');"
+											style="background-color: #c6c6c6; border: none; color: white; height: 36px; margin-left: 4px; margin-top: 5px;">핸드폰인증</button>
+								<div id="phone_con" style="display: none;">
+									    <input type="text" name="Approval_key" id="Approval_key"
+											size="10"  placeholder="인증번호를 입력하세요"
+											style="margin-top: 5px; margin-bottom: 10px; border: 1px solid #dcdcdc; width: 218px; height: 36px;">
+										<button type="button" id="findBtnPhone"
+											style="background-color: #c6c6c6; border: none; color: white; height: 36px; margin-left: 4px;">인증번호 확인</button>
+										</div>			
+								
+							</td>
 						</tr>
 						<tr>
 							<td
@@ -575,15 +631,18 @@
 							</td>
 							<td colspan="3" class="addr" style="padding-left: 10px;"><input
 								type="text" value="<%=memAdr[0]%>" name="memAdr"
-								id="sample6_postcode" readonly size="15"> <input
-								type="button" value="우편번호 찾기"
-								onclick="sample6_execDaumPostcode()"></td>
+								id="sample6_postcode" readonly size="15">
+								<input type="button" onclick="sample6_execDaumPostcode()"
+									style="background-color: #c6c6c6; border: none; color: white; height: 36px; margin-left: 4px;"
+								value="우편번호 찾기">
+							</td>
 						</tr>
 						<tr>
 							<td
 								style="background-color: #212529; border-bottom: 1px solid white;"
 								class="addr2" height=100px;>
-								<div align="center" style="color: white;">상세주소</div>
+								<div align="center" style="color: white;">
+								<a style="color: red; padding-right: 5px;">*</a>상세주소</div>
 							</td>
 							<td colspan="3" class="addr1" style="padding-left: 10px;"><input
 								type="text" name="memAdr1" id="sample6_address" size="40"

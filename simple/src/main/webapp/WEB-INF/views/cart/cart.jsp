@@ -647,7 +647,7 @@
 										<td scope="col" align=center style="vertical-align: middle;"> <input
 											name="productPrice" id="productPrice"
 											style="border: none; color: #666666; background-color: transparent; font-weight: lighter; width: 80px;"
-											value="${cartlist.productPrice}" disabled /></td>
+											value="${cartlist.totalPrice}" disabled /></td>
 									</tr>
 
 								</tbody>
@@ -737,7 +737,7 @@
 											<td scope="col" align=center><br> <br> <input
 												name="productPrice" id="productPrice"
 												style="border: none; color: #666666; background-color: transparent; font-weight: lighter; width: 80px;"
-												value="${cartlist.productPrice}" disabled /></td>
+												value="${cartlist.totalPrice}" disabled /></td>
 										</tr>
 									</tbody>
 								</form>

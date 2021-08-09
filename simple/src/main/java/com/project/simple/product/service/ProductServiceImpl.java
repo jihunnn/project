@@ -146,7 +146,6 @@ public class ProductServiceImpl implements ProductService{
 	public void modQuestion(ProductVO question) throws Exception {
 		productDAO.updateQuestion(question);
 	}
-	
 
 
 	
