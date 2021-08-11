@@ -57,8 +57,8 @@
 
 	]]>
 	</select>
-	
-	
+
+
 
 	<select id="selectNoticeCount" resultType="int"
 		parameterType="int">
@@ -69,7 +69,7 @@
 
 	]]>
 	</select>
-	
+
 	<!-- 공지사항 상세보기 -->
 	<select id="selectNotice" resultType="articleVO"
 		parameterType="int"> 
@@ -83,7 +83,8 @@
 	</select>
 
 	<update id="updateNoticeHit" parameterType="int">
-		UPDATE simple.notice SET
+		UPDATE simple.notice
+		SET
 		noticeHit = noticeHit + 1 WHERE noticeNum = #{noticeNum}
 	</update>
 
@@ -171,6 +172,27 @@
 	]]>
 	</select>
 
+	<select id="adminInquirySearchList" resultMap="inquiryResult">
+	<![CDATA[
+			
+			select * from simple.inquiry where inquiryDate between #{search1} and DATE_ADD(#{search2}, interval 1 day) order by inquiryNum desc
+			limit #{pageStart}, #{perPageNum};
+			;
+			
+
+	]]>
+	</select>
+
+	<select id="adminInquirySearchCount" resultType="int"
+		parameterType="java.util.Map">
+	<![CDATA[
+			
+			select count(*) from simple.inquiry where inquiryDate between #{search1} and  DATE_ADD(#{search2}, interval 1 day);
+			
+
+	]]>
+	</select>
+
 	<insert id="insertNewInquiry" parameterType="java.util.Map">
 		<![CDATA[
 			insert into simple.inquiry(memId,inquiryNum, inquiryType,inquiryTitle, inquiryContent, inquiryFile)
@@ -223,7 +245,8 @@
 
 	<update id="deleteInquiry" parameterType="java.util.Map">
 
-		delete from simple.inquiry
+		delete from
+		simple.inquiry
 		where inquiryNum=#{inquiryNum};
 
 	</update>
@@ -253,7 +276,7 @@
 		parameterType="int"> 
 	<![CDATA[
 			
-		select asCenterNum, asCenterTitle , asCenterContent, asCenterPwd, asCenterDate, asCenterFile, m.memName from simple.member as m right join simple.asCenter as a on m.memId=a.memId where asCenterNum=#{asCenterNum};
+		select asCenterNum, asCenterStatus, asCenterTitle , asCenterContent, asCenterPwd, asCenterDate, asCenterFile, m.memName from simple.member as m right join simple.asCenter as a on m.memId=a.memId where asCenterNum=#{asCenterNum};
 			
 
 	]]>
@@ -291,67 +314,78 @@
 
 	<update id="deleteAsCenter" parameterType="java.util.Map">
 
-		delete from simple.asCenter
+		delete from
+		simple.asCenter
 		where asCenterNum=#{asCenterNum};
 
 	</update>
-	
+
 	<select id="asCenterSearchList" resultMap="asCenterResult">
-			
-			select asCenterNum, asCenterTitle , asCenterContent, asCenterPwd, asCenterDate, asCenterFile, asCenterStatus, m.memName from simple.member as m right join simple.asCenter as a on m.memId=a.memId where
-			<if test="searchType=='asCenterTitle' and search != null and search != '' ">
 
-				asCenterTitle like CONCAT('%', #{search}, '%')
-			
+		select asCenterNum, asCenterTitle , asCenterContent, asCenterPwd,
+		asCenterDate, asCenterFile, asCenterStatus, m.memName from
+		simple.member as m right join simple.asCenter as a on m.memId=a.memId
+		where
+		<if
+			test="searchType=='asCenterTitle' and search != null and search != '' ">
 
-			</if>
+			asCenterTitle like CONCAT('%', #{search}, '%')
 
-			<if test="searchType=='asCenterContent' and search != null and search != '' ">
 
-				asCenterContent like CONCAT('%', #{search}, '%')
+		</if>
 
-			</if>
+		<if
+			test="searchType=='asCenterContent' and search != null and search != '' ">
 
-			<if test="searchType=='memName' and search != null and search != '' ">
+			asCenterContent like CONCAT('%', #{search}, '%')
 
-				m.memName like CONCAT('%', #{search}, '%')
+		</if>
 
-			</if>	
+		<if
+			test="searchType=='memName' and search != null and search != '' ">
 
-			limit #{pageStart}, #{perPageNum};
-			
-			
-	
-			
-			
+			m.memName like CONCAT('%', #{search}, '%')
 
-	
+		</if>
+
+		limit #{pageStart}, #{perPageNum};
+
+
+
+
+
+
+
 	</select>
-	
-		<select id="asCenterSearchCount" resultType="int"
+
+	<select id="asCenterSearchCount" resultType="int"
 		parameterType="java.util.Map">
 
-			
-			select count(*) from simple.member as m right join simple.asCenter as a on m.memId=a.memId where
-			<if test="searchType=='asCenterTitle' and search != null and search != '' ">
 
-				asCenterTitle like CONCAT('%', #{search}, '%')
+		select count(*) from simple.member as m right join simple.asCenter as
+		a on m.memId=a.memId where
+		<if
+			test="searchType=='asCenterTitle' and search != null and search != '' ">
 
-			</if>
+			asCenterTitle like CONCAT('%', #{search}, '%')
 
-			<if test="searchType=='asCenterContent' and search != null and search != '' ">
+		</if>
 
-				asCenterContent like CONCAT('%', #{search}, '%')
+		<if
+			test="searchType=='asCenterContent' and search != null and search != '' ">
 
-			</if>
+			asCenterContent like CONCAT('%', #{search}, '%')
 
-			<if test="searchType=='memName' and search != null and search != '' ">
+		</if>
 
-				memName like CONCAT('%', #{search}, '%')
+		<if
+			test="searchType=='memName' and search != null and search != '' ">
 
-			</if> 
-			
-			
+			memName like CONCAT('%', #{search}, '%')
+
+		</if>
+
+
 
 
 	</select>

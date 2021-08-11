@@ -18,6 +18,23 @@ request.setCharacterEncoding("UTF-8");
 		}
 		obj.submit();
 	}
+	
+	function registerConfirm(obj) {
+		var asCenterStatus = document.getElementById("asCenterStatus").value;
+
+		if (confirm("접수완료 하시겠습니까??")) {
+			if(asCenterStatus == '접수대기'){
+			obj.action = "${contextPath}/admin/asCenterConfirm.do?asCenterNum=${asCenter.asCenterNum}";}
+			else {
+				alert("이미 접수등록 하였습니다. 다시한번 확인해주세요.");
+			}
+		} else {
+			return false;
+		}
+		obj.submit();
+	}
+	
+
 </script>
 <style>
 @import url(https://fonts.googleapis.com/css?family=Raleway:500);
@@ -167,9 +184,9 @@ function InquiryList() {
 <body>
 	<!-- 타이틀 -->
 	<section class="ftco-section"
-		style="padding-top: 100px; margin-bottom: 50px; padding-bottom: 0px; margin-bottom: 400px; margin-top:30px;">
+		style="padding-top: 100px; margin-bottom: 50px; padding-bottom: 0px; margin-bottom: 400px; margin-top: 30px;">
 		<div class="container">
-			<ul class="snip1284" style="margin-bottom:30px; padding-left:0px;">
+			<ul class="snip1284" style="margin-bottom: 30px; padding-left: 0px;">
 				<li><a
 					onclick="location.href='${contextPath}/board/listNotice.do'"
 					data-hover="공지사항"
@@ -200,26 +217,30 @@ function InquiryList() {
 			</div>
 			<!-- 타이틀 끝 -->
 			<!-- 최근 본 상품 -->
-			
+
 			<!-- 최근 본 상품 끝 -->
 
 			<!-- 내용 -->
 			<form name="frmAsCenter" method="post"
 				action="${contextPath}/board/modAsCenter.do?asCenterNum=${asCenter.asCenterNum}"
 				enctype="multipart/form-data">
+				<input type="hidden" name="asCenterStatus" id="asCenterStatus"
+					value="${asCenter.asCenterStatus}" />
 				<table class="table" style="font-size: 14px; height: 25px;">
 					<thead class="table-dark" align=center>
 						<tr align="center" style="background-color: #212529;">
 							<td scope="col" colspan="6"
-								style="background-color: #eeeeee; border-top:1px solid #7e9c8c;color:black; border-bottom: 1px solid #c6c8ca; font-size:15px;">${asCenter.asCenterTitle}</td>
+								style="background-color: #eeeeee; border-top: 1px solid #7e9c8c; color: black; border-bottom: 1px solid #c6c8ca; font-size: 15px;">${asCenter.asCenterTitle}</td>
 						</tr>
 						<tr>
-							<td scope="col" width="150" style="background-color: #eeeeee; border-top:1px solid #7e9c8c; color:black; border-bottom: 1px solid #c6c8ca; font-size:15px;">작성자</td>
 							<td scope="col" width="150"
-								style="background-color: white; border-bottom: 1px solid #c6c8ca;  color: black;"><a>${asCenter.memName}</a></td>
-							<td scope="col" width="100" style="background-color: #eeeeee; border-top:1px solid #7e9c8c;color:black; border-bottom: 1px solid #c6c8ca; font-size:15px;">작성일</td>
+								style="background-color: #eeeeee; border-top: 1px solid #7e9c8c; color: black; border-bottom: 1px solid #c6c8ca; font-size: 15px;">작성자</td>
+							<td scope="col" width="150"
+								style="background-color: white; border-bottom: 1px solid #c6c8ca; color: black;"><a>${asCenter.memName}</a></td>
 							<td scope="col" width="100"
-								style="background-color: white; color: black; border-bottom: 1px solid #c6c8ca; "><fmt:formatDate
+								style="background-color: #eeeeee; border-top: 1px solid #7e9c8c; color: black; border-bottom: 1px solid #c6c8ca; font-size: 15px;">작성일</td>
+							<td scope="col" width="100"
+								style="background-color: white; color: black; border-bottom: 1px solid #c6c8ca;"><fmt:formatDate
 									value="${asCenter.asCenterDate}" /></td>
 						</tr>
 						<c:choose>
@@ -249,15 +270,34 @@ function InquiryList() {
 						</c:choose>
 					</thead>
 				</table>
-				<button type="button"
-					onClick="location.href='${contextPath}/board/listAsCenter.do?page=${pageNum}'"
-					id="bottonmy" class="btn btn-dark"
-					style="float: left; margin-left:600px; margin-top: 25px; border-radius: 2px;  background-color: #7e9c8c; color: white; border:none; border-radius: 2px; width: 120px; height: 45px; padding-top:10px; font-size:14px;">목록</button>
-				<button type="submit" id="bottonmy" class="btn btn-dark"
-					style="float: left; margin-top: 25px; width: 75px; background-color: #5f5f5f; color: white; border:1px solid white; border-radius: 2px; margin-left: 270px; width: 130px; height: 45px; font-size:14px;">수정</button>
+				<c:choose>
+					<c:when test="${AdminisLogOn == true && admin != null}">
+						<button type="button"
+							onClick="location.href='${contextPath}/board/listAsCenter.do'"
+							id="bottonmy" class="btn btn-dark"
+							style="float: left; margin-left: 600px; margin-top: 25px; border-radius: 2px; background-color: #7e9c8c; color: white; border: none; border-radius: 2px; width: 120px; height: 45px; padding-top: 10px; font-size: 14px;">목록</button>
+					</c:when>
+					<c:otherwise>
+						<button type="button"
+							onClick="location.href='${contextPath}/board/listAsCenter.do?page=${pageNum}'"
+							id="bottonmy" class="btn btn-dark"
+							style="float: left; margin-left: 600px; margin-top: 25px; border-radius: 2px; background-color: #7e9c8c; color: white; border: none; border-radius: 2px; width: 120px; height: 45px; padding-top: 10px; font-size: 14px;">목록</button>
+					</c:otherwise>
+				</c:choose>
+				<c:choose>
+					<c:when test="${AdminisLogOn == true && admin != null}">
+						<button type="button" id="bottonmy" class="btn btn-dark"
+							onclick="registerConfirm(this.form)"
+							style="float: left; margin-top: 25px; width: 75px; background-color: #5f5f5f; color: white; border: 1px solid white; border-radius: 2px; margin-left: 270px; width: 130px; height: 45px; font-size: 14px;">접수확인</button>
+					</c:when>
+					<c:otherwise>
+						<button type="submit" id="bottonmy" class="btn btn-dark"
+							style="float: left; margin-top: 25px; width: 75px; background-color: #5f5f5f; color: white; border: 1px solid white; border-radius: 2px; margin-left: 270px; width: 130px; height: 45px; font-size: 14px;">수정</button>
+					</c:otherwise>
+				</c:choose>
 				<button type="button" id="bottonmy" class="btn btn-dark"
 					onclick="removeAsCenter(this.form)"
-					style="float: left;  margin-top: 25px; width: 75px; background-color: white; color: gray; border:1px solid #7e9c8c; border-radius: 2px; margin-left: 20px; width: 130px; height: 45px; font-size:14px;">삭제</button>
+					style="float: left; margin-top: 25px; width: 75px; background-color: white; color: gray; border: 1px solid #7e9c8c; border-radius: 2px; margin-left: 20px; width: 130px; height: 45px; font-size: 14px;">삭제</button>
 			</form>
 		</div>
 	</section>

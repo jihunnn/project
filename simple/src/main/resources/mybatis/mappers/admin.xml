@@ -134,7 +134,7 @@
 		where noticeNum=#{noticeNum}
 	</update>
 
-	<update id="deleteNotice" parameterType="java.util.Map">
+	<update id="deleteNotice" parameterType="int">
 
 		delete from
 		simple.notice
@@ -200,6 +200,22 @@
 
 	</insert>
 
+	<update id="deleteInquiryAnswer" parameterType="int">
+
+		update
+		simple.inquiry set inquiryAnswer=null
+		where inquiryNum=#{inquiryNum};
+
+	</update>
+	<update id="updateAsCenterConfirm" parameterType="String">
+		update
+		simple.asCenter
+		set asCenterStatus = '접수완료' where
+		asCenterNum
+		=
+		#{asCenterNum};
+	</update>
+
 	<!-- 회원정보수정 -->
 	<update id="updateAdminMember" parameterType="memberVO">
 	<![CDATA[ 
@@ -212,6 +228,23 @@
 	    <![CDATA[
 	      delete from simple.member
 	      where memId=#{memId};
+    	]]>
+	</delete>
+	
+	<!-- 관리자 회원 주문 삭제 -->
+	<delete id="deleteMemOrder" parameterType="orderVO">
+	<![CDATA[
+	   delete from  simple.memberorder
+	   where
+	   memOrderNum=#{memOrderNum};
+	]]>
+	</delete>
+	
+	<!-- 관리자 회원 주문 선택 삭제 -->
+	<delete id="deleteSelectRemoveMemOrder" parameterType="orderVO">
+	    <![CDATA[
+	      delete from simple.memberorder
+	      where memOrderNum=#{memOrderNum};
     	]]>
 	</delete>
 

@@ -27,6 +27,8 @@ public interface BoardDAO{
 	public int selectInquiryCount(String memId) throws DataAccessException;
 	public List<ArticleVO> inquirySearchList(Map<String ,Object> qinquirySearchMap) throws DataAccessException;
 	public int inquirySeachCount(Map<String, Object> search) throws DataAccessException ;
+	public List<ArticleVO> adminInquirySearchList(Map<String ,Object> inquirySearchMap) throws DataAccessException;
+	public int adminInquirySeachCount(Map<String, Object> search) throws DataAccessException;
 	public int insertNewInquiry(Map inquiryMap) throws DataAccessException;
 	public ArticleVO selectInquiry(int inquiryNum) throws DataAccessException;
 	public ArticleVO selectInquiry1(int inquiryNum) throws DataAccessException;

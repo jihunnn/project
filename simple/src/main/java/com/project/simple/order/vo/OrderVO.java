@@ -1,17 +1,13 @@
 package com.project.simple.order.vo;
 
-
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
-import java.util.Date;
-
 import org.springframework.stereotype.Component;
 
 
 @Component("orderVO")
 
 public class OrderVO {
+	
+	private int memOrderSeqNum;
 	
 	//공통변수
 	private String productNum;
@@ -25,6 +21,77 @@ public class OrderVO {
 	
 	//회원주문페이지
 	private String memId;
+	private String memName;
+	private String memPwd;
+	private String memEmail;
+	private String memEmail1;
+	
+	public String getMemName() {
+		return memName;
+	}
+	public void setMemName(String memName) {
+		this.memName = memName;
+	}
+	public String getMemPwd() {
+		return memPwd;
+	}
+	public void setMemPwd(String memPwd) {
+		this.memPwd = memPwd;
+	}
+	public String getMemEmail() {
+		return memEmail;
+	}
+	public void setMemEmail(String memEmail) {
+		this.memEmail = memEmail;
+	}
+	public String getMemEmail1() {
+		return memEmail1;
+	}
+	public void setMemEmail1(String memEmail1) {
+		this.memEmail1 = memEmail1;
+	}
+	public String getMemPhoneNum() {
+		return memPhoneNum;
+	}
+	public void setMemPhoneNum(String memPhoneNum) {
+		this.memPhoneNum = memPhoneNum;
+	}
+	public String getMemPhoneNum1() {
+		return memPhoneNum1;
+	}
+	public void setMemPhoneNum1(String memPhoneNum1) {
+		this.memPhoneNum1 = memPhoneNum1;
+	}
+	public String getMemPhoneNum2() {
+		return memPhoneNum2;
+	}
+	public void setMemPhoneNum2(String memPhoneNum2) {
+		this.memPhoneNum2 = memPhoneNum2;
+	}
+	public String getMemAdr() {
+		return memAdr;
+	}
+	public void setMemAdr(String memAdr) {
+		this.memAdr = memAdr;
+	}
+	public String getMemAdr1() {
+		return memAdr1;
+	}
+	public void setMemAdr1(String memAdr1) {
+		this.memAdr1 = memAdr1;
+	}
+	public String getMemAdr2() {
+		return memAdr2;
+	}
+	public void setMemAdr2(String memAdr2) {
+		this.memAdr2 = memAdr2;
+	}
+	private String memPhoneNum;
+	private String memPhoneNum1;
+	private String memPhoneNum2;
+	private String memAdr;
+	private String memAdr1;
+	private String memAdr2;
 
 	private String memSpName;
 	private int memCartId;
@@ -88,6 +155,13 @@ public class OrderVO {
 		this.productName = productName;
 	}
 	
+	
+	public int getMemOrderSeqNum() {
+		return memOrderSeqNum;
+	}
+	public void setMemOrderSeqNum(int memOrderSeqNum) {
+		this.memOrderSeqNum = memOrderSeqNum;
+	}
 	public String getMemSpPhoneNum1() {
 		return memSpPhoneNum1;
 	}

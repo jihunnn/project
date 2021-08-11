@@ -194,6 +194,44 @@
 
 		form.submit();
 	}
+
+	function optionSelect(option1Name) {
+		$('#option1value').children('option').remove(); //기존 option value 삭제
+		$.ajax({
+
+			type : "GET",
+			url : "${contextPath}/product/option1Value.do",
+			data : {
+				option1Name : option1Name
+			},
+			dataType : "json",
+			error : function(data) {
+				alert("에러가 발생했습니다." + data);
+			},
+			success : function(data) {
+
+				$.each(data, function(index, item) { // key=index,  value=item  
+					let option1value = document.querySelector("#option1value");
+					$(option1value).append(
+							"<option value='"+ item+"'>" + item + "</option>");
+
+				});
+
+			}
+
+		});
+
+	}
+	
+	 function optionNameDiect(obj){ //옵션 이름 직접입력 버튼 클릭시 input box change
+		 $("#option"+obj+"Name").replaceWith("<input type = 'text' id='option"+obj+"Name' name='option"+obj+"Name' placeholder='직접입력' style='font-size: 14px; margin-top: 10px; border: 1px solid #dcdcdc; width: 250px; height: 36px;'>"); //selectbox 태그를 input 태그로 변경
+            }
+	 
+	 function optionValueDiect(obj){ //옵션 값 직접입력 버튼 클릭시 input box change
+		 $("#option"+obj+"value").replaceWith("<input type = 'text' id='option"+obj+"value' name='option"+obj+"value' placeholder='직접입력' style='font-size: 14px; margin-top: 10px; border: 1px solid #dcdcdc; width: 250px; height: 36px;'>"); //selectbox 태그를 input 태그로 변경
+            }
+       
+   
 </script>
 <script type="text/javascript">
 	$('document')
@@ -306,7 +344,7 @@
 	<section class="ftco-section testimony-section"
 		style="padding-top: 100px;">
 		<div class="container">
-	
+
 			<section class="ftco-section testimony-section"
 				style="padding-top: 40px;">
 				<div class="container">
@@ -366,14 +404,46 @@
 									<input type="file" name="productContentImage" value="">
 								</div>
 								<div style="padding-left: 77px;">
-									<label style="margin-right: 45px;">상품옵션1</label> <input
-										type="text" name="option1" value=""
-										style="font-size: 14px; margin-top: 10px; border: 1px solid #dcdcdc; width: 326px; height: 36px;">
+
+									<label style="margin-right: 45px;">상품옵션1 이름</label> <select
+										onchange="optionSelect(this.value)" name="option1Name"
+										id="option1Name"
+										style="font-size: 14px; margin-top: 10px; border: 1px solid #dcdcdc; width: 250px; height: 36px;">
+										<c:forEach var="optionName" items="${optionName}">
+											<option>${optionName}</option>
+										</c:forEach>
+									</select>
+									<button type="button"
+										onclick="optionNameDiect(1)"
+										style="float: right; border-radius: 2px; margin-bottom: 3px; background-color: white; color: gray; border: 1px solid #eeeeee; border-radius: 2px; width: 70px; height: 30px; font-size: 14px;"
+										class="btn-secondary btn-xs" >직접입력</button>
 								</div>
 								<div style="padding-left: 77px;">
-									<label style="margin-right: 45px;">상품옵션2</label> <input
-										type="text" name="option2" value=""
-										style="font-size: 14px; margin-top: 10px; border: 1px solid #dcdcdc; width: 326px; height: 36px;">
+									<label style="margin-right: 45px;">상품옵션1 값</label> <select
+										name="option1value" id="option1value"
+										style="font-size: 14px; margin-top: 10px; border: 1px solid #dcdcdc; width: 250px; height: 36px;">
+
+									</select>
+									<button type="button"
+										onclick="optionNameDiect(1)"
+										style="float: right; border-radius: 2px; margin-bottom: 3px; background-color: white; color: gray; border: 1px solid #eeeeee; border-radius: 2px; width: 70px; height: 30px; font-size: 14px;"
+										class="btn-secondary btn-xs" >직접입력</button>
+								</div>
+								<div style="padding-left: 77px;">
+									<label style="margin-right: 45px;">금액추가</label> <select name=""
+										id=""
+										style="font-size: 14px; margin-top: 10px; border: 1px solid #dcdcdc; width: 250px; height: 36px;">
+										<option></option>
+									</select>
+								</div>
+								<div style="padding-left: 77px;">
+									<label style="margin-right: 45px;">상품옵션2</label><select name=""
+										id=""
+										style="font-size: 14px; margin-top: 10px; margin-left: 3px; border: 1px solid #dcdcdc; width: 250px; height: 36px;">
+										<c:forEach var="optionName" items="${optionName}">
+											<option>${optionName}</option>
+										</c:forEach>
+									</select>
 								</div>
 							</form>
 
@@ -381,7 +451,8 @@
 						</div>
 					</section>
 				</div>
-				<div class="container">
+				<a name="test" id="test"> </a>
+				<div class="container" style="margin-top: 200px;">
 					<section class="Easy-sgin-in-wrap4">
 						<ul class="sign-button-list4">
 							<li style="margin-left: 50px;"><button

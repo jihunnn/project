@@ -148,17 +148,16 @@
 								<c:otherwise>
 									<c:forEach var="productSearch" items="${productSearchList}"
 										varStatus="productNum">
-										<tr
+										<tr onclick="location.href='${contextPath}/product/admin_detailproduct.do?productNum=${productSearch.productNum}'"
 											style="border-bottom: 1px solid #eeeeee; background-color: white; color: black; height: 100px;">
 											<td scope="col"
 												style="height: 70px; display: table-cell; vertical-align: middle;">${productSearch.productNum}</td>
 											<td scope="col"
-												style="height: 70px; display: table-cell; vertical-align: middle;"><a
-												href="${contextPath}/product/admin_detailproduct.do?productNum=${productSearch.productNum}">
+												style="height: 70px; display: table-cell; vertical-align: middle;">
 													<img class="block-20" style="width: 90px; height: 90px;"
 													src="${contextPath}/download_product.do?productNum=${productSearch.productNum}&productImage=${productSearch.productImage}"
 													id="preview" />
-											</a></td>
+											</td>
 											<td scope="col"
 												style="height: 70px; display: table-cell; vertical-align: middle; text-align: left;"><a
 												href="${contextPath}/product/admin_detailproduct.do?productNum=${productSearch.productNum}">${productSearch.productName}</a></td>
@@ -196,17 +195,16 @@
 									<c:forEach var="product" items="${admin_productList}"
 										varStatus="productNum">
 
-										<tr
+										<tr onclick="location.href='${contextPath}/product/admin_detailproduct.do?productNum=${product.productNum}'"
 											style="border-bottom: 1px solid #eeeeee; background-color: white; color: black; height: 100px;">
 											<td scope="col"
 												style="height: 70px; display: table-cell; vertical-align: middle;">${product.productNum}</td>
 											<td scope="col"
-												style="height: 70px; display: table-cell; vertical-align: middle;"><a
-												href="${contextPath}/product/admin_detailproduct.do?productNum=${product.productNum}">
+												style="height: 70px; display: table-cell; vertical-align: middle;">
 													<img class="block-20" style="width: 90px; height: 90px;"
 													src="${contextPath}/download_product.do?productNum=${product.productNum}&productImage=${product.productImage}"
 													id="preview" />
-											</a></td>
+											</td>
 
 											<td scope="col"
 												style="height: 70px; display: table-cell; vertical-align: middle; text-align: left;"><a

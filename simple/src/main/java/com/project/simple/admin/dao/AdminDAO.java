@@ -9,6 +9,7 @@ import org.springframework.dao.DataAccessException;
 import com.project.simple.admin.vo.AdminVO;
 import com.project.simple.board.vo.ArticleVO;
 import com.project.simple.member.vo.MemberVO;
+import com.project.simple.order.vo.OrderVO;
 import com.project.simple.page.Criteria;
 import com.project.simple.product.vo.ProductVO;
 
@@ -34,11 +35,16 @@ public interface AdminDAO {
 	
 	public ArticleVO selectInquiryAnswer(int inquiryNum) throws DataAccessException ;
 	public void insertNewInquiryAnswer(ArticleVO inquiry) throws DataAccessException;
+	public void deleteInquiryAnswer(int inquiryNum) throws DataAccessException ;
+	public void updateAsCenterConfirm(int asCenterNum) throws DataAccessException;
 	
 	public int updateAdminMember(MemberVO modmember) throws DataAccessException;
 
 	public void deleteSelectRemoveMember(String memId) throws DataAccessException;
 	
+	public OrderVO deleteMemOrder(int memOrderNum)throws DataAccessException;
+
+	public void deleteSelectRemoveMemOrder(String memOrderNum)throws DataAccessException;
 
 
 }

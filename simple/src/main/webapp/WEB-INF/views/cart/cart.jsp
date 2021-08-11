@@ -42,7 +42,7 @@
 			for (var i = 0; i < list.length; i++) {
 				if (list[i].checked) { //선택되어 있으면 배열에 값을 저장한다.
 				var item = (document.getElementsByName('cart'))[i]; 
-				totalPrice=totalPrice + parseInt(item.productPrice.value);
+				totalPrice=totalPrice + parseInt(item.sumPrice.value);
 				
 				}
 			}
@@ -210,7 +210,7 @@
 	function check(chk, idx) {
 		var item = (document.getElementsByName('cart'))[idx];//장바구니 목록 index 가져오기
 		var totalPrice = parseInt($('#totalPrice').val()); // 총 금액가져오고 int 형으로 변경
-		var productPrice = parseInt(item.productPrice.value);// 상품금액 * 수량가져오기
+		var productPrice = parseInt(item.sumPrice.value);// 상품금액 * 수량가져오기
 		if(item.chk.checked == true){
 			totalPrice=totalPrice+productPrice;
 		} else {
@@ -247,7 +247,7 @@
 			
 			productPrice = (newval * price);
 	
-			item.productPrice.value = productPrice;
+			item.sumPrice.value = productPrice;
 			
 			if(item.chk.checked == true){
 				if(event.target.classList.contains('up')){
@@ -548,7 +548,7 @@
 						<button type="button" onclick="deleteValue02();"
 							style="float: right; border-radius: 2px; margin-bottom: 3px; margin-top: 15px; background-color: white; color: gray; border: 1px solid #eeeeee; border-radius: 2px; width: 70px; height: 30px; font-size: 14px;"
 							class="btn-secondary btn-xs">선택삭제</button>
-						<button type="button" onclick="checkAll();" 
+						<button type="button" onclick="checkAll();"
 							class="btn-secondary btn-xs"
 							style="float: right; border-radius: 2px; margin-bottom: 3px; margin-top: 15px; background-color: white; color: gray; border: 1px solid #eeeeee; border-radius: 2px; width: 70px; height: 30px; font-size: 14px;">전체선택</button>
 
@@ -595,7 +595,8 @@
 
 				<c:choose>
 					<c:when test="${isLogOn == true && member != null}">
-						<table class="table" style="margin-top: 0px; font-size: 14px; vertical-align: middle;">
+						<table class="table"
+							style="margin-top: 0px; font-size: 14px; vertical-align: middle;">
 							<thead class="table-dark" align=center>
 								<tr align="center"
 									style="background-color: #eeeeee; border-top: 1px solid #7e9c8c; border-bottom: 1px solid #c6c8ca; font-size: 15px; color: black;">
@@ -610,19 +611,21 @@
 							</thead>
 
 							<c:forEach items="${cartlist}" var="cartlist" varStatus="status">
-							<form name="cart">
-								<tbody>
-									<tr class="tr1" align="center"
-										style="border-bottom: 1px solid rgba(0, 0, 0, 0.1);">
-										<th scope="col" style="vertical-align: middle; align: center;"><input
-											type="checkbox" name="chk" value="${cartlist.memCartId}" onclick="check(this,${status.index})"></th>
-										<td scope="col"><img
-											src="${contextPath}/download_product.do?productNum=${cartlist.productNum}&productImage=${cartlist.productImage}"
-											width=80 height=80></td>
-										<td scope="col" align=left style="padding-top: 25px;">${cartlist.productName}<br>${cartlist.option1name}
-											: ${cartlist.option1value} <br>${cartlist.option2name} :
-											${cartlist.option2value}
-										</td>
+								<form name="cart">
+									<tbody>
+										<tr class="tr1" align="center"
+											style="border-bottom: 1px solid rgba(0, 0, 0, 0.1);">
+											<th scope="col"
+												style="vertical-align: middle; align: center;"><input
+												type="checkbox" name="chk" value="${cartlist.memCartId}"
+												onclick="check(this,${status.index})"></th>
+											<td scope="col"><img
+												src="${contextPath}/download_product.do?productNum=${cartlist.productNum}&productImage=${cartlist.productImage}"
+												width=80 height=80></td>
+											<td scope="col" align=left style="padding-top: 25px;">${cartlist.productName}<br>${cartlist.option1name}
+												: ${cartlist.option1value} <br>${cartlist.option2name}
+												: ${cartlist.option2value}
+											</td>
 											<td scope="col" align=center style="vertical-align: middle;">
 
 												<div class="num">
@@ -638,22 +641,23 @@
 															onclick="javascript:basket.changePNum(1,'${status.index}');"><i
 															class="fas fa-arrow-alt-circle-down down"></i></span>
 													</div>
-												</div></td>
-										<td scope="col" align=center style="vertical-align: middle;">${cartlist.deliverycharge}</td>
-										<td scope="col" align=center style="vertical-align: middle;">
-										<input type="hidden" name="p_price" id="p_price2"
-											class="p_price" value="${cartlist.productPrice}">${cartlist.productPrice}
-										</td>
-										<td scope="col" align=center style="vertical-align: middle;"> <input
-											name="productPrice" id="productPrice"
-											style="border: none; color: #666666; background-color: transparent; font-weight: lighter; width: 80px;"
-											value="${cartlist.totalPrice}" disabled /></td>
-									</tr>
+												</div>
+											</td>
+											<td scope="col" align=center style="vertical-align: middle;">${cartlist.deliverycharge}</td>
+											<td scope="col" align=center style="vertical-align: middle;">
+												<input type="hidden" name="p_price" id="p_price2"
+												class="p_price" value="${cartlist.productPrice}">${cartlist.productPrice}
+											</td>
+											<td scope="col" align=center style="vertical-align: middle;"><input
+												name="sumPrice" id="sumPrice"
+												style="border: none; color: #666666; background-color: transparent; font-weight: lighter; width: 80px;"
+												value="${cartlist.totalPrice}" disabled /></td>
+										</tr>
 
-								</tbody>
+									</tbody>
 								</form>
 							</c:forEach>
-						<tfoot>
+							<tfoot>
 								<tr>
 									<td></td>
 									<td></td>
@@ -730,12 +734,12 @@
 													</div>
 												</div></td>
 											<td scope="col" align=center><br> <br>${cartlist.deliverycharge}</td>
-											<td scope="col" align=center><br>
-											<input type="hidden" name="p_price" id="p_price2"
-												class="p_price" value="${cartlist.productPrice}"> <br>${cartlist.productPrice}
+											<td scope="col" align=center><br> <input
+												type="hidden" name="p_price" id="p_price2" class="p_price"
+												value="${cartlist.productPrice}"> <br>${cartlist.productPrice}
 											</td>
 											<td scope="col" align=center><br> <br> <input
-												name="productPrice" id="productPrice"
+												name="sumPrice" id="sumPrice"
 												style="border: none; color: #666666; background-color: transparent; font-weight: lighter; width: 80px;"
 												value="${cartlist.totalPrice}" disabled /></td>
 										</tr>

@@ -72,35 +72,93 @@
 			close=")">
 			#{item.productNum}
 		</foreach>
-        group by p.productNum ;
+		group by p.productNum ;
 	</select>
 
 	<!-- 상품 조회 -->
 
+
 	<select id="selectAllProductList" resultMap="proResult"
 		parameterType="java.util.Map">
 
-		<if test='subsort == "x"' >
-			select p.productNum, productName, productPrice,
-			productImage,
-			count(f.productNum) as favoriteCount
+		<if test='subsort == "x" and filter == "x" '>
+			select p.productNum, p.productName, p.productPrice,
+			p.productImage, p.subcategory, p.category, p.productDate, f.favoriteCount
 			from simple.product
-			as p left join simple.favoriteproduct as f on
-			p.productNum=f.productNum where
-			category=#{sort} group by
-			p.productNum ;
-
+			as p left join(SELECT productNum, count(productNum) as favoriteCount FROM simple.favoriteproduct group by productNum) as f on
+			p.productNum=f.productNum where category = #{sort}
 		</if>
-		<if test='subsort != "x"'>
-			select p.productNum, productName, productPrice,
-			productImage,
-			count(f.productNum) as favoriteCount
+			
+		<if test='subsort == "x" and filter == "highprice"'>
+			select p.productNum, p.productName, p.productPrice,
+			p.productImage, p.subcategory, p.category, p.productDate, f.favoriteCount
 			from simple.product
-			as p left join simple.favoriteproduct as f on
-			p.productNum=f.productNum where
-			category=#{sort} and subCategory=
-			#{subsort} group by p.productNum ;
-
+			as p left join(SELECT productNum, count(productNum) as favoriteCount FROM simple.favoriteproduct group by productNum) as f on
+			p.productNum=f.productNum where category = #{sort} order by cast(productPrice as unsigned) desc;
+		</if>
+		
+		<if test='subsort == "x" and filter == "lowprice"'>
+			select p.productNum, p.productName, p.productPrice,
+			p.productImage, p.subcategory, p.category, p.productDate, f.favoriteCount
+			from simple.product
+			as p left join(SELECT productNum, count(productNum) as favoriteCount FROM simple.favoriteproduct group by productNum) as f on
+			p.productNum=f.productNum where category = #{sort} order by cast(productPrice as unsigned) asc;
+		</if>
+		
+		<if test='subsort == "x" and filter == "date"'>
+			select p.productNum, p.productName, p.productPrice,
+			p.productImage, p.subcategory, p.category, p.productDate, f.favoriteCount
+			from simple.product
+			as p left join(SELECT productNum, count(productNum) as favoriteCount FROM simple.favoriteproduct group by productNum) as f on
+			p.productNum=f.productNum where category = #{sort} order by productDate desc;
+		</if>
+		
+		<if test='subsort == "x" and filter == "favorite"'>
+			select p.productNum, p.productName, p.productPrice,
+			p.productImage, p.subcategory, p.category, p.productDate, f.favoriteCount
+			from simple.product
+			as p left join(SELECT productNum, count(productNum) as favoriteCount FROM simple.favoriteproduct group by productNum) as f on
+			p.productNum=f.productNum where category = #{sort} order by favoriteCount desc;
+		</if>
+		
+		<if test='subsort != "x" and filter == "x" '>
+			select p.productNum, p.productName, p.productPrice,
+			p.productImage, p.subcategory, p.category, p.productDate, f.favoriteCount
+			from simple.product
+			as p left join(SELECT productNum, count(productNum) as favoriteCount FROM simple.favoriteproduct group by productNum) as f on
+			p.productNum=f.productNum where category = #{sort} and subcategory = #{subsort}
+		</if>
+	
+		<if test='subsort != "x" and filter == "highprice" '>
+			select p.productNum, p.productName, p.productPrice,
+			p.productImage, p.subcategory, p.category, p.productDate, f.favoriteCount
+			from simple.product
+			as p left join(SELECT productNum, count(productNum) as favoriteCount FROM simple.favoriteproduct group by productNum) as f on
+			p.productNum=f.productNum where category = #{sort} and subcategory = #{subsort} order by cast(productPrice as unsigned) desc;
+		</if>
+		
+		<if test='subsort != "x" and filter == "lowprice" '>
+			select p.productNum, p.productName, p.productPrice,
+			p.productImage, p.subcategory, p.category, p.productDate, f.favoriteCount
+			from simple.product
+			as p left join(SELECT productNum, count(productNum) as favoriteCount FROM simple.favoriteproduct group by productNum) as f on
+			p.productNum=f.productNum where category = #{sort} and subcategory = #{subsort} order by cast(productPrice as unsigned) asc;
+		</if>
+		
+		<if test='subsort != "x" and filter == "date" '>
+			select p.productNum, p.productName, p.productPrice,
+			p.productImage, p.subcategory, p.category, p.productDate, f.favoriteCount
+			from simple.product
+			as p left join(SELECT productNum, count(productNum) as favoriteCount FROM simple.favoriteproduct group by productNum) as f on
+			p.productNum=f.productNum where category = #{sort} and subcategory = #{subsort} order by productDate desc;
+		</if>
+		
+		<if test='subsort != "x" and filter == "favorite" '>
+			select p.productNum, p.productName, p.productPrice,
+			p.productImage, p.subcategory, p.category, p.productDate, f.favoriteCount
+			from simple.product
+			as p left outer join(SELECT productNum, count(productNum) as favoriteCount FROM simple.favoriteproduct group by productNum) as f on
+			p.productNum=f.productNum where category = #{sort} and subcategory = #{subsort} order by favoriteCount desc;
 		</if>
 
 
@@ -387,11 +445,44 @@
 	</update>
 
 	<update id="updateQuestion" parameterType="productVO">
-		update simple.productQuestion
-		set productQuestionTitle = #{productQuestionTitle},
+		update
+		simple.productQuestion
+		set productQuestionTitle =
+		#{productQuestionTitle},
 		productQuestionContent =
 		#{productQuestionContent}
-		where productQuestionNum=#{productQuestionNum}
+		where
+		productQuestionNum=#{productQuestionNum}
 	</update>
+
+	<select id="selectOption1Name" resultType="String"> 
+	<![CDATA[
+			
+			select distinct option1Name from simple.detailoption;
+			
+	]]>
+	</select>
+	<select id="selectOption2Name" resultType="String"> 
+	<![CDATA[
+			
+			select distinct option2Name from simple.detailoption;
+			
+	]]>
+	</select>
+	<select id="selectOption1Value" parameterType="java.util.HashMap" resultType="String"> 
+	<![CDATA[
+			
+			select distinct option1Value from simple.detailoption where option1Name=#{option1Name};
+			
+	]]>
+	</select>
+	<select id="selectOption2Value" parameterType="java.util.HashMap" resultType="String"> 
+	<![CDATA[
+			
+			select distinct option2Value from simple.detailoption where option2Name=#{option1Name};
+			
+	]]>
+	</select>
+
 
 </mapper>

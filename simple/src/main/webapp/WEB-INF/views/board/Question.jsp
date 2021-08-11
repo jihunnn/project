@@ -17,7 +17,6 @@ $(document).on('click', '#btnSearch', function(object) {
 	var url = "${contextPath}/board/questionSearch.do";
 	url = url + "?search=" + $('#search').val();
 	location.href = url;
-	console.log(url);
 
 });
 
@@ -35,14 +34,7 @@ $(document).on('click', '#btnSearch', function(object) {
         }
     }
 	
-    function fn1() {
 
-    	if (confirm("삭제하시겠습니까??") == true) { //확인
-    	return true
-    	} else { //취소
-    		return false;
-
-    	}
 </script>
 
 
@@ -320,7 +312,8 @@ style
 														onclick="javascript:location.href='${contextPath}/admin/removeQuestion.do?questionNum=${question.questionNum}'"
 														style="float: right; border-radius: 2px; margin-bottom: 3px; background-color: white; color: gray; border: 1px solid #eeeeee; border-radius: 2px; width: 70px; height: 30px; font-size: 14px;"
 														class="btn-secondary btn-xs">삭제</button>
-													<a onclick="location.href='${contextPath}/admin/modQuestion.do?questionNum=${question.questionNum}'"
+													<a
+														onclick="location.href='${contextPath}/admin/modQuestion.do?questionNum=${question.questionNum}'"
 														style="float: right; border-radius: 2px; margin-bottom: 3px; text-align: center; background-color: white; color: gray; border: 1px solid #eeeeee; border-radius: 2px; width: 70px; height: 30px; font-size: 14px;"
 														class="btn-secondary btn-xs">수정</a>
 												</c:if>

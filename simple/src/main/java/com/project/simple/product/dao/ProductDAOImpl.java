@@ -51,6 +51,8 @@ public class ProductDAOImpl implements ProductDAO{
 	public ProductVO selectProduct(String productNum) throws DataAccessException {
 		return sqlSession.selectOne("mapper.product.selectProduct", productNum);
 	}
+	
+
 
 	@Override
 	public List<String> selectKeywordSearch(String keyword) throws DataAccessException {
@@ -144,6 +146,33 @@ public class ProductDAOImpl implements ProductDAO{
 	public void updateQuestion(ProductVO question) throws DataAccessException {
 		sqlSession.update("mapper.product.updateQuestion", question);
 	}
+	
+	//상품 옵션 이름 선택
+	@Override
+	public List<String> selectOptionName() throws DataAccessException {
+		List<String> selectOptionName = sqlSession.selectList("mapper.product.selectOption1Name");
+		List<String> selectOption2Name = sqlSession.selectList("mapper.product.selectOption2Name");
+		for(int i=0; i<selectOption2Name.size(); i++) {
+			selectOptionName.add(selectOption2Name.get(i));
+		}
+
+		return selectOptionName;
+	}
+	
+	//상품 옵션 값 선택
+	@Override
+	public List<String> selectOption1Value(Map<String,Object> option1Value) throws DataAccessException {
+		List<String> selectOptionValue = sqlSession.selectList("mapper.product.selectOption1Value",option1Value);
+		
+		if(selectOptionValue.size() == 0) {
+			selectOptionValue = sqlSession.selectList("mapper.product.selectOption2Value",option1Value);
+		}
+
+		return selectOptionValue;
+	}
+
+	
+	
 
 
 }

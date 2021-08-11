@@ -121,7 +121,7 @@ h3 {
 			return false;
 		}
 		//아이디 길이 체크 (4~12자)
-		if (form.memId.value.length<4 || form.memId.value.length>12) {
+		if (form.memId.value.length<4 || form.memId.value.length>13) {
 			alert("아이디를 4~12자까지 입력해주세요.")
 			form.memId.focus();
 			form.memId.select();
@@ -192,6 +192,12 @@ h3 {
 			form.memPhoneNum1.focus();
 			return false;
 		}
+		if (form.memPhoneNum1.value.length < 5) {
+			alert("핸드폰번호를 4자이하 입력해주세요.")
+			form.memPhoneNum1.focus();
+			form.memPhoneNum1.select();
+			return false;
+		}
 
 		for (var i = 0; i < form.memPhoneNum1.value.length; i++) {
 			ch = form.memPhoneNum1.value.charAt(i)
@@ -205,6 +211,12 @@ h3 {
 		if (form.memPhoneNum2.value == "") {
 			alert("핸드폰번호를 입력하지 않았습니다.")
 			form.memPhoneNum2.focus();
+			return false;
+		}
+		if (form.memPhoneNum2.value.length < 5) {
+			alert("핸드폰번호를 4자이하 입력해주세요.")
+			form.memPhoneNum2.focus();
+			form.memPhoneNum2.select();
 			return false;
 		}
 		for (var i = 0; i < form.memPhoneNum2.value.length; i++) {

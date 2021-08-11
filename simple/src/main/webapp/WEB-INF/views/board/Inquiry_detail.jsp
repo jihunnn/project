@@ -162,7 +162,7 @@ request.setCharacterEncoding("UTF-8");
 							<c:when
 								test="${not empty inquiry.inquiryFile && inquiry.inquiryFile != 'null'}">
 								<tr
-									style="border-bottom: 0.5px solid grey; height: 300px; text-align: left; background-color: white;">
+									style="border-bottom: 0.5px solid grey; text-align: left; background-color: white;">
 									<td
 										style="padding-bottom: 20px; color: black; padding-left: 0px;"><a>${inquiry.inquiryContent}</a><br>
 										<br> <input type="hidden" name="OrignInquiryFile"
@@ -176,7 +176,7 @@ request.setCharacterEncoding("UTF-8");
 							</c:when>
 							<c:otherwise>
 								<tr
-									style="border-bottom: 0.5px solid grey; height: 300px; text-align: left; background-color: white;">
+									style="border-bottom: 0.5px solid grey; text-align: left; background-color: white;">
 									<td style="padding-bottom: 250px; color: black;">${inquiry.inquiryContent}<br>
 								</tr>
 							</c:otherwise>

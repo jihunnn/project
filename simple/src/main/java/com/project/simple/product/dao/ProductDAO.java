@@ -35,4 +35,7 @@ public interface ProductDAO {
 	public void deleteQuestion(int productQuestionNum) throws DataAccessException;
 	public void updateQuestion(ProductVO question) throws DataAccessException;
 	
+	public List<String> selectOptionName() throws DataAccessException;
+	public List<String> selectOption1Value(Map<String,Object> option1Value) throws DataAccessException ;
+	
 }

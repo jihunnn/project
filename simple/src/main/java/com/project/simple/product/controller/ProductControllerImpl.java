@@ -177,10 +177,14 @@ public class ProductControllerImpl implements ProductController {
 
 	// 상품추가뷰
 	@RequestMapping(value = "product/add_product.do", method = RequestMethod.GET)
-	private ModelAndView add_product(HttpServletRequest request, HttpServletResponse response) {
+	private ModelAndView add_product(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String viewName = (String) request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(viewName);
+		List<String> optionName = productService.selectOptionName();
+
+		mav.addObject("optionName", optionName);
+
 		return mav;
 	}
 
@@ -871,6 +875,20 @@ return mav;
 			e.printStackTrace();
 		}
 		return resEnt;
+	}
+	
+	// 상품옵션 value 가져오기
+	@RequestMapping(value = "product/option1Value.do", method = RequestMethod.GET)
+	@ResponseBody
+	private Map<String,Object> optionValue(@RequestParam("option1Name") String option1Name, HttpServletRequest request, HttpServletResponse response) throws Exception {
+			
+		Map<String,Object> option1Value = new HashMap<String,Object>();
+		option1Value.put("option1Name", option1Name);
+		productService.selectOption1Value(option1Value);
+
+		option1Value.remove("option1Name");
+
+		return option1Value;
 	}
 
 

@@ -19,7 +19,7 @@
         } else {
         	location.href='${contextPath}/board/asCenterWrite.do'
         }
-    }
+    }0
     
 	function asCenter() {
 		var form = document.asCenterSearch;
@@ -39,65 +39,6 @@
 </script>
 
 <style>
-@import url(https://fonts.googleapis.com/css?family=Raleway:500);
-
-.snip1284 {
-	font-family: 'Raleway', Arial, sans-serif;
-	text-align: center;
-	text-transform: uppercase;
-	font-weight: 500;
-	letter-spacing: 1px;
-}
-
-.snip1284 * {
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
-	-webkit-transition: all 0.35s ease;
-	transition: all 0.35s ease;
-}
-
-.snip1284 li {
-	display: inline-block;
-	list-style: outside none none;
-	margin: 0.5em 1.2em;
-	padding: 0;
-}
-
-.snip1284 a {
-	padding: 0 0.6em;
-	color: rgba(255, 255, 255, 0.5);
-	position: relative;
-	text-decoration: none;
-}
-
-.snip1284 a:before, .snip1284 a:after {
-	width: 3px;
-	height: 0;
-	position: absolute;
-	content: '';
-	-webkit-transition: all 0.35s ease;
-	transition: all 0.35s ease;
-	background-color: #7e9c8c;
-}
-
-.snip1284 a:before {
-	top: 0;
-	right: 0;
-}
-
-.snip1284 a:after {
-	bottom: 0;
-	left: 0;
-}
-
-.snip1284 a:hover, .snip1284 .current a {
-	color: #ffffff;
-}
-
-.snip1284 a:hover:before, .snip1284 .current a:before, .snip1284 a:hover:after,
-	.snip1284 .current a:after {
-	height: 100%;
-}
 
 .page_wrap {
 	text-align: center;
@@ -187,41 +128,28 @@ function InquiryList() {
 
 	<!-- 타이틀 -->
 	<section class="ftco-section"
-		style="padding-top: 70px; margin-bottom: 80px; padding-bottom: 0px; margin-top:30px;">
+		style="padding-top: 70px; margin-bottom: 80px; padding-bottom: 0px; margin-top: 30px;">
 		<div class="container">
-			<ul class="snip1284" style="margin-bottom:30px; padding-left:0px;">
-				<li><a
-					onclick="location.href='${contextPath}/board/listNotice.do'"
-					data-hover="공지사항"
-					style="font-size: 19px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; margin-left: 20px; padding-bottom: 0px;">공지사항</a></li>
-
-
-				<li><a
-					onclick="location.href='${contextPath}/board/listQuestion.do'"
-					data-hover="자주 묻는 질문"
-					style="font-size: 19px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">자주
-						묻는 질문</a></li>
-
-
-				<li><a onclick="InquiryList()" data-hover="1:1문의"
-					style="font-size: 19px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">1:1문의</a></li>
-
-
-				<li class="current"><a
-					onclick="location.href='${contextPath}/board/listAsCenter.do'"
-					data-hover="A/S센터"
-					style="font-size: 19px; border: none; color: #5a5a5a; background-color: white; cursor: pointer; padding-bottom: 0px;">A/S센터</a></li>
-			</ul>
+			<c:choose>
+				<c:when test="${AdminisLogOn == true && admin != null}">
+					<jsp:include page="/WEB-INF/views/common/admin_topmenu.jsp"
+						flush="false" />
+				</c:when>
+				<c:otherwise>
+					<jsp:include page="/WEB-INF/views/common/csMenu.jsp" flush="false" />
+				</c:otherwise>
+			</c:choose>
 
 			<div>
 				<h2 style="font-size: 25px; margin-top: 15px; float: left;">A/S센터</h2>
 				<h5
-					style="color: #828282; float: left; font-size: 15px; margin-left: 20px; margin-top: 25px;">빠르게 접수 도와드리겠습니다.</h5>
+					style="color: #828282; float: left; font-size: 15px; margin-left: 20px; margin-top: 25px;">빠르게
+					접수 도와드리겠습니다.</h5>
 			</div>
 			<!-- 타이틀 끝 -->
 
 			<!-- 최근 본 상품 -->
-		
+
 			<!-- 최근 본 상품 -->
 
 			<!-- 내용 -->
@@ -229,10 +157,11 @@ function InquiryList() {
 				action="${contextPath}/board/asCenterSearch.do" method="post">
 				<div>
 
-					<button type="button" onclick="asCenter()" id="buttonmy" class="btn btn-dark"
-						style="margin-top: 21px; float: right; padding-top: 4px; height: 34px; font-size: 14px; padding-top: 4px; background-color:#7e9c8c; border:none;">검색</button>
-					<input type="text" 
-						style="margin-top: 21px; float: right; height:34px; border: 1px solid #dcdcdc; font-size:14px; margin-right: 5px;"
+					<button type="button" onclick="asCenter()" id="buttonmy"
+						class="btn btn-dark"
+						style="margin-top: 21px; float: right; padding-top: 4px; height: 34px; font-size: 14px; padding-top: 4px; background-color: #7e9c8c; border: none;">검색</button>
+					<input type="text"
+						style="margin-top: 21px; float: right; height: 34px; border: 1px solid #dcdcdc; font-size: 14px; margin-right: 5px;"
 						name="search"> <select name="searchType"
 						style="font-size: 14px; margin-right: 5px; float: right; width: 80px; height: 34px; border: 1px solid #dcdcdc; margin-top: 21px;">
 						<option value="asCenterTitle">제목</option>
@@ -245,7 +174,7 @@ function InquiryList() {
 				style="margin-top: 20px; text-align: center; font-size: 14px;">
 				<thead class="table-dark" align=center>
 					<tr
-						style="background-color: #eeeeee; border-top:1px solid #7e9c8c;color:black; border-bottom: 1px solid #c6c8ca; font-size:15px;">
+						style="background-color: #eeeeee; border-top: 1px solid #7e9c8c; color: black; border-bottom: 1px solid #c6c8ca; font-size: 15px;">
 						<td style="width: 100px;">번호</td>
 						<td style="width: 500px;">제목</td>
 						<td style="width: 200px;">작성자</td>
@@ -306,6 +235,7 @@ function InquiryList() {
 											<td style="width: 200px; color: black;"><fmt:formatDate
 													value="${asCenter.asCenterDate}" /></td>
 											<td style="width: 200px; color: black;">${asCenter.asCenterStatus}</td>
+
 										</tr>
 										<c:set var="num" value="${num-1}"></c:set>
 									</c:forEach>
@@ -317,14 +247,15 @@ function InquiryList() {
 				</thead>
 			</table>
 			<a id="buttonmy" class="btn btn-dark" onClick="asCenterForm()"
-				style="float: right; margin-top: 25px; border-radius: 2px;  background-color: #7e9c8c; color: white; border:none; border-radius: 2px; width: 120px; height: 40px; padding-top:10px; font-size:14px;">글쓰기</a>
+				style="float: right; margin-top: 25px; border-radius: 2px; background-color: #7e9c8c; color: white; border: none; border-radius: 2px; width: 120px; height: 40px; padding-top: 10px; font-size: 14px;">글쓰기</a>
 			<!-- 페이징 글번호 -->
 			<div class="page_wrap" style="margin-left: 80px; margin-top: 50px;">
 				<div class="page_nation">
 
 					<c:if test="${pageMaker.prev}">
 
-						<a class="arrow prev" style="border: 1px solid #7e9c8c; color:#7e9c8c; margin-right:0px; margin-left:2px;"
+						<a class="arrow prev"
+							style="border: 1px solid #7e9c8c; color: #7e9c8c; margin-right: 0px; margin-left: 2px;"
 							href='<c:url value="/board/listAsCenter.do?page=${pageMaker.startPage-1 }"/>'><i
 							class="fa fa-chevron-left"></i></a>
 
@@ -332,13 +263,16 @@ function InquiryList() {
 					<c:forEach begin="${pageMaker.startPage }"
 						end="${pageMaker.endPage }" var="pageNum">
 
-						<a style="border: 1px solid #7e9c8c; color:#7e9c8c; margin-right:0px; margin-left:2px;" href='<c:url value="/board/listAsCenter.do?page=${pageNum}"/>'><i
+						<a
+							style="border: 1px solid #7e9c8c; color: #7e9c8c; margin-right: 0px; margin-left: 2px;"
+							href='<c:url value="/board/listAsCenter.do?page=${pageNum}"/>'><i
 							class="fa">${pageNum}</i></a>
 
 					</c:forEach>
 					<c:if test="${pageMaker.next && pageMaker.endPage >0 }">
 
-						<a class="arrow next" style="border: 1px solid #7e9c8c; color:#7e9c8c; margin-right:0px; margin-left:2px;"
+						<a class="arrow next"
+							style="border: 1px solid #7e9c8c; color: #7e9c8c; margin-right: 0px; margin-left: 2px;"
 							href='<c:url value="/board/listAsCenter.do?page=${pageMaker.endPage+1 }"/>'><i
 							class="fa fa-chevron-right"></i></a>
 

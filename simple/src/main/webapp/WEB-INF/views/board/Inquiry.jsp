@@ -329,6 +329,17 @@
 											<td scope="col" width="150"><fmt:formatDate
 													value="${inquirySearch.inquiryDate}" /></td>
 										</tr>
+										<c:if test="${inquirySearch.inquiryAnswer != null}">
+											<tr
+												style="border-bottom: 1px solid #c6c8ca; border-top: 1px solid #c6c8ca; background-color: white; color: black;">
+												<td scope="col" width="50"></td>
+												<td scope="col" width="150"></td>
+												<td align="left" scope="col" width="500" style=><a
+													href="${contextPath}/admin/viewInquiryAnswer.do?inquiryNum=${inquirySearch.inquiryNum}"
+													style="color: black; padding-left: 30px; margin-bottom: 0px;">↳ㅤ[답변]ㅤ${inquirySearch.inquiryAnswer}</a></td>
+												<td scope="col" width="150"></td>
+											</tr>
+										</c:if>
 										<c:set var="num" value="${num-1}"></c:set>
 
 									</c:forEach>
@@ -358,6 +369,17 @@
 											<td scope="col" width="150"><fmt:formatDate
 													value="${inquiry.inquiryDate}" /></td>
 										</tr>
+										<c:if test="${inquiry.inquiryAnswer != null}">
+											<tr
+												style="border-bottom: 1px solid #c6c8ca; border-top: 1px solid #c6c8ca; background-color: white; color: black;">
+												<td scope="col" width="50"></td>
+												<td scope="col" width="150"></td>
+												<td align="left" scope="col" width="500" style=><a
+													href="${contextPath}/admin/viewInquiryAnswer.do?inquiryNum=${inquiry.inquiryNum}"
+													style="color: black; padding-left: 30px; margin-bottom: 0px;">↳ㅤ[답변]ㅤ${inquiry.inquiryAnswer}</a></td>
+												<td scope="col" width="150"></td>
+											</tr>
+										</c:if>
 										<c:set var="num" value="${num-1}"></c:set>
 
 									</c:forEach>

@@ -36,6 +36,17 @@
 		<result property="nonMemDepositorName" column="nonMemDepositorName" />
 		<result property="nonMemPaymentMethod" column="nonMemPaymentMethod" />
 		<result property="CurrentStatus" column="CurrenStatus" />
+		<result property="memOrderSeqNum" column="memOrderSeqNum" />
+	</resultMap>
+	<resultMap id="memResult" type="memberVO">
+		<result property="memId" column="memId" />
+		<result property="memName" column="memName" />
+		<result property="memPwd" column="memPwd" />
+		<result property="memEmail" column="memEmail" />
+		<result property="memPhoneNum" column="memPhoneNum" />
+		<result property="memAdr" column="memAdr" />
+		<result property="logintype" column="logintype" />
+		<result property="memRegdate" column="memRegdate" />
 	</resultMap>
 	
 	
@@ -54,17 +65,63 @@
 
 	<select id="selectAllOrderList" resultMap="orderResult">
 	<![CDATA[
-		select * from simple.memberorder order by memOrderDate desc
+		select * from simple.memberorder 
+		group by memOrderNum
+		order by memOrderDate desc
 		limit #{pageStart}, #{perPageNum};
 	]]>
 	</select>
+	
+     <!-- 주문 상품 정보 -->
+	<select id="selectmemOrderList" resultType="orderVO" parameterType="int"> 
+	<![CDATA[
+			
 
+		 select o.memOrderSeqNum, o.memId,o.memOrderDate, purchaseConfirm, reviewConfirm, returnConfirm,  o.memOrderSeqNum, productCnt, option1Name, option2Name, option1value, option2value, p.productImage, p.productPrice, p.productName, p.productNum, d.deliveryStatus ,memSpName,memSpAdr,memSpPhoneNum1,memSpPhoneNum2,memOrderMsg,memDepositorName
+    ,memPaymentMethod, totalPrice , memPwd, memEmail, memAdr,memPhoneNum,memName
+		from  simple.memberOrder as o left join simple.member as m on o.memId = m.memId join  simple.product as p on o.productNum=p.productNum 
+		join  simple.memdelivery as d on o.memOrderSeqNum=d.memOrderSeqNum 
+			where memOrderNum = #{memOrderNum} order by memOrderSeqNum desc;
+			
 
+	]]>
+	</select>
 
+    <select id="selectmemberOrderId" resultType="memberVO" parameterType="int"> 
+	<![CDATA[
+			
+
+		select distinct m.memId, memName, memAdr, memPhoneNum
+		from simple.memberOrder as o left join simple.member as m on o.memId = m.memId
+		where memOrderNum = #{memOrderNum} order by memOrderSeqNum desc;
+			
+
+	]]>
+	</select>
+	   <select id="selectmemberOrderInfo" resultType="orderVO" parameterType="int"> 
+	<![CDATA[
+			
+
+		select distinct memOrderNum,memSpName, memSpAdr, memSpPhoneNum1, memSpPhoneNum2, memOrderMsg, memDepositorName, memPaymentMethod,memOrderDate
+		from simple.memberOrder 
+		where memOrderNum = #{memOrderNum} order by memOrderSeqNum desc;
+			
+
+	]]>
+	</select>
+	<!-- 관리자 회원 주문정보 수정 -->
+	<update id="updateAdminModMemOrder" parameterType="orderVO" >
+	<![CDATA[ 
+		update simple.memberorder
+		set memSpName = #{memSpName}, memSpAdr = (select concat_ws('-',#{memSpAdr},#{memSpAdr1},#{memSpAdr2})),memSpPhoneNum1= (select concat_ws('-',#{memSpPhoneNum1_0},#{memSpPhoneNum1_1},#{memSpPhoneNum1_2})), memSpPhoneNum2=(select concat_ws('-',#{memSpPhoneNum2_0},#{memSpPhoneNum2_1},#{memSpPhoneNum2_2})), 
+		memDepositorName = #{memDepositorName},memOrderMsg = #{memOrderMsg}
+		where memOrderNum=#{memOrderNum}; 
+	]]>
+	</update>
 
 	<select id="orderSearchList" resultMap="orderResult">
 			select *
-			from memberorder 
+			from (select * from simple.memberorder group by memOrderNum) as memOrder 
 			where
 			<if test="searchType=='memId' and search != null and search != '' ">
 				memId like CONCAT('%', #{search}, '%')			
@@ -87,7 +144,7 @@
 	<select id="orderSearchCount" resultType="int"
 		parameterType="java.util.Map">
 			select count(*) 
-			from memberorder 
+			from (select * from simple.memberorder group by memOrderNum) as memOrder
 			where
 			<if test="searchType=='memId' and search != null and search != '' ">
 				memId like CONCAT('%', #{search}, '%')
@@ -104,7 +161,8 @@
 			
 			<if test="searchType=='memSpPhoneNum1' and search != null and search != '' ">
 				memSpPhoneNum1 like CONCAT('%', #{search}, '%')
-			</if>	
+			</if>
+	
 	</select>
 
 	<select id="selectOrderCount" resultType="int"

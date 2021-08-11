@@ -22,6 +22,8 @@ public interface BoardService {
 	public int inquiryCount(String  memId) throws Exception;
 	public Map<String, Object> inquirySearch(Map<String, Object> inquirySearchMap) throws Exception;	
 	public int inquirySearchCount(Map<String, Object> inquirySearchMap) throws Exception;
+	public Map<String ,Object> adminInquirySearch(Map<String ,Object> inquirySearchMap) throws Exception;
+	public int adminInquirySearchCount(Map<String, Object> search) throws Exception;
 	public int addNewInquiry(Map articleMap) throws Exception;
 	public ArticleVO viewInquiry(int inquiryNum) throws Exception;
 	public ArticleVO inquiryForm(int inquiryNum) throws Exception ;	

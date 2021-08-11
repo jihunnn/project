@@ -43,8 +43,8 @@ import com.project.simple.page.Criteria;
 
 @Controller("boardController")
 public class BoardControllerImpl implements BoardController {
-	private static final String ARTICLE_IMAGE_REPO_inquiry="C:\\spring\\inquiry_image";
-	private static final String ARTICLE_IMAGE_REPO_asCenter="C:\\spring\\asCenter_image";;
+	private static final String ARTICLE_IMAGE_REPO_inquiry = "C:\\spring\\inquiry_image";
+	private static final String ARTICLE_IMAGE_REPO_asCenter = "C:\\spring\\asCenter_image";;
 
 	@Autowired
 	private BoardService boardService;
@@ -53,7 +53,7 @@ public class BoardControllerImpl implements BoardController {
 
 	@Autowired
 	private MemberVO memberVO;
-	
+
 	@Autowired
 	BCryptPasswordEncoder pwdEncoder;
 
@@ -170,11 +170,15 @@ public class BoardControllerImpl implements BoardController {
 	@RequestMapping(value = "/board/inquirySearch.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView inquirySearch(@RequestParam("search1") String search1, @RequestParam("search2") String search2,
 			Criteria cri, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		int inquirySearchCount;
 		String viewName = (String) request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
 
 		HttpSession session = request.getSession();
-		MemberVO memberVO = (MemberVO) session.getAttribute("member");
+
+		if (session.getAttribute("member") != null) {
+			MemberVO memberVO = (MemberVO) session.getAttribute("member");
+		}
 		String memId = memberVO.getmemId();
 		articleVO.setmemId(memId);
 
@@ -186,8 +190,13 @@ public class BoardControllerImpl implements BoardController {
 		inquirySearchMap.put("search1", search1);
 		inquirySearchMap.put("search2", search2);
 		inquirySearchMap.put("memId", memId);
-		inquirySearchMap = boardService.inquirySearch(inquirySearchMap);
-		int inquirySearchCount = boardService.inquirySearchCount(inquirySearchMap);
+		if (session.getAttribute("admin") != null) {
+			inquirySearchMap = boardService.adminInquirySearch(inquirySearchMap);
+			inquirySearchCount = boardService.adminInquirySearchCount(inquirySearchMap);
+		} else {
+			inquirySearchMap = boardService.inquirySearch(inquirySearchMap);
+			inquirySearchCount = boardService.inquirySearchCount(inquirySearchMap);
+		}
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
 		int pageNum = pageMaker.getCri().getPage();
@@ -303,12 +312,12 @@ public class BoardControllerImpl implements BoardController {
 		String pageNum = request.getParameter("pageNum");
 		String viewName = (String) request.getAttribute("viewName");
 		HttpSession session = request.getSession();
-		if(session.getAttribute("member")!=null) {
-		MemberVO memberVO = (MemberVO) session.getAttribute("member");
-		String memId = memberVO.getmemId();
-		articleVO.setmemId(memId);}
+		if (session.getAttribute("member") != null) {
+			MemberVO memberVO = (MemberVO) session.getAttribute("member");
+			String memId = memberVO.getmemId();
+			articleVO.setmemId(memId);
+		}
 		articleVO = boardService.viewInquiry(inquiryNum);
-		
 
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(viewName);
@@ -348,9 +357,7 @@ public class BoardControllerImpl implements BoardController {
 			inquiryMap.put(name, value);
 
 		}
-		
 
-		
 		String inquiryFile = upload(multipartRequest);
 		inquiryMap.put("inquiryFile", inquiryFile);
 
@@ -366,7 +373,7 @@ public class BoardControllerImpl implements BoardController {
 			boardService.modInquiry(inquiryMap);
 			if (inquiryFile != null && inquiryFile.length() != 0) {
 				String OrignInquiryFile = (String) inquiryMap.get("OrignInquiryFile");
-				
+
 				File oldFile = new File(ARTICLE_IMAGE_REPO_inquiry + "\\" + inquiryNum + "\\" + OrignInquiryFile);
 				oldFile.delete();
 
@@ -450,7 +457,7 @@ public class BoardControllerImpl implements BoardController {
 
 		return mav;
 	}
-	
+
 	@RequestMapping(value = "/board/viewAsCenter.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView viewAsCenter(@RequestParam("asCenterNum") int asCenterNum, HttpServletRequest request,
 			HttpServletResponse response, RedirectAttributes redirectAttributes) throws Exception {
@@ -461,7 +468,7 @@ public class BoardControllerImpl implements BoardController {
 		articleVO = boardService.viewAsCenter(asCenterNum);
 		String asCenterPwd = articleVO.getAsCenterPwd();
 		HttpSession session1 = request.getSession();
-		if (session1.getAttribute("asCenterPwdConfirm") != null) {
+		if (session1.getAttribute("admin") != null) {
 
 			String viewName = (String) request.getAttribute("viewName");
 			mav.setViewName(viewName);
@@ -469,7 +476,7 @@ public class BoardControllerImpl implements BoardController {
 		}
 
 		else {
-			boolean pwdMatch = pwdEncoder.matches( asCenterPwdConfirm, asCenterPwd);
+			boolean pwdMatch = pwdEncoder.matches(asCenterPwdConfirm, asCenterPwd);
 			if (pwdMatch == true) {
 				String viewName = (String) request.getAttribute("viewName");
 				mav.setViewName(viewName);
@@ -482,7 +489,7 @@ public class BoardControllerImpl implements BoardController {
 				out.println("alert('비밀번호가 일치하지 않습니다.');");
 				out.println("history.go(-1);");
 				out.println("</script>");
-				out.close();	
+				out.close();
 			}
 
 			return mav;
@@ -494,37 +501,45 @@ public class BoardControllerImpl implements BoardController {
 	@RequestMapping(value = "/board/pwdConfirm.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView pwdConfirm(@RequestParam("asCenterNum") int asCenterNum, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		
+		ModelAndView mav = new ModelAndView();
 		HttpSession session1 = request.getSession();
 
-		if(session1.getAttribute("asCenterPwdConfirm") !=null) {
-		session1.removeAttribute("asCenterPwdConfirm"); }
+		if (session1.getAttribute("asCenterPwdConfirm") != null ) {
+			session1.removeAttribute("asCenterPwdConfirm");
+		}
+		
+		if(session1.getAttribute("admin") != null) {
+			mav.setViewName("redirect:/board/viewAsCenter.do?asCenterNum="+asCenterNum);
+			return mav;
+		}
 		
 		String pageNum = request.getParameter("page");
-		ModelAndView mav = new ModelAndView();
+
 		HttpSession session = request.getSession();
 		session.setAttribute("asCenterNum", asCenterNum);
 		session.setAttribute("pageNum", pageNum);
-		
+
 		return mav;
 	}
-	
+
 	@RequestMapping(value = "/board/asCenterWrite.do", method = RequestMethod.GET)
 	private ModelAndView asCenterWrite(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		//asCenter글쓰기시 asCenterNum 세션 해제
+		// asCenter글쓰기시 asCenterNum 세션 해제
 		HttpSession session = request.getSession();
-		if(session.getAttribute("asCenterNum") != null) {
-		session.removeAttribute("asCenterNum");}
+		if (session.getAttribute("asCenterNum") != null) {
+			session.removeAttribute("asCenterNum");
+		}
+		
 		MemberVO memberVO = (MemberVO) session.getAttribute("member");
 		String memName = memberVO.getmemName();
-		
+
 		String viewName = (String) request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(viewName);
-		mav.addObject("memName",memName);
+		mav.addObject("memName", memName);
 		return mav;
 	}
-	
+
 	// a/s센터 글쓰기
 	@Override
 	@RequestMapping(value = "/board/addNewAsCenter.do", method = RequestMethod.POST)
@@ -641,7 +656,7 @@ public class BoardControllerImpl implements BoardController {
 
 		String asCenterFile = uploadAsCenter(multipartRequest);
 		asCenterMap.put("asCenterFile", asCenterFile);
-		
+
 		String asCenterPwd = multipartRequest.getParameter("asCenterPwd");
 		String asCenterPwd1 = pwdEncoder.encode(asCenterPwd);
 		asCenterMap.put("asCenterPwd", asCenterPwd1);
@@ -685,7 +700,7 @@ public class BoardControllerImpl implements BoardController {
 		}
 		return resEnt;
 	}
-	
+
 	@Override
 	@RequestMapping(value = "/board/removeAsCenter.do", method = RequestMethod.POST)
 	@ResponseBody
@@ -699,7 +714,7 @@ public class BoardControllerImpl implements BoardController {
 		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
 		try {
 			boardService.removeAsCenter(asCenterNum);
-			File destDir = new File(ARTICLE_IMAGE_REPO_asCenter+ "\\" + asCenterNum);
+			File destDir = new File(ARTICLE_IMAGE_REPO_asCenter + "\\" + asCenterNum);
 			FileUtils.deleteDirectory(destDir);
 
 			message = "<script>";
@@ -710,8 +725,8 @@ public class BoardControllerImpl implements BoardController {
 		} catch (Exception e) {
 			message = "<script>";
 			message += " alert('오류가 발생했습니다. 다시 수정해주세요);";
-			message += " location.href='" + request.getContextPath() + "/board/viewAsCenter.do?asCenterNum=" + asCenterNum
-					+ "';";
+			message += " location.href='" + request.getContextPath() + "/board/viewAsCenter.do?asCenterNum="
+					+ asCenterNum + "';";
 			message += " </script>";
 			resEnt = new ResponseEntity(message, responseHeaders, HttpStatus.CREATED);
 			e.printStackTrace();
@@ -719,11 +734,12 @@ public class BoardControllerImpl implements BoardController {
 		return resEnt;
 
 	}
-	
+
 	@Override
 	@RequestMapping(value = "/board/asCenterSearch.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public ModelAndView asCenterSearch(@RequestParam("search") String search, @RequestParam("searchType") String searchType,
-			Criteria cri, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ModelAndView asCenterSearch(@RequestParam("search") String search,
+			@RequestParam("searchType") String searchType, Criteria cri, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
 		String viewName = (String) request.getAttribute("viewName");
 		ModelAndView mav = new ModelAndView(viewName);
 
@@ -748,6 +764,5 @@ public class BoardControllerImpl implements BoardController {
 		return mav;
 
 	}
-	
 
 }

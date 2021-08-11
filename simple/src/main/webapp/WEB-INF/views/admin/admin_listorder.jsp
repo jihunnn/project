@@ -84,10 +84,120 @@
 	padding-top: 1.8px;
 }
 </style>
+<script> src="http://code.jquery.com/jquery-1.6.4.min.js"</script>
+<script type="text/javascript">
+    
+	function listMemOrderSearch() {
+		var form = document.memOrderSearch;
+
+		if (form.search.value == "") {
+			alert("검색 단어를 입력해주세요")
+			form.search.focus();
+			return false;
+		}else{
+			form.submit();
+		}
 
 
+	}
+	$(function(){
+		var chkObj = document.getElementsByName("RowCheck");
+		var rowCnt = chkObj.length;
+		
+		$("input[name='allCheck']").click(function(){
+			var chk_listArr = $("input[name='RowCheck']");
+			for(var i=0; i<chk_listArr.length; i++){
+				chk_listArr[i].checked = this.checked;
+			}
+		});
+		$("input[name='RowCheck']").click(function(){
+			if($("input[name='RowCheck']:checked").length==rowCnt){
+				$("input[name='allCheck']")[0].checked = true;
+			}else{
+				$("input[name='allCheck']")[0].checked = false;
+			}
+		});
+	});
+	function deleteValue(){
+		var valueArr = new Array();
+		var list = $("input[name='RowCheck']");
+		for(var i = 0; i < list.length; i++){
+			if(list[i].checked){//선택되어 있으면 배열에 값을 저장
+					valueArr.push(list[i].value);
+				}
+			}
+			if(valueArr.length == 0){
+				alert("선택된 주문이 없습니다.");
+			}else{
+				if(confirm("정말 삭제하시겠습니까?")){
+				$.ajax({
+					url : "${contextPath}/admin_listorder/admin_selectremoveMemOrder.do", //전송 URL
+					type: 'POST',
+					traditional : true,
+					data : {
+						valueArr : valueArr   //보내고자 하는 data 변수 설정
+					},
+					success: function(jdata){
+						if(jdata = 1){
+							alert("회원 주문을 삭제하셨습니다.");
+							location.href = '${contextPath}/admin_listorder.do'; //admin_listorder로 페이지 새로고침
+						}else{
+							alert("회원주문삭제에 실패하셨습니다.");
+						}	
+					}
+
+				});
+				}else{
+					return false;
+				}
+			}
+	}
+	
+	
+</script>
+ <script type="text/javascript">
+		function MemOrderdelete() {
+			var memOrderNum=$("#memOrderNum").val();
+			if(confirm("정말 삭제하시겠습니까?")){
+				$.ajax({
+				url : "${contextPath}/admin_listorder/removeMemOrder.do",
+				type : "POST",
+				data : {
+					memOrderNum : memOrderNum
+					},
+				success : function(result) {
+				    alert("회원 주문이 삭제되었습니다");
+					location.replace("${contextPath}/admin_listorder.do"); //admin_listorder로 페이지 새로고침
+					},
+				});
+			}else{
+					 return false;
+				  }
+		  }
+		
+		function listMemberdelete1() {
+			var memId=$("#memId1").val();
+			if(confirm("정말 삭제하시겠습니까?")){
+				$.ajax({
+				url : "${contextPath}/admin_removeMember.do",
+				type : "POST",
+				data : {
+						memId : memId
+					},
+				success : function(result) {
+				    alert("회원 주문이 삭제되었습니다");
+				    location.href = '${contextPath}/admin_listorder.do'; //admin_listorder로 페이지 새로고침
+					},
+				});
+			}else{
+					 return false;
+				  }
+		  }
+		
+			  
+ </script>
 </head>
-<title>회원관리창</title>
+<title>관리자 회원 주문조회창</title>
 <body>
 
 	<section class="ftco-section testimony-section"
@@ -96,10 +206,10 @@
 		<div class="container">
 			<jsp:include page="/WEB-INF/views/common/admin_topmenu.jsp"
 				flush="false" />
-			<form name="memberSearch"
+			<form name="memOrderSearch"
 				action="${contextPath}/admin_listorder/orderSearch.do" method="post">
 				<div style="margin-bottom: 10px;">
-					<button type="submit" id="buttonmy" class="btn btn-dark"
+					<button type="button" id="buttonmy" class="btn btn-dark" onclick="listMemOrderSearch()"
 						style="margin-top: 21px; float: right; padding-top: 4px; height: 34px; font-size: 14px; padding-top: 4px; background-color: #7e9c8c; border: none;">조회</button>
 					<input type="text"
 						style="margin-top: 21px; float: right; height: 34px; border: 1px solid #dcdcdc; font-size: 14px; margin-right: 5px;"
@@ -114,7 +224,7 @@
 						style="font-size: 25px; font-weight: bold; margin-left: 18px; padding-top: 13px; float: left;">
 						<a style="color: #7e9c8c;">주문조회</a>
 					</div>
-					<button type="button" onclick="deleteValue02();"
+					<button type="button" onclick="location.href='${contextPath}/admin_listorder.do'"
 						style="float: left; border-radius: 2px; margin-bottom: 3px; margin-right:5px; margin-left:5px; margin-top: 22px; background-color: white; color: gray; border: 1px solid #eeeeee; border-radius: 2px; width: 70px; height: 30px; font-size: 14px;"
 						class="btn-secondary btn-xs">회원</button>
 					<button type="button" onclick="deleteValue02();"
@@ -132,8 +242,6 @@
 						<td scope="col" style="width: 50px;">선택</td>
 						<td scope="col" style="width: 60px;">주문번호</td>
 						<td scope="col" style="width: 60px;">아이디</td>
-						<td scope="col" style="width: 120px;">상품명</td>
-						<td scope="col" style="width: 150px;">상품옵션</td>
 						<td scope="col" style="width: 1px;">가격</td>
 						<td scope="col" style="width: 100px;">전화번호</td>
 						<td scope="col" style="width: 130px;">주소</td>
@@ -145,7 +253,7 @@
 							<c:choose>
 								<c:when test="${empty orderSearchMap.orderSearchList}">
 									<tr height="200">
-										<td colspan="5"
+										<td colspan="10"
 											style="background-color: white; padding-top: 100px;">
 											<p align="center">
 												<b><span style="color: black;">조회된 주문내역이 없습니다.</span></b>
@@ -162,22 +270,23 @@
 												type="checkbox" name="chk" value=""></th>
 											<th scope="col" style="vertical-align: middle; font-weight: normal;">${orderSearch.memOrderNum}</th>
 											<th scope="col" style="vertical-align: middle; font-weight: normal;">${orderSearch.memId}</th>
-											<th scope="col" style="vertical-align: middle; font-weight: normal;">${orderSearch.productName}</th>
-											<th scope="col" style="vertical-align: middle; font-weight: normal;">${orderSearch.option1name}:${orderSearch.option1value}<br>${orderSearch.option2name}:${orderSearch.option2value}</th>
 											<th scope="col" style="vertical-align: middle; font-weight: normal;">${orderSearch.totalPrice}원</th>
 											<th scope="col" style="vertical-align: middle; font-weight: normal;">${orderSearch.memSpPhoneNum1}</th>
 											<th scope="col" style="vertical-align: middle; font-weight: normal;">${orderSearch.memSpAdr}</th>
 											<th scope="col" style="vertical-align: middle; font-weight: normal;">${orderSearch.memOrderDate}</th>
 											<th scope="col" style="vertical-align: middle;"><input
 												type="hidden" value="${orderSearch.memId}" name="memId" />
-												<button type="submit" class="btn btn-dark"
-													style="border-radius: 2px; margin-bottom: 3px; background-color: white; color: gray; border: 1px solid #7e9c8c; border-radius: 2px; width: 70px; height: 30px; font-size: 14px;">수정</button>
+												<button type="button" class="btn btn-dark" onclick="location.href='${contextPath}/admin_listorder/detailorder.do?memOrderNum=${orderSearch.memOrderNum}'"
+														style="border-radius: 2px; margin-bottom: 3px; background-color: white; color: gray; border: 1px solid #7e9c8c; border-radius: 2px; width: 90px; height: 30px; font-size: 14px;">상세보기</button>
 												<br>
 												<button type="button"
 													onclick="location.href='${contextPath}/admin_removeMember.do?memId=${orderSearch.memId}'"
 													class="btn btn-dark"
-													style="border-radius: 2px; margin-bottom: 3px; margin-top: 5px; background-color: white; color: gray; border: 1px solid #7e9c8c; border-radius: 2px; width: 70px; height: 30px; font-size: 14px;">삭제</button>
+													style="border-radius: 2px; margin-bottom: 3px; margin-top: 5px; background-color: white; color: gray; border: 1px solid #7e9c8c; border-radius: 2px; width: 90px; height: 30px; font-size: 14px;">삭제</button>
 											</th>
+											</tr>
+											
+											
 									</c:forEach>
 								</c:otherwise>
 							</c:choose>
@@ -186,44 +295,39 @@
 							<c:choose>
 								<c:when test="${empty ordersList}">
 									<tr height="200">
-										<td colspan="5"
+										<td colspan="10"
 											style="background-color: white; padding-top: 100px;">
 											<p align="center">
-												<b><span style="color: black;">등록된 회원이 없습니다.</span></b>
+												<b><span style="color: black;">조회된 주문내역이 없습니다.</span></b>
 											</p>
 										</td>
 									</tr>
 								</c:when>
 								<c:otherwise>
-									<form action="${contextPath}/admin/viewOrder.do" method="post">
-										<c:forEach var="ordersList" items="${ordersList}">
+										<c:forEach var="orders" items="${ordersList}">
 
-											<tr
+											<tr 
 												style="border-bottom: 1px solid #c6c8ca; background-color: white; color: black;">
 												<th scope="col" style="vertical-align: middle;"><input
-													type="checkbox" name="chk" value=""></th>
-												<th scope="col" style="vertical-align: middle; font-weight: normal;">${ordersList.memOrderNum}</th>
-												<th scope="col" style="vertical-align: middle; font-weight: normal;">${ordersList.memId}</th>
-												<th scope="col" style="vertical-align: middle; font-weight: normal;">${ordersList.productName}</th>
-												<th scope="col" style="vertical-align: middle; font-weight: normal;">${ordersList.option1name}:${ordersList.option1value}<br>${ordersList.option2name}:${ordersList.option2value}</th>
-												<th scope="col" style="vertical-align: middle; font-weight: normal;">${ordersList.totalPrice}원</th>
-												<th scope="col" style="vertical-align: middle; font-weight: normal;">${ordersList.memSpPhoneNum1}</th>
-												<th scope="col" style="vertical-align: middle; font-weight: normal;">${ordersList.memSpAdr}</th>
-												<th scope="col" style="vertical-align: middle; font-weight: normal;">${ordersList.memOrderDate}</th>
-												<th scope="col" style="vertical-align: middle; font-weight: normal;"><input
-													type="hidden" value="${member.memId}" name="memId" />
-													<button type="submit" class="btn btn-dark"
-														style="border-radius: 2px; margin-bottom: 3px; background-color: white; color: gray; border: 1px solid #7e9c8c; border-radius: 2px; width: 70px; height: 30px; font-size: 14px;">수정</button>
+													type="checkbox" name="RowCheck" id="memOrderNum" value="${orders.memOrderNum}"></th>
+												<th scope="col" style="vertical-align: middle; font-weight: normal;">${orders.memOrderNum}</th>
+												<th scope="col" style="vertical-align: middle; font-weight: normal;">${orders.memId}</th>
+												<th scope="col" style="vertical-align: middle; font-weight: normal;">${orders.totalPrice}원</th>
+												<th scope="col" style="vertical-align: middle; font-weight: normal;">${orders.memSpPhoneNum1}</th>
+												<th scope="col" style="vertical-align: middle; font-weight: normal;">${orders.memSpAdr}</th>
+												<th scope="col" style="vertical-align: middle; font-weight: normal;">${orders.memOrderDate}</th>
+												<th scope="col" style="vertical-align: middle; font-weight: normal;">
+													<button type="button" class="btn btn-dark" onclick="location.href='${contextPath}/admin_listorder/detailorder.do?memOrderNum=${orders.memOrderNum}'"
+														style="border-radius: 2px; margin-bottom: 3px; background-color: white; color: gray; border: 1px solid #7e9c8c; border-radius: 2px; width: 90px; height: 30px; font-size: 14px;">상세보기</button>
 													<br>
 													<button type="button"
-														onclick="location.href='${contextPath}/admin_removeMember.do?memId=${member.memId }'"
+														onclick="MemOrderdelete()"
 														class="btn btn-dark"
-														style="border-radius: 2px; margin-bottom: 3px; margin-top: 5px; background-color: white; color: gray; border: 1px solid #7e9c8c; border-radius: 2px; width: 70px; height: 30px; font-size: 14px;">삭제</button>
+														style="border-radius: 2px; margin-bottom: 3px; margin-top: 5px; background-color: white; color: gray; border: 1px solid #7e9c8c; border-radius: 2px; width: 90px; height: 30px; font-size: 14px;">삭제</button>
 												</th>
 											</tr>
 
 										</c:forEach>
-									</form>
 								</c:otherwise>
 							</c:choose>
 						</c:when>
@@ -231,7 +335,7 @@
 
 				</thead>
 			</table>
-			<button type="button" onclick="deleteValue02();"
+			<button type="button" onclick="deleteValue();"
 				style="float: right; border-radius: 2px; margin-bottom: 3px; background-color: white; color: gray; border: 1px solid #eeeeee; border-radius: 2px; width: 70px; height: 30px; font-size: 14px;"
 				class="btn-secondary btn-xs">선택삭제</button>
 		</div>

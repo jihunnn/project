@@ -10,23 +10,29 @@ request.setCharacterEncoding("UTF-8");
 <html lang="en">
 <head>
 <script>
-	function removeInquiry(obj) {
+	function removeInquiryAnswer(obj) {
 		if (confirm("삭제하시겠습니까??")) {
-			obj.action = "${contextPath}/board/removeInquiry.do?inquiryNum=${inquiry.inquiryNum}";
+			obj.action = "${contextPath}/admin/removeInquiryAnswer.do?inquiryNum=${inquiry.inquiryNum}";
 		} else {
 			return false;
 		}
 		obj.submit();
 	}
-	
-    function InquiryList() {
-        if (${isLogOn != true && member == null}) {
-            alert("로그인이 필요합니다.");
-            location.href = '${contextPath}/login_01.do';
-        } else {
-        	location.href='${contextPath}/board/listInquiry.do'
-        }
-    }
+
+	function modInquiryAnswer() {
+		document.getElementById("inquiryAnswer").disabled = false;
+		document.getElementById("tr_btn_modify").style.display = "block";
+		document.getElementById("inquiryAnswer").style.border = "1px solid #d2d2d2";
+		document.getElementById("tr_btn").style.display = "none";
+
+	}
+
+	function modNewInquiryAnswer(obj) {
+
+		obj.action = "${contextPath}/admin/modNewInquiryAnswer.do?inquiryNum=${inquiry.inquiryNum}";
+		obj.submit();
+
+	}
 </script>
 <style>
 @import url(https://fonts.googleapis.com/css?family=Raleway:500);
@@ -140,7 +146,7 @@ request.setCharacterEncoding("UTF-8");
 							<c:when
 								test="${not empty inquiry.inquiryFile && inquiry.inquiryFile != 'null'}">
 								<tr
-									style="border-bottom: 0.5px solid grey; height: 300px; text-align: left; background-color: white;">
+									style="border-bottom: 0.5px solid grey; text-align: left; background-color: white;">
 									<td
 										style="padding-bottom: 20px; color: black; padding-left: 0px;"><a>${inquiry.inquiryContent}</a><br>
 										<br> <input type="hidden" name="OrignInquiryFile"
@@ -154,7 +160,7 @@ request.setCharacterEncoding("UTF-8");
 							</c:when>
 							<c:otherwise>
 								<tr
-									style="border-bottom: 0.5px solid grey; height: 300px; text-align: left; background-color: white;">
+									style="border-bottom: 0.5px solid grey; text-align: left; background-color: white;">
 									<td style="padding-bottom: 250px; color: black;">${inquiry.inquiryContent}<br>
 								</tr>
 							</c:otherwise>
@@ -163,11 +169,25 @@ request.setCharacterEncoding("UTF-8");
 							style="background-color: #eeeeee; border-top: 1px solid #7e9c8c; color: black; border-bottom: 1px solid #c6c8ca; font-size: 15px;">
 							<td><a>[답변] ${inquiry.inquiryTitle}</a></td>
 						</tr>
-						<tr
-							style="border-bottom: 0.5px solid grey; height: 300px; text-align: left; background-color: white;">
-							<td style="color: black;"><textarea name="inquiryAnswer"
-									style="width: 1240px; height: 260px; border: 1px solid #d2d2d2;"></textarea><br>
-						</tr>
+						<c:choose>
+							<c:when
+								test="${empty inquiry.inquiryAnswer && inquiry.inquiryAnswer == null}">
+								<tr
+									style="border-bottom: 0.5px solid grey; text-align: left; background-color: white;">
+									<td style="color: black;"><textarea name="inquiryAnswer"
+											style="width: 1240px; height: 260px; border: 1px solid #d2d2d2;"></textarea><br>
+								</tr>
+							</c:when>
+							<c:otherwise>
+								<tr
+									style="border-bottom: 0.5px solid grey; text-align: left; background-color: white;">
+									<td style="color: black;"><textarea name="inquiryAnswer"
+											id="inquiryAnswer"
+											style="width: 1240px; height: 260px; border: none; background: white;"
+											disabled>${inquiry.inquiryAnswer}</textarea><br>
+								</tr>
+							</c:otherwise>
+						</c:choose>
 
 					</thead>
 				</table>
@@ -175,19 +195,36 @@ request.setCharacterEncoding("UTF-8");
 					<c:choose>
 						<c:when
 							test="${empty inquiry.inquiryAnswer && inquiry.inquiryAnswer == null}">
-							<button type="submit" class="btn btn-dark" id="buttonmy"
-								style="float: left; margin-left: 1100px; font-size: 14px; background-color: #212529; padding-top: 4px;">등록</button>
-							<button type="button" class="btn btn-dark" id="buttonmy"
-								style="float: left; margin-left: 1190px; margin-top: -30px; font-size: 14px; background-color: #212529; padding-top: 4px;"
-								onclick="location.href='${contextPath}admin/listAllInquiry.do'">목록</button>
+							<c:if test="${AdminisLogOn == true && admin != null}">
+								<button type="submit" class="btn btn-dark" id="buttonmy"
+									style="float: left; margin-left: 1100px; font-size: 14px; background-color: #212529; padding-top: 4px;">등록</button>
+								<button type="button" class="btn btn-dark" id="buttonmy"
+									style="float: left; margin-left: 1190px; margin-top: -30px; font-size: 14px; background-color: #212529; padding-top: 4px;"
+									onclick="location.href='${contextPath}/admin/listAllInquiry.do'">목록</button>
+							</c:if>
 						</c:when>
 						<c:otherwise>
-							<button type="submit" class="btn btn-dark" id="buttonmy"
-								style="float: left; margin-left: 1100px; font-size: 14px; background-color: #212529; padding-top: 4px;">수정</button>
-							<button type="button" class="btn btn-dark" id="buttonmy"
-								style="float: left; margin-left: 1190px; margin-top: -30px; font-size: 14px; background-color: #212529; padding-top: 4px;"
-								onclick="location.href='${contextPath}admin/listAllInquiry.do'">목록</button>
-
+							<c:choose>
+								<c:when test="${AdminisLogOn == true && admin != null}">
+									<button type="button" class="btn btn-dark" id="tr_btn"
+										onclick="modInquiryAnswer()"
+										style="float: left; margin-left: 1100px; font-size: 14px; background-color: #212529; padding-top: 4px;">수정</button>
+									<button onclick="modNewInquiryAnswer(this.form)" type="button"
+										class="btn btn-dark" id="tr_btn_modify"
+										style="float: left; margin-left: 1100px; font-size: 14px; background-color: #212529; padding-top: 4px; display: none;">확인</button>
+									<button type="button" class="btn btn-dark" id="buttonmy"
+										style="float: left; margin-left: 1000px; margin-top: -30px; font-size: 14px; background-color: #212529; padding-top: 4px;"
+										onclick="removeInquiryAnswer(this.form)">삭제</button>
+									<button type="button" class="btn btn-dark" id="buttonmy"
+										style="float: left; margin-left: 1190px; margin-top: -30px; font-size: 14px; background-color: #212529; padding-top: 4px;"
+										onclick="location.href='${contextPath}/admin/listAllInquiry.do'">목록</button>
+								</c:when>
+								<c:otherwise>
+									<button type="button" class="btn btn-dark" id="buttonmy"
+										style="float: left; margin-left: 1190px; margin-top: -30px; font-size: 14px; background-color: #212529; padding-top: 4px;"
+										onclick="location.href='${contextPath}/board/listInquiry.do'">목록</button>
+								</c:otherwise>
+							</c:choose>
 						</c:otherwise>
 					</c:choose>
 				</div>

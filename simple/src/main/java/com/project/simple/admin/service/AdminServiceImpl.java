@@ -15,6 +15,8 @@ import com.project.simple.admin.dao.AdminDAO;
 import com.project.simple.admin.vo.AdminVO;
 import com.project.simple.board.vo.ArticleVO;
 import com.project.simple.member.vo.MemberVO;
+import com.project.simple.mypage.vo.MypageVO;
+import com.project.simple.order.vo.OrderVO;
 import com.project.simple.page.Criteria;
 import com.project.simple.product.vo.ProductVO;
 
@@ -114,6 +116,26 @@ public class AdminServiceImpl implements AdminService {
 		adminDAO.insertNewInquiryAnswer(inquiry);
 	}
 	
+	//1:1문의 답변 상세보기
+	@Override
+	public ArticleVO viewInquiryAnswer(int inquiryNum) throws Exception {
+		ArticleVO articleVO = adminDAO.selectInquiryAnswer(inquiryNum);
+		
+		return articleVO;
+	}
+	
+	//1:1문의 답변 삭제하기
+	@Override
+	public void removeInquiryAnswer(int inquiryNum) throws Exception {
+		adminDAO.deleteInquiryAnswer(inquiryNum);
+	}
+	
+	//1:1문의 답변 확정
+	@Override
+	public void asCenterConfirm(int asCenterNum) throws Exception {
+		adminDAO.updateAsCenterConfirm(asCenterNum);	
+	}
+	
 
 	@Override
 	public int admin_modMember(MemberVO modmember) throws DataAccessException {
@@ -125,6 +147,20 @@ public class AdminServiceImpl implements AdminService {
 		adminDAO.deleteSelectRemoveMember(memId);
 		
 	}
+	
+	@Override
+	public OrderVO removeMemOrder(int memOrderNum) throws Exception {
+		OrderVO orderVO = adminDAO.deleteMemOrder(memOrderNum);
+		
+		return orderVO;
+	}
+
+	@Override
+	public void admin_selectremoveMemOrder(String memOrderNum) throws Exception {
+		adminDAO.deleteSelectRemoveMemOrder(memOrderNum);
+		
+	}
+
 
 
 }

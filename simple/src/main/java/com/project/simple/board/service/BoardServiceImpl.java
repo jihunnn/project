@@ -110,6 +110,22 @@ public class BoardServiceImpl implements BoardService{
 		return inquirySearchCount;
 	}
 	
+	public Map<String ,Object> adminInquirySearch(Map<String ,Object> inquirySearchMap) throws Exception{
+
+		List<ArticleVO> inquirySearchList=boardDAO.adminInquirySearchList(inquirySearchMap);
+
+		inquirySearchMap.put("inquirySearchList", inquirySearchList);
+		
+
+		return inquirySearchMap;
+	}
+
+	public int adminInquirySearchCount(Map<String, Object> search) throws Exception{
+
+		int inquirySearchCount = boardDAO.adminInquirySeachCount(search);
+		return inquirySearchCount;
+	}
+	
 	@Override
 	public int addNewInquiry(Map inquiryMap) throws Exception{
 		return boardDAO.insertNewInquiry(inquiryMap);

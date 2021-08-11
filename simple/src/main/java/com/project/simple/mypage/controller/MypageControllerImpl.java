@@ -122,19 +122,15 @@ public class MypageControllerImpl implements MypageController {
 	
 	//마이페이지 주문내역 상세보기
 	@RequestMapping(value = "/mypage/viewMyOrderInfo.do", method = RequestMethod.GET)
-	public ModelAndView viewMyOrderInfo(@RequestParam("memOrderNum") int memOrderNum, @RequestParam("memOrderSeqNum") int memOrderSeqNum, HttpServletRequest request,
+	public ModelAndView viewMyOrderInfo(@RequestParam("memOrderNum") int memOrderNum, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		String viewName = (String) request.getAttribute("viewName");
-		HttpSession session = request.getSession();
-		MemberVO memberVO = (MemberVO) session.getAttribute("member");
-		String memId = memberVO.getmemId();
-		mypageVO.setMemId(memId);
+
+	
 		List<MypageVO> myOrderList = mypageService.viewMyOrderInfo(memOrderNum);
-		mypageVO = mypageService.viewMyOrderInfoMem(memOrderSeqNum);
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName(viewName);
 		mav.addObject("memOrderNum", myOrderList);
-		mav.addObject("memOrderSeqNum", mypageVO);
 
 		return mav;
 	}
