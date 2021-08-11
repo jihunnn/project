@@ -137,17 +137,14 @@ h4 {
 		f.nonmemSpPhoneNum1_1.value = f.nonmemPhoneNum1.value;
 		f.nonmemSpPhoneNum1_2.value = f.nonmemPhoneNum2.value;
 	}
-	
-	$("input[type=radio]").click(function(){
-	    $(this).prop("checked", true);
-	    $("form").submit();
+
+	$("input[type=radio]").click(function() {
+		$(this).prop("checked", true);
+		$("form").submit();
 	})
 </script>
-<script type="text/javascript"
-	src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
-
 	//비회원 주문자 우편번호
 	function sample6_execDaumPostcode() {
 		new daum.Postcode(
@@ -189,11 +186,12 @@ h4 {
 						document.getElementById('sample6_address_nonmember').value = fullAddr;
 
 						// 커서를 상세주소 필드로 이동한다.
-						document.getElementById('sample6_address2_nonmember').focus();
+						document.getElementById('sample6_address2_nonmember')
+								.focus();
 					}
 				}).open();
 	}
-	
+
 	//배송지 우편번호
 	function sample6_execDaumPostcode2() {
 		new daum.Postcode(
@@ -239,170 +237,6 @@ h4 {
 					}
 				}).open();
 	}
-
-	
-
-	function iamport() {
-		var IMP = window.IMP;
-		var form = document.CheckOrder;
-
-		if (form.nonmemName.value == "") {
-			alert("주문자정보의 이름을 입력하지 않았습니다.")
-			form.nonmemName.focus();
-			return false;
-		}
-
-		if (form.nonmemAdr.value == "") {
-			alert("주문자정보의 주소를 입력하지 않았습니다.")
-			form.nonmemAdr.focus();
-			return false;
-		}
-		if (form.nonmemAdr1.value == "") {
-			alert("주문자정보의 주소를 입력하지 않았습니다.")
-			form.nonmemAdr1.focus();
-			return false;
-		}
-		if (form.nonmemAdr2.value == "") {
-			alert("주문자정보의 주소를 입력하지 않았습니다.")
-			form.nonmemAdr2.focus();
-			return false;
-		}
-		
-		
-		if (form.nonmemPhoneNum.value == "") {
-			alert("주문자정보의 연락처를 입력하지 않았습니다.")
-			form.nonmemPhoneNum.focus();
-			return false;
-		}
-
-		if (form.nonmemPhoneNum1.value == "") {
-			alert("주문자정보의 연락처를 입력하지 않았습니다.")
-			form.nonmemPhoneNum1.focus();
-			return false;
-		}
-		
-		if (form.nonmemPhoneNum2.value == "") {
-			alert("주문자정보의 연락처를 입력하지 않았습니다.")
-			form.nonmemPhoneNum2.focus();
-			return false;
-		}
-
-		for (var i = 0; i < form.nonmemPhoneNum1.value.length; i++) {
-			ch = form.nonmemPhoneNum1.value.charAt(i)
-			if (!(ch >= '0' && ch <= '9')) {
-				alert("주문자정보의 연락처는 숫자만 입력가능합니다.")
-				form.nonmemPhoneNum1.focus();
-				form.nonmemPhoneNum1.select();
-				return false;
-			}
-		}
-		for (var i = 0; i < form.nonmemPhoneNum2.value.length; i++) {
-			ch = form.nonmemPhoneNum2.value.charAt(i)
-			if (!(ch >= '0' && ch <= '9')) {
-				alert("주문자정보의 연락처는 숫자만 입력가능합니다.")
-				form.nonmemPhoneNum2.focus();
-				form.nonmemPhoneNum2.select();
-				return false;
-			}
-		}
-		
-		
-		if (form.nonmemSpName.value == "") {
-			alert("배송정보의 이름을 입력하지 않았습니다.")
-			form.nonmemSpName.focus();
-			return false;
-		}
-
-		if (form.nonmemSpAdr.value == "") {
-			alert("배송정보의 주소를 입력하지 않았습니다.")
-			form.nonmemSpAdr.focus();
-			return false;
-		}
-		if (form.nonmemSpAdr1.value == "") {
-			alert("배송정보의 주소 입력하지 않았습니다.")
-			form.nonmemSpAdr1.focus();
-			return false;
-		}
-		if (form.nonmemSpAdr2.value == "") {
-			alert("배송정보의 주소 입력하지 않았습니다.")
-			form.nonmemSpAdr2.focus();
-			return false;
-		}
-
-		for (var i = 0; i < form.nonmemSpPhoneNum1_1.value.length; i++) {
-			ch = form.nonmemSpPhoneNum1_1.value.charAt(i)
-			if (!(ch >= '0' && ch <= '9')) {
-				alert("배송정보의 연락처는 숫자만 입력가능합니다.")
-				form.nonmemSpPhoneNum1_1.focus();
-				form.nonmemSpPhoneNum1_1.select();
-				return false;
-			}
-		}
-		
-		for (var i = 0; i < form.nonmemSpPhoneNum1_2.value.length; i++) {
-			ch = form.nonmemSpPhoneNum1_2.value.charAt(i)
-			if (!(ch >= '0' && ch <= '9')) {
-				alert("배송정보의 연락처1은 숫자만 입력가능합니다.")
-				form.nonmemSpPhoneNum1_2.focus();
-				form.nonmemSpPhoneNum1_2.select();
-				return false;
-			}
-		}
-		
-		if (form.nonmemSpPhoneNum1_0.value == "") {
-			alert("배송정보의 연락처1을 입력하지 않았습니다.")
-			form.nonmemSpPhoneNum1_0.focus();
-			return false;
-		}
-		
-		if (form.nonmemSpPhoneNum1_1.value == "") {
-			alert("배송정보의 연락처1을 입력하지 않았습니다.")
-			form.nonmemSpPhoneNum1_1.focus();
-			return false;
-		}
-		if (form.nonmemSpPhoneNum1_2.value == "") {
-			alert("배송정보의 연락처1을 입력하지 않았습니다.")
-			form.nonmemSpPhoneNum1_2.focus();
-			return false;
-		}
-		
-
-		
-		//가맹점 식별코드
-		IMP.init('imp44341689');
-		IMP.request_pay({
-			pg : 'inicis',
-			pay_method : 'card',
-			merchant_uid : 'merchant_' + new Date().getTime(),
-			name : '(주)SIMPLE', //결제창에서 보여질 이름
-			amount : ${totalPrice}, //실제 결제되는 가격		
-			buyer_name : $('input[name=nonmemName]').val()
-		
-		
-		}, function(rsp) {
-			console.log(rsp);
-			if (rsp.success) {
-				var msg = '결제가 완료되었습니다.';
-				msg += '고유ID : ' + rsp.imp_uid;
-				msg += '상점 거래ID : ' + rsp.merchant_uid;
-				msg += '결제 금액 : ' + rsp.paid_amount;
-				msg += '카드 승인번호 : ' + rsp.apply_num;
-				var param = $("form[name=CheckOrder]").serialize();
-				$.ajax({
-					url : "addorderlist.do",
-					type : "POST",	
-					data : param
-				}).done(function(data){		
-					location.replace("${contextPath}/nonMemberOrderResult.do");
-				})
-			} else {
-				var msg = '결제에 실패하였습니다.';
-				msg += '에러내용 : ' + rsp.error_msg;
-			}
-			alert(msg);
-		});
-	}
-	
 </script>
 </head>
 <title>주문결제창</title>
@@ -420,7 +254,7 @@ h4 {
 
 			<form name="CheckOrder" action="${contextPath}/addorderlist.do"
 				method="post">
-				<input type="hidden" name="totalPrice" value="${totalPrice}" />
+
 				<!-- 타이틀 끝 -->
 
 
@@ -477,31 +311,66 @@ h4 {
 								<th scope="col" width="150">가격</th>
 							</tr>
 						</thead>
-						<c:forEach items="${orderlist}" var="orderlist" varStatus="status">
-							<tbody>
-								<tr class="tr1"
-									style="border-bottom: 1px solid rgba(0, 0, 0, 0.1);">
-									<th scope="col" style="vertical-align: middle;"><img
-										src="${contextPath}/resources/images/sofa01.jpg" width=80
-										height=80></th>
-									<th scope="col" style="vertical-align: middle;">${orderlist.productName}</th>
-									<th scope="col"
-										style="text-align: left; vertical-align: middle;">${orderlist.option1name}
-										: ${orderlist.option1value}<br>${orderlist.option2name} :
-										${orderlist.option2value}
-									</th>
-									<th scope="col" style="vertical-align: middle;">${orderlist.productCnt}개</th>
-									<th scope="col" style="vertical-align: middle;">${orderlist.deliverycharge}</th>
-									<th scope="col" style="vertical-align: middle;">${orderlist.productPrice}원</th>
-								</tr>
-							</tbody>
-						</c:forEach>
+						<c:choose>
+							<c:when test="${nonMemOrder == null}">
+								<c:forEach items="${orderlist}" var="orderlist"
+									varStatus="status">
+									<tbody>
+										<tr class="tr1"
+											style="border-bottom: 1px solid rgba(0, 0, 0, 0.1);">
+											<th scope="col" style="vertical-align: middle;"><img
+												src="${contextPath}/download_product.do?productNum=${orderlist.productNum}&productImage=${orderlist.productImage}"
+												width=80 height=80></th>
+											<th scope="col" style="vertical-align: middle;">${orderlist.productName}</th>
+											<th scope="col"
+												style="text-align: left; vertical-align: middle;">${orderlist.option1name}
+												: ${orderlist.option1value}<br>${orderlist.option2name}
+												: ${orderlist.option2value}
+											</th>
+											<th scope="col" style="vertical-align: middle;">${orderlist.productCnt}개</th>
+											<th scope="col" style="vertical-align: middle;">${orderlist.deliverycharge}</th>
+											<th scope="col" style="vertical-align: middle;">${orderlist.productPrice}원</th>
+										</tr>
+									</tbody>
+								</c:forEach>
+							</c:when>
+							<c:otherwise>
+								<tbody>
+									<tr class="tr1"
+										style="border-bottom: 1px solid rgba(0, 0, 0, 0.1);">
+										<th scope="col" style="vertical-align: middle;"><img
+											src="${contextPath}/download_product.do?productNum=${nonMemOrder.productNum}&productImage=${nonMemOrder.productImage}"
+											width=80 height=80></th>
+										<th scope="col" style="vertical-align: middle;">${nonMemOrder.productName}</th>
+										<th scope="col"
+											style="text-align: left; vertical-align: middle;">${nonMemOrder.option1name}
+											: ${nonMemOrder.option1value}<br>${nonMemOrder.option2name}
+											: ${nonMemOrder.option2value}
+										</th>
+										<th scope="col" style="vertical-align: middle;">${nonMemOrder.productCnt}개</th>
+										<th scope="col" style="vertical-align: middle;">${nonMemOrder.deliverycharge}</th>
+										<th scope="col" style="vertical-align: middle;">${nonMemOrder.productPrice}원</th>
+									</tr>
+								</tbody>
+							</c:otherwise>
+						</c:choose>
 					</table>
-
-					<div style="font-size: 18px; float: right;">
-						<span>총금액ㅤ</span><a style="color: #7e9c8c; font-weight: bold;">${totalPrice}원</a>
-					</div>
-
+					<c:choose>
+						<c:when test="${nonMemOrder == null}">
+							<div style="font-size: 18px; float: right;">
+								<span>총금액ㅤ</span><a style="color: #7e9c8c; font-weight: bold;">${totalPrice}원</a>
+												<input type="hidden" name="totalPrice" value="${totalPrice}" />
+							</div>
+						</c:when>
+						<c:otherwise>
+							<div style="font-size: 18px; float: right;">
+								<span>총금액ㅤ</span><a style="color: #7e9c8c; font-weight: bold;">${nonMemOrder.totalPrice}원</a>
+												<input type="hidden" name="totalPrice" value="${nonMemOrder.totalPrice}" />
+												
+		
+							</div>
+						</c:otherwise>
+					</c:choose>
 				</div>
 
 
@@ -692,9 +561,9 @@ h4 {
 				<br> <br>
 
 				<div style="text-align: center">
-					<input type="button" class="btn btn-secondary" onclick="iamport();"
-						value="결제하기"
-						style="padding-left: 10px; margin-left: 40px; background-color: #7e9c8c; color: white; border: none; border-radius: 2px; width: 130px; height: 45px;">
+					<button type="submit" class="btn btn-secondary"
+						onclick="Check_Order()"
+						style="padding-left: 10px; margin-left: 40px; background-color: #7e9c8c; color: white; border: none; border-radius: 2px; width: 130px; height: 45px;">결제하기</button>
 					&nbsp;&nbsp;
 					<button type="button" class="btn btn-secondary"
 						onclick="location.href='/cart'"

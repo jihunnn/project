@@ -147,15 +147,16 @@
 	<section class="ftco-section" style="padding-top: 30px;">
 		<div class="container">
 
-				<img src="${contextPath}/resources/images/product/selina.jpg" width=100%
-		height=350px style="margin-bottom:30px;">
+			<img src="${contextPath}/resources/images/product/selina.jpg"
+				width=100% height=350px style="margin-bottom: 30px;">
 			<!-- 최근 본 상품 -->
+			<jsp:include page="/WEB-INF/views/common/quick.jsp" flush="false" />
 
 			<!-- 최근 본 상품 끝 -->
 
-			<ul class="snip1284" style="margin-bottom: 30px; font-weight:bold;">
+			<ul class="snip1284" style="margin-bottom: 30px; font-weight: bold;">
 				<li class="current"><a
-					onclick="location.href = '${contextPath}/product/listProduct.do?sort=침대&subsort=싱글&filter=x'"
+					onclick="location.href ='${contextPath}/product/listProduct.do?sort=침대&subsort=싱글&filter=x'"
 					data-hover="싱글"
 					style="font-size: 17px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">싱글</a></li>
 
@@ -182,10 +183,8 @@
 					style="font-size: 17px; border: none; color: #5a5a5a; background-color: white; cursor: pointer; padding-bottom: 0px;">퀸</a></li>
 			</ul>
 			<hr style="margin-bottom: 0px;">
-			
 			<jsp:include page="/WEB-INF/views/common/productfilter.jsp"
 				flush="false" />
-			
 			<hr style="margin-top: -15px; margin-bottom: 30px;">
 
 
@@ -216,17 +215,25 @@
 										</c:when>
 									</c:choose>
 									<div class="text d-flex py-1">
-										<div class="desc pl-2">
+										<div class="desc">
 											<h3 class="heading">
-												<a style="font-size:15px;"
+												<a style="font-size: 15px;"
 													href="${contextPath}/product/viewProduct.do?productNum=${product.productNum}">${product.productName}</a>
+												<a style="fontsize: 10px; margin-top: 7px;"><span
+													class="favoriteText"
+													style="color: #7e9c8c; margin-top: 5px; font-size: 15px; float: right; margin-right: 1px;">
+														${product.favoriteCount}</span><img
+													src="${contextPath}/resources/images/heartfull.jpg"
+													id="favoritHeart"
+													style="width: 13px; height: 13px; margin-top: 9px; margin-bottom: 3px; float: right;" /></a>
 											</h3>
-											<hr style="margin-top: 15px; margin-bottom:10px;">
-												<h3 class="heading"
-													style="float: right; white-space: nowrap; margin-bottom: 10px;">
-													<a href="#" style="font-size: 16px;"><fmt:formatNumber
-															pattern="###,###,###" value="${product.productPrice}" />원</a>
-												</h3>
+
+											<hr style="margin-top: 10px; margin-bottom: 10px;">
+											<h3 class="heading"
+												style="float: right; white-space: nowrap; margin-bottom: 10px;">
+												<a href="#" style="font-size: 16px;"><fmt:formatNumber
+														pattern="###,###,###" value="${product.productPrice}" />원</a>
+											</h3>
 										</div>
 									</div>
 								</div>

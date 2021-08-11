@@ -8,66 +8,6 @@
 
 
 <style>
-@import url(https://fonts.googleapis.com/css?family=Raleway:500);
-
-.snip1284 {
-	font-family: 'Raleway', Arial, sans-serif;
-	text-align: center;
-	text-transform: uppercase;
-	font-weight: 500;
-	letter-spacing: 1px;
-}
-
-.snip1284 * {
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
-	-webkit-transition: all 0.35s ease;
-	transition: all 0.35s ease;
-}
-
-.snip1284 li {
-	display: inline-block;
-	list-style: outside none none;
-	margin: 0.5em 1.2em;
-	padding: 0;
-}
-
-.snip1284 a {
-	padding: 0 0.6em;
-	color: rgba(255, 255, 255, 0.5);
-	position: relative;
-	text-decoration: none;
-}
-
-.snip1284 a:before, .snip1284 a:after {
-	width: 3px;
-	height: 0;
-	position: absolute;
-	content: '';
-	-webkit-transition: all 0.35s ease;
-	transition: all 0.35s ease;
-	background-color: #7e9c8c;
-}
-
-.snip1284 a:before {
-	top: 0;
-	right: 0;
-}
-
-.snip1284 a:after {
-	bottom: 0;
-	left: 0;
-}
-
-.snip1284 a:hover, .snip1284 .current a {
-	color: #ffffff;
-}
-
-.snip1284 a:hover:before, .snip1284 .current a:before, .snip1284 a:hover:after,
-	.snip1284 .current a:after {
-	height: 100%;
-}
-
 #main_box { /*아이디 선택자*/
 	display: flex;
 	flex-direction: column;
@@ -254,6 +194,44 @@
 
 		form.submit();
 	}
+
+	function optionSelect(option1Name) {
+		$('#option1value').children('option').remove(); //기존 option value 삭제
+		$.ajax({
+
+			type : "GET",
+			url : "${contextPath}/product/option1Value.do",
+			data : {
+				option1Name : option1Name
+			},
+			dataType : "json",
+			error : function(data) {
+				alert("에러가 발생했습니다." + data);
+			},
+			success : function(data) {
+
+				$.each(data, function(index, item) { // key=index,  value=item  
+					let option1value = document.querySelector("#option1value");
+					$(option1value).append(
+							"<option value='"+ item+"'>" + item + "</option>");
+
+				});
+
+			}
+
+		});
+
+	}
+	
+	 function optionNameDiect(obj){ //옵션 이름 직접입력 버튼 클릭시 input box change
+		 $("#option"+obj+"Name").replaceWith("<input type = 'text' id='option"+obj+"Name' name='option"+obj+"Name' placeholder='직접입력' style='font-size: 14px; margin-top: 10px; border: 1px solid #dcdcdc; width: 250px; height: 36px;'>"); //selectbox 태그를 input 태그로 변경
+            }
+	 
+	 function optionValueDiect(obj){ //옵션 값 직접입력 버튼 클릭시 input box change
+		 $("#option"+obj+"value").replaceWith("<input type = 'text' id='option"+obj+"value' name='option"+obj+"value' placeholder='직접입력' style='font-size: 14px; margin-top: 10px; border: 1px solid #dcdcdc; width: 250px; height: 36px;'>"); //selectbox 태그를 input 태그로 변경
+            }
+       
+   
 </script>
 <script type="text/javascript">
 	$('document')
@@ -367,37 +345,6 @@
 		style="padding-top: 100px;">
 		<div class="container">
 
-			<ul class="snip1284" style="padding-left: 0px; margin-bottom: 30px;">
-				<li ><a
-					onclick="location.href='${contextPath}/product/admin_listProduct.do'"
-					data-hover="상품관리"
-					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 100px; cursor: pointer; background-color: white; margin-left: 20px; padding-bottom: 0px;">상품관리</a></li>
-
-
-				<li class="current"><a
-					onclick="location.href='${contextPath}/product/add_product.do'"
-					data-hover="상품등록"
-					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 100px; cursor: pointer; background-color: white; padding-bottom: 0px;">상품등록</a></li>
-
-
-				<li><a
-					onclick="location.href='${contextPath}/admin_listmember.do'"
-					data-hover="회원관리"
-					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 100px; cursor: pointer; background-color: white; padding-bottom: 0px;">회원관리</a></li>
-
-
-				<li><a
-					onclick="location.href='${contextPath}/board/listNotice.do'"
-					data-hover="게시판관리"
-					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 100px; background-color: white; cursor: pointer; padding-bottom: 0px;">게시판관리</a></li>
-				<li><a
-					onclick="location.href='${contextPath}/admin_listorder.do'"
-					data-hover="주문관리"
-					style="font-size: 20px; border: none; color: #5a5a5a; background-color: white; cursor: pointer; padding-bottom: 0px;">주문관리</a></li>
-			</ul>
-
-			<hr style="margin-top: -10px;">
-
 			<section class="ftco-section testimony-section"
 				style="padding-top: 40px;">
 				<div class="container">
@@ -457,14 +404,46 @@
 									<input type="file" name="productContentImage" value="">
 								</div>
 								<div style="padding-left: 77px;">
-									<label style="margin-right: 45px;">상품옵션1</label> <input
-										type="text" name="option1" value=""
-										style="font-size: 14px; margin-top: 10px; border: 1px solid #dcdcdc; width: 326px; height: 36px;">
+
+									<label style="margin-right: 45px;">상품옵션1 이름</label> <select
+										onchange="optionSelect(this.value)" name="option1Name"
+										id="option1Name"
+										style="font-size: 14px; margin-top: 10px; border: 1px solid #dcdcdc; width: 250px; height: 36px;">
+										<c:forEach var="optionName" items="${optionName}">
+											<option>${optionName}</option>
+										</c:forEach>
+									</select>
+									<button type="button"
+										onclick="optionNameDiect(1)"
+										style="float: right; border-radius: 2px; margin-bottom: 3px; background-color: white; color: gray; border: 1px solid #eeeeee; border-radius: 2px; width: 70px; height: 30px; font-size: 14px;"
+										class="btn-secondary btn-xs" >직접입력</button>
 								</div>
 								<div style="padding-left: 77px;">
-									<label style="margin-right: 45px;">상품옵션2</label> <input
-										type="text" name="option2" value=""
-										style="font-size: 14px; margin-top: 10px; border: 1px solid #dcdcdc; width: 326px; height: 36px;">
+									<label style="margin-right: 45px;">상품옵션1 값</label> <select
+										name="option1value" id="option1value"
+										style="font-size: 14px; margin-top: 10px; border: 1px solid #dcdcdc; width: 250px; height: 36px;">
+
+									</select>
+									<button type="button"
+										onclick="optionNameDiect(1)"
+										style="float: right; border-radius: 2px; margin-bottom: 3px; background-color: white; color: gray; border: 1px solid #eeeeee; border-radius: 2px; width: 70px; height: 30px; font-size: 14px;"
+										class="btn-secondary btn-xs" >직접입력</button>
+								</div>
+								<div style="padding-left: 77px;">
+									<label style="margin-right: 45px;">금액추가</label> <select name=""
+										id=""
+										style="font-size: 14px; margin-top: 10px; border: 1px solid #dcdcdc; width: 250px; height: 36px;">
+										<option></option>
+									</select>
+								</div>
+								<div style="padding-left: 77px;">
+									<label style="margin-right: 45px;">상품옵션2</label><select name=""
+										id=""
+										style="font-size: 14px; margin-top: 10px; margin-left: 3px; border: 1px solid #dcdcdc; width: 250px; height: 36px;">
+										<c:forEach var="optionName" items="${optionName}">
+											<option>${optionName}</option>
+										</c:forEach>
+									</select>
 								</div>
 							</form>
 
@@ -472,7 +451,8 @@
 						</div>
 					</section>
 				</div>
-				<div class="container">
+				<a name="test" id="test"> </a>
+				<div class="container" style="margin-top: 200px;">
 					<section class="Easy-sgin-in-wrap4">
 						<ul class="sign-button-list4">
 							<li style="margin-left: 50px;"><button

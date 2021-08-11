@@ -83,5 +83,30 @@ public class OrderDAOImpl implements OrderDAO {
 		return sqlSession.selectOne("mapper.order.selectOrderID");
 		
 	}
+
+	@Override
+	public List<OrderVO> selectmemOrderList(int memOrderNum) throws DataAccessException {
+		return sqlSession.selectList("mapper.order.selectmemOrderList", memOrderNum);
+	}
+
+	@Override
+	public MemberVO selectmemberOrderId(int memOrderNum) throws DataAccessException {
+	
+		return sqlSession.selectOne("mapper.order.selectmemberOrderId",memOrderNum);
+		
+	}
+
+	@Override
+	public OrderVO selectmemberOrderInfo(int memOrderNum) throws DataAccessException {
+		return sqlSession.selectOne("mapper.order.selectmemberOrderInfo",memOrderNum);
+	}
+	
+	@Override
+	public int updateAdminModMemOrder(OrderVO orderVO) throws DataAccessException {
+		int result = sqlSession.update("mapper.order.updateAdminModMemOrder", orderVO);
+		System.out.println(orderVO);
+		System.out.println(result);
+		return result;
+	}
 }
 

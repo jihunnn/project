@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.project.simple.page.Criteria;
 import com.project.simple.product.page.Criteria1;
+import com.project.simple.product.page.Criteria2;
 import com.project.simple.product.vo.ProductVO;
 
 public interface ProductController {
@@ -30,7 +31,12 @@ public interface ProductController {
 	public ModelAndView productForm(@RequestParam("productNum") String productNum,MultipartHttpServletRequest multipartRequest, HttpServletResponse response)throws Exception;
 	public ModelAndView productSearch(@RequestParam("search") String search, @RequestParam("searchType") String searchType,
 			Criteria1 cri, HttpServletRequest request, HttpServletResponse response) throws Exception;
-	public ModelAndView viewProduct(@RequestParam("productNum") String productNum, Criteria cri,HttpServletRequest request,
+	public ModelAndView viewProduct(@RequestParam("productNum") String productNum, Criteria cri, Criteria2 cri2, HttpServletRequest request,
 			HttpServletResponse response) throws Exception;
 	public ModelAndView main(HttpServletRequest request, HttpServletResponse response) throws Exception;
+	
+	public ResponseEntity addNewQuestion(@ModelAttribute("question") ProductVO question, HttpServletRequest request, HttpServletResponse response)throws Exception;
+	public ResponseEntity removeQuestion(@RequestParam("productNum") String productNum, @RequestParam("productQuestionNum") int productQuestionNum, HttpServletRequest request,
+			HttpServletResponse response) throws Exception;
+
 }

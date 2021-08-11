@@ -42,16 +42,6 @@ public class MemberVO{
 		this.memRegdate = memRegdate;
 	}
 	
-	
-	
-	public String getSNS() {
-		return SNS;
-	}
-
-	public void setSNS(String sNS) {
-		SNS = sNS;
-	}
-
 	public String getmemId() {
 		return memId;
 	}
@@ -68,6 +58,15 @@ public class MemberVO{
 		this.memName=memName;
 	}
 	
+	
+	public String getSNS() {
+		return SNS;
+	}
+
+	public void setSNS(String sNS) {
+		SNS = sNS;
+	}
+
 	public String getmemPwd() {
 		return memPwd;
 	}

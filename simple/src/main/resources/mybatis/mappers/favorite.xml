@@ -27,14 +27,14 @@
 	<select id="selectFavoriteList"  parameterType="favoriteVO"  resultMap="favoriteResult"   >
 	    <![CDATA[
 		select favoriteNum, memId, productNum
-		from favoriteproduct
+		from simple.favoriteproduct
 		where memId=#{memId};
 		]]>
 	</select>
 	<select id="selectProductList" resultMap="proResult" parameterType="java.util.Map">
       <![CDATA[
           select *
-          from product
+          from simple.product
           where productNum in
           
       ]]>
@@ -53,21 +53,35 @@
 	
 	<insert id="insertProductInFavorite" parameterType="favoriteVO">
 	  <![CDATA[
-	  insert into favoriteproduct(favoriteNum,productNum,memId) values(#{favoriteNum},#{productNum},#{memId});
+	  insert into simple.favoriteproduct(favoriteNum,productNum,memId) values(#{favoriteNum},#{productNum},#{memId});
 	  ]]>
 	</insert><!-- 관심상품에 상품 추가 -->
 
 	<select id="selectMaxFavoriteId" resultType="int">
 	    <![CDATA[
-			select ifnull(max(favoriteNum), 0) + 1 from favoriteproduct ;
+			select ifnull(max(favoriteNum), 0) + 1 from simple.favoriteproduct ;
     	]]>
 	</select>
 	
-	<delete id="deleteFavoriteProduct" parameterType="String">
+	<delete id="deleteFavoriteProduct" parameterType="java.util.Map">
 	    <![CDATA[
 	      delete from simple.favoriteproduct
-	      where productNum=#{productNum};
+	      where productNum=#{productNum} and memId=#{memId};;
     	]]>
 	</delete><!-- 관심상품에 상품 삭제 -->
+		<delete id="deleteRemoveFavorite" parameterType="favoriteVO">
+	    <![CDATA[
+	      delete from simple.favoriteproduct
+	      where productNum=#{productNum} and memId=#{memId};
+    	]]>
+	</delete><!-- 상품 상세페이지에서 관심상품에 상품 삭제 -->
+
+	<select id="selectFavoriteCount" resultType="int">
+	    <![CDATA[
+		select count(*)
+		from simple.favoriteproduct
+		where productNum=#{productNum};
+		]]>
+	</select>
 	
 	</mapper>

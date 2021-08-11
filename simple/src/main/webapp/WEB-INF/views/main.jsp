@@ -72,14 +72,23 @@
 						<div class="text d-flex py-1">
 							<div class="desc pl-2">
 								<h3 class="heading">
-									<a href="${contextPath}/product/viewProduct.do?productNum=${product.productNum}" style="font-size:15px;">${product.productName}</a>
-								</h3>
+												<a style="font-size: 15px;"
+													href="${contextPath}/product/viewProduct.do?productNum=${product.productNum}">${product.productName}</a>
+												<a style="fontsize: 10px; margin-top: 7px;"><span
+													class="favoriteText"
+													style="color: #7e9c8c; margin-top: 5px; font-size: 15px; float: right; margin-right: 1px;">
+														${product.favoriteCount}</span><img
+													src="${contextPath}/resources/images/heartfull.jpg"
+													id="favoritHeart"
+													style="width: 13px; height: 13px; margin-top: 9px; margin-bottom: 3px; float: right;" /></a>
+											</h3>
 
-								<hr style="margin-top: 15px; margin-bottom:10px;">
-								<h3 class="heading"
-									style="float:right; white-space: nowrap; margin-bottom:10px;">
-									<a href="${contextPath}/product/viewProduct.do?productNum=${product.productNum}" style="font-size: 17px; "><fmt:formatNumber pattern="###,###,###" value="${product.productPrice}"/></a>
-								</h3>
+											<hr style="margin-top: 10px; margin-bottom: 10px;">
+											<h3 class="heading"
+												style="float: right; white-space: nowrap; margin-bottom: 10px;">
+												<a href="#" style="font-size: 16px;"><fmt:formatNumber
+														pattern="###,###,###" value="${product.productPrice}" />원</a>
+											</h3>
 							</div>
 						</div>
 					</div>

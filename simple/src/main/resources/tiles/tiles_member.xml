@@ -48,6 +48,7 @@
 			value="/WEB-INF/views/member/login_03.jsp" />
 	</definition>
 
+
 	<definition name="login_04" extends="baseLayout">
 		<put-attribute name="body"
 			value="/WEB-INF/views/member/login_04.jsp" />
@@ -62,7 +63,6 @@
 		<put-attribute name="body"
 			value="/WEB-INF/views/member/login_06.jsp" />
 	</definition>
-	
 
 	<definition name="storeinfomation" extends="baseLayout">
 		<put-attribute name="body"

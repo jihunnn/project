@@ -1,6 +1,7 @@
 package com.project.simple.favorite.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,10 +50,25 @@ public class FavoriteDAOImpl implements FavoriteDAO{
 	}
 
 	@Override
-	public void deleteFavoriteProduct(String productNum) throws DataAccessException {
-		sqlSession.delete("mapper.favorite.deleteFavoriteProduct",productNum);
+	public void deleteFavoriteProduct(Map<String, Object> map) throws DataAccessException {
+		sqlSession.delete("mapper.favorite.deleteFavoriteProduct",map);
 		
 	}
+
+	@Override
+	public void deleteRemoveFavorite(FavoriteVO favoriteVO) throws DataAccessException {
+		sqlSession.delete("mapper.favorite.deleteRemoveFavorite",favoriteVO);
+		
+	}
+	
+	
+	//관심상품 count
+	public int selectFavoriteCount(String productNum) throws DataAccessException{
+		int favoriteCount = sqlSession.selectOne("mapper.favorite.selectFavoriteCount",productNum);
+		return favoriteCount;
+	}
+
+
 
 
 

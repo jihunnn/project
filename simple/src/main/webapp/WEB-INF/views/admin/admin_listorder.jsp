@@ -83,111 +83,133 @@
 	border-radius: 2px;
 	padding-top: 1.8px;
 }
-
-@import url(https://fonts.googleapis.com/css?family=Raleway:500);
-
-.snip1284 {
-	font-family: 'Raleway', Arial, sans-serif;
-	text-align: center;
-	text-transform: uppercase;
-	font-weight: 500;
-	letter-spacing: 1px;
-}
-
-.snip1284 * {
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
-	-webkit-transition: all 0.35s ease;
-	transition: all 0.35s ease;
-}
-
-.snip1284 li {
-	display: inline-block;
-	list-style: outside none none;
-	margin: 0.5em 1.2em;
-	padding: 0;
-}
-
-.snip1284 a {
-	padding: 0 0.6em;
-	color: rgba(255, 255, 255, 0.5);
-	position: relative;
-	text-decoration: none;
-}
-
-.snip1284 a:before, .snip1284 a:after {
-	width: 3px;
-	height: 0;
-	position: absolute;
-	content: '';
-	-webkit-transition: all 0.35s ease;
-	transition: all 0.35s ease;
-	background-color: #7e9c8c;
-}
-
-.snip1284 a:before {
-	top: 0;
-	right: 0;
-}
-
-.snip1284 a:after {
-	bottom: 0;
-	left: 0;
-}
-
-.snip1284 a:hover, .snip1284 .current a {
-	color: #ffffff;
-}
-
-.snip1284 a:hover:before, .snip1284 .current a:before, .snip1284 a:hover:after,
-	.snip1284 .current a:after {
-	height: 100%;
-}
 </style>
+<script> src="http://code.jquery.com/jquery-1.6.4.min.js"</script>
+<script type="text/javascript">
+    
+	function listMemOrderSearch() {
+		var form = document.memOrderSearch;
+
+		if (form.search.value == "") {
+			alert("검색 단어를 입력해주세요")
+			form.search.focus();
+			return false;
+		}else{
+			form.submit();
+		}
 
 
+	}
+	$(function(){
+		var chkObj = document.getElementsByName("RowCheck");
+		var rowCnt = chkObj.length;
+		
+		$("input[name='allCheck']").click(function(){
+			var chk_listArr = $("input[name='RowCheck']");
+			for(var i=0; i<chk_listArr.length; i++){
+				chk_listArr[i].checked = this.checked;
+			}
+		});
+		$("input[name='RowCheck']").click(function(){
+			if($("input[name='RowCheck']:checked").length==rowCnt){
+				$("input[name='allCheck']")[0].checked = true;
+			}else{
+				$("input[name='allCheck']")[0].checked = false;
+			}
+		});
+	});
+	function deleteValue(){
+		var valueArr = new Array();
+		var list = $("input[name='RowCheck']");
+		for(var i = 0; i < list.length; i++){
+			if(list[i].checked){//선택되어 있으면 배열에 값을 저장
+					valueArr.push(list[i].value);
+				}
+			}
+			if(valueArr.length == 0){
+				alert("선택된 주문이 없습니다.");
+			}else{
+				if(confirm("정말 삭제하시겠습니까?")){
+				$.ajax({
+					url : "${contextPath}/admin_listorder/admin_selectremoveMemOrder.do", //전송 URL
+					type: 'POST',
+					traditional : true,
+					data : {
+						valueArr : valueArr   //보내고자 하는 data 변수 설정
+					},
+					success: function(jdata){
+						if(jdata = 1){
+							alert("회원 주문을 삭제하셨습니다.");
+							location.href = '${contextPath}/admin_listorder.do'; //admin_listorder로 페이지 새로고침
+						}else{
+							alert("회원주문삭제에 실패하셨습니다.");
+						}	
+					}
+
+				});
+				}else{
+					return false;
+				}
+			}
+	}
+	
+	
+</script>
+ <script type="text/javascript">
+		function MemOrderdelete() {
+			var memOrderNum=$("#memOrderNum").val();
+			if(confirm("정말 삭제하시겠습니까?")){
+				$.ajax({
+				url : "${contextPath}/admin_listorder/removeMemOrder.do",
+				type : "POST",
+				data : {
+					memOrderNum : memOrderNum
+					},
+				success : function(result) {
+				    alert("회원 주문이 삭제되었습니다");
+					location.replace("${contextPath}/admin_listorder.do"); //admin_listorder로 페이지 새로고침
+					},
+				});
+			}else{
+					 return false;
+				  }
+		  }
+		
+		function listMemberdelete1() {
+			var memId=$("#memId1").val();
+			if(confirm("정말 삭제하시겠습니까?")){
+				$.ajax({
+				url : "${contextPath}/admin_removeMember.do",
+				type : "POST",
+				data : {
+						memId : memId
+					},
+				success : function(result) {
+				    alert("회원 주문이 삭제되었습니다");
+				    location.href = '${contextPath}/admin_listorder.do'; //admin_listorder로 페이지 새로고침
+					},
+				});
+			}else{
+					 return false;
+				  }
+		  }
+		
+			  
+ </script>
 </head>
-<title>회원관리창</title>
+<title>관리자 회원 주문조회창</title>
 <body>
 
 	<section class="ftco-section testimony-section"
 		style="padding-top: 100px;">
 
 		<div class="container">
-			<ul class="snip1284" style="padding-left: 0px; margin-bottom: 30px;">
-				<li><a
-					onclick="location.href='${contextPath}/product/admin_listProduct.do'"
-					data-hover="상품관리"
-					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 100px; cursor: pointer; background-color: white; margin-left: 20px; padding-bottom: 0px;">상품관리</a></li>
-
-
-				<li><a
-					onclick="location.href='${contextPath}/product/add_product.do'"
-					data-hover="상품등록"
-					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 100px; cursor: pointer; background-color: white; padding-bottom: 0px;">상품등록</a></li>
-
-
-				<li ><a
-					onclick="location.href='${contextPath}/admin_listmember.do'"
-					data-hover="회원관리"
-					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 100px; cursor: pointer; background-color: white; padding-bottom: 0px;">회원관리</a></li>
-
-
-				<li><a
-					onclick="location.href='${contextPath}/board/listNotice.do'"
-					data-hover="게시판관리"
-					style="font-size: 20px; border: none; color: #5a5a5a; margin-right: 100px; background-color: white; cursor: pointer; padding-bottom: 0px;">게시판관리</a></li>
-				<li class="current"><a
-					onclick="location.href='${contextPath}/admin_listorder.do'"
-					data-hover="주문관리"
-					style="font-size: 20px; border: none; color: #5a5a5a; background-color: white; cursor: pointer; padding-bottom: 0px;">주문관리</a></li>
-			</ul>
-
-
-			<form name="memberSearch"
+			<jsp:include page="/WEB-INF/views/common/admin_topmenu.jsp"
+				flush="false" />
+			<form name="memOrderSearch"
 				action="${contextPath}/admin_listorder/orderSearch.do" method="post">
 				<div style="margin-bottom: 10px;">
-					<button type="submit" id="buttonmy" class="btn btn-dark"
+					<button type="button" id="buttonmy" class="btn btn-dark" onclick="listMemOrderSearch()"
 						style="margin-top: 21px; float: right; padding-top: 4px; height: 34px; font-size: 14px; padding-top: 4px; background-color: #7e9c8c; border: none;">조회</button>
 					<input type="text"
 						style="margin-top: 21px; float: right; height: 34px; border: 1px solid #dcdcdc; font-size: 14px; margin-right: 5px;"
@@ -198,29 +220,28 @@
 						<option value="productName">상품명</option>
 						<option value="memSpPhoneNum1">전화번호</option>
 					</select>
-					<button type="button" onclick="deleteValue02();"
-						style="float: left; border-radius: 2px; margin-bottom: 3px; margin-top: 25px; background-color: white; color: gray; border: 1px solid #eeeeee; border-radius: 2px; width: 70px; height: 30px; font-size: 14px;"
-						class="btn-secondary btn-xs">선택삭제</button>
-					<button type="button" onclick="deleteValue02();"
-						style="float: left; border-radius: 2px; margin-bottom: 3px; margin-left: 700px; margin-top: 25px; background-color: white; color: gray; border: 1px solid #eeeeee; border-radius: 2px; width: 70px; height: 30px; font-size: 14px;"
+					<div
+						style="font-size: 25px; font-weight: bold; margin-left: 18px; padding-top: 13px; float: left;">
+						<a style="color: #7e9c8c;">주문조회</a>
+					</div>
+					<button type="button" onclick="location.href='${contextPath}/admin_listorder.do'"
+						style="float: left; border-radius: 2px; margin-bottom: 3px; margin-right:5px; margin-left:5px; margin-top: 22px; background-color: white; color: gray; border: 1px solid #eeeeee; border-radius: 2px; width: 70px; height: 30px; font-size: 14px;"
 						class="btn-secondary btn-xs">회원</button>
 					<button type="button" onclick="deleteValue02();"
-						style="float: left; border-radius: 2px; margin-bottom: 3px; margin-left: 10px; margin-top: 25px; background-color: white; color: gray; border: 1px solid #eeeeee; border-radius: 2px; width: 70px; height: 30px; font-size: 14px;"
+						style="float: left; border-radius: 2px; margin-bottom: 3px; margin-top: 22px; background-color: white; color: gray; border: 1px solid #eeeeee; border-radius: 2px; width: 70px; height: 30px; font-size: 14px;"
 						class="btn-secondary btn-xs">비회원</button>
 
 				</div>
 			</form>
 
 
-			<table class="table" style="font-size: 14px;">
+			<table class="table" style="font-size: 13px;">
 				<thead class="table-dark" align=center>
 					<tr align="center"
-						style="background-color: #eeeeee; color: black; border-top: 1px solid #7e9c8c; border-bottom: 1px solid #c6c8ca; font-size: 15px;">
+						style="background-color: #eeeeee; color: black; border-top: 1px solid #7e9c8c; border-bottom: 1px solid #c6c8ca; font-size: 14px;">
 						<td scope="col" style="width: 50px;">선택</td>
 						<td scope="col" style="width: 60px;">주문번호</td>
 						<td scope="col" style="width: 60px;">아이디</td>
-						<td scope="col" style="width: 120px;">상품명</td>
-						<td scope="col" style="width: 150px;">상품옵션</td>
 						<td scope="col" style="width: 1px;">가격</td>
 						<td scope="col" style="width: 100px;">전화번호</td>
 						<td scope="col" style="width: 130px;">주소</td>
@@ -232,7 +253,7 @@
 							<c:choose>
 								<c:when test="${empty orderSearchMap.orderSearchList}">
 									<tr height="200">
-										<td colspan="5"
+										<td colspan="10"
 											style="background-color: white; padding-top: 100px;">
 											<p align="center">
 												<b><span style="color: black;">조회된 주문내역이 없습니다.</span></b>
@@ -244,27 +265,28 @@
 
 									<c:forEach var="orderSearch" items="${orderSearchList}">
 										<tr
-											style="border-bottom: 1px solid #c6c8ca; background-color: white; color: black;">
+											style="border-bottom: 1px solid #c6c8ca; background-color: white; color: black; ">
 											<th scope="col" style="vertical-align: middle;"><input
 												type="checkbox" name="chk" value=""></th>
-											<th scope="col" style="vertical-align: middle;">${orderSearch.memOrderNum}</th>
-											<th scope="col" style="vertical-align: middle;">${orderSearch.memId}</th>
-											<th scope="col" style="vertical-align: middle;">${orderSearch.productName}</th>
-											<th scope="col" style="vertical-align: middle;">${orderSearch.option1name}:${orderSearch.option1value}<br>${orderSearch.option2name}:${orderSearch.option2value}</th>
-											<th scope="col" style="vertical-align: middle;">${orderSearch.totalPrice}원</th>
-											<th scope="col" style="vertical-align: middle;">${orderSearch.memSpPhoneNum1}</th>
-											<th scope="col" style="vertical-align: middle;">${orderSearch.memSpAdr}</th>
-											<th scope="col" style="vertical-align: middle;">${orderSearch.memOrderDate}</th>
+											<th scope="col" style="vertical-align: middle; font-weight: normal;">${orderSearch.memOrderNum}</th>
+											<th scope="col" style="vertical-align: middle; font-weight: normal;">${orderSearch.memId}</th>
+											<th scope="col" style="vertical-align: middle; font-weight: normal;">${orderSearch.totalPrice}원</th>
+											<th scope="col" style="vertical-align: middle; font-weight: normal;">${orderSearch.memSpPhoneNum1}</th>
+											<th scope="col" style="vertical-align: middle; font-weight: normal;">${orderSearch.memSpAdr}</th>
+											<th scope="col" style="vertical-align: middle; font-weight: normal;">${orderSearch.memOrderDate}</th>
 											<th scope="col" style="vertical-align: middle;"><input
 												type="hidden" value="${orderSearch.memId}" name="memId" />
-												<button type="submit" class="btn btn-dark"
-													style="border-radius: 2px; margin-bottom: 3px; background-color: white; color: gray; border: 1px solid #7e9c8c; border-radius: 2px; width: 70px; height: 30px; font-size: 14px;">수정</button>
+												<button type="button" class="btn btn-dark" onclick="location.href='${contextPath}/admin_listorder/detailorder.do?memOrderNum=${orderSearch.memOrderNum}'"
+														style="border-radius: 2px; margin-bottom: 3px; background-color: white; color: gray; border: 1px solid #7e9c8c; border-radius: 2px; width: 90px; height: 30px; font-size: 14px;">상세보기</button>
 												<br>
 												<button type="button"
 													onclick="location.href='${contextPath}/admin_removeMember.do?memId=${orderSearch.memId}'"
 													class="btn btn-dark"
-													style="border-radius: 2px; margin-bottom: 3px; margin-top: 5px; background-color: white; color: gray; border: 1px solid #7e9c8c; border-radius: 2px; width: 70px; height: 30px; font-size: 14px;">삭제</button>
+													style="border-radius: 2px; margin-bottom: 3px; margin-top: 5px; background-color: white; color: gray; border: 1px solid #7e9c8c; border-radius: 2px; width: 90px; height: 30px; font-size: 14px;">삭제</button>
 											</th>
+											</tr>
+											
+											
 									</c:forEach>
 								</c:otherwise>
 							</c:choose>
@@ -273,44 +295,39 @@
 							<c:choose>
 								<c:when test="${empty ordersList}">
 									<tr height="200">
-										<td colspan="5"
+										<td colspan="10"
 											style="background-color: white; padding-top: 100px;">
 											<p align="center">
-												<b><span style="color: black;">등록된 회원이 없습니다.</span></b>
+												<b><span style="color: black;">조회된 주문내역이 없습니다.</span></b>
 											</p>
 										</td>
 									</tr>
 								</c:when>
 								<c:otherwise>
-									<form action="${contextPath}/admin/viewOrder.do" method="post">
-										<c:forEach var="ordersList" items="${ordersList}">
+										<c:forEach var="orders" items="${ordersList}">
 
-											<tr
+											<tr 
 												style="border-bottom: 1px solid #c6c8ca; background-color: white; color: black;">
 												<th scope="col" style="vertical-align: middle;"><input
-													type="checkbox" name="chk" value=""></th>
-												<th scope="col" style="vertical-align: middle;">${ordersList.memOrderNum}</th>
-												<th scope="col" style="vertical-align: middle;">${ordersList.memId}</th>
-												<th scope="col" style="vertical-align: middle;">${ordersList.productName}</th>
-												<th scope="col" style="vertical-align: middle;">${ordersList.option1name}:${ordersList.option1value}<br>${ordersList.option2name}:${ordersList.option2value}</th>
-												<th scope="col" style="vertical-align: middle;">${ordersList.totalPrice}원</th>
-												<th scope="col" style="vertical-align: middle;">${ordersList.memSpPhoneNum1}</th>
-												<th scope="col" style="vertical-align: middle;">${ordersList.memSpAdr}</th>
-												<th scope="col" style="vertical-align: middle;">${ordersList.memOrderDate}</th>
-												<th scope="col" style="vertical-align: middle;"><input
-													type="hidden" value="${member.memId}" name="memId" />
-													<button type="submit" class="btn btn-dark"
-														style="border-radius: 2px; margin-bottom: 3px; background-color: white; color: gray; border: 1px solid #7e9c8c; border-radius: 2px; width: 70px; height: 30px; font-size: 14px;">수정</button>
+													type="checkbox" name="RowCheck" id="memOrderNum" value="${orders.memOrderNum}"></th>
+												<th scope="col" style="vertical-align: middle; font-weight: normal;">${orders.memOrderNum}</th>
+												<th scope="col" style="vertical-align: middle; font-weight: normal;">${orders.memId}</th>
+												<th scope="col" style="vertical-align: middle; font-weight: normal;">${orders.totalPrice}원</th>
+												<th scope="col" style="vertical-align: middle; font-weight: normal;">${orders.memSpPhoneNum1}</th>
+												<th scope="col" style="vertical-align: middle; font-weight: normal;">${orders.memSpAdr}</th>
+												<th scope="col" style="vertical-align: middle; font-weight: normal;">${orders.memOrderDate}</th>
+												<th scope="col" style="vertical-align: middle; font-weight: normal;">
+													<button type="button" class="btn btn-dark" onclick="location.href='${contextPath}/admin_listorder/detailorder.do?memOrderNum=${orders.memOrderNum}'"
+														style="border-radius: 2px; margin-bottom: 3px; background-color: white; color: gray; border: 1px solid #7e9c8c; border-radius: 2px; width: 90px; height: 30px; font-size: 14px;">상세보기</button>
 													<br>
 													<button type="button"
-														onclick="location.href='${contextPath}/admin_removeMember.do?memId=${member.memId }'"
+														onclick="MemOrderdelete()"
 														class="btn btn-dark"
-														style="border-radius: 2px; margin-bottom: 3px; margin-top: 5px; background-color: white; color: gray; border: 1px solid #7e9c8c; border-radius: 2px; width: 70px; height: 30px; font-size: 14px;">삭제</button>
+														style="border-radius: 2px; margin-bottom: 3px; margin-top: 5px; background-color: white; color: gray; border: 1px solid #7e9c8c; border-radius: 2px; width: 90px; height: 30px; font-size: 14px;">삭제</button>
 												</th>
 											</tr>
 
 										</c:forEach>
-									</form>
 								</c:otherwise>
 							</c:choose>
 						</c:when>
@@ -318,6 +335,9 @@
 
 				</thead>
 			</table>
+			<button type="button" onclick="deleteValue();"
+				style="float: right; border-radius: 2px; margin-bottom: 3px; background-color: white; color: gray; border: 1px solid #eeeeee; border-radius: 2px; width: 70px; height: 30px; font-size: 14px;"
+				class="btn-secondary btn-xs">선택삭제</button>
 		</div>
 		<!-- 내용 끝 -->
 

@@ -70,6 +70,15 @@ h3 {
 </style>
 <script type="text/javascript">
     var idck = 0;
+    var check = 0;
+ 
+    function div_show(selectList) {
+	    var obj1 = document.getElementById("phone_con"); // 핸드폰
+	
+	    if( selectList == "0" ) { // 핸드폰
+	        obj1.style.display = "block";    
+	    } 
+	}
 	//로그인
 	function Check_Join() {
 		var form = document.CheckJoin;
@@ -112,7 +121,7 @@ h3 {
 			return false;
 		}
 		//아이디 길이 체크 (4~12자)
-		if (form.memId.value.length<4 || form.memId.value.length>12) {
+		if (form.memId.value.length<4 || form.memId.value.length>13) {
 			alert("아이디를 4~12자까지 입력해주세요.")
 			form.memId.focus();
 			form.memId.select();
@@ -132,7 +141,7 @@ h3 {
 			return false;
 		}
 		//비밀번호 길이 체크(10자이상 허용)
-		if (form.memPwd.value.length < 9) {
+		if (form.memPwd.value.length < 10) {
 			alert("비밀번호를 10자이상 입력해주세요.")
 			form.memPwd.focus();
 			form.memPwd.select();
@@ -183,6 +192,12 @@ h3 {
 			form.memPhoneNum1.focus();
 			return false;
 		}
+		if (form.memPhoneNum1.value.length < 5) {
+			alert("핸드폰번호를 4자이하 입력해주세요.")
+			form.memPhoneNum1.focus();
+			form.memPhoneNum1.select();
+			return false;
+		}
 
 		for (var i = 0; i < form.memPhoneNum1.value.length; i++) {
 			ch = form.memPhoneNum1.value.charAt(i)
@@ -196,6 +211,12 @@ h3 {
 		if (form.memPhoneNum2.value == "") {
 			alert("핸드폰번호를 입력하지 않았습니다.")
 			form.memPhoneNum2.focus();
+			return false;
+		}
+		if (form.memPhoneNum2.value.length < 5) {
+			alert("핸드폰번호를 4자이하 입력해주세요.")
+			form.memPhoneNum2.focus();
+			form.memPhoneNum2.select();
 			return false;
 		}
 		for (var i = 0; i < form.memPhoneNum2.value.length; i++) {
@@ -212,6 +233,11 @@ h3 {
 			form.memAdr.focus();
 			return false;
 		}
+		if (form.memAdr2.value == "") {
+			alert("상세주소를 입력하지 않았습니다.")
+			form.memAdr2.focus();
+			return false;
+		}
 
 		if (!agree1.checked) {
 
@@ -224,13 +250,15 @@ h3 {
 			alert("개인정보 수집 및 이용안내 동의를 체크하세요.");
 			agree2.focus();
 			return false;
-		}if(confirm("회원가입을 하시겠습니까?")){
-	        if(idck==0){
-	            alert('아이디 중복확인을 체크해주세요');
+		}if(idck==0){
+	            alert("아이디 중복확인을 체크해주세요");
 	            return false;
-	        }else{
+	    }if(check==0){
+	            alert("핸드폰인증을 확인해주세요");
+	            return false;
+	    }if(confirm("회원가입을 하시겠습니까?")){
+	       
 	        form.submit();
-	        }
 	    }
 
 	}
@@ -283,6 +311,7 @@ h3 {
 	       	    $('#btnOverlapped').prop("disabled", true);
 	       	   
 	          }else{
+	        	  idck = 0;
 	        	  alert("사용할 수 없는 ID입니다.");
 	          }
 	       },
@@ -296,9 +325,59 @@ h3 {
 	 }	
 
 	//핸드폰 인증 팝업창
-	function phone_check() {
-		window.open("phone_check.jsp", "phonewin", "width=400, height=350");
-	}
+	$(function(){
+		$("#BtnPhoneConf").click(function(){
+			var phone1 = jQuery("#phone1").val();
+			var phone2 = jQuery("#phone2").val();
+			var phone3 = jQuery("#phone3").val();
+			var memPhoneNum4 = "";
+			memPhoneNum4 = phone1 +"-"+ phone2 +"-"+ phone3;
+			
+			$.ajax({
+				url : "${contextPath}/join/check/sendSMS",
+				type : "POST",
+				data : {
+					memPhoneNum : memPhoneNum4
+				},
+				success : function(result) {
+					alert(result);
+				},
+			})
+		});
+	})
+	//비밀번호 찾기_핸드폰_인증번호_확인	
+	$(function(){
+		$("#findBtnPhone").click(function(){
+			var Approval_key=$("#Approval_key").val();
+			$.ajax({
+				url : "${contextPath}/phone_confirm.do",
+				type : "POST",
+				data : {
+					Approval_key : Approval_key
+				},
+				success : function(data,textStatus) {
+					 if(data=='false'){
+				       	    alert("핸드폰 인증이 완료되었습니다.");
+				       	    check = 1;
+				       	   
+				          }else{
+				        	  check = 0;
+				        	  alert("인증번호가 일치하지 않습니다.");
+				          }
+				},
+				error:function(data,textStatus){
+			          alert("에러가 발생했습니다.");ㅣ
+			       },
+			       complete:function(data,textStatus){
+			         // alert("작업을완료 했습니다");
+			       }
+		    });  //end ajax	 
+		 }
+		)}
+	)
+	
+	
+	 
 </script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
@@ -356,7 +435,8 @@ h3 {
 	<section class="ftco-section testimony-section"
 		style="padding-top: 0px;">
 		<div class="container" style="height: 650px">
-
+         <input type="hidden" name="check" value="${check}"
+					id="check" />
 			<!-- 최근 본 상품 -->
 			<!--  -->
 			<form name="CheckJoin" action="${contextPath}/addMembers.do"
@@ -459,7 +539,8 @@ h3 {
 											</div>
 										</td>
 										<td colspan="3" class="phone" style="padding-left: 50px;">
-											<select name="memPhoneNum" id="selcet1"
+										<input type="hidden" id="memPhoneNum4" />
+											<select name="memPhoneNum" id="phone1"
 											style="height: 34px; margin-bottom: 10px; border: 1px solid #dcdcdc; width: 66px; height: 36px;">
 												<option value="">선택</option>
 												<option value="010">010</option>
@@ -468,14 +549,29 @@ h3 {
 												<option value="017">017</option>
 												<option value="019">019</option>
 												<option value="010">010</option>
-										</select>- <input type="text" name="memPhoneNum1" value="" size="3"
+										</select>- <input type="text" name="memPhoneNum1" value="" size="3"  id="phone2"
 											style="border: 1px solid #dcdcdc; width: 77px; height: 36px;">-
-											<input type="text" name="memPhoneNum2" value="" size="3"
+											<input type="text" name="memPhoneNum2" value="" size="3"  id="phone3"
 											style="border: 1px solid #dcdcdc; width: 77px; height: 36px;">
-											<input type="button" name="phone_certification"
-											style="background-color: #c6c6c6; border: none; color: white; height: 36px; margin-left: 4px;"
-											onclick="phone_check()" value="핸드폰인증">
+											<button type="button" name="phone_certification" id="BtnPhoneConf" onclick="div_show('0');"
+											style="background-color: #c6c6c6; border: none; color: white; height: 36px; margin-left: 4px;">핸드폰인증</button>
 										</td>
+									</tr>
+								
+									<tr>
+									    <td>
+									    </td>
+									    
+									    <td>
+									   <div id="phone_con" style="display: none;">
+									    <input type="text" name="Approval_key" id="Approval_key"
+											size="10"  placeholder="인증번호를 입력하세요"
+											style="margin-left:49px; margin-bottom: 10px; border: 1px solid #dcdcdc; width: 218px; height: 36px;">
+										<button type="button" id="findBtnPhone"
+											style="background-color: #c6c6c6; border: none; color: white; height: 36px; margin-left: 4px;">인증번호 확인</button>
+										</div>
+									    </td>
+									    
 									</tr>
 									<tr>
 										<td class="addr1">

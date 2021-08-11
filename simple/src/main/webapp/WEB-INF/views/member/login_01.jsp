@@ -234,6 +234,60 @@
 </style>
 
 <script type="text/javascript">
+
+$(document).ready(function(){
+    var userInputId = getCookie("userInputId");//저장된 쿠기값 가져오기
+    $("input[name='memId']").val(userInputId); 
+     
+    if($("input[name='memId']").val() != ""){ // 그 전에 ID를 저장해서 처음 페이지 로딩
+                                           // 아이디 저장하기 체크되어있을 시,
+        $("#idSaveCheck").attr("checked", true); // ID 저장하기를 체크 상태로 두기.
+    }
+     
+    $("#idSaveCheck").change(function(){ // 체크박스에 변화가 발생시
+        if($("#idSaveCheck").is(":checked")){ // ID 저장하기 체크했을 때,
+            var userInputId = $("input[name='memId']").val();
+            setCookie("userInputId", userInputId, 7); // 7일 동안 쿠키 보관
+        }else{ // ID 저장하기 체크 해제 시,
+            deleteCookie("userInputId");
+        }
+    });
+     
+    // ID 저장하기를 체크한 상태에서 ID를 입력하는 경우, 이럴 때도 쿠키 저장.
+    $("input[name='memId']").keyup(function(){ // ID 입력 칸에 ID를 입력할 때,
+        if($("#idSaveCheck").is(":checked")){ // ID 저장하기를 체크한 상태라면,
+            var userInputId = $("input[name='memId']").val();
+            setCookie("userInputId", userInputId, 7); // 7일 동안 쿠키 보관
+        }
+    });
+});
+ 
+function setCookie(cookieName, value, exdays){
+    var exdate = new Date();
+    exdate.setDate(exdate.getDate() + exdays);
+    var cookieValue = escape(value) + ((exdays==null) ? "" : "; expires=" + exdate.toGMTString());
+    document.cookie = cookieName + "=" + cookieValue;
+}
+ 
+function deleteCookie(cookieName){
+    var expireDate = new Date();
+    expireDate.setDate(expireDate.getDate() - 1);
+    document.cookie = cookieName + "= " + "; expires=" + expireDate.toGMTString();
+}
+ 
+function getCookie(cookieName) {
+    cookieName = cookieName + '=';
+    var cookieData = document.cookie;
+    var start = cookieData.indexOf(cookieName);
+    var cookieValue = '';
+    if(start != -1){
+        start += cookieName.length;
+        var end = cookieData.indexOf(';', start);
+        if(end == -1)end = cookieData.length;
+        cookieValue = cookieData.substring(start, end);
+    }
+    return unescape(cookieValue);
+}
 	//로그인
 	function Login() {
 
@@ -241,13 +295,13 @@
 		//아이디 검사 ---------------------------------------------------------------------------
 		if (form.memId.value == "") {
 			alert("아이디를 입력해주세요!");
-			form.id.focus();//포커스를 id박스로 이동.
+			form.memId.focus();//포커스를 id박스로 이동.
 			return false;
 
 		} else if (form.memPwd.value == "")//패스워드 검사 -------------------------------------------------------------------------
 		{
 			alert("비밀번호를 입력해주세요!");
-			form.pwd.focus();//포커스를 Password박스로 이동.
+			form.memPwd.focus();//포커스를 Password박스로 이동.
 			return false;
 
 		} else {
@@ -288,6 +342,26 @@
 
 	}
 </script>
+<!-- 카카오 로그인 --> 
+<script type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.min.js" charset="utf-8"></script> 
+<script type="text/javascript"> 
+//초기화 시키기.
+
+	
+	$(document).ready(function(){ 
+		Kakao.init('40acc8a0f94fc942b570f1aebb0094de'); 
+		Kakao.isInitialized(); 
+		});
+	function kakaoLogin() { 
+		Kakao.Auth.authorize({
+			redirectUri: 'http://localhost:8080/simple/kakaoLogin.do' 
+			}); 
+		}
+
+</script>
+
+
+
 </head>
 <title>로그인창</title>
 <body>
@@ -317,7 +391,7 @@
 									<img src="${contextPath}/resources/images/login/login-id.jpg"
 										width="23"><input
 										style="font-size: 14px; border: 1px solid #dcdcdc; width: 326px; height: 36px;" onkeypress="if(event.keyCode == 13){Login(); return; }"
-										type="text" name="memId" s placeholder="아이디를 입력하세요">
+										type="text" name="memId" placeholder="아이디를 입력하세요">
 								</div>
 								<div>
 									<img src="${contextPath}/resources/images/login/login-pwd.jpg"
@@ -328,14 +402,13 @@
 							</div>
 						</form>
 
-						<div class="id_save_find" style="float: left;">
-							<input type="checkbox" name="save_id" id="chk_save_id"
-								style="vertical-align: middle;" value="on"> <label
-								id="id_pwd_save" for="saveIdPwd" class="on"
-								style="font-size: 12px;">아이디/비밀번호 저장</label> <span
+						<div class="id_save_find" style="float: left; padding-left:37px">
+							<input type="checkbox" name="save_id" id="idSaveCheck"
+								style="vertical-align: middle; "> <label
+								style="font-size: 12px;">아이디 저장</label> <span
 								id="find_id_pwd">
 								<button onclick="location.href='${contextPath}/login_03.do'"
-									style="border: none; font-size: 13px; margin-left: 50px; color: black; margin-right: 1px; height: 30px;"
+									style="border: none; font-size: 13px; margin-left: 110px; color: black; margin-right: 1px; height: 30px;"
 									class="btn_member_id_pwd">아이디/비밀번호 찾기</button>
 							</span>
 						</div>
@@ -355,7 +428,7 @@
 											style="margin-right: 5px; margin-bottom: 3px; vertical-align: middle;"><span
 											style="font-size: 14px;" class="fas fa-qrcode">네이버로 로그인</span>
 									</button></li>
-								<li><button onclick="location.href='#'"
+								<li><button onclick="location.href='javascript:kakaoLogin();'"
 										style="background-color: #eeeeee; color: black; border: none;">
 
 										<img
@@ -416,7 +489,7 @@
 	<div class="container">
 		<section class="Easy-sgin-in-wrap1" style="margin-bottom: 50px;">
 			<ul class="sign-button-list1">
-				<li><button onclick="location.href='Join.jsp'"
+				<li><button onclick="location.href='${contextPath}/join_01.do'"
 						style="background-color: #757575; color: white; margin-top: 50px; font-size:14px; border:none;">
 						<i class="sgin-up"></i><span>회원가입</span>
 					</button></li>

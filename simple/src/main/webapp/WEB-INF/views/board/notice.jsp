@@ -89,8 +89,15 @@ request.setCharacterEncoding("utf-8");
 	<section class="ftco-section"
 		style="padding-top: 70px; margin-top: 30px;">
 		<div class="container">
-			<jsp:include page="/WEB-INF/views/common/csMenu.jsp" flush="false" />
-
+			<c:choose>
+				<c:when test="${AdminisLogOn == true && admin != null}">
+					<jsp:include page="/WEB-INF/views/common/admin_topmenu.jsp"
+						flush="false" />
+				</c:when>
+				<c:otherwise>
+					<jsp:include page="/WEB-INF/views/common/csMenu.jsp" flush="false" />
+				</c:otherwise>
+			</c:choose>
 			<div>
 				<h2 style="font-size: 25px; margin-top: 15px; float: left;">공지사항</h2>
 				<h5
@@ -101,29 +108,7 @@ request.setCharacterEncoding("utf-8");
 			<!-- 타이틀 끝 -->
 
 			<!-- 최근 본 상품 -->
-			<div id="recentlyProduct"
-				style="position: absolute; width: 120px; height: 310px; margin-left: 1370px; border: 1px solid #d2d2d2; margin-top: -100px;">
-				<ul
-					style="list-style: none; margin-top: 10px; padding-left: 20px; margin-bottom: 10px;">
-					<li><a href="#"
-						style="padding-left: -10px; padding-bottom: 1px; color: black;">최근본상품</a></li>
-				</ul>
-				<hr style="margin-top: 0px; margin-bottom: 0px; color: #d2d2d2;">
-				<ul style="list-style: none; padding-top: 5px;">
-					<li><a href="#"><img
-							src="${contextPath}/download_product.do?productNum=${productNum}&productImage=${productImage}"
-							style="width: 100px; height: 100px; padding-top: 10px; margin-left: -30px;"></a></li>
-					<li><a href="#"><img
-							src="${contextPath}/resources/images/image_2.jpg"
-							style="width: 100px; height: 100px; padding-top: 10px; padding-top: 10px; margin-left: -30px;"></a></li>
-				</ul>
-				<hr style="margin-top: 0px; margin-bottom: 0px; color: #d2d2d2;">
-				<ul
-					style="list-style: none; padding-left: 30px; margin-bottom: 10px; margin-top: 8px;">
-					<li><a href="#"
-						style="color: black; text-align: center; margin-top: 8px; padding-top: 30px;">더보기▼</a></li>
-				</ul>
-			</div>
+			
 			<!-- 최근 본 상품 끝 -->
 
 			<!-- 내용 -->
@@ -174,7 +159,8 @@ request.setCharacterEncoding("utf-8");
 				</thead>
 			</table>
 			<c:if test="${AdminisLogOn== true &&admin !=null}">
-				<a id="buttonmy" class="btn btn-dark" onClick="location.href='${contextPath}/admin/noticeForm.do'"
+				<a id="buttonmy" class="btn btn-dark"
+					onClick="location.href='${contextPath}/admin/noticeForm.do'"
 					style="float: right; margin-top: 25px; border-radius: 2px; background-color: #7e9c8c; color: white; border: none; border-radius: 2px; width: 120px; height: 40px; padding-top: 10px; font-size: 14px;">글쓰기</a>
 			</c:if>
 		</div>

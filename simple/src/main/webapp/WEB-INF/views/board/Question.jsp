@@ -11,16 +11,15 @@
 
 <head>
 <script>
-	$(document).on('click', '#btnSearch', function(object) {
-		if()
-		object.preventDefault();
-		var url = "${contextPath}/board/questionSearch.do";
-		url = url + "?search=" + $('#search').val();
-		location.href = url;
-		console.log(url);
+$(document).on('click', '#btnSearch', function(object) {
 
-	});
-	
+	object.preventDefault();
+	var url = "${contextPath}/board/questionSearch.do";
+	url = url + "?search=" + $('#search').val();
+	location.href = url;
+
+});
+
 	
     function InquiryList() {
         if (${isLogOn != true && member == null}) {
@@ -34,6 +33,7 @@
         	location.href='${contextPath}/board/listInquiry.do';
         }
     }
+	
 
 </script>
 
@@ -243,31 +243,15 @@ style
 	<section class="ftco-section"
 		style="padding-top: 70px; margin-top: 30px;">
 		<div class="container">
-
-
-			<ul class="snip1284" style="margin-bottom: 30px; padding-left: 0px;">
-				<li><a
-					onclick="location.href='${contextPath}/board/listNotice.do'"
-					data-hover="공지사항"
-					style="font-size: 19px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; margin-left: 20px; padding-bottom: 0px;">공지사항</a></li>
-
-
-				<li class="current"><a
-					onclick="location.href='${contextPath}/board/listQuestion.do'"
-					data-hover="자주 묻는 질문"
-					style="font-size: 19px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">자주
-						묻는 질문</a></li>
-
-
-				<li><a onclick="InquiryList()" data-hover="1:1문의"
-					style="font-size: 19px; border: none; color: #5a5a5a; margin-right: 150px; cursor: pointer; background-color: white; padding-bottom: 0px;">1:1문의</a></li>
-
-
-				<li><a
-					onclick="location.href='${contextPath}/board/listAsCenter.do'"
-					data-hover="A/S센터"
-					style="font-size: 19px; border: none; color: #5a5a5a; background-color: white; cursor: pointer; padding-bottom: 0px;">A/S센터</a></li>
-			</ul>
+			<c:choose>
+				<c:when test="${AdminisLogOn == true && admin != null}">
+					<jsp:include page="/WEB-INF/views/common/admin_topmenu.jsp"
+						flush="false" />
+				</c:when>
+				<c:otherwise>
+					<jsp:include page="/WEB-INF/views/common/csMenu.jsp" flush="false" />
+				</c:otherwise>
+			</c:choose>
 
 			<div>
 				<h2 style="font-size: 25px; margin-top: 15px; float: left;">자주묻는질문</h2>
@@ -277,86 +261,74 @@ style
 			</div>
 
 			<!-- 타이틀 끝 -->
-			<!-- 최근 본 상품 -->
-			<div id="recentlyProduct"
-				style="position: absolute; width: 120px; height: 310px; margin-left: 1370px; border: 1px solid #d2d2d2; margin-top: -100px;">
-				<ul
-					style="list-style: none; margin-top: 10px; padding-left: 20px; margin-bottom: 10px;">
-					<li><a href="#"
-						style="padding-left: -10px; padding-bottom: 1px; color: black;">최근본상품</a></li>
-				</ul>
-				<hr style="margin-top: 0px; margin-bottom: 0px; color: #d2d2d2;">
-				<ul style="list-style: none; padding-top: 5px;">
-					<li><a href="#"><img
-							src="${contextPath}/resources/images/image_1.jpg"
-							style="width: 100px; height: 100px; padding-top: 10px; margin-left: -30px;"></a></li>
-					<li><a href="#"><img
-							src="${contextPath}/resources/images/image_2.jpg"
-							style="width: 100px; height: 100px; padding-top: 10px; padding-top: 10px; margin-left: -30px;"></a></li>
-				</ul>
-				<hr style="margin-top: 0px; margin-bottom: 0px; color: #d2d2d2;">
-				<ul
-					style="list-style: none; padding-left: 30px; margin-bottom: 10px; margin-top: 8px;">
-					<li><a href="#"
-						style="color: black; text-align: center; margin-top: 8px; padding-top: 30px;">더보기▼</a></li>
-				</ul>
-			</div>
-			<!--  최근 본 상품 끝 -->
+
 
 			<!-- 내용 -->
-			<button type="button" class="btn btn-dark" id="btnSearch" 
-				style="margin-top: 21px; float: right; padding-top: 4px; height: 34px; font-size: 14px; padding-top: 4px; background-color:#7e9c8c; border:none; border-radius:2px;">검색</button>
+			<button type="button" class="btn btn-dark" id="btnSearch"
+				style="margin-top: 21px; float: right; padding-top: 4px; height: 34px; font-size: 14px; padding-top: 4px; background-color: #7e9c8c; border: none; border-radius: 2px;">검색</button>
 			<input type="text" class="form-control" class="btn btn-dark"
-				style="margin-top: 21px; float: right; height:34px; border: 1px solid #dcdcdc; font-size:14px; margin-right: 5px; width:159px;"
+				style="margin-top: 21px; float: right; height: 34px; border: 1px solid #dcdcdc; font-size: 14px; margin-right: 5px; width: 159px;"
 				name="search" id="search">
 
-		
 
 
 
-		<div>
 
-			<table class="table"
-				style="margin-bottom: 50px; width: 1275px; height: 25px; font-size: 14px;">
-				<thead class="table-dark" align=center>
-					<tr align="center" style="background-color: #eeeeee; border-top:1px solid #7e9c8c;color:black; border-bottom: 1px solid #c6c8ca; font-size:15px;">
-						<td scope="col" width="100">번호</td>
-						<td scope="col" width="500">내용</td>
+			<div>
 
-					</tr>
-					<c:set var="num"
-						value="${pageMaker.totalCount - ((pageNum-1) * 10) }" />
-					<c:forEach var="question" items="${questionList}"
-						varStatus="questionNum">
-						<tr 
-							style="border-bottom: 1px solid #c6c8ca !important; background-color: white; color: black;">
+				<table class="table"
+					style="margin-bottom: 50px; width: 1275px; height: 25px; font-size: 14px;">
+					<thead class="table-dark" align=center>
+						<tr align="center"
+							style="background-color: #eeeeee; border-top: 1px solid #7e9c8c; color: black; border-bottom: 1px solid #c6c8ca; font-size: 15px;">
+							<td scope="col" width="100">번호</td>
+							<td scope="col" width="500">내용</td>
 
-							<td scope="col" width="50" style="padding-top: 12px;">${num}</td>
-							<td align="left" scope="col" width="500"
-								style="padding-top: 15px; padding-bottom: 0px;">
-								<div>
-									<div id="section1b" class="label">
-										<p
-											style="color: black; text-align: left; cursor: pointer; font-weight: normal;">
-											<span style="color: red">Q</span>. ${question.questionTitle }
-										</p>
-									</div>
-									<div id="section1b" class="elements">
-										<hr style="margin-bottom: 20px; margin-top: 0px;">
-										<p style="color: black; text-align: left; cursor: pointer;">
-											<span style="color: green;">A</span>.
-											${question.questionContent }
-										</p>
-									</div>
-								</div>
-							</td>
 						</tr>
-						<c:set var="num" value="${num-1}"></c:set>
-					</c:forEach>
-				</thead>
-			</table>
-			<!-- -아코디언메뉴 -->
-			<script type="text/javascript">
+						<c:set var="num"
+							value="${pageMaker.totalCount - ((pageNum-1) * 10) }" />
+						<c:forEach var="question" items="${questionList}"
+							varStatus="questionNum">
+							<tr
+								style="border-bottom: 1px solid #c6c8ca !important; background-color: white; color: black;">
+
+								<td scope="col" width="50" style="padding-top: 12px;">${num}</td>
+								<td align="left" scope="col" width="500"
+									style="padding-top: 15px; padding-bottom: 0px;">
+									<div>
+										<div id="section1b" class="label">
+											<p
+												style="color: black; text-align: left; cursor: pointer; font-weight: normal;">
+												<span style="color: red">Q</span>. ${question.questionTitle }
+											</p>
+										</div>
+										<div id="section1b" class="elements">
+											<hr style="margin-bottom: 20px; margin-top: 0px;">
+											<p style="color: black; text-align: left; cursor: pointer;">
+												<span style="color: green;">A</span>.
+												${question.questionContent }
+												<c:if test="${AdminisLogOn== true &&admin !=null}">
+													<button type="button"
+														onclick="javascript:location.href='${contextPath}/admin/removeQuestion.do?questionNum=${question.questionNum}'"
+														style="float: right; border-radius: 2px; margin-bottom: 3px; background-color: white; color: gray; border: 1px solid #eeeeee; border-radius: 2px; width: 70px; height: 30px; font-size: 14px;"
+														class="btn-secondary btn-xs">삭제</button>
+													<a
+														onclick="location.href='${contextPath}/admin/modQuestion.do?questionNum=${question.questionNum}'"
+														style="float: right; border-radius: 2px; margin-bottom: 3px; text-align: center; background-color: white; color: gray; border: 1px solid #eeeeee; border-radius: 2px; width: 70px; height: 30px; font-size: 14px;"
+														class="btn-secondary btn-xs">수정</a>
+												</c:if>
+											</p>
+
+										</div>
+									</div>
+								</td>
+							</tr>
+							<c:set var="num" value="${num-1}"></c:set>
+						</c:forEach>
+					</thead>
+				</table>
+				<!-- -아코디언메뉴 -->
+				<script type="text/javascript">
 				var elements = document.getElementsByTagName("div");
 
 				// 모든 영역 접기
@@ -382,71 +354,79 @@ style
 					return false;
 				}
 			</script>
-		</div>
-		<!-- 내용 끝 -->
-		<!-- 페이징 글번호 -->
-		<c:choose>
-			<c:when test="${questionSearchMap ==null}">
-				<div class="page_wrap" style="margin-left: 80px; margin-top: 60px;">
-					<div class="page_nation">
+				<c:if test="${AdminisLogOn== true &&admin !=null}">
+					<a id="buttonmy" class="btn btn-dark"
+						onClick="location.href='${contextPath}/admin/questionForm.do'"
+						style="float: right; margin-top: 25px; border-radius: 2px; background-color: #7e9c8c; color: white; border: none; border-radius: 2px; width: 120px; height: 40px; padding-top: 10px; font-size: 14px;">글쓰기</a>
+				</c:if>
+			</div>
+			<!-- 내용 끝 -->
+			<!-- 페이징 글번호 -->
+			<c:choose>
+				<c:when test="${questionSearchMap ==null}">
+					<div class="page_wrap" style="margin-left: 80px; margin-top: 60px;">
+						<div class="page_nation">
 
-						<c:if test="${pageMaker.prev}">
+							<c:if test="${pageMaker.prev}">
 
-							<a class="arrow prev" style="border: none; color:black; margin-right:0px; margin-left:0px;"
-								href='<c:url value="/board/listQuestion?page=${pageMaker.startPage-1 }"/>'><i
-								class="fa fa-chevron-left"></i></a>
+								<a class="arrow prev"
+									style="border: none; color: black; margin-right: 0px; margin-left: 0px;"
+									href='<c:url value="/board/listQuestion?page=${pageMaker.startPage-1 }"/>'><i
+									class="fa fa-chevron-left"></i></a>
 
-						</c:if>
-						<c:forEach begin="${pageMaker.startPage }"
-							end="${pageMaker.endPage }" var="pageNum">
+							</c:if>
+							<c:forEach begin="${pageMaker.startPage }"
+								end="${pageMaker.endPage }" var="pageNum">
 
-							<a style="border: none; color:black; margin-right:0px; margin-left:0px;"
-								href='<c:url value="/board/listQuestion.do?page=${pageNum }"/>'><i
-								class="fa">${pageNum }</i></a>
+								<a
+									style="border: none; color: black; margin-right: 0px; margin-left: 0px;"
+									href='<c:url value="/board/listQuestion.do?page=${pageNum }"/>'><i
+									class="fa">${pageNum }</i></a>
 
-						</c:forEach>
-						<c:if test="${pageMaker.next && pageMaker.endPage >0 }">
+							</c:forEach>
+							<c:if test="${pageMaker.next && pageMaker.endPage >0 }">
 
-							<a class="arrow next" style="border: none; color:black; margin-right:0px; margin-left:0px;"
-								href='<c:url value="/board/listQuestion?page=${pageMaker.endPage+1 }"/>'><i
-								class="fa fa-chevron-right"></i></a>
+								<a class="arrow next"
+									style="border: none; color: black; margin-right: 0px; margin-left: 0px;"
+									href='<c:url value="/board/listQuestion?page=${pageMaker.endPage+1 }"/>'><i
+									class="fa fa-chevron-right"></i></a>
 
-						</c:if>
+							</c:if>
 
+						</div>
 					</div>
-				</div>
-			</c:when>
-			<c:when test="${questionSearchMap !=null}">
-				<div class="page_wrap" style="margin-left: 80px; margin-top: 50px;">
-					<div class="page_nation">
+				</c:when>
+				<c:when test="${questionSearchMap !=null}">
+					<div class="page_wrap" style="margin-left: 80px; margin-top: 50px;">
+						<div class="page_nation">
 
-						<c:if test="${pageMaker.prev}">
+							<c:if test="${pageMaker.prev}">
 
-							<a class="arrow prev"
-								href='<c:url value="/board/questionSearch.do?search=${questionSearchMap.search}&page=${pageMaker.startPage-1 }"/>'><i
-								class="fa fa-chevron-left"></i></a>
+								<a class="arrow prev"
+									href='<c:url value="/board/questionSearch.do?search=${questionSearchMap.search}&page=${pageMaker.startPage-1 }"/>'><i
+									class="fa fa-chevron-left"></i></a>
 
-						</c:if>
-						<c:forEach begin="${pageMaker.startPage }"
-							end="${pageMaker.endPage }" var="pageNum">
+							</c:if>
+							<c:forEach begin="${pageMaker.startPage }"
+								end="${pageMaker.endPage }" var="pageNum">
 
-							<a
-								href='<c:url value="/board/questionSearch.do?search=${questionSearchMap.search}&page=${pageNum }"/>'><i
-								class="fa">${pageNum }</i></a>
+								<a
+									href='<c:url value="/board/questionSearch.do?search=${questionSearchMap.search}&page=${pageNum }"/>'><i
+									class="fa">${pageNum }</i></a>
 
-						</c:forEach>
-						<c:if test="${pageMaker.next && pageMaker.endPage >0 }">
+							</c:forEach>
+							<c:if test="${pageMaker.next && pageMaker.endPage >0 }">
 
-							<a class="arrow next"
-								href='<c:url value="/board/questionSearch.do?search=${questionSearchMap.search}&page=${pageMaker.endPage+1 }"/>'><i
-								class="fa fa-chevron-right"></i></a>
+								<a class="arrow next"
+									href='<c:url value="/board/questionSearch.do?search=${questionSearchMap.search}&page=${pageMaker.endPage+1 }"/>'><i
+									class="fa fa-chevron-right"></i></a>
 
-						</c:if>
+							</c:if>
 
+						</div>
 					</div>
-				</div>
-			</c:when>
-		</c:choose>
+				</c:when>
+			</c:choose>
 		</div>
 	</section>
 </body>

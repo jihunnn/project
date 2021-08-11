@@ -90,14 +90,26 @@ public class BoardDAOImpl implements BoardDAO{
 	
 	@Override
 	public List<ArticleVO> inquirySearchList(Map<String ,Object> inquirySearchMap) throws DataAccessException {
-
-		List<ArticleVO> inquirySearchList =sqlSession.selectList("mapper.board.inquirySearchList",inquirySearchMap);		
+		List<ArticleVO> inquirySearchList =sqlSession.selectList("mapper.board.inquirySearchList",inquirySearchMap);			
 		return inquirySearchList;
 	}
 	
 	@Override
 	public int inquirySeachCount(Map<String, Object> search) throws DataAccessException {
 		int inquirySearchCount = sqlSession.selectOne("mapper.board.inquirySearchCount",search);
+
+		return inquirySearchCount;
+	}
+	
+	@Override
+	public List<ArticleVO> adminInquirySearchList(Map<String ,Object> inquirySearchMap) throws DataAccessException {
+		List<ArticleVO> inquirySearchList =sqlSession.selectList("mapper.board.adminInquirySearchList",inquirySearchMap);			
+		return inquirySearchList;
+	}
+	
+	@Override
+	public int adminInquirySeachCount(Map<String, Object> search) throws DataAccessException {
+		int inquirySearchCount = sqlSession.selectOne("mapper.board.adminInquirySearchCount",search);
 
 		return inquirySearchCount;
 	}

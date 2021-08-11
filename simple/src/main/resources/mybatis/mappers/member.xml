@@ -37,16 +37,32 @@
 	<select id="check_email" parameterType="String" resultType="memberVO">
 		select * from simple.member where memId = #{memId};
 	</select>
+	<!-- 비번찾기(핸드폰 확인) -->
+	<select id="check_phone" parameterType="String" resultType="memberVO">
+		select * from simple.member where memId = #{memId};
+	</select>
 	<!-- 아이디 중복 확인 -->
 	<select id="selectOverlappedID" parameterType="String" resultType="String">
 	   select if(count(*) = 1,"true","false")
 	   from simple.member
 	  where memId=#{memId};
 	</select>
-	<select id="EmailConfirm" parameterType="MemberVO" resultType="String">
+	
+	
+	<update id="updatenewPassWord" parameterType="MemberVO">
+	<![CDATA[ 
+	update simple.member
+		set memPwd = #{memPwd} where memId=#{memId};
+	]]>
+	</update>
+	
+	
+	
+	<!-- 이메일 인증번호 확인 -->
+	<select id="EmailConfirm" parameterType="String" resultType="MemberVO">
 	 select *
-	   from simple.member
-	  where memId=#{memId};
+	  from simple.member
+	  where Approval_key=#{Approval_key};
      </select>
 	<!-- 회원리스트 조회 -->
 	<select id="selectAllMemberList" resultMap="memResult">
@@ -82,7 +98,7 @@
 		<![CDATA[ 
 
 			insert into simple.member(memId, memName, memPwd, memEmail, memPhoneNum, memAdr, logintype) 
-			values(#{memId},#{memName},#{memPwd},(select concat_ws('@',#{memEmail},#{memEmail1})),(select concat_ws('-',#{memPhoneNum},#{memPhoneNum1},#{memPhoneNum2})),(select concat_ws('-',#{memAdr},#{memAdr1},#{memAdr2})),"네이버");
+			values(#{memId},#{memName},#{memPwd},(select concat_ws('@',#{memEmail},#{memEmail1})),(select concat_ws('-',#{memPhoneNum},#{memPhoneNum1},#{memPhoneNum2})),(select concat_ws('-',#{memAdr},#{memAdr1},#{memAdr2})),"카카오");
 		]]>
 	</insert>
 
@@ -95,14 +111,29 @@
 		]]>
 	</select>
 
+     <!--DB에있는 네이버아이디정보로로그인(네이버로그인) -->
+	<select id="loginBykakao" resultType="memberVO" parameterType="memberVO">
+		<![CDATA[ 
 
+		select * from simple.member
+		where memId = #{memId};
+		]]>
+	</select>
+	<!-- 네이버아이디로로그인 후 추가정보기입 -->
+	<insert id="insertMember_kakao" parameterType="memberVO">
+		<![CDATA[ 
+
+			insert into simple.member(memId, memName, memPwd, memEmail, memPhoneNum, memAdr, logintype) 
+			values(#{memId},#{memName},#{memPwd},(select concat_ws('@',#{memEmail},#{memEmail1})),(select concat_ws('-',#{memPhoneNum},#{memPhoneNum1},#{memPhoneNum2})),(select concat_ws('-',#{memAdr},#{memAdr1},#{memAdr2})),"네이버");
+		]]>
+	</insert>
 
 	<!--로그인창에서 입력한 id와 비밀번호로 회원정보를 조회하는 sql문 -->
 	<select id="loginById" resultType="memberVO"
 		parameterType="memberVO">
 	<![CDATA[ 
 		select * from simple.member
-		where memId = #{memId}
+		where memId = #{memId} 
 	]]>
 	</select>
 
@@ -142,6 +173,18 @@
 			select *
 			from simple.member 
 			where
+			<if test="searchType=='memId' and search != null and search != '' ">
+
+				memId like CONCAT('%', #{search}, '%')
+			
+
+			</if>
+			<if test="searchType=='memName' and search != null and search != '' ">
+
+				memName like CONCAT('%', #{search}, '%')
+			
+
+			</if>
 			<if test="searchType=='memEmail' and search != null and search != '' ">
 
 				memEmail like CONCAT('%', #{search}, '%')
@@ -183,6 +226,18 @@
 			select count(*) 
 			from simple.member 
 			where
+				<if test="searchType=='memId' and search != null and search != '' ">
+
+				memId like CONCAT('%', #{search}, '%')
+			
+
+			</if>
+			<if test="searchType=='memName' and search != null and search != '' ">
+
+				memName like CONCAT('%', #{search}, '%')
+			
+
+			</if>
 			<if test="searchType=='memEmail' and search != null and search != '' ">
 
 				memEmail like CONCAT('%', #{search}, '%')

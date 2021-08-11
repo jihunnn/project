@@ -19,6 +19,12 @@ request.setCharacterEncoding("UTF-8");
 		obj.submit();
 	}
 	
+	function answer(obj) {
+		
+	obj.action = "${contextPath}/admin/inquiryAnswerForm.do?inquiryNum=${inquiry.inquiryNum}";
+	obj.submit();
+	}
+	
     function InquiryList() {
         if (${isLogOn != true && member == null}) {
             alert("로그인이 필요합니다.");
@@ -136,29 +142,7 @@ request.setCharacterEncoding("UTF-8");
 			</div>
 			<!-- 타이틀 끝 -->
 			<!-- 최근 본 상품 -->
-			<div id="recentlyProduct"
-				style="position: absolute; width: 120px; height: 310px; margin-left: 1370px; border: 1px solid #d2d2d2; margin-top: -100px;">
-				<ul
-					style="list-style: none; margin-top: 10px; padding-left: 20px; margin-bottom: 10px;">
-					<li><a href="#"
-						style="padding-left: -10px; padding-bottom: 1px; color: black;">최근본상품</a></li>
-				</ul>
-				<hr style="margin-top: 0px; margin-bottom: 0px; color: #d2d2d2;">
-				<ul style="list-style: none; padding-top: 5px;">
-					<li><a href="#"><img
-							src="${contextPath}/resources/images/image_1.jpg"
-							style="width: 100px; height: 100px; padding-top: 10px; margin-left: -30px;"></a></li>
-					<li><a href="#"><img
-							src="${contextPath}/resources/images/image_2.jpg"
-							style="width: 100px; height: 100px; padding-top: 10px; padding-top: 10px; margin-left: -30px;"></a></li>
-				</ul>
-				<hr style="margin-top: 0px; margin-bottom: 0px; color: #d2d2d2;">
-				<ul
-					style="list-style: none; padding-left: 30px; margin-bottom: 10px; margin-top: 8px;">
-					<li><a href="#"
-						style="color: black; text-align: center; margin-top: 8px; padding-top: 30px;">더보기▼</a></li>
-				</ul>
-			</div>
+		
 			<!-- 최근 본 상품 끝 -->
 			<!-- 내용 -->
 
@@ -178,7 +162,7 @@ request.setCharacterEncoding("UTF-8");
 							<c:when
 								test="${not empty inquiry.inquiryFile && inquiry.inquiryFile != 'null'}">
 								<tr
-									style="border-bottom: 0.5px solid grey; height: 300px; text-align: left; background-color: white;">
+									style="border-bottom: 0.5px solid grey; text-align: left; background-color: white;">
 									<td
 										style="padding-bottom: 20px; color: black; padding-left: 0px;"><a>${inquiry.inquiryContent}</a><br>
 										<br> <input type="hidden" name="OrignInquiryFile"
@@ -192,7 +176,7 @@ request.setCharacterEncoding("UTF-8");
 							</c:when>
 							<c:otherwise>
 								<tr
-									style="border-bottom: 0.5px solid grey; height: 300px; text-align: left; background-color: white;">
+									style="border-bottom: 0.5px solid grey; text-align: left; background-color: white;">
 									<td style="padding-bottom: 250px; color: black;">${inquiry.inquiryContent}<br>
 								</tr>
 							</c:otherwise>
@@ -203,7 +187,7 @@ request.setCharacterEncoding("UTF-8");
 				</table>
 				<c:choose>
 					<c:when test="${AdminisLogOn == true && admin != null}">
-						<button type="submit" class="btn btn-dark" id="buttonmy"
+						<button type="button" class="btn btn-dark" id="buttonmy" onclick="answer(this.form)"
 							style="float: left; margin-left: 1100px; margin-top: -30px; font-size: 14px; background-color: #212529; padding-top: 4px;">답글</button>
 						<button type="button" class="btn btn-dark" id="buttonmy"
 							style="float: left; margin-left: 1190px; margin-top: -30px; font-size: 14px; background-color: #212529; padding-top: 4px;"

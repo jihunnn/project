@@ -11,6 +11,9 @@
 
 
 
+
+
+
 <style type="text/css">
 .table-light {
 	background: #F7F7F7;
@@ -26,9 +29,105 @@ h4 {
 }
 </style>
 <script type="text/javascript">
-	
-	
-	
+	//주문자
+	function Check_Order() {
+		var form = document.CheckOrder;
+
+		if (form.user_name.value == "") {
+			alert("주문자정보의 이름을 입력하지 않았습니다.")
+			form.user_name.focus();
+			return false;
+		}
+
+		if (form.address1.value == "") {
+			alert("주문자정보의 주소를 입력하지 않았습니다.")
+			form.address1.focus();
+			return false;
+		}
+		if (form.phone1.value == "") {
+			alert("주문자정보의 연락처를 입력하지 않았습니다.")
+			form.phone1.focus();
+			return false;
+		}
+
+		if (form.phone2.value == "") {
+			alert("주문자정보의 연락처를 입력하지 않았습니다.")
+			form.phone2.focus();
+			return false;
+		}
+
+		for (var i = 0; i < form.phone2.value.length; i++) {
+			ch = form.phone2.value.charAt(i)
+			if (!(ch >= '0' && ch <= '9')) {
+				alert("주문자정보의 연락처는 숫자만 입력가능합니다.")
+				form.phone2.focus();
+				form.phone2.select();
+				return false;
+			}
+		}
+		if (form.phone3.value == "") {
+			alert("주문자정보의 연락처를 입력하지 않았습니다.")
+			form.phone3.focus();
+			return false;
+		}
+		for (var i = 0; i < form.phone3.value.length; i++) {
+			ch = form.phone3.value.charAt(i)
+			if (!(ch >= '0' && ch <= '9')) {
+				alert("주문자정보의 연락처는 숫자만 입력가능합니다.")
+				form.phone3.focus();
+				form.phone3.select();
+				return false;
+			}
+		}
+		if (form.user_SpName.value == "") {
+			alert("배송정보의 이름을 입력하지 않았습니다.")
+			form.user_Spname.focus();
+			return false;
+		}
+
+		if (form.address1_1.value == "") {
+			alert("배송정보의 주소를 입력하지 않았습니다.")
+			form.addr1.focus();
+			return false;
+		}
+		if (form.phone1_Sp.value == "") {
+			alert("배송정보의 연락처1을 입력하지 않았습니다.")
+			form.phone1_Sp.focus();
+			return false;
+		}
+		if (form.phone2_Sp.value == "") {
+			alert("배송정보의 연락처1을 입력하지 않았습니다.")
+			form.phone2_Sp.focus();
+			return false;
+		}
+
+		for (var i = 0; i < form.phone2_Sp.value.length; i++) {
+			ch = form.phone2_Sp.value.charAt(i)
+			if (!(ch >= '0' && ch <= '9')) {
+				alert("배송정보의 연락처1은 숫자만 입력가능합니다.")
+				form.phone2_Sp.focus();
+				form.phone2_Sp.select();
+				return false;
+			}
+		}
+		if (form.phone3_Sp.value == "") {
+			alert("배송정보의 연락처1을 입력하지 않았습니다.")
+			form.phone3_Sp.focus();
+			return false;
+		}
+		for (var i = 0; i < form.phone3_Sp.value.length; i++) {
+			ch = form.phone3_Sp.value.charAt(i)
+			if (!(ch >= '0' && ch <= '9')) {
+				alert("배송정보의 연락처1은 숫자만 입력가능합니다.")
+				form.phone3_Sp.focus();
+				form.phone3_Sp.select();
+				return false;
+			}
+		}
+
+		form.submit();
+
+	}
 
 	function sameInfo(f) {
 		f.memSpName.value = f.memName.value;
@@ -45,12 +144,8 @@ h4 {
 		$("form").submit();
 	})
 </script>
-<script type="text/javascript"
-	src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-<script type="text/javascript"
-	src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-<script type="text/javascript">
+<script>
 	//비회원 주문자 우편번호
 	function sample6_execDaumPostcode() {
 		new daum.Postcode(
@@ -118,6 +213,7 @@ h4 {
 							fullAddr = data.jibunAddress;
 						}
 
+						
 						// 사용자가 선택한 주소가 도로명 타입일때 조합한다.
 						if (data.userSelectedType === 'R') {
 							//법정동명이 있을 경우 추가한다.
@@ -172,64 +268,14 @@ h4 {
 	}
 	%>
 
-
-	<script>
-	//유효성검사 후 주문결제진행
-	//PG사 연동(결제시스템 IMPORT)
-	function iamport() {
-		var IMP = window.IMP;
-		var form = document.CheckOrder;
-		if (form.memSpName.value == "") {
-			alert("주문자정보의 이름을 입력하지 않았습니다.")
-			form.user_name.focus();
-			return false;
-		}
-		
-		//가맹점 식별코드
-		IMP.init('imp44341689');
-		IMP.request_pay({
-			pg : 'inicis',
-			pay_method : 'card',
-			merchant_uid : 'merchant_' + new Date().getTime(),
-			name : '(주)SIMPLE', //결제창에서 보여질 이름
-			amount : ${totalPrice}, //실제 결제되는 가격
-			buyer_email : '<%=memEmail[0]%>@<%=memEmail[1]%>',
-			buyer_name : '${member.memName}',
-			buyer_tel : '<%=memPhoneNum[0]%>-<%=memPhoneNum[1]%>-<%=memPhoneNum[2]%>',
-			buyer_addr : '<%=memAdr[1]%> <%=memAdr[2]%>	',
-			buyer_postcode : '<%=memAdr[0]%>'
-		}, function(rsp) {
-			console.log(rsp);
-			if (rsp.success) {
-				var msg = '결제가 완료되었습니다.';
-				msg += '고유ID : ' + rsp.imp_uid;
-				msg += '상점 거래ID : ' + rsp.merchant_uid;
-				msg += '결제 금액 : ' + rsp.paid_amount;
-				msg += '카드 승인번호 : ' + rsp.apply_num;
-				var param = $("form[name=CheckOrder]").serialize();
-				$.ajax({
-					url : "addorderlist.do",
-					type : "POST",	
-					data : param
-				}).done(function(data){		
-					location.replace("${contextPath}/memberOrderResult.do");
-				})
-			} else {
-				var msg = '결제에 실패하였습니다.';
-				msg += '에러내용 : ' + rsp.error_msg;
-			}
-			alert(msg);
-		});
-	}
-</script>
 	<!-- 타이틀 -->
 
 	<section class="ftco-section" style="padding-top: 100px;">
 
 		<div class="container">
-			<form name="CheckOrder"  action="${contextPath}/addorderlist.do"
+			<form name="CheckOrder" action="${contextPath}/addorderlist.do"
 				method="post">
-				<input type="hidden" name="totalPrice" value="${totalPrice}" />
+				
 				<!-- 타이틀 끝 -->
 
 
@@ -288,32 +334,69 @@ h4 {
 								<th scope="col" width="150">가격</th>
 							</tr>
 						</thead>
+						<c:choose>
+							<c:when test="${memOrder == null}">
+								<c:forEach items="${orderlist}" var="orderlist"
+									varStatus="status">
+									<tbody>
+										<tr class="tr1"
+											style="border-bottom: 1px solid rgba(0, 0, 0, 0.1);">
+											<th scope="col" style="vertical-align: middle;"><img
+												src="${contextPath}/download_product.do?productNum=${orderlist.productNum}&productImage=${orderlist.productImage}"
+												width=80 height=80></th>
+											<th scope="col" style="vertical-align: middle;">${orderlist.productName}</th>
+											<th scope="col"
+												style="text-align: left; vertical-align: middle;">${orderlist.option1name}
+												: ${orderlist.option1value}<br>${orderlist.option2name}
+												: ${orderlist.option2value}
+											</th>
+											<th scope="col" style="vertical-align: middle;">${orderlist.productCnt}개</th>
+											<th scope="col" style="vertical-align: middle;">${orderlist.deliverycharge}</th>
+											<th scope="col" style="vertical-align: middle;">${orderlist.productPrice}원</th>
+										</tr>
+									</tbody>
+								</c:forEach>
+							</c:when>
+							<c:otherwise>
+								<tbody>
+									<tr class="tr1"
+										style="border-bottom: 1px solid rgba(0, 0, 0, 0.1);">
+										<th scope="col" style="vertical-align: middle;"><img
+											src="${contextPath}/download_product.do?productNum=${memOrder.productNum}&productImage=${memOrder.productImage}"
+											width=80 height=80></th>
+										<th scope="col" style="vertical-align: middle;">${memOrder.productName}</th>
+										<th scope="col"
+											style="text-align: left; vertical-align: middle;">${memOrder.option1name}
+											: ${memOrder.option1value}<br>${memOrder.option2name} :
+											${memOrder.option2value}
+										</th>
+										<th scope="col" style="vertical-align: middle;">${memOrder.productCnt}개</th>
+										<th scope="col" style="vertical-align: middle;">${memOrder.deliverycharge}</th>
+										<th scope="col" style="vertical-align: middle;">${memOrder.productPrice}원</th>
+									</tr>
+								</tbody>
+							</c:otherwise>
 
-						<c:forEach items="${orderlist}" var="orderlist" varStatus="status">
-							<tbody>
-								<tr class="tr1"
-									style="border-bottom: 1px solid rgba(0, 0, 0, 0.1);">
-									<th scope="col" style="vertical-align: middle;"><img
-										src="${contextPath}/download_product.do?productNum=${orderlist.productNum}&productImage=${orderlist.productImage}"
-										width=80 height=80></th>
-									<th scope="col" style="vertical-align: middle;">${orderlist.productName}</th>
-									<th scope="col"
-										style="text-align: left; vertical-align: middle;">${orderlist.option1name}
-										: ${orderlist.option1value}<br>${orderlist.option2name} :
-										${orderlist.option2value}
-									</th>
-									<th scope="col" style="vertical-align: middle;">${orderlist.productCnt}개</th>
-									<th scope="col" style="vertical-align: middle;">${orderlist.deliverycharge}</th>
-									<th scope="col" style="vertical-align: middle;">${orderlist.productPrice}원</th>
-								</tr>
-							</tbody>
-						</c:forEach>
+						</c:choose>
 					</table>
+					<c:choose>
+						<c:when test="${memOrder == null}">
+							<div style="font-size: 18px; float: right;">
+								<span>총금액ㅤ</span><a style="color: #7e9c8c; font-weight: bold;">${totalPrice}원</a>
+								<input type="hidden" name="totalPrice" value="${totalPrice}" />
+							
+								
+							</div>
+						</c:when>
+						<c:otherwise>
+							<div style="font-size: 18px; float: right;">
+								<span>총금액ㅤ</span><a style="color: #7e9c8c; font-weight: bold;">${memOrder.totalPrice}원</a>
+								<input type="hidden" name="totalPrice" value="${memOrder.totalPrice}" />
+								<input type="hidden" name="productNum" value="${memOrder.productNum}" />
 
-					<div style="font-size: 18px; float: right;">
-						<span>총금액ㅤ</span><a style="color: #7e9c8c; font-weight: bold;">${totalPrice}원</a>
-					</div>
-
+							</div>
+						</c:otherwise>
+					</c:choose>
 				</div>
 
 
@@ -513,11 +596,11 @@ h4 {
 				<br> <br>
 
 				<div style="text-align: center">
-					<input type="button" class="btn btn-secondary" value="결제하기"
-						onclick="iamport();"
-						style="padding-left: 10px; margin-left: 40px; background-color: #7e9c8c; color: white; border: none; border-radius: 2px; width: 130px; height: 45px;">
-					&nbsp;&nbsp;
 					<button type="submit" class="btn btn-secondary"
+						onclick="Check_Order()"
+						style="padding-left: 10px; margin-left: 40px; background-color: #7e9c8c; color: white; border: none; border-radius: 2px; width: 130px; height: 45px;">결제하기</button>
+					&nbsp;&nbsp;
+					<button type="button" class="btn btn-secondary"
 						onclick="location.href='/cart'"
 						style="padding-left: 10px; background-color: white; color: #7e9c8c; border: 1px solid #7e9c8c; border-radius: 2px; width: 130px; height: 45px;">취소하기</button>
 				</div>

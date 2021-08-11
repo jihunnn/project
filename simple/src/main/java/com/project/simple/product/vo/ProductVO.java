@@ -28,6 +28,7 @@ public class ProductVO {
 	private int option2price;	//惑前 可记2 啊拜
 	private String option1value; //可记1 格废
 	private String option2value; //可记2 格废
+	private int favoriteCount;
 	
 	//惑前 府轰
 	private int reviewNum;
@@ -40,11 +41,12 @@ public class ProductVO {
 	private String reviewFile;
 	
 	//惑前 巩狼
+	private int productQuestionNum;
 	private String productQuestionTitle;
 	private String productQuestionContent;
 	private Date productQuestionDate;
 	private String productAnswerContent;
-	
+	private String answerWhether;
 	
 	public ProductVO() {
 
@@ -252,6 +254,13 @@ public class ProductVO {
 	}
 	
 	//惑前 巩狼
+	public int getProductQuestionNum() {
+		return productQuestionNum;
+	}
+	public void setProductQuestionNum(int productQuestionNum) {
+		this.productQuestionNum = productQuestionNum;
+	}
+	
 	public String getProductQuestionTitle() {
 		return productQuestionTitle;
 	}
@@ -280,7 +289,20 @@ public class ProductVO {
 		this.productAnswerContent = productAnswerContent;
 	}
 	
+	public int getFavoriteCount() {
+		return favoriteCount;
+	}
+	public void setFavoriteCount(int favoriteCount) {
+		this.favoriteCount = favoriteCount;
+	}
 	
+	public String getAnswerWhether() {
+		return answerWhether;
+	}
+	public void setAnswerWhether(String answerWhether) {
+		this.answerWhether = answerWhether;
+	}
+
 
 
 }

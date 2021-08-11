@@ -25,8 +25,8 @@
 	<!-- 장바구니테이블 추가 -->
 	<insert id="insertcartlist"  parameterType="CartVO">
 		<![CDATA[ 
-			insert into simple.membercart(memCartId, memId, productNum, productCnt, productName, option1name, option1value, option2name, option2value, productPrice, productImage, deliverycharge) 
-			values(default, #{memId},#{productNum},#{productCnt},#{productName},#{option1name},#{option1value},#{option2name},#{option2value},#{productPrice},#{productImage}, #{deliverycharge});
+			insert into simple.membercart(memCartId, memId, productNum, productCnt, productName, option1name, option1value, option2name, option2value, productPrice, productImage, deliverycharge,totalPrice) 
+			values(default, #{memId},#{productNum},#{productCnt},#{productName},#{option1name},#{option1value},#{option2name},#{option2value},#{productPrice},#{productImage}, #{deliverycharge}, #{totalPrice});
 		
 		]]>	
 	</insert>

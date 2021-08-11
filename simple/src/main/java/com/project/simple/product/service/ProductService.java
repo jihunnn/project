@@ -33,6 +33,13 @@ public interface ProductService {
 	public int productSearchCount(Map<String, Object> search) throws Exception;
 	public Map<String, List> BestProductList()throws Exception;
 	
+	public void addNewQuestion(ProductVO question) throws Exception;
+	public void removeQuestion(int productQuestionNum) throws Exception ;
+	public void modQuestion(ProductVO question) throws Exception;
+	
+	public List<String> selectOptionName() throws Exception ;
+	public Map<String,Object> selectOption1Value(Map<String,Object> option1Value) throws Exception;
+
 
 
 }

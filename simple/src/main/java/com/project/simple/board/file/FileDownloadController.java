@@ -19,6 +19,7 @@ public class FileDownloadController {
 	private static final String ARTICLE_IMAGE_REPO_inquiry = "C:\\spring\\inquiry_image";
 	private static final String ARTICLE_IMAGE_REPO_asCenter = "C:\\spring\\asCenter_image";
 	private static final String ARTICLE_IMAGE_REPO_review = "C:\\spring\\review_image";
+	private static final String ARTICLE_IMAGE_REPO_notice = "C:\\spring\\notice_image";
 
 	@RequestMapping("/download.do")
 	protected void download(@RequestParam("inquiryFile") String inquiryFile,
@@ -114,6 +115,26 @@ public class FileDownloadController {
 		File file = new File(downFile);
 		response.setHeader("Cache-Control", "no-cache");
 		response.addHeader("Content-disposition", "attachment; fileName=" + reviewFile);
+		FileInputStream in = new FileInputStream(file);
+		byte[] buffer = new byte[1024 * 8];
+		while (true) {
+			int count = in.read(buffer);
+			if (count == -1)
+				break;
+			out.write(buffer, 0, count);
+		}
+		in.close();
+		out.close();
+	}
+	
+	@RequestMapping("/download_notice.do")
+	protected void download_notice(@RequestParam("noticeImg") String noticeImg,
+			@RequestParam("noticeNum") String noticeNum, HttpServletResponse response, HttpServletRequest request) throws Exception {
+		OutputStream out = response.getOutputStream();
+		String downFile = ARTICLE_IMAGE_REPO_notice + "\\" + noticeNum + "\\" + noticeImg;
+		File file = new File(downFile);
+		response.setHeader("Cache-Control", "no-cache");
+		response.addHeader("Content-disposition", "attachment; fileName=" + noticeImg);
 		FileInputStream in = new FileInputStream(file);
 		byte[] buffer = new byte[1024 * 8];
 		while (true) {

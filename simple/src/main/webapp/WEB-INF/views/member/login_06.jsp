@@ -30,7 +30,7 @@
 }
 </style>
 </head>
-<title>주문결제창</title>
+<title>새비밀번호완료창</title>
 <body>
 	
 
@@ -80,7 +80,7 @@
 					</div>
 					<div class="pass_input_confirm">
 						<div>
-							<button onclick="location.href='/Login-01'"
+							<button onclick="location.href='${contextPath}/login_01.do'"
 								style="width: 262px; background-color: #212529; color: white;">
 								<i class="go_login-06"></i><span>로그인으로 돌아가기</span>
 							</button>
